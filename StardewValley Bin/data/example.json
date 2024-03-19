@@ -1,15 +1,65 @@
 {
-    "title": "Wow",
-    "description": "This is an example JSON file.",
-    "version": 1,
-    "authors": [
-        {
-            "name": "Hi",
-            "email": "johndoe@example.com"
+    "player":
+    {
+      "HP": 50,
+      "Item": 50
+    },
+
+    "Tile Map":
+    [
+      {
+        "TileMap Name": "Farm",
+        "Row": 30,
+        "Col": 30,
+        "Resoruce": "graphics/sprite_example.png",
+        "Tiles":
+        [
+          {
+            "PosX": 0,
+            "PosY": 0,
+            "Ground Type": 0,
+            "Floor Type": 0,
+            "Placed Object Type": 0,
+            "Placed Possible": true,
+            "Player Passable": false
+          },
+          {
+            "PosX": 1,
+            "PosY": 0,
+            "Ground Type": 0,
+            "Floor Type": 0,
+            "Placed Object Type": 0,
+            "Placed Possible": true,
+            "Player Passable": false
+          }
+        ]
         },
         {
-            "name": "Jane Doe",
-            "email": "janedoe@example.com"
+        "TileMap Name": "Village",
+        "Row": 100,
+        "Col": 200,
+        "Resoruce": "graphics/sprite_example2.png",
+        "Tiles":
+        [
+          {
+            "PosX": 0,
+            "PosY": 0,
+            "Ground Type": 0,
+            "Floor Type": 0,
+            "Placed Object Type": 7,
+            "Placed Possible": false,
+            "Player Passable": false
+          },
+          {
+            "PosX": 1,
+            "PosY": 0,
+            "Ground Type": 0,
+            "Floor Type": 0,
+            "Placed Object Type": 0,
+            "Placed Possible": false,
+            "Player Passable": false
+          }
+        ]
         }
     ]
-}
+  }
