@@ -12,6 +12,8 @@ protected:
 
 	sf::Transform transform;
 
+	std::vector<int> paths;
+
 public:
 	TileMap(const std::string& name = "");
 

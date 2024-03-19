@@ -46,7 +46,6 @@ void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
 	{
 		for (int j = 0; j < count.x; j++)
 		{
-			// 하드 코딩: 좀비 게임에서만 적용 가능
 			int texIndex = Utils::RandomRange(0, 3);
 			if (i == 0 || i == count.y - 1 || j == 0 || j == count.x - 1) // 외곽
 			{

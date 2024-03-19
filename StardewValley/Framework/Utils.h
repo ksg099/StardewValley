@@ -37,4 +37,8 @@ public:
 
 	static float Lerp(float min, float max, float t);
 	static sf::Vector2f Lerp(const sf::Vector2f& min, const sf::Vector2f& max, float t);
+
+	// json파일 입출력
+	static bool LoadFromFile(const std::string& rFilePath, rapidjson::Document& doc);
+	static void EditFile(const std::string& wFilePath, rapidjson::Document& doc);
 };

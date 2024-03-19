@@ -160,3 +160,45 @@ sf::Vector2f Utils::Lerp(const sf::Vector2f& min, const sf::Vector2f& max, float
 
 	return sf::Vector2f(Lerp(min.x, max.x, t), Lerp(min.y, max.y, t));
 }
+
+bool Utils::LoadFromFile(const std::string& rFilePath, rapidjson::Document& doc)
+{
+	// 읽기용 JSON 파일 불러오기
+	std::ifstream ifs(rFilePath);
+
+	if (!ifs.is_open())
+	{
+		std::cout << "TileMap::LoadFromFile(): ifs 파일이 열리지 않았습니다." << std::endl;
+		return false;
+	}
+
+	// 파싱
+	std::string contents((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));
+	if (doc.Parse(contents.c_str()).HasParseError())
+	{
+		std::cout << "파싱 에러!" << std::endl;
+		return false;
+	}
+
+	ifs.close();
+	return true;
+}
+
+void Utils::EditFile(const std::string& wFilePath, rapidjson::Document& doc)
+{
+	// JSON 문자열 생성
+	rapidjson::StringBuffer buffer;
+	rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(buffer);
+	doc.Accept(writer);
+
+	// 쓰기용 JSON 파일 불러오고, 해당 파일에 문자열 쓰기
+	std::ofstream ofs(wFilePath);
+	if (!ofs.is_open())
+	{
+		std::cout << "TileMap::LoadFromFile(): ofs 파일이 열리지 않았습니다." << std::endl;
+		return;
+	}
+	ofs << buffer.GetString();
+
+	ofs.close();
+}
