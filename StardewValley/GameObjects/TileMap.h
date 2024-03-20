@@ -21,6 +21,8 @@ public:
 	virtual sf::FloatRect GetLocalBounds() override;
 	virtual sf::FloatRect GetGlobalBounds() override;
 
+	const sf::Vector2f& GetGridPosition(int x, int y) const;
+
 	const sf::Vector2i& GetCellCount() const { return cellCount; }
 	const sf::Vector2f& GetCellSize() const { return cellSize; }
 

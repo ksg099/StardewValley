@@ -19,6 +19,14 @@ sf::FloatRect TileMap::GetGlobalBounds()
 	return transform.transformRect(bounds);
 }
 
+const sf::Vector2f& TileMap::GetGridPosition(int x, int y) const
+{
+	x = Utils::Clamp(x, 0, cellCount.x - 1);
+	y = Utils::Clamp(y, 0, cellCount.y - 1);
+
+	return transform.transformPoint(va[(y * cellCount.x + x) * 4].position) + cellSize / 2.f;
+}
+
 void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
 {
 	cellCount = count;
@@ -163,6 +171,7 @@ void TileMap::SetFlipY(bool flip)
 void TileMap::Init()
 {
 	GameObject::Init();
+
 	// SetSpriteSheetId("graphics/background_sheet.png");
 	// Set({ 10, 10 }, { 50.f, 50.f });
 }
