@@ -9,57 +9,111 @@
     [
       {
         "TileMap Name": "Farm",
-        "Row": 30,
-        "Col": 30,
-        "Resoruce": "graphics/sprite_example.png",
+        "Tile Count X": 3,
+        "Tile Count Y": 3,
+        "Resoruce": "graphics/spring_outdoorsTileSheet.ko-KR.png",
         "Tiles":
         [
           {
-            "PosX": 0,
-            "PosY": 0,
+            "Index X": 0,
+            "Index Y": 0,
             "Ground Type": 0,
+            "Ground Sheet ID X": 0,
+            "Ground Sheet ID Y": 96,
             "Floor Type": 0,
             "Placed Object Type": 0,
             "Placed Possible": true,
-            "Player Passable": false
+            "Player Passable": true
           },
           {
-            "PosX": 1,
-            "PosY": 0,
-            "Ground Type": 0,
+            "Index X": 1,
+            "Index Y": 0,
+            "Ground Type": 1,
+            "Ground Sheet ID X": 48,
+            "Ground Sheet ID Y": 96,
             "Floor Type": 0,
             "Placed Object Type": 0,
             "Placed Possible": true,
-            "Player Passable": false
-          }
-        ]
-        },
-        {
-        "TileMap Name": "Village",
-        "Row": 100,
-        "Col": 200,
-        "Resoruce": "graphics/sprite_example2.png",
-        "Tiles":
-        [
-          {
-            "PosX": 0,
-            "PosY": 0,
-            "Ground Type": 0,
-            "Floor Type": 0,
-            "Placed Object Type": 7,
-            "Placed Possible": false,
-            "Player Passable": false
+            "Player Passable": true
           },
           {
-            "PosX": 1,
-            "PosY": 0,
-            "Ground Type": 0,
+            "Index X": 2,
+            "Index Y": 0,
+            "Ground Type": 2,
+            "Ground Sheet ID X": 128,
+            "Ground Sheet ID Y": 208,
             "Floor Type": 0,
             "Placed Object Type": 0,
-            "Placed Possible": false,
-            "Player Passable": false
+            "Placed Possible": true,
+            "Player Passable": true
+          },
+          {
+            "Index X": 0,
+            "Index Y": 1,
+            "Ground Type": 0,
+            "Ground Sheet ID X": 0,
+            "Ground Sheet ID Y": 96,
+            "Floor Type": 0,
+            "Placed Object Type": 0,
+            "Placed Possible": true,
+            "Player Passable": true
+          },
+          {
+            "Index X": 1,
+            "Index Y": 1,
+            "Ground Type": 1,
+            "Ground Sheet ID X": 48,
+            "Ground Sheet ID Y": 96,
+            "Floor Type": 0,
+            "Placed Object Type": 0,
+            "Placed Possible": true,
+            "Player Passable": true
+          },
+          {
+            "Index X": 2,
+            "Index Y": 1,
+            "Ground Type": 2,
+            "Ground Sheet ID X": 128,
+            "Ground Sheet ID Y": 208,
+            "Floor Type": 0,
+            "Placed Object Type": 0,
+            "Placed Possible": true,
+            "Player Passable": true
+          },
+          {
+            "Index X": 0,
+            "Index Y": 2,
+            "Ground Type": 0,
+            "Ground Sheet ID X": 0,
+            "Ground Sheet ID Y": 96,
+            "Floor Type": 0,
+            "Placed Object Type": 0,
+            "Placed Possible": true,
+            "Player Passable": true
+          },
+          {
+            "Index X": 1,
+            "Index Y": 2,
+            "Ground Type": 1,
+            "Ground Sheet ID X": 48,
+            "Ground Sheet ID Y": 96,
+            "Floor Type": 0,
+            "Placed Object Type": 0,
+            "Placed Possible": true,
+            "Player Passable": true
+          },
+          {
+            "Index X": 2,
+            "Index Y": 2,
+            "Ground Type": 2,
+            "Ground Sheet ID X": 128,
+            "Ground Sheet ID Y": 208,
+            "Floor Type": 0,
+            "Placed Object Type": 0,
+            "Placed Possible": true,
+            "Player Passable": true
           }
         ]
-        }
+      }
     ]
   }

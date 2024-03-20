@@ -160,7 +160,7 @@
     </ClCompile>
     <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="Framework\SceneMgr.cpp" />
-    <ClCompile Include="Scenes\SceneDev.cpp" />
+    <ClCompile Include="Scenes\SceneGame.cpp" />
     <ClCompile Include="GameObjects\SpriteGo.cpp" />
     <ClCompile Include="GameObjects\TextGo.cpp" />
     <ClCompile Include="GameObjects\UiHud.cpp" />
@@ -186,7 +186,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="Framework\SceneMgr.h" />
-    <ClInclude Include="Scenes\SceneDev.h" />
+    <ClInclude Include="Scenes\SceneGame.h" />
     <ClInclude Include="GameObjects\SpriteGo.h" />
     <ClInclude Include="GameObjects\TextGo.h" />
     <ClInclude Include="GameObjects\UiHud.h" />

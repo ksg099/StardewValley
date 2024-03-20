@@ -36,7 +36,7 @@
     <ClCompile Include="GameObjects\GameObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\SceneDev.cpp">
+    <ClCompile Include="Scenes\SceneGame.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="GameObjects\SpriteGo.cpp">
@@ -101,7 +101,7 @@
     <ClInclude Include="GameObjects\GameObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\SceneDev.h">
+    <ClInclude Include="Scenes\SceneGame.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="GameObjects\SpriteGo.h">

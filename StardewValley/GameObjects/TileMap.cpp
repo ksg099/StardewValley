@@ -163,9 +163,8 @@ void TileMap::SetFlipY(bool flip)
 void TileMap::Init()
 {
 	GameObject::Init();
-	SetSpriteSheetId("graphics/background_sheet.png");
-	Set({ 10, 10 }, { 50.f, 50.f });
-
+	// SetSpriteSheetId("graphics/background_sheet.png");
+	// Set({ 10, 10 }, { 50.f, 50.f });
 }
 
 void TileMap::Release()
@@ -190,4 +189,49 @@ void TileMap::Draw(sf::RenderWindow& window)
 	state.transform = transform;
 
 	window.draw(va, state);
+}
+
+void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize)
+{
+	cellCount.x = doc["Tile Map"][0]["Tile Count X"].GetInt();
+	cellCount.y = doc["Tile Map"][0]["Tile Count Y"].GetInt();
+	SetSpriteSheetId(doc["Tile Map"][0]["Resoruce"].GetString());
+
+	cellSize = tileSize;
+
+	va.clear();
+	va.setPrimitiveType(sf::Quads);
+	va.resize(cellCount.x * cellCount.y * 4);
+
+	sf::Vector2f posOffsets[4] = {
+		{ 0, 0 },
+		{ tileSize.x, 0 },
+		{ tileSize.x, tileSize.y },
+		{ 0, tileSize.y }
+	};
+
+	sf::Vector2f texCoord0[4] = {
+		{ 0, 0 },
+		{ tileTextureSize.x, 0 },
+		{ tileTextureSize.x, tileTextureSize.y },
+		{ 0, tileTextureSize.y }
+	};
+
+	for (int i = 0; i < cellCount.y; i++)
+	{
+		for (int j = 0; j < cellCount.x; j++)
+		{
+			int quadIndex = i * cellCount.x + j; // 2차원 인덱스를 1차원 인덱스로 변환
+			sf::Vector2f quadPos(tileSize.x * j, tileSize.y * i);
+
+			for (int k = 0; k < 4; k++)
+			{
+				int vertexIndex = (quadIndex * 4) + k;
+				va[vertexIndex].position = quadPos + posOffsets[k];
+				va[vertexIndex].texCoords = texCoord0[k];
+				va[vertexIndex].texCoords.x += doc["Tile Map"][0]["Tiles"][quadIndex]["Ground Sheet ID X"].GetInt();
+				va[vertexIndex].texCoords.y += doc["Tile Map"][0]["Tiles"][quadIndex]["Ground Sheet ID Y"].GetInt();
+			}
+		}
+	}
 }

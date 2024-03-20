@@ -9,6 +9,7 @@ protected:
 
 	sf::Vector2i cellCount; // 셀의 가로줄, 세로줄 개수
 	sf::Vector2f cellSize; // 단위 셀의 가로, 세로 길이
+	const sf::Vector2f tileTextureSize = { 15.f, 15.f };
 
 	sf::Transform transform;
 
@@ -46,5 +47,9 @@ public:
 
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+
+
+	void LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize);
 };
 
