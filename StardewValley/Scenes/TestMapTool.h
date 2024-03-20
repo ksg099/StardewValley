@@ -12,7 +12,7 @@ protected:
 	sf::VertexArray grid;
 	int col = 200;
 	int row = 200;
-	int size = 150;
+	int size = 16;
 
 	rapidjson::Document doc;
 

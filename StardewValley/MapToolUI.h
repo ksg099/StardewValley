@@ -6,9 +6,16 @@ class MapToolUI : public GameObject
 {
 protected:
     sf::RectangleShape outLine;
-    sf::VertexArray centerLine;
+    sf::RectangleShape centerLine;
 
     sf::RectangleShape background;
+
+    sf::VertexArray backFloor;
+    std::string spriteSheetId;
+    sf::Texture* texture;
+    sf::Vector2i cellCount;
+    sf::Vector2f cellSize;
+
     SpriteGo logo;
     SpriteGo arrowLeft;
     SpriteGo arrowRight;
@@ -22,6 +29,9 @@ protected:
 public:
     MapToolUI(const std::string& name = "");
     ~MapToolUI() override = default;
+
+    void SetBackFloor(const sf::Vector2i& count, const sf::Vector2f& size);
+    void SetSpriteSheetId(const std::string& id);
 
     void Init() override;
     void Release() override;
