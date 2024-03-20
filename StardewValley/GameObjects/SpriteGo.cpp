@@ -22,6 +22,11 @@ void SpriteGo::SetTexture(const std::string& textureId)
 	sprite.setTexture(RES_MGR_TEXTURE.Get(textureId));
 }
 
+void SpriteGo::SetTextureRect(const sf::IntRect& rect)
+{
+	sprite.setTextureRect(rect);
+}
+
 void SpriteGo::SetPosition(const sf::Vector2f& pos)
 {
 	//GameObject::SetPosition(pos);

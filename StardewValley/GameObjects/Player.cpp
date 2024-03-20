@@ -11,7 +11,7 @@ void Player::Init()
 	SpriteGo::Init();
 
 	SetTexture("graphics/White Chicken.png");
-	sprite.setTextureRect(sf::IntRect(0, 0, 15, 15));
+	SetTextureRect(sf::IntRect(0, 0, 15, 15));
 	SetOrigin(Origins::MC);
 }
 
@@ -58,11 +58,18 @@ void Player::Update(float dt)
 	else
 	{
 		direction = InputMgr::GetAxisOne();
-		nextPosition = tileMap->GetGridPosition(gridIndex.x + direction.x, gridIndex.y + direction.y);
-		if (nextPosition != currentPosition)
+		if (!tileMap->GetTileData(gridIndex.x + direction.x, gridIndex.y + direction.y)->isPassable)
 		{
-			moveDuration = Utils::Magnitude(nextPosition - currentPosition) / speed;
-			isMove = true;
+			direction = { 0, 0 };
+		}
+		else
+		{
+			nextPosition = tileMap->GetGridPosition(gridIndex.x + direction.x, gridIndex.y + direction.y);
+			if (nextPosition != currentPosition)
+			{
+				moveDuration = Utils::Magnitude(nextPosition - currentPosition) / speed;
+				isMove = true;
+			}
 		}
 	}
 }

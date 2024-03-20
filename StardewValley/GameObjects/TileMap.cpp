@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "TileMap.h"
+#include "ObjectOnTile.h"
 
 TileMap::TileMap(const std::string& name) : GameObject(name)
 {
@@ -25,6 +26,14 @@ const sf::Vector2f& TileMap::GetGridPosition(int x, int y) const
 	y = Utils::Clamp(y, 0, cellCount.y - 1);
 
 	return transform.transformPoint(va[(y * cellCount.x + x) * 4].position) + cellSize / 2.f;
+}
+
+const TileData* TileMap::GetTileData(int x, int y) const
+{
+	x = Utils::Clamp(x, 0, cellCount.x - 1);
+	y = Utils::Clamp(y, 0, cellCount.y - 1);
+
+	return tiles[y * cellCount.x + x];
 }
 
 void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
@@ -89,6 +98,14 @@ void TileMap::UpdateTransform()
 	transform.scale(scaleX, scaleY, position.x, position.y);
 	transform.rotate(rotation, position.x, position.y);
 	transform.translate(position - origin);
+
+	for (auto tile : tiles)
+	{
+		if (tile->object != nullptr)
+		{
+			tile->object->SetPosition(GetGridPosition(tile->indexX, tile->indexY));
+		}
+	}
 }
 
 void TileMap::SetOrigin(Origins preset)
@@ -198,6 +215,14 @@ void TileMap::Draw(sf::RenderWindow& window)
 	state.transform = transform;
 
 	window.draw(va, state);
+
+	for (auto tile : tiles)
+	{
+		if (tile->object != nullptr)
+		{
+			tile->object->Draw(window);
+		}
+	}
 }
 
 void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize)
@@ -241,6 +266,38 @@ void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize
 				va[vertexIndex].texCoords.x += doc["Tile Map"][0]["Tiles"][quadIndex]["Ground Sheet ID X"].GetInt();
 				va[vertexIndex].texCoords.y += doc["Tile Map"][0]["Tiles"][quadIndex]["Ground Sheet ID Y"].GetInt();
 			}
+
+			TileData* tile = new TileData();
+			tile->indexX = j;
+			tile->indexY = i;
+			tile->groundType = (GroundType)doc["Tile Map"][0]["Tiles"][quadIndex]["Ground Type"].GetInt();
+			// (FloorType)doc["Tile Map"][0]["Tiles"][quadIndex]["Floor Type"].GetInt(); // 해당 타입을 갖는 FloorOnTile 객체 생성
+			
+			ObjectOnTileType objType = (ObjectOnTileType)doc["Tile Map"][0]["Tiles"][quadIndex]["Placed Object Type"].GetInt();
+			ObjectOnTile* obj = nullptr;
+			switch (objType)
+			{
+			case ObjectOnTileType::NONE:
+				break;
+			case ObjectOnTileType::WEED:
+				obj = new ObjectOnTile("Weed Object");
+				obj->SetTexture("graphics/grass.png");
+				obj->SetTextureRect(sf::IntRect(0, 0, 15, 20));
+				obj->SetOrigin(Origins::MC);
+				break;
+			case ObjectOnTileType::STONE:
+				break;
+			case ObjectOnTileType::TREE:
+				break;
+			case ObjectOnTileType::COUNT:
+				break;
+			default:
+				break;
+			}
+			tile->object = obj;
+			tile->isPossiblePlace = doc["Tile Map"][0]["Tiles"][quadIndex]["Placed Possible"].GetBool();
+			tile->isPassable = doc["Tile Map"][0]["Tiles"][quadIndex]["Player Passable"].GetBool();
+			tiles.push_back(tile);
 		}
 	}
 }

@@ -15,6 +15,7 @@ public:
 	virtual sf::FloatRect GetGlobalBounds() override;
 
 	void SetTexture(const std::string& textureId);
+	void SetTextureRect(const sf::IntRect& rect);
 
 	void SetPosition(const sf::Vector2f& pos) override;
 	void Translate(const sf::Vector2f& delta) override;

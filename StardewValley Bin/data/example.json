@@ -32,7 +32,7 @@
             "Ground Sheet ID X": 48,
             "Ground Sheet ID Y": 96,
             "Floor Type": 0,
-            "Placed Object Type": 0,
+            "Placed Object Type": 1,
             "Placed Possible": true,
             "Player Passable": true
           },
@@ -43,9 +43,9 @@
             "Ground Sheet ID X": 128,
             "Ground Sheet ID Y": 208,
             "Floor Type": 0,
-            "Placed Object Type": 0,
+            "Placed Object Type": 1,
             "Placed Possible": true,
-            "Player Passable": true
+            "Player Passable": false
           },
           {
             "Index X": 0,

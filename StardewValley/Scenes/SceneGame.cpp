@@ -2,6 +2,7 @@
 #include "SceneGame.h"
 
 #include "TileMap.h"
+#include "Player.h"
 
 SceneGame::SceneGame(SceneIds id) : Scene(id)
 {
@@ -13,6 +14,7 @@ SceneGame::~SceneGame()
 
 void SceneGame::Init()
 {
+	// 테스틍용
 	rapidjson::Document doc;
 	if (Utils::LoadFromFile("data/example.json", doc))
 	{
@@ -21,6 +23,10 @@ void SceneGame::Init()
 		tileMap->SetOrigin(Origins::MC);
 		AddGo(tileMap);
 	}
+
+	Player* player = new Player("Player");
+	AddGo(player);
+	// 테스트용
 
 	Scene::Init();
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+class ObjectOnTile;
+
 enum class Origins
 {
 	// T M B
@@ -35,4 +37,39 @@ struct ItemData
 	bool canOverLap;
 
 	std::string itemFilePath; 
+};
+
+enum class GroundType
+{
+	NONE,
+	LAND,
+	GRASS,
+	WATER,
+};
+
+enum class FloorType
+{
+	NONE,
+	WOOD,
+	STONE,
+};
+
+enum class ObjectOnTileType
+{
+	NONE,
+	WEED,
+	STONE,
+	TREE,
+	COUNT,
+};
+
+struct TileData
+{
+	int indexX = 0;
+	int indexY = 0;
+	GroundType groundType = GroundType::NONE;
+	// FloorOnTile* floor = nullptr;
+	ObjectOnTile* object = nullptr;
+	bool isPossiblePlace = true;
+	bool isPassable = true;
 };
