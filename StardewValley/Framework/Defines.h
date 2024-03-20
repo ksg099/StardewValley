@@ -16,3 +16,23 @@ enum class Languages
 {
 	Korean, English
 };
+
+
+enum class ItemType
+{
+	Tool,
+	Seed,
+	Harvest,
+	Ingredient,
+};
+
+struct ItemData
+{
+	ItemType type;
+	int itemId;
+	int instanceId;
+	int count = 0;
+	bool canOverLap;
+
+	std::string itemFilePath; 
+};
