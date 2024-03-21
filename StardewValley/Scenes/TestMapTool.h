@@ -3,6 +3,20 @@
 
 class MapToolUI;
 
+struct Tile
+{
+	int posX;
+	int posY;
+	GroundType groundType;
+	int groundID;
+	FloorType floorType;
+	int floorID;
+	ObjectType objectType;
+	int objectID;
+	bool placedPossible;
+	bool playerPassable;
+};
+
 class TestMapTool : public Scene
 {
 protected:
@@ -17,6 +31,7 @@ protected:
 	rapidjson::Document doc;
 
 	MapToolUI* mapToolUI;
+	std::vector<std::vector<Tile>> mapData;
 
 public:
 	TestMapTool(SceneIds id);
@@ -34,6 +49,8 @@ public:
 	void DrawGrid();
 
 	void SetMapToolSize(int xCount, int yCount);
+	void SaveMapContent();
+	void LoadMapFile(std::vector<std::vector<Tile>>& data, const std::string& filePath);
 
 	std::wstring SelectFile(); 
 	std::string ToRelativePath(const std::string& originalPath, const std::string& basePath);  //Ãß°¡

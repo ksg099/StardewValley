@@ -18,8 +18,11 @@
             "PosX": 0,
             "PosY": 0,
             "Ground Type": 0,
+            "Ground ID" : 0,
             "Floor Type": 0,
-            "Placed Object Type": 0,
+            "Floor ID" : 0,
+            "Object Type": 0,
+            "Object ID" : 0,
             "Placed Possible": true,
             "Player Passable": false
           },
@@ -27,8 +30,11 @@
             "PosX": 1,
             "PosY": 0,
             "Ground Type": 0,
+            "Ground ID" : 0,
             "Floor Type": 0,
-            "Placed Object Type": 0,
+            "Floor ID" : 0,
+            "Object Type": 0,
+            "Object ID" : 0,
             "Placed Possible": true,
             "Player Passable": false
           }

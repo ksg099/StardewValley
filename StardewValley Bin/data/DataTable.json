@@ -1,0 +1,388 @@
+{
+  "Tile Info":
+  {
+    "Object":
+    {
+      "Sheet Info":
+      [
+        [
+          {
+            "Resoruce": "graphics/object.png",
+            "Sheet ID X": 0,
+            "Sheet ID Y": 0,
+            "Sheet ID W": 15,
+            "Sheet ID H": 15
+          },
+          {
+            "Resoruce": "graphics/object.png",
+            "Sheet ID X": 16,
+            "Sheet ID Y": 0,
+            "Sheet ID W": 15,
+            "Sheet ID H": 15
+          },
+          {
+            "Resoruce": "graphics/object.png",
+            "Sheet ID X": 32,
+            "Sheet ID Y": 0,
+            "Sheet ID W": 15,
+            "Sheet ID H": 15
+          },
+          {
+            "Resoruce": "graphics/object.png",
+            "Sheet ID X": 49,
+            "Sheet ID Y": 0,
+            "Sheet ID W": 15,
+            "Sheet ID H": 15
+          }
+        ],
+        [
+          {
+            "Resoruce": "graphics/spring_outdoorsTileSheet.ko-KR.png",
+            "Sheet ID X": 0,
+            "Sheet ID Y": 0,
+            "Sheet ID W": 47,
+            "Sheet ID H": 95
+          },
+          {
+            "Resoruce": "graphics/spring_outdoorsTileSheet.ko-KR.png",
+            "Sheet ID X": 48,
+            "Sheet ID Y": 0,
+            "Sheet ID W": 47,
+            "Sheet ID H": 95
+          },
+          {
+            "Resoruce": "graphics/spring_outdoorsTileSheet.ko-KR.png",
+            "Sheet ID X": 96,
+            "Sheet ID Y": 0,
+            "Sheet ID W": 61,
+            "Sheet ID H": 111
+          },
+          {
+            "Resoruce": "graphics/spring_outdoorsTileSheet.ko-KR.png",
+            "Sheet ID X": 160,
+            "Sheet ID Y": 0,
+            "Sheet ID W": 47,
+            "Sheet ID H": 95
+          }
+        ],
+        [
+          {
+            "Resoruce": "graphics/bushes.png",
+            "Sheet ID X": 0,
+            "Sheet ID Y": 10,
+            "Sheet ID W": 29,
+            "Sheet ID H": 33
+          },
+          {
+            "Resoruce": "graphics/bushes.png",
+            "Sheet ID X": 33,
+            "Sheet ID Y": 10,
+            "Sheet ID W": 29,
+            "Sheet ID H": 33
+          }
+        ],
+        [
+          {
+            "Resoruce": "graphics/crops.png",
+            "Sheet ID X": 4,
+            "Sheet ID Y": 51,
+            "Sheet ID W": 8,
+            "Sheet ID H": 9
+          },
+          {
+            "Resoruce": "graphics/crops.png",
+            "Sheet ID X": 20,
+            "Sheet ID Y": 54,
+            "Sheet ID W": 8,
+            "Sheet ID H": 5
+          },
+          {
+            "Resoruce": "graphics/crops.png",
+            "Sheet ID X": 37,
+            "Sheet ID Y": 55,
+            "Sheet ID W": 5,
+            "Sheet ID H": 5
+          },
+          {
+            "Resoruce": "graphics/crops.png",
+            "Sheet ID X": 52,
+            "Sheet ID Y": 51,
+            "Sheet ID W": 8,
+            "Sheet ID H": 7
+          },
+          {
+            "Resoruce": "graphics/crops.png",
+            "Sheet ID X": 65,
+            "Sheet ID Y": 50,
+            "Sheet ID W": 13,
+            "Sheet ID H": 10
+          },
+          {
+            "Resoruce": "graphics/crops.png",
+            "Sheet ID X": 80,
+            "Sheet ID Y": 48,
+            "Sheet ID W": 14,
+            "Sheet ID H": 12
+          },
+          {
+            "Resoruce": "graphics/crops.png",
+            "Sheet ID X": 96,
+            "Sheet ID Y": 48,
+            "Sheet ID W": 15,
+            "Sheet ID H": 14
+          }
+        ],
+        [
+         {
+           "Resoruce": "graphics/furniture.png",
+           "Sheet ID X": 0,
+           "Sheet ID Y": 0,
+           "Sheet ID W": 15,
+           "Sheet ID H": 31
+         },
+         {
+          "Resoruce": "graphics/furniture.png",
+          "Sheet ID X": 16,
+          "Sheet ID Y": 0,
+          "Sheet ID W": 15,
+          "Sheet ID H": 31
+         },
+         {
+          "Resoruce": "graphics/furniture.png",
+          "Sheet ID X": 32,
+          "Sheet ID Y": 0,
+          "Sheet ID W": 15,
+          "Sheet ID H": 31
+         },
+         {
+          "Resoruce": "graphics/furniture.png",
+          "Sheet ID X": 0,
+          "Sheet ID Y": 569,
+          "Sheet ID W": 31,
+          "Sheet ID H": 38
+         },
+         {
+          "Resoruce": "graphics/furniture.png",
+          "Sheet ID X": 0,
+          "Sheet ID Y": 1032,
+          "Sheet ID W": 31,
+          "Sheet ID H": 54
+         }
+        ],
+        [
+         {
+            "Resoruce": "graphics/Craftables.png",
+            "Sheet ID X": 32,
+            "Sheet ID Y": 519,
+            "Sheet ID W": 15,
+            "Sheet ID H": 24
+         },
+         {
+            "Resoruce": "graphics/Craftables.png",
+            "Sheet ID X": 0,
+            "Sheet ID Y": 1001,
+            "Sheet ID W": 15,
+            "Sheet ID H": 22
+        }
+        ],
+        [
+         {
+            "Resoruce": "graphics/houses.png",
+            "Sheet ID X": 14,
+            "Sheet ID Y": 288,
+            "Sheet ID W": 145,
+            "Sheet ID H": 143
+         },
+         {
+            "Resoruce": "graphics/Coop.png",
+            "Sheet ID X": 0,
+            "Sheet ID Y": 0,
+            "Sheet ID W": 95,
+            "Sheet ID H": 127
+         }     
+        ]
+      ]
+    },
+    "Floor":
+    [
+      [
+        {
+            "Resoruce": "graphics/hoeDirt.png",
+            "Sheet ID X": 0,
+            "Sheet ID Y": 0,
+            "Sheet ID W": 14,
+            "Sheet ID H": 15
+        },
+        {
+            "Resoruce": "graphics/hoeDirt.png",
+            "Sheet ID X": 0,
+            "Sheet ID Y": 16,
+            "Sheet ID W": 14,
+            "Sheet ID H": 15
+        },
+        {
+            "Resoruce": "graphics/hoeDirt.png",
+            "Sheet ID X": 0,
+            "Sheet ID Y": 32,
+            "Sheet ID W": 15,
+            "Sheet ID H": 15
+        },
+        {
+            "Resoruce": "graphics/hoeDirt.png",
+            "Sheet ID X": 0,
+            "Sheet ID Y": 58,
+            "Sheet ID W": 15,
+            "Sheet ID H": 15
+        },
+        {
+            "Resoruce": "graphics/hoeDirt.png",
+            "Sheet ID X": 0,
+            "Sheet ID Y": 73,
+            "Sheet ID W": 15,
+            "Sheet ID H": 15
+        },
+        {
+            "Resoruce": "graphics/hoeDirt.png",
+            "Sheet ID X": 16,
+            "Sheet ID Y": 0,
+            "Sheet ID W": 15,
+            "Sheet ID H": 15
+        },
+        {
+            "Resoruce": "graphics/hoeDirt.png",
+            "Sheet ID X": 16,
+            "Sheet ID Y": 16,
+            "Sheet ID W": 15,
+            "Sheet ID H": 15
+        },
+        {
+            "Resoruce": "graphics/hoeDirt.png",
+            "Sheet ID X": 16,
+            "Sheet ID Y": 32,
+            "Sheet ID W": 15,
+            "Sheet ID H": 15
+        },
+        {
+            "Resoruce": "graphics/hoeDirt.png",
+            "Sheet ID X": 32,
+            "Sheet ID Y": 0,
+            "Sheet ID W": 15,
+            "Sheet ID H": 15
+        },
+        {
+            "Resoruce": "graphics/hoeDirt.png",
+            "Sheet ID X": 32,
+            "Sheet ID Y": 16,
+            "Sheet ID W": 15,
+            "Sheet ID H": 15
+        },
+        {
+            "Resoruce": "graphics/hoeDirt.png",
+            "Sheet ID X": 32,
+            "Sheet ID Y": 32,
+            "Sheet ID W": 15,
+            "Sheet ID H": 15
+        },
+        {
+            "Resoruce": "graphics/hoeDirt.png",
+            "Sheet ID X": 48,
+            "Sheet ID Y": 0,
+            "Sheet ID W": 15,
+            "Sheet ID H": 15
+        },
+        {
+            "Resoruce": "graphics/hoeDirt.png",
+            "Sheet ID X": 48,
+            "Sheet ID Y": 16,
+            "Sheet ID W": 15,
+            "Sheet ID H": 15
+        },
+        {
+            "Resoruce": "graphics/hoeDirt.png",
+            "Sheet ID X": 48,
+            "Sheet ID Y": 32,
+            "Sheet ID W": 15,
+            "Sheet ID H": 15
+        },
+        {
+            "Resoruce": "graphics/hoeDirt.png",
+            "Sheet ID X": 16,
+            "Sheet ID Y": 48,
+            "Sheet ID W": 15,
+            "Sheet ID H": 15
+        },
+        {
+            "Resoruce": "graphics/hoeDirt.png",
+            "Sheet ID X": 32,
+            "Sheet ID Y": 48,
+            "Sheet ID W": 15,
+            "Sheet ID H": 15
+        },
+        {
+            "Resoruce": "graphics/hoeDirt.png",
+            "Sheet ID X": 48,
+            "Sheet ID Y": 48,
+            "Sheet ID W": 15,
+            "Sheet ID H": 15
+        }
+      ],
+      [],
+      []
+    ],
+    "Ground":
+    {
+      "Resoruce": "graphics/spring_outdoorsTileSheet.ko-KR.png",
+      "Sheet Info":
+      [
+        [
+          {
+            "Sheet ID X": 48,
+            "Sheet ID Y": 96,
+            "Sheet ID W": 48,
+            "Sheet ID H": 96
+          },
+          {
+            "Sheet ID X": 48,
+            "Sheet ID Y": 96,
+            "Sheet ID W": 48,
+            "Sheet ID H": 96
+          },
+          {
+            "Sheet ID X": 48,
+            "Sheet ID Y": 96,
+            "Sheet ID W": 48,
+            "Sheet ID H": 96
+          }
+        ],
+        [
+          {
+            "Sheet ID X": 48,
+            "Sheet ID Y": 96,
+            "Sheet ID W": 48,
+            "Sheet ID H": 96
+          },
+          {
+            "Sheet ID X": 48,
+            "Sheet ID Y": 96,
+            "Sheet ID W": 48,
+            "Sheet ID H": 96
+          }
+        ],
+        [
+          {
+            "Sheet ID X": 48,
+            "Sheet ID Y": 96,
+            "Sheet ID W": 48,
+            "Sheet ID H": 96
+          },
+          {
+            "Sheet ID X": 48,
+            "Sheet ID Y": 96,
+            "Sheet ID W": 48,
+            "Sheet ID H": 96
+          }
+        ]
+      ]
+    }
+  }
+}

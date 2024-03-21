@@ -11,14 +11,17 @@ protected:
     sf::RectangleShape background;
 
     sf::VertexArray backFloor;
-    std::string spriteSheetId;
-    sf::Texture* texture;
+    std::string backFloorSheetId;
+    sf::Texture* backFloorTexture;
     sf::Vector2i cellCount;
     sf::Vector2f cellSize;
 
     SpriteGo logo;
     SpriteGo arrowLeft;
     SpriteGo arrowRight;
+
+    sf::Sprite stone_1;
+    sf::Sprite stone_2;
 
     SpriteGo saveButton;
     SpriteGo loadButton;
@@ -33,6 +36,11 @@ public:
     void SetBackFloor(const sf::Vector2i& count, const sf::Vector2f& size);
     void SetSpriteSheetId(const std::string& id);
 
+    sf::FloatRect GetSaveButtonGB() { return saveButton.GetGlobalBounds(); }
+    sf::FloatRect GetLoadButtonGB() { return loadButton.GetGlobalBounds(); }
+    sf::FloatRect GetEraseButtonGB() { return eraseButton.GetGlobalBounds(); }
+    sf::FloatRect GetMoveScreenButtonGB() { return moveScreenButton.GetGlobalBounds(); }
+    
     void Init() override;
     void Release() override;
     void Reset() override;
