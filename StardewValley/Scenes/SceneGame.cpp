@@ -14,19 +14,25 @@ SceneGame::~SceneGame()
 
 void SceneGame::Init()
 {
-	// 테스틍용
-	rapidjson::Document doc;
-	if (Utils::LoadFromFile("data/example.json", doc))
+	// 테스트
+	rapidjson::Document dataDoc;
+	if (Utils::LoadFromFile("data/DataTable.json", dataDoc))
+	{
+		GROUND_TABLE->Load(dataDoc);
+	}
+
+	// 테스트용
+	rapidjson::Document SaveDoc;
+	if (Utils::LoadFromFile("data/example.json", SaveDoc))
 	{
 		TileMap* tileMap = new TileMap("Background");
-		tileMap->LoadTileMap(doc, tileSize);
+		tileMap->LoadTileMap(SaveDoc, tileSize);
 		tileMap->SetOrigin(Origins::MC);
 		AddGo(tileMap);
 	}
 
 	Player* player = new Player("Player");
 	AddGo(player);
-	// 테스트용
 
 	Scene::Init();
 }

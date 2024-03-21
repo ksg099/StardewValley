@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "DataTableMgr.h"
-// #include "StringTable.h"
+#include "GroundTable.h"
 
 DataTableMgr::DataTableMgr()
 {
@@ -14,6 +14,9 @@ DataTableMgr::~DataTableMgr()
 void DataTableMgr::Init()
 {
 	Release();
+
+	DataTable* table = new GroundTable(DataTable::Types::GROUND);
+	tables.insert({ DataTable::Types::GROUND, table });
 }
 
 void DataTableMgr::Release()

@@ -1,0 +1,133 @@
+{
+  "Tile Info":
+  {
+    "Ground":
+    {
+      "Resource": "graphics/spring_outdoorsTileSheet.ko-KR.png",
+      "Sheet Info":
+      [
+        [
+          {
+            "Sheet ID X": 128,
+            "Sheet ID Y": 208,
+            "Sheet ID W": 16,
+            "Sheet ID H": 16
+          },
+          {
+            "Sheet ID X": 144,
+            "Sheet ID Y": 208,
+            "Sheet ID W": 16,
+            "Sheet ID H": 16
+          },
+          {
+            "Sheet ID X": 160,
+            "Sheet ID Y": 208,
+            "Sheet ID W": 16,
+            "Sheet ID H": 16
+          }
+        ],
+        [
+          {
+            "Sheet ID X": 48,
+            "Sheet ID Y": 96,
+            "Sheet ID W": 16,
+            "Sheet ID H": 16
+          },
+          {
+            "Sheet ID X": 96,
+            "Sheet ID Y": 128,
+            "Sheet ID W": 16,
+            "Sheet ID H": 16
+          },
+          {
+            "Sheet ID X": 96,
+            "Sheet ID Y": 144,
+            "Sheet ID W": 16,
+            "Sheet ID H": 16
+          }
+        ],
+        [
+          {
+            "Sheet ID X": 0,
+            "Sheet ID Y": 96,
+            "Sheet ID W": 16,
+            "Sheet ID H": 16
+          },
+          {
+            "Sheet ID X": 16,
+            "Sheet ID Y": 96,
+            "Sheet ID W": 16,
+            "Sheet ID H": 16
+          },
+          {
+            "Sheet ID X": 80,
+            "Sheet ID Y": 192,
+            "Sheet ID W": 16,
+            "Sheet ID H": 16
+          }
+        ]
+      ]
+    },
+    "Floor":
+    [
+      [],
+      [],
+      []
+    ],
+    "Object":
+    {
+      "Sheet Info":
+      [
+        [
+          {
+            "Resoruce": "graphics/spring_outdoorsTileSheet.ko-KR.png",
+            "Sheet ID X": 48,
+            "Sheet ID Y": 96,
+            "Sheet ID W": 48,
+            "Sheet ID H": 96
+          },
+          {
+            "Sheet ID X": 48,
+            "Sheet ID Y": 96,
+            "Sheet ID W": 48,
+            "Sheet ID H": 96
+          },
+          {
+            "Sheet ID X": 48,
+            "Sheet ID Y": 96,
+            "Sheet ID W": 48,
+            "Sheet ID H": 96
+          }
+        ],
+        [
+          {
+            "Sheet ID X": 48,
+            "Sheet ID Y": 96,
+            "Sheet ID W": 48,
+            "Sheet ID H": 96
+          },
+          {
+            "Sheet ID X": 48,
+            "Sheet ID Y": 96,
+            "Sheet ID W": 48,
+            "Sheet ID H": 96
+          }
+        ],
+        [
+          {
+            "Sheet ID X": 48,
+            "Sheet ID Y": 96,
+            "Sheet ID W": 48,
+            "Sheet ID H": 96
+          },
+          {
+            "Sheet ID X": 48,
+            "Sheet ID Y": 96,
+            "Sheet ID W": 48,
+            "Sheet ID H": 96
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -229,7 +229,7 @@ void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize
 {
 	cellCount.x = doc["Tile Map"][0]["Tile Count X"].GetInt();
 	cellCount.y = doc["Tile Map"][0]["Tile Count Y"].GetInt();
-	SetSpriteSheetId(doc["Tile Map"][0]["Resoruce"].GetString());
+	SetSpriteSheetId(GROUND_TABLE->GetTextureId());
 
 	cellSize = tileSize;
 
@@ -244,13 +244,6 @@ void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize
 		{ 0, tileSize.y }
 	};
 
-	sf::Vector2f texCoord0[4] = {
-		{ 0, 0 },
-		{ tileTextureSize.x, 0 },
-		{ tileTextureSize.x, tileTextureSize.y },
-		{ 0, tileTextureSize.y }
-	};
-
 	for (int i = 0; i < cellCount.y; i++)
 	{
 		for (int j = 0; j < cellCount.x; j++)
@@ -258,38 +251,30 @@ void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize
 			int quadIndex = i * cellCount.x + j; // 2차원 인덱스를 1차원 인덱스로 변환
 			sf::Vector2f quadPos(tileSize.x * j, tileSize.y * i);
 
-			for (int k = 0; k < 4; k++)
-			{
-				int vertexIndex = (quadIndex * 4) + k;
-				va[vertexIndex].position = quadPos + posOffsets[k];
-				va[vertexIndex].texCoords = texCoord0[k];
-				va[vertexIndex].texCoords.x += doc["Tile Map"][0]["Tiles"][quadIndex]["Ground Sheet ID X"].GetInt();
-				va[vertexIndex].texCoords.y += doc["Tile Map"][0]["Tiles"][quadIndex]["Ground Sheet ID Y"].GetInt();
-			}
+
 
 			TileData* tile = new TileData();
 			tile->indexX = j;
 			tile->indexY = i;
 			tile->groundType = (GroundType)doc["Tile Map"][0]["Tiles"][quadIndex]["Ground Type"].GetInt();
+			tile->groundId = doc["Tile Map"][0]["Tiles"][quadIndex]["Ground ID"].GetInt();
 			// (FloorType)doc["Tile Map"][0]["Tiles"][quadIndex]["Floor Type"].GetInt(); // 해당 타입을 갖는 FloorOnTile 객체 생성
 			
-			ObjectOnTileType objType = (ObjectOnTileType)doc["Tile Map"][0]["Tiles"][quadIndex]["Placed Object Type"].GetInt();
+			ObjectType objType = (ObjectType)doc["Tile Map"][0]["Tiles"][quadIndex]["Object Type"].GetInt();
 			ObjectOnTile* obj = nullptr;
 			switch (objType)
 			{
-			case ObjectOnTileType::NONE:
+			case ObjectType::NONE:
 				break;
-			case ObjectOnTileType::WEED:
+			case ObjectType::WEED:
 				obj = new ObjectOnTile("Weed Object");
 				obj->SetTexture("graphics/grass.png");
 				obj->SetTextureRect(sf::IntRect(0, 0, 15, 20));
 				obj->SetOrigin(Origins::MC);
 				break;
-			case ObjectOnTileType::STONE:
+			case ObjectType::STONE:
 				break;
-			case ObjectOnTileType::TREE:
-				break;
-			case ObjectOnTileType::COUNT:
+			case ObjectType::TREE:
 				break;
 			default:
 				break;
@@ -298,6 +283,25 @@ void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize
 			tile->isPossiblePlace = doc["Tile Map"][0]["Tiles"][quadIndex]["Placed Possible"].GetBool();
 			tile->isPassable = doc["Tile Map"][0]["Tiles"][quadIndex]["Player Passable"].GetBool();
 			tiles.push_back(tile);
+
+			// std::tuple<GroundType, int> key = std::make_tuple(tile->groundType, tile->groundId);
+
+			sf::Vector2f sheetSize = (sf::Vector2f)GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetSize;
+			sf::Vector2f texCoord0[4] = {
+				{ 0, 0 },
+				{ sheetSize.x, 0 },
+				{ sheetSize.x, sheetSize.y },
+				{ 0, sheetSize.y }
+			};
+
+			for (int k = 0; k < 4; k++)
+			{
+				int vertexIndex = (quadIndex * 4) + k;
+				va[vertexIndex].position = quadPos + posOffsets[k];
+				va[vertexIndex].texCoords = texCoord0[k];
+				va[vertexIndex].texCoords.x += GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetId.x;
+				va[vertexIndex].texCoords.y += GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetId.y;
+			}
 		}
 	}
 }
