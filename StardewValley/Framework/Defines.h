@@ -36,3 +36,32 @@ struct ItemData
 
 	std::string itemFilePath; 
 };
+
+enum class GroundType
+{
+	WATER,
+	DIRT,
+	GRASS,
+};
+
+enum class FloorType
+{
+	NONE,
+	DRIED_ARABLE_LAND,
+	WET_ARABLE_LAND,
+	WOOD_PATH,
+	STONE_PATH,
+};
+
+enum class ObjectType
+{
+	NONE,
+	STONE,
+	TREE,
+	WEED,
+	CROPS,
+	FURNITURE,
+	BOX,
+	WALL,
+	BUILDING,
+};
