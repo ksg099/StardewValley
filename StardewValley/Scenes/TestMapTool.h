@@ -47,6 +47,7 @@ public:
 	void Draw(sf::RenderWindow& window) override;    
 	
 	void DrawGrid();
+	sf::Vector2f IndexToPos(int index);
 
 	void SetMapToolSize(int xCount, int yCount);
 	void SaveMapContent();

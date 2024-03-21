@@ -44,9 +44,55 @@ void MapToolUI::SetSpriteSheetId(const std::string& id)
     backFloorTexture = &RES_MGR_TEXTURE.Get(backFloorSheetId);
 }
 
+void MapToolUI::DrawGrid()
+{
+    grid.clear();
+    grid.setPrimitiveType(sf::Lines);
+    grid.resize((col + 1 + row + 1) * 2);
+
+    int gridIndex = 0;
+
+    // 세로선 그리기
+    for (int i = 0; i <= row; ++i) {
+        sf::Vector2f startLine = { gridStart.x, gridStart.y + i * size };
+        sf::Vector2f endLine = { gridStart.x + col * size, gridStart.y + i * size };
+
+        grid[gridIndex].color = sf::Color::Black;
+        grid[gridIndex].position = startLine;
+        grid[gridIndex + 1].color = sf::Color::Black;
+        grid[gridIndex + 1].position = endLine;
+
+        gridIndex += 2;
+    }
+
+    // 가로선 그리기
+    for (int i = 0; i <= col; ++i) {
+        sf::Vector2f startLine = { gridStart.x + i * size, gridStart.y };
+        sf::Vector2f endLine = { gridStart.x + i * size, gridStart.y + row * size };
+
+        grid[gridIndex].color = sf::Color::Black;
+        grid[gridIndex].position = startLine;
+        grid[gridIndex + 1].color = sf::Color::Black;
+        grid[gridIndex + 1].position = endLine;
+
+        gridIndex += 2;
+    }
+}
+
+sf::Vector2f MapToolUI::IndexToPos(int index)
+{
+    int x = index % col;
+    int y = index / col;
+    return sf::Vector2f(gridStart.x + x * size + size / 2, gridStart.y + y * size + size / 2);
+}
+
+
 
 void MapToolUI::Init()
 {
+    currentPage = 0;
+    DrawGrid();
+
     outLine.setOutlineColor(sf::Color(134, 56, 10));
     outLine.setFillColor(sf::Color::Transparent);
     outLine.setOutlineThickness(-15.f);
@@ -58,43 +104,39 @@ void MapToolUI::Init()
     centerLine.setSize({ 15.f, (float)FRAMEWORK.GetWindowSize().y });
     centerLine.setOrigin(0.f, 0.f);
     centerLine.setPosition((float)FRAMEWORK.GetWindowSize().x * 0.6f, 0.f);
-   
+
     background.setFillColor(sf::Color::White);
     background.setSize({ (float)FRAMEWORK.GetWindowSize().x * 0.4f, (float)FRAMEWORK.GetWindowSize().y });
     background.setOrigin(0.f, 0.f);
     background.setPosition((float)FRAMEWORK.GetWindowSize().x * 0.6f, 0.f);
 
-    SetSpriteSheetId("graphics/mapToolUIFloor2.png");
+    SetSpriteSheetId("graphics/backFloor.png");
     SetBackFloor({ 20,30 }, { 38.f,38.f });
-    
-    logo.SetTexture("graphics/logo.png");
+
+    logo.SetTexture("graphics/yellowLettersLogo.png");
     logo.SetOrigin(Origins::MC);
     logo.SetScale({ 0.5f,0.5f });
     logo.SetPosition({ (float)(FRAMEWORK.GetWindowSize().x) * 0.8f, logo.GetLocalBounds().height * 0.5f });
 
     arrowLeft.SetTexture("graphics/arrow.png");
     arrowLeft.SetOrigin(Origins::MC);
-    arrowLeft.SetScale({ 2.f, 2.f });
     arrowLeft.SetPosition({ (float)(FRAMEWORK.GetWindowSize().x) * 0.8f - logo.GetLocalBounds().width * 0.5f
         , logo.GetLocalBounds().height * 0.5f });
 
     arrowRight.SetTexture("graphics/arrow.png");
     arrowRight.SetFlipX(true);
     arrowRight.SetOrigin(Origins::MC);
-    arrowRight.SetScale({ 2.f, 2.f });
     arrowRight.SetPosition({ (float)(FRAMEWORK.GetWindowSize().x) * 0.8f + logo.GetLocalBounds().width * 0.5f
         , logo.GetLocalBounds().height * 0.5f });
-
-    
 
     float buttonOffset = 20.f;
 
     saveButton.SetTexture("graphics/button.png");
     saveButton.SetOrigin(Origins::MC);
-	saveButton.SetScale({ 2.f, 2.f });
-    saveButton.SetPosition({(float)FRAMEWORK.GetWindowSize().x *0.675f
-        , (float)FRAMEWORK.GetWindowSize().y * 0.85f});
-    
+    saveButton.SetScale({ 2.f, 2.f });
+    saveButton.SetPosition({ (float)FRAMEWORK.GetWindowSize().x * 0.675f
+        , (float)FRAMEWORK.GetWindowSize().y * 0.85f });
+
     eraseButton.SetTexture("graphics/button.png");
     eraseButton.SetOrigin(Origins::MC);
     eraseButton.SetScale({ 2.f, 2.f });
@@ -105,7 +147,7 @@ void MapToolUI::Init()
     loadButton.SetOrigin(Origins::MC);
     loadButton.SetScale({ 2.f, 2.f });
     loadButton.SetPosition({ eraseButton.GetPosition().x + saveButton.GetLocalBounds().width * 2.f + buttonOffset
-        ,saveButton.GetPosition().y});
+        ,saveButton.GetPosition().y });
 
     moveScreenButton.SetTexture("graphics/button.png");
     moveScreenButton.SetOrigin(Origins::MC);
@@ -117,29 +159,54 @@ void MapToolUI::Init()
     rapidjson::Document doc;
     Utils::LoadFromFile("data/DataTable.json", doc);
 
-    auto objSheetInfo = doc["Tile Info"]["Object"]["Sheet Info"].GetArray();
+    /*auto objSheetInfo = doc["Tile Info"]["Object"]["Type Info"].GetArray();
     int stone = (int)ObjectType::STONE;
-    int stoneCount = objSheetInfo[stone].GetArray().Size();
+    int stoneCount = objSheetInfo[stone]["Sheet Info"].Size();
     for (int i = 0; i < stoneCount; ++i)
     {
-        auto elem = objSheetInfo[stone][i].GetObject();
+        auto elem = objSheetInfo[stone]["Sheet Info"][i].GetObject();
         std::cout << elem["Resoruce"].GetString() << std::endl;
         stone_1.setTexture(RES_MGR_TEXTURE.Get(elem["Resoruce"].GetString()));
         stone_1.setTextureRect({ elem["Sheet ID X"].GetInt(), elem["Sheet ID Y"].GetInt(), elem["Sheet ID W"].GetInt(), elem["Sheet ID H"].GetInt() });
         stone_1.setPosition({ (float)FRAMEWORK.GetWindowSize().x * 0.675f
     , (float)FRAMEWORK.GetWindowSize().y * 0.2f });
     }
+
     for (int i = 0; i < objSheetInfo.Size(); ++i)
     {
         ObjectType type = (ObjectType)i;
-        auto objectArray = objSheetInfo[i].GetArray();
+        auto objectArray = objSheetInfo[i]["Sheet Info"].GetArray();
 
         for (int j = 0; j < objectArray.Size(); ++j)
         {
             auto elem = objectArray[j].GetObject();
-            
+
         }
     }
+    */
+
+    stone_1.SetTextureByName("stone1");
+    stone_1.SetOrigin(Origins::MC);
+    stone_1.SetPosition(IndexToPos(0));
+    stone_2.SetTextureByName("stone2");
+    stone_2.SetOrigin(Origins::MC);
+    stone_2.SetPosition(IndexToPos(1));
+    stone_3.SetTextureByName("stone3");
+    stone_3.SetOrigin(Origins::MC);
+    stone_3.SetPosition(IndexToPos(2));
+    stone_4.SetTextureByName("stone4");
+    stone_4.SetOrigin(Origins::MC);
+    stone_4.SetPosition(IndexToPos(3));
+
+    tree_1.SetTextureByName("tree1");
+    tree_1.SetOrigin(Origins::MC);
+    tree_1.SetPosition(IndexToPos(5));
+    tree_2.SetTextureByName("tree2");
+    tree_2.SetOrigin(Origins::MC);
+    tree_2.SetPosition(IndexToPos(8));
+    
+
+    
 }
 
 void MapToolUI::Release()
@@ -154,6 +221,21 @@ void MapToolUI::Reset()
 
 void MapToolUI::Update(float dt)
 {
+    sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
+    sf::Vector2f mouseWorldPos = SCENE_MGR.GetCurrentScene()->ScreenToWorld(mousePos);
+    if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
+    {
+        if (arrowLeft.GetGlobalBounds().contains(mouseWorldPos))
+        {
+
+        }
+        else if (arrowRight.GetGlobalBounds().contains(mouseWorldPos))
+        {
+
+        }
+
+    }
+
     GameObject::Update(dt);
 }
 
@@ -181,7 +263,13 @@ void MapToolUI::Draw(sf::RenderWindow& window)
     logo.Draw(window);
     arrowLeft.Draw(window);
     arrowRight.Draw(window);
-    window.draw(stone_1);
+    window.draw(grid);
+    stone_1.Draw(window);
+    stone_2.Draw(window);
+    stone_3.Draw(window);
+    stone_4.Draw(window);
+    tree_1.Draw(window);
+    tree_2.Draw(window);
     saveButton.Draw(window);
     eraseButton.Draw(window);
     loadButton.Draw(window);

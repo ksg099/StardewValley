@@ -23,7 +23,12 @@ void DataTableMgr::Init()
 	DataTable* objectTable = new ObjectTable(DataTable::Types::OBJECT);
 	tables.insert({ DataTable::Types::OBJECT, objectTable });
 
-
+	rapidjson::Document dataDoc;
+	if (Utils::LoadFromFile("data/DataTable.json", dataDoc))
+	{
+		GROUND_TABLE->Load(dataDoc);
+		OBJECT_TABLE->Load(dataDoc);
+	}
 }
 
 void DataTableMgr::Release()

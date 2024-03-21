@@ -17,12 +17,7 @@ SceneGame::~SceneGame()
 void SceneGame::Init()
 {
 	// 테스트
-	rapidjson::Document dataDoc;
-	if (Utils::LoadFromFile("data/DataTable.json", dataDoc))
-	{
-		GROUND_TABLE->Load(dataDoc);
-		OBJECT_TABLE->Load(dataDoc);
-	}
+	
 
 	// 테스트용
 	rapidjson::Document SaveDoc;

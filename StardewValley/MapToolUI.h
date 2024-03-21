@@ -20,14 +20,30 @@ protected:
     SpriteGo arrowLeft;
     SpriteGo arrowRight;
 
-    sf::Sprite stone_1;
-    sf::Sprite stone_2;
+    sf::VertexArray grid;
+
+    SpriteGo stone_1;
+    SpriteGo stone_2;
+    SpriteGo stone_3;
+    SpriteGo stone_4;
+
+    SpriteGo tree_1;
+    SpriteGo tree_2;
+    SpriteGo tree_3;
+    SpriteGo tree_4;
 
     SpriteGo saveButton;
     SpriteGo loadButton;
     SpriteGo eraseButton;
     SpriteGo moveScreenButton;
 
+    int currentPage;
+    std::vector<std::vector<SpriteGo>> categories = { {stone_1, stone_2, stone_3, stone_4}, { } }; //?
+
+    int col = 30;
+    int row = 30;
+    int size = 15;
+    sf::Vector2f gridStart = { 1200.f,100.f };
 
 public:
     MapToolUI(const std::string& name = "");
@@ -35,6 +51,8 @@ public:
 
     void SetBackFloor(const sf::Vector2i& count, const sf::Vector2f& size);
     void SetSpriteSheetId(const std::string& id);
+    void DrawGrid();
+    sf::Vector2f IndexToPos(int index);
 
     sf::FloatRect GetSaveButtonGB() { return saveButton.GetGlobalBounds(); }
     sf::FloatRect GetLoadButtonGB() { return loadButton.GetGlobalBounds(); }

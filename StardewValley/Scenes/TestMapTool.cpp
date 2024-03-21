@@ -194,6 +194,7 @@ void TestMapTool::DrawGrid()
     }
 }
 
+
 void TestMapTool::SetMapToolSize(int xCount, int yCount)
 {
     row = xCount;
