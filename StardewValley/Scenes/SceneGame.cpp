@@ -4,6 +4,8 @@
 #include "TileMap.h"
 #include "Player.h"
 
+#include "SpriteGo.h"
+
 SceneGame::SceneGame(SceneIds id) : Scene(id)
 {
 }
@@ -19,6 +21,7 @@ void SceneGame::Init()
 	if (Utils::LoadFromFile("data/DataTable.json", dataDoc))
 	{
 		GROUND_TABLE->Load(dataDoc);
+		OBJECT_TABLE->Load(dataDoc);
 	}
 
 	// 테스트용
@@ -33,6 +36,11 @@ void SceneGame::Init()
 
 	Player* player = new Player("Player");
 	AddGo(player);
+
+	SpriteGo* stone = new SpriteGo("Stone");
+	stone->SetTextureByName("stone1");
+	stone->SetScale(sf::Vector2f(10.f, 10.f));
+	AddGo(stone);
 
 	Scene::Init();
 }

@@ -22,6 +22,13 @@ void SpriteGo::SetTexture(const std::string& textureId)
 	sprite.setTexture(RES_MGR_TEXTURE.Get(textureId));
 }
 
+void SpriteGo::SetTextureByName(const std::string& name)
+{
+	SetTexture(OBJECT_TABLE->Get(name).textureId);
+	SetTextureRect(sf::IntRect(OBJECT_TABLE->Get(name).sheetId.x, OBJECT_TABLE->Get(name).sheetId.y,
+		OBJECT_TABLE->Get(name).sheetSize.x, OBJECT_TABLE->Get(name).sheetSize.y));
+}
+
 void SpriteGo::SetTextureRect(const sf::IntRect& rect)
 {
 	sprite.setTextureRect(rect);

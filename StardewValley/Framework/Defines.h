@@ -57,7 +57,7 @@ enum class FloorType
 
 enum class ObjectType
 {
-	NONE,
+	NONE = -1,
 	STONE,
 	TREE,
 	WEED,

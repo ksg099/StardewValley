@@ -20,7 +20,7 @@
             "Ground ID": 0,
             "Floor Type": 0,
             "Floor ID": 0,
-            "Object Type": 0,
+            "Object Type": 4,
             "Object ID": 0,
             "Placed Possible": true,
             "Player Passable": true
@@ -32,8 +32,8 @@
             "Ground ID": 0,
             "Floor Type": 0,
             "Floor ID": 0,
-            "Object Type": 0,
-            "Object ID": 0,
+            "Object Type": 4,
+            "Object ID": 1,
             "Placed Possible": true,
             "Player Passable": true
           },
@@ -44,8 +44,8 @@
             "Ground ID": 0,
             "Floor Type": 0,
             "Floor ID": 0,
-            "Object Type": 0,
-            "Object ID": 0,
+            "Object Type": 4,
+            "Object ID": 2,
             "Placed Possible": true,
             "Player Passable": true
           },
@@ -56,8 +56,8 @@
             "Ground ID": 1,
             "Floor Type": 0,
             "Floor ID": 0,
-            "Object Type": 0,
-            "Object ID": 0,
+            "Object Type": 4,
+            "Object ID": 3,
             "Placed Possible": true,
             "Player Passable": true
           },
@@ -68,8 +68,8 @@
             "Ground ID": 1,
             "Floor Type": 0,
             "Floor ID": 0,
-            "Object Type": 0,
-            "Object ID": 0,
+            "Object Type": 4,
+            "Object ID": 4,
             "Placed Possible": true,
             "Player Passable": true
           },
@@ -80,7 +80,7 @@
             "Ground ID": 1,
             "Floor Type": 0,
             "Floor ID": 0,
-            "Object Type": 0,
+            "Object Type": 5,
             "Object ID": 0,
             "Placed Possible": true,
             "Player Passable": true
@@ -92,8 +92,8 @@
             "Ground ID": 2,
             "Floor Type": 0,
             "Floor ID": 0,
-            "Object Type": 0,
-            "Object ID": 0,
+            "Object Type": 5,
+            "Object ID": 1,
             "Placed Possible": true,
             "Player Passable": true
           },
@@ -104,8 +104,8 @@
             "Ground ID": 2,
             "Floor Type": 0,
             "Floor ID": 0,
-            "Object Type": 0,
-            "Object ID": 0,
+            "Object Type": 4,
+            "Object ID": 1,
             "Placed Possible": true,
             "Player Passable": true
           },
@@ -116,8 +116,8 @@
             "Ground ID": 2,
             "Floor Type": 0,
             "Floor ID": 0,
-            "Object Type": 0,
-            "Object ID": 0,
+            "Object Type": 4,
+            "Object ID": 2,
             "Placed Possible": true,
             "Player Passable": true
           }

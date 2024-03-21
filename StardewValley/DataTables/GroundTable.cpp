@@ -17,7 +17,7 @@ const DataGround& GroundTable::Get(GroundType type, int id)
 	auto find = table.find(std::make_tuple(type, id));
 	if (find == table.end())
 	{
-		std::cout << "Ground Data에 해당 타입과 아디이가 없습니다" << std::endl;
+		std::cout << "Ground Data에 해당 Type과 ID가 없습니다" << std::endl;
 		return Undefined;
 	}
 	return find->second;
@@ -29,11 +29,11 @@ bool GroundTable::Load(rapidjson::Document& doc)
 
 	textureId = doc["Tile Info"]["Ground"]["Resource"].GetString();
 
-	auto infoArr = doc["Tile Info"]["Ground"]["Sheet Info"].GetArray();
+	auto infoArr = doc["Tile Info"]["Ground"]["Type Info"].GetArray();
 	int groundTypeCount = infoArr.Size();
 	for (int i = 0; i < groundTypeCount; ++i)
 	{
-		int groundIdCount = infoArr[i].Size();
+		int groundIdCount = infoArr[i]["Sheet Info"].GetArray().Size();
 		for (int j = 0; j < groundIdCount; ++j)
 		{
 			std::tuple<GroundType, int> key = std::make_tuple((GroundType)i, j);
@@ -47,8 +47,8 @@ bool GroundTable::Load(rapidjson::Document& doc)
 			table[key] = DataGround();
 			table[key].groundType = (GroundType)i;
 			table[key].groundId = j;
-			table[key].sheetId = { infoArr[i][j]["Sheet ID X"].GetInt(), infoArr[i][j]["Sheet ID Y"].GetInt() };
-			table[key].sheetSize = { infoArr[i][j]["Sheet ID W"].GetInt(), infoArr[i][j]["Sheet ID H"].GetInt() };
+			table[key].sheetId = { infoArr[i]["Sheet Info"][j]["Sheet ID X"].GetInt(), infoArr[i]["Sheet Info"][j]["Sheet ID Y"].GetInt() };
+			table[key].sheetSize = { infoArr[i]["Sheet Info"][j]["Sheet ID W"].GetInt(), infoArr[i]["Sheet Info"][j]["Sheet ID H"].GetInt() };
 		}
 	}
 

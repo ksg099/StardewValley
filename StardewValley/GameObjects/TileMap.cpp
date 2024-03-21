@@ -261,30 +261,21 @@ void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize
 			// (FloorType)doc["Tile Map"][0]["Tiles"][quadIndex]["Floor Type"].GetInt(); // 해당 타입을 갖는 FloorOnTile 객체 생성
 			
 			ObjectType objType = (ObjectType)doc["Tile Map"][0]["Tiles"][quadIndex]["Object Type"].GetInt();
+			int objId = doc["Tile Map"][0]["Tiles"][quadIndex]["Object ID"].GetInt();
 			ObjectOnTile* obj = nullptr;
-			switch (objType)
+			if ((int)objType != -1)
 			{
-			case ObjectType::NONE:
-				break;
-			case ObjectType::WEED:
-				obj = new ObjectOnTile("Weed Object");
-				obj->SetTexture("graphics/grass.png");
-				obj->SetTextureRect(sf::IntRect(0, 0, 15, 20));
+				obj = new ObjectOnTile("Object");
+				obj->SetObjectType(objType);
+				obj->SetObjectId(objId);
+				obj->SetTexture(OBJECT_TABLE->Get(objType, objId).textureId);
+				obj->SetTextureRect(sf::IntRect(OBJECT_TABLE->Get(objType, objId).sheetId.x, OBJECT_TABLE->Get(objType, objId).sheetId.y,
+					OBJECT_TABLE->Get(objType, objId).sheetSize.x, OBJECT_TABLE->Get(objType, objId).sheetSize.y));
 				obj->SetOrigin(Origins::MC);
-				break;
-			case ObjectType::STONE:
-				break;
-			case ObjectType::TREE:
-				break;
-			default:
-				break;
 			}
 			tile->object = obj;
-			tile->isPossiblePlace = doc["Tile Map"][0]["Tiles"][quadIndex]["Placed Possible"].GetBool();
-			tile->isPassable = doc["Tile Map"][0]["Tiles"][quadIndex]["Player Passable"].GetBool();
-			tiles.push_back(tile);
 
-			// std::tuple<GroundType, int> key = std::make_tuple(tile->groundType, tile->groundId);
+			tiles.push_back(tile);
 
 			sf::Vector2f sheetSize = (sf::Vector2f)GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetSize;
 			sf::Vector2f texCoord0[4] = {
@@ -293,6 +284,8 @@ void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize
 				{ sheetSize.x, sheetSize.y },
 				{ 0, sheetSize.y }
 			};
+
+
 
 			for (int k = 0; k < 4; k++)
 			{

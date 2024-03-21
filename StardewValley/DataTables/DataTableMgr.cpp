@@ -2,6 +2,8 @@
 #include "DataTableMgr.h"
 #include "GroundTable.h"
 
+#include "ObjectTable.h"
+
 DataTableMgr::DataTableMgr()
 {
 }
@@ -15,8 +17,13 @@ void DataTableMgr::Init()
 {
 	Release();
 
-	DataTable* table = new GroundTable(DataTable::Types::GROUND);
-	tables.insert({ DataTable::Types::GROUND, table });
+	DataTable* groundTable = new GroundTable(DataTable::Types::GROUND);
+	tables.insert({ DataTable::Types::GROUND, groundTable });
+
+	DataTable* objectTable = new ObjectTable(DataTable::Types::OBJECT);
+	tables.insert({ DataTable::Types::OBJECT, objectTable });
+
+
 }
 
 void DataTableMgr::Release()

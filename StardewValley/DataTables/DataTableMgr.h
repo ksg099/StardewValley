@@ -32,3 +32,4 @@ inline T* DataTableMgr::Get(DataTable::Types type)
 
 #define DT_MGR (DataTableMgr::Instance())
 #define GROUND_TABLE (DT_MGR.Get<GroundTable>(DataTable::Types::GROUND))
+#define OBJECT_TABLE (DT_MGR.Get<ObjectTable>(DataTable::Types::OBJECT))
