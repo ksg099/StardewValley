@@ -1,0 +1,48 @@
+{
+  "ItemData": [
+    {
+      "Box ID": 0,
+      "Index X": 0,
+      "Index Y": 0,
+      "ItemType": 0,
+      "ItemId": 1,
+      "InstanceId": 0,
+      "Count": 5,
+      "CanOverlap": false,
+      "Resource": "graphics/sprite_tool.png"
+    },
+    {
+      "Box ID": 0,
+      "Index X": 0,
+      "Index Y": 1,
+      "ItemType": 1,
+      "ItemId": 2,
+      "InstanceId": 0,
+      "Count": 5,
+      "CanOverlap": false,
+      "Resource": "graphics/sprite_seed.png"
+    },
+    {
+      "Box ID": 0,
+      "Index X": 1,
+      "Index Y": 0,
+      "ItemType": 2,
+      "ItemId": 3,
+      "InstanceId": 0,
+      "Count": 5,
+      "CanOverlap": false,
+      "Resource": "graphics/sprite_seed.png"
+    },
+    {
+      "Box ID": 0,
+      "Index X": 1,
+      "Index Y": 1,
+      "ItemType": 3,
+      "ItemId": 5,
+      "InstanceId": 0,
+      "Count": 5,
+      "CanOverlap": false,
+      "Resource": "graphics/sprite_seed.png"
+    }
+  ]
+}

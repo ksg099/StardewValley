@@ -12,7 +12,7 @@ void SceneMgr::Init()
 {
 	Release();
 
-	scenes.push_back(new TestMapTool(SceneIds::SceneDev));
+	scenes.push_back(new SceneDev(SceneIds::SceneDev));
 
 	for (auto scene : scenes)
 	{

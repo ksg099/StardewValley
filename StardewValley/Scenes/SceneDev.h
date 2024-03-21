@@ -1,10 +1,15 @@
 #pragma once
 
+class Inventory;
+
+
 class SceneDev : public Scene
 {
 protected:
 	sf::RectangleShape land;
 
+
+	Inventory* inventory;
 public:
 	SceneDev(SceneIds id);
 	virtual ~SceneDev();
