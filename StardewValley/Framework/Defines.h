@@ -41,9 +41,8 @@ struct ItemData
 
 enum class GroundType
 {
-	NONE,
-	LAND,
 	GRASS,
+	DIRT,
 	WATER,
 };
 
@@ -67,7 +66,7 @@ struct TileData
 {
 	int indexX = 0;
 	int indexY = 0;
-	GroundType groundType = GroundType::NONE;
+	GroundType groundType = GroundType::DIRT;
 	// FloorOnTile* floor = nullptr;
 	ObjectOnTile* object = nullptr;
 	bool isPossiblePlace = true;
