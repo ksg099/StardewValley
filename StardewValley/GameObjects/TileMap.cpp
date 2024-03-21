@@ -218,7 +218,7 @@ void TileMap::Draw(sf::RenderWindow& window)
 
 	for (auto tile : tiles)
 	{
-		if (tile->object != nullptr)
+		if (tile->object != nullptr && tile->object->GetActive())
 		{
 			tile->object->Draw(window);
 		}
@@ -275,6 +275,9 @@ void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize
 			}
 			tile->object = obj;
 
+			tile->isPossiblePlace = doc["Tile Map"][0]["Tiles"][quadIndex]["Placed Possible"].GetBool();
+			tile->isPassable = doc["Tile Map"][0]["Tiles"][quadIndex]["Player Passable"].GetBool();
+
 			tiles.push_back(tile);
 
 			sf::Vector2f sheetSize = (sf::Vector2f)GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetSize;
@@ -297,4 +300,12 @@ void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize
 			}
 		}
 	}
+}
+
+void TileMap::SetPlayerPassable(int x, int y, bool isPassable)
+{
+	if (x < 0 || y < 0 || x > cellCount.x - 1 || y > cellCount.y - 1)
+		return;
+
+	tiles[y * cellCount.x + x]->isPassable = isPassable;
 }
