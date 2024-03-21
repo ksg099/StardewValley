@@ -258,13 +258,22 @@ void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize
 			int quadIndex = i * cellCount.x + j; // 2차원 인덱스를 1차원 인덱스로 변환
 			sf::Vector2f quadPos(tileSize.x * j, tileSize.y * i);
 
+			for (int k = 0; k < 4; k++)
+			{
+				int vertexIndex = (quadIndex * 4) + k;
+				va[vertexIndex].position = quadPos + posOffsets[k];
+				va[vertexIndex].texCoords = texCoord0[k];
+				va[vertexIndex].texCoords.x += doc["Tile Map"][0]["Tiles"][quadIndex]["Ground Sheet ID X"].GetInt();
+				va[vertexIndex].texCoords.y += doc["Tile Map"][0]["Tiles"][quadIndex]["Ground Sheet ID Y"].GetInt();
+			}
+
 			TileData* tile = new TileData();
 			tile->indexX = j;
 			tile->indexY = i;
 			tile->groundType = (GroundType)doc["Tile Map"][0]["Tiles"][quadIndex]["Ground Type"].GetInt();
 			// (FloorType)doc["Tile Map"][0]["Tiles"][quadIndex]["Floor Type"].GetInt(); // 해당 타입을 갖는 FloorOnTile 객체 생성
 			
-			ObjectOnTileType objType = (ObjectOnTileType)doc["Tile Map"][0]["Tiles"][quadIndex]["Object Type"].GetInt();
+			ObjectOnTileType objType = (ObjectOnTileType)doc["Tile Map"][0]["Tiles"][quadIndex]["Placed Object Type"].GetInt();
 			ObjectOnTile* obj = nullptr;
 			switch (objType)
 			{
@@ -288,16 +297,6 @@ void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize
 			tile->object = obj;
 			tile->isPossiblePlace = doc["Tile Map"][0]["Tiles"][quadIndex]["Placed Possible"].GetBool();
 			tile->isPassable = doc["Tile Map"][0]["Tiles"][quadIndex]["Player Passable"].GetBool();
-
-			for (int k = 0; k < 4; k++)
-			{
-				int vertexIndex = (quadIndex * 4) + k;
-				va[vertexIndex].position = quadPos + posOffsets[k];
-				va[vertexIndex].texCoords = texCoord0[k];
-				va[vertexIndex].texCoords.x += doc["Ground Type Info"][(int)tile->groundType]["Ground Sheet ID X"].GetInt();
-				va[vertexIndex].texCoords.y += doc["Ground Type Info"][(int)tile->groundType]["Ground Sheet ID Y"].GetInt();
-			}
-
 			tiles.push_back(tile);
 		}
 	}

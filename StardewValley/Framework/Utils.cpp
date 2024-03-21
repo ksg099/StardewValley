@@ -1,7 +1,5 @@
 #include "pch.h"
 #include "Utils.h"
-#include <string>
-#include <Windows.h>
 
 float Utils::Clamp(float v, float min, float max)
 {
@@ -203,41 +201,4 @@ void Utils::EditFile(const std::string& wFilePath, rapidjson::Document& doc)
 	ofs << buffer.GetString();
 
 	ofs.close();
-}
-
-std::string Utils::ConvertToRelativePath(const std::string& absolutePathW)
-{
-	//백슬래시를 슬래시로 변환
-	std::string absolutePath = absolutePathW;
-
-	std::replace(absolutePath.begin(), absolutePath.end(), '\\', '/');
-
-	auto pos = absolutePath.find("tileset/");
-
-	if (pos != std::string::npos)
-	{
-		// 'tileset'을 포함한 경로의 나머지 부분을 반환
-		return absolutePath.substr(pos);
-	}
-
-	return absolutePathW; // 'tileset'이 없는 경우 원본 경로 반환
-}
-
-std::wstring Utils::OpenSaveFileDialog()
-{
-	OPENFILENAME ofn; // OPENFILENAME 구조체
-	wchar_t szFileName[MAX_PATH] = L""; // 파일 이름을 저장할 배열
-	ZeroMemory(&ofn, sizeof(ofn));
-	ofn.lStructSize = sizeof(ofn);
-	ofn.hwndOwner = NULL;
-	ofn.lpstrFilter = L"JSON Files (*.json)\0*.json\0All Files (*.*)\0*.*\0";
-	ofn.lpstrFile = szFileName;
-	ofn.nMaxFile = MAX_PATH;
-	ofn.Flags = OFN_EXPLORER | OFN_PATHMUSTEXIST | OFN_OVERWRITEPROMPT;
-	ofn.lpstrDefExt = L"json";
-
-	if (GetSaveFileName(&ofn)) // 파일 저장 대화 상자를 표시
-		return ofn.lpstrFile; // 사용자가 지정한 파일 경로를 반환
-
-	return L""; // 사용자가 취소하면 빈 문자열을 반환
 }
