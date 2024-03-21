@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "TileMap.h"
+#include "ObjectOnTile.h"
 
 TileMap::TileMap(const std::string& name) : GameObject(name)
 {
@@ -17,6 +18,22 @@ sf::FloatRect TileMap::GetGlobalBounds()
 {
 	sf::FloatRect bounds = va.getBounds();
 	return transform.transformRect(bounds);
+}
+
+const sf::Vector2f& TileMap::GetGridPosition(int x, int y) const
+{
+	x = Utils::Clamp(x, 0, cellCount.x - 1);
+	y = Utils::Clamp(y, 0, cellCount.y - 1);
+
+	return transform.transformPoint(va[(y * cellCount.x + x) * 4].position) + cellSize / 2.f;
+}
+
+const TileData* TileMap::GetTileData(int x, int y) const
+{
+	x = Utils::Clamp(x, 0, cellCount.x - 1);
+	y = Utils::Clamp(y, 0, cellCount.y - 1);
+
+	return tiles[y * cellCount.x + x];
 }
 
 void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
@@ -81,6 +98,14 @@ void TileMap::UpdateTransform()
 	transform.scale(scaleX, scaleY, position.x, position.y);
 	transform.rotate(rotation, position.x, position.y);
 	transform.translate(position - origin);
+
+	for (auto tile : tiles)
+	{
+		if (tile->object != nullptr)
+		{
+			tile->object->SetPosition(GetGridPosition(tile->indexX, tile->indexY));
+		}
+	}
 }
 
 void TileMap::SetOrigin(Origins preset)
@@ -163,9 +188,9 @@ void TileMap::SetFlipY(bool flip)
 void TileMap::Init()
 {
 	GameObject::Init();
-	SetSpriteSheetId("graphics/background_sheet.png");
-	Set({ 10, 10 }, { 50.f, 50.f });
 
+	// SetSpriteSheetId("graphics/background_sheet.png");
+	// Set({ 10, 10 }, { 50.f, 50.f });
 }
 
 void TileMap::Release()
@@ -190,4 +215,86 @@ void TileMap::Draw(sf::RenderWindow& window)
 	state.transform = transform;
 
 	window.draw(va, state);
+
+	for (auto tile : tiles)
+	{
+		if (tile->object != nullptr)
+		{
+			tile->object->Draw(window);
+		}
+	}
+}
+
+void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize)
+{
+	cellCount.x = doc["Tile Map"][0]["Tile Count X"].GetInt();
+	cellCount.y = doc["Tile Map"][0]["Tile Count Y"].GetInt();
+	SetSpriteSheetId(GROUND_TABLE->GetTextureId());
+
+	cellSize = tileSize;
+
+	va.clear();
+	va.setPrimitiveType(sf::Quads);
+	va.resize(cellCount.x * cellCount.y * 4);
+
+	sf::Vector2f posOffsets[4] = {
+		{ 0, 0 },
+		{ tileSize.x, 0 },
+		{ tileSize.x, tileSize.y },
+		{ 0, tileSize.y }
+	};
+
+	for (int i = 0; i < cellCount.y; i++)
+	{
+		for (int j = 0; j < cellCount.x; j++)
+		{
+			int quadIndex = i * cellCount.x + j; // 2차원 인덱스를 1차원 인덱스로 변환
+			sf::Vector2f quadPos(tileSize.x * j, tileSize.y * i);
+
+
+
+			TileData* tile = new TileData();
+			tile->indexX = j;
+			tile->indexY = i;
+			tile->groundType = (GroundType)doc["Tile Map"][0]["Tiles"][quadIndex]["Ground Type"].GetInt();
+			tile->groundId = doc["Tile Map"][0]["Tiles"][quadIndex]["Ground ID"].GetInt();
+			// (FloorType)doc["Tile Map"][0]["Tiles"][quadIndex]["Floor Type"].GetInt(); // 해당 타입을 갖는 FloorOnTile 객체 생성
+			
+			ObjectType objType = (ObjectType)doc["Tile Map"][0]["Tiles"][quadIndex]["Object Type"].GetInt();
+			int objId = doc["Tile Map"][0]["Tiles"][quadIndex]["Object ID"].GetInt();
+			ObjectOnTile* obj = nullptr;
+			if ((int)objType != -1)
+			{
+				obj = new ObjectOnTile("Object");
+				obj->SetObjectType(objType);
+				obj->SetObjectId(objId);
+				obj->SetTexture(OBJECT_TABLE->Get(objType, objId).textureId);
+				obj->SetTextureRect(sf::IntRect(OBJECT_TABLE->Get(objType, objId).sheetId.x, OBJECT_TABLE->Get(objType, objId).sheetId.y,
+					OBJECT_TABLE->Get(objType, objId).sheetSize.x, OBJECT_TABLE->Get(objType, objId).sheetSize.y));
+				obj->SetOrigin(Origins::MC);
+			}
+			tile->object = obj;
+
+			tiles.push_back(tile);
+
+			sf::Vector2f sheetSize = (sf::Vector2f)GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetSize;
+			sf::Vector2f texCoord0[4] = {
+				{ 0, 0 },
+				{ sheetSize.x, 0 },
+				{ sheetSize.x, sheetSize.y },
+				{ 0, sheetSize.y }
+			};
+
+
+
+			for (int k = 0; k < 4; k++)
+			{
+				int vertexIndex = (quadIndex * 4) + k;
+				va[vertexIndex].position = quadPos + posOffsets[k];
+				va[vertexIndex].texCoords = texCoord0[k];
+				va[vertexIndex].texCoords.x += GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetId.x;
+				va[vertexIndex].texCoords.y += GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetId.y;
+			}
+		}
+	}
 }

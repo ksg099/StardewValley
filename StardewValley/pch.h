@@ -13,6 +13,7 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <tuple>
 #include <unordered_map>
 #include <queue>
 #include <string>
@@ -44,4 +45,8 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "Animator.h"
+
+// data
+#include "GroundTable.h"
+#include "ObjectTable.h"
 

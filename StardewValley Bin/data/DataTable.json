@@ -1,387 +1,396 @@
 {
   "Tile Info":
   {
-    "Object":
+    "Ground":
     {
-      "Sheet Info":
+      "Resource": "graphics/spring_outdoorsTileSheet.ko-KR.png",
+      "Type Info":
       [
-        [
-          {
-            "Resoruce": "graphics/object.png",
-            "Sheet ID X": 0,
-            "Sheet ID Y": 0,
-            "Sheet ID W": 15,
-            "Sheet ID H": 15
-          },
-          {
-            "Resoruce": "graphics/object.png",
-            "Sheet ID X": 16,
-            "Sheet ID Y": 0,
-            "Sheet ID W": 15,
-            "Sheet ID H": 15
-          },
-          {
-            "Resoruce": "graphics/object.png",
-            "Sheet ID X": 32,
-            "Sheet ID Y": 0,
-            "Sheet ID W": 15,
-            "Sheet ID H": 15
-          },
-          {
-            "Resoruce": "graphics/object.png",
-            "Sheet ID X": 49,
-            "Sheet ID Y": 0,
-            "Sheet ID W": 15,
-            "Sheet ID H": 15
-          }
-        ],
-        [
-          {
-            "Resoruce": "graphics/spring_outdoorsTileSheet.ko-KR.png",
-            "Sheet ID X": 0,
-            "Sheet ID Y": 0,
-            "Sheet ID W": 47,
-            "Sheet ID H": 95
-          },
-          {
-            "Resoruce": "graphics/spring_outdoorsTileSheet.ko-KR.png",
-            "Sheet ID X": 48,
-            "Sheet ID Y": 0,
-            "Sheet ID W": 47,
-            "Sheet ID H": 95
-          },
-          {
-            "Resoruce": "graphics/spring_outdoorsTileSheet.ko-KR.png",
-            "Sheet ID X": 96,
-            "Sheet ID Y": 0,
-            "Sheet ID W": 61,
-            "Sheet ID H": 111
-          },
-          {
-            "Resoruce": "graphics/spring_outdoorsTileSheet.ko-KR.png",
-            "Sheet ID X": 160,
-            "Sheet ID Y": 0,
-            "Sheet ID W": 47,
-            "Sheet ID H": 95
-          }
-        ],
-        [
-          {
-            "Resoruce": "graphics/bushes.png",
-            "Sheet ID X": 0,
-            "Sheet ID Y": 10,
-            "Sheet ID W": 29,
-            "Sheet ID H": 33
-          },
-          {
-            "Resoruce": "graphics/bushes.png",
-            "Sheet ID X": 33,
-            "Sheet ID Y": 10,
-            "Sheet ID W": 29,
-            "Sheet ID H": 33
-          }
-        ],
-        [
-          {
-            "Resoruce": "graphics/crops.png",
-            "Sheet ID X": 4,
-            "Sheet ID Y": 51,
-            "Sheet ID W": 8,
-            "Sheet ID H": 9
-          },
-          {
-            "Resoruce": "graphics/crops.png",
-            "Sheet ID X": 20,
-            "Sheet ID Y": 54,
-            "Sheet ID W": 8,
-            "Sheet ID H": 5
-          },
-          {
-            "Resoruce": "graphics/crops.png",
-            "Sheet ID X": 37,
-            "Sheet ID Y": 55,
-            "Sheet ID W": 5,
-            "Sheet ID H": 5
-          },
-          {
-            "Resoruce": "graphics/crops.png",
-            "Sheet ID X": 52,
-            "Sheet ID Y": 51,
-            "Sheet ID W": 8,
-            "Sheet ID H": 7
-          },
-          {
-            "Resoruce": "graphics/crops.png",
-            "Sheet ID X": 65,
-            "Sheet ID Y": 50,
-            "Sheet ID W": 13,
-            "Sheet ID H": 10
-          },
-          {
-            "Resoruce": "graphics/crops.png",
-            "Sheet ID X": 80,
-            "Sheet ID Y": 48,
-            "Sheet ID W": 14,
-            "Sheet ID H": 12
-          },
-          {
-            "Resoruce": "graphics/crops.png",
-            "Sheet ID X": 96,
-            "Sheet ID Y": 48,
-            "Sheet ID W": 15,
-            "Sheet ID H": 14
-          }
-        ],
-        [
-         {
-           "Resoruce": "graphics/furniture.png",
-           "Sheet ID X": 0,
-           "Sheet ID Y": 0,
-           "Sheet ID W": 15,
-           "Sheet ID H": 31
-         },
-         {
-          "Resoruce": "graphics/furniture.png",
-          "Sheet ID X": 16,
-          "Sheet ID Y": 0,
-          "Sheet ID W": 15,
-          "Sheet ID H": 31
-         },
-         {
-          "Resoruce": "graphics/furniture.png",
-          "Sheet ID X": 32,
-          "Sheet ID Y": 0,
-          "Sheet ID W": 15,
-          "Sheet ID H": 31
-         },
-         {
-          "Resoruce": "graphics/furniture.png",
-          "Sheet ID X": 0,
-          "Sheet ID Y": 569,
-          "Sheet ID W": 31,
-          "Sheet ID H": 38
-         },
-         {
-          "Resoruce": "graphics/furniture.png",
-          "Sheet ID X": 0,
-          "Sheet ID Y": 1032,
-          "Sheet ID W": 31,
-          "Sheet ID H": 54
-         }
-        ],
-        [
-         {
-            "Resoruce": "graphics/Craftables.png",
-            "Sheet ID X": 32,
-            "Sheet ID Y": 519,
-            "Sheet ID W": 15,
-            "Sheet ID H": 24
-         },
-         {
-            "Resoruce": "graphics/Craftables.png",
-            "Sheet ID X": 0,
-            "Sheet ID Y": 1001,
-            "Sheet ID W": 15,
-            "Sheet ID H": 22
+        {
+        "Type Name": "Water",
+        "Sheet Info":
+          [
+            {
+              "Tile Name": "Water1",
+              "Tile ID": 0,
+              "Sheet ID X": 128,
+              "Sheet ID Y": 208,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+            },
+            {
+              "Tile Name": "Water2",
+              "Tile ID": 1,
+              "Sheet ID X": 144,
+              "Sheet ID Y": 208,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+            },
+            {
+              "Tile Name": "Water3",
+              "Tile ID": 2,
+              "Sheet ID X": 160,
+              "Sheet ID Y": 208,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+            }
+          ]
+        },
+        {
+          "Type Name": "Dirt",
+          "Sheet Info":
+            [
+              {
+                "Tile Name": "dirt1",
+                "Tile ID": 0,
+                "Sheet ID X": 48,
+                "Sheet ID Y": 96,
+                "Sheet ID W": 16,
+                "Sheet ID H": 16
+              },
+              {
+                "Tile Name": "dirt2",
+                "Tile ID": 1,
+                "Sheet ID X": 96,
+                "Sheet ID Y": 128,
+                "Sheet ID W": 16,
+                "Sheet ID H": 16
+              },
+              {
+                "Tile Name": "dirt3",
+                "Tile ID": 2,
+                "Sheet ID X": 96,
+                "Sheet ID Y": 144,
+                "Sheet ID W": 16,
+                "Sheet ID H": 16
+              }
+            ]
+        },
+        {
+          "Type Name": "Grass",
+          "Sheet Info":
+          [
+            {
+              "Tile Name": "grass1",
+              "Tile ID": 0,
+              "Sheet ID X": 0,
+              "Sheet ID Y": 96,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+            },
+            {
+              "Tile Name": "grass2",
+              "Tile ID": 1,
+              "Sheet ID X": 16,
+              "Sheet ID Y": 96,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+            },
+            {
+              "Tile Name": "grass3",
+              "Tile ID": 2,
+              "Sheet ID X": 80,
+              "Sheet ID Y": 192,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+            }
+          ]
         }
-        ],
-        [
-         {
-            "Resoruce": "graphics/houses.png",
-            "Sheet ID X": 14,
-            "Sheet ID Y": 288,
-            "Sheet ID W": 145,
-            "Sheet ID H": 143
-         },
-         {
-            "Resoruce": "graphics/Coop.png",
-            "Sheet ID X": 0,
-            "Sheet ID Y": 0,
-            "Sheet ID W": 95,
-            "Sheet ID H": 127
-         }     
-        ]
       ]
     },
     "Floor":
     [
-      [
-        {
-            "Resoruce": "graphics/hoeDirt.png",
-            "Sheet ID X": 0,
-            "Sheet ID Y": 0,
-            "Sheet ID W": 14,
-            "Sheet ID H": 15
-        },
-        {
-            "Resoruce": "graphics/hoeDirt.png",
-            "Sheet ID X": 0,
-            "Sheet ID Y": 16,
-            "Sheet ID W": 14,
-            "Sheet ID H": 15
-        },
-        {
-            "Resoruce": "graphics/hoeDirt.png",
-            "Sheet ID X": 0,
-            "Sheet ID Y": 32,
-            "Sheet ID W": 15,
-            "Sheet ID H": 15
-        },
-        {
-            "Resoruce": "graphics/hoeDirt.png",
-            "Sheet ID X": 0,
-            "Sheet ID Y": 58,
-            "Sheet ID W": 15,
-            "Sheet ID H": 15
-        },
-        {
-            "Resoruce": "graphics/hoeDirt.png",
-            "Sheet ID X": 0,
-            "Sheet ID Y": 73,
-            "Sheet ID W": 15,
-            "Sheet ID H": 15
-        },
-        {
-            "Resoruce": "graphics/hoeDirt.png",
-            "Sheet ID X": 16,
-            "Sheet ID Y": 0,
-            "Sheet ID W": 15,
-            "Sheet ID H": 15
-        },
-        {
-            "Resoruce": "graphics/hoeDirt.png",
-            "Sheet ID X": 16,
-            "Sheet ID Y": 16,
-            "Sheet ID W": 15,
-            "Sheet ID H": 15
-        },
-        {
-            "Resoruce": "graphics/hoeDirt.png",
-            "Sheet ID X": 16,
-            "Sheet ID Y": 32,
-            "Sheet ID W": 15,
-            "Sheet ID H": 15
-        },
-        {
-            "Resoruce": "graphics/hoeDirt.png",
-            "Sheet ID X": 32,
-            "Sheet ID Y": 0,
-            "Sheet ID W": 15,
-            "Sheet ID H": 15
-        },
-        {
-            "Resoruce": "graphics/hoeDirt.png",
-            "Sheet ID X": 32,
-            "Sheet ID Y": 16,
-            "Sheet ID W": 15,
-            "Sheet ID H": 15
-        },
-        {
-            "Resoruce": "graphics/hoeDirt.png",
-            "Sheet ID X": 32,
-            "Sheet ID Y": 32,
-            "Sheet ID W": 15,
-            "Sheet ID H": 15
-        },
-        {
-            "Resoruce": "graphics/hoeDirt.png",
-            "Sheet ID X": 48,
-            "Sheet ID Y": 0,
-            "Sheet ID W": 15,
-            "Sheet ID H": 15
-        },
-        {
-            "Resoruce": "graphics/hoeDirt.png",
-            "Sheet ID X": 48,
-            "Sheet ID Y": 16,
-            "Sheet ID W": 15,
-            "Sheet ID H": 15
-        },
-        {
-            "Resoruce": "graphics/hoeDirt.png",
-            "Sheet ID X": 48,
-            "Sheet ID Y": 32,
-            "Sheet ID W": 15,
-            "Sheet ID H": 15
-        },
-        {
-            "Resoruce": "graphics/hoeDirt.png",
-            "Sheet ID X": 16,
-            "Sheet ID Y": 48,
-            "Sheet ID W": 15,
-            "Sheet ID H": 15
-        },
-        {
-            "Resoruce": "graphics/hoeDirt.png",
-            "Sheet ID X": 32,
-            "Sheet ID Y": 48,
-            "Sheet ID W": 15,
-            "Sheet ID H": 15
-        },
-        {
-            "Resoruce": "graphics/hoeDirt.png",
-            "Sheet ID X": 48,
-            "Sheet ID Y": 48,
-            "Sheet ID W": 15,
-            "Sheet ID H": 15
-        }
-      ],
+      [],
       [],
       []
     ],
-    "Ground":
+    "Object":
     {
-      "Resoruce": "graphics/spring_outdoorsTileSheet.ko-KR.png",
-      "Sheet Info":
+      "Type Info":
       [
-        [
-          {
-            "Sheet ID X": 48,
-            "Sheet ID Y": 96,
-            "Sheet ID W": 48,
-            "Sheet ID H": 96
-          },
-          {
-            "Sheet ID X": 48,
-            "Sheet ID Y": 96,
-            "Sheet ID W": 48,
-            "Sheet ID H": 96
-          },
-          {
-            "Sheet ID X": 48,
-            "Sheet ID Y": 96,
-            "Sheet ID W": 48,
-            "Sheet ID H": 96
+        {
+          "Type Name": "Stone",
+          "Sheet Info":
+          [
+            {
+              "Object Name": "stone1",
+              "Object ID": 0,
+              "Resoruce": "graphics/object.png",
+              "Sheet ID X": 0,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 15,
+              "Sheet ID H": 15
+            },
+            {
+              "Object Name": "stone2",
+              "Object ID": 1,
+              "Resoruce": "graphics/object.png",
+              "Sheet ID X": 16,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 15,
+              "Sheet ID H": 15
+            },
+            {
+              "Object Name": "stone3",
+              "Object ID": 2,
+              "Resoruce": "graphics/object.png",
+              "Sheet ID X": 32,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 15,
+              "Sheet ID H": 15
+            },
+            {
+              "Object Name": "stone4",
+              "Object ID": 3,
+              "Resoruce": "graphics/object.png",
+              "Sheet ID X": 49,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 15,
+              "Sheet ID H": 15
+            }
+          ]
+        },
+        {
+          "Type Name": "Tree",
+          "Sheet Info":
+          [
+            {
+              "Object Name": "tree1",
+              "Object ID": 0,
+              "Resoruce": "graphics/spring_outdoorsTileSheet.ko-KR.png",
+              "Sheet ID X": 0,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 47,
+              "Sheet ID H": 95
+            },
+            {
+              "Object Name": "tree2",
+              "Object ID": 1,
+              "Resoruce": "graphics/spring_outdoorsTileSheet.ko-KR.png",
+              "Sheet ID X": 48,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 47,
+              "Sheet ID H": 95
+            },
+            {
+              "Object Name": "tree3",
+              "Object ID": 2,
+              "Resoruce": "graphics/spring_outdoorsTileSheet.ko-KR.png",
+              "Sheet ID X": 96,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 61,
+              "Sheet ID H": 111
+            },
+            {
+              "Object Name": "tree4",
+              "Object ID": 3,
+              "Resoruce": "graphics/spring_outdoorsTileSheet.ko-KR.png",
+              "Sheet ID X": 160,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 47,
+              "Sheet ID H": 95
+            }
+          ]
+        },
+        {
+          "Type Name": "Weed",
+          "Sheet Info":
+          [
+            {
+              "Object Name": "Weed1",
+              "Object ID": 0,
+              "Resoruce": "graphics/bushes.png",
+              "Sheet ID X": 0,
+              "Sheet ID Y": 10,
+              "Sheet ID W": 29,
+              "Sheet ID H": 33
+            },
+            {
+              "Object Name": "Weed2",
+              "Object ID": 1,
+              "Resoruce": "graphics/bushes.png",
+              "Sheet ID X": 33,
+              "Sheet ID Y": 10,
+              "Sheet ID W": 29,
+              "Sheet ID H": 33
+            }
+          ]
+        },
+        {
+          "Type Name": "Crops",
+          "Sheet Info":
+          [
+            {
+              "Object Name": "crops1",
+              "Object ID": 0,
+              "Resoruce": "graphics/crops.png",
+              "Sheet ID X": 4,
+              "Sheet ID Y": 51,
+              "Sheet ID W": 8,
+              "Sheet ID H": 9
+            },
+            {
+              "Object Name": "crops2",
+              "Object ID": 1,
+              "Resoruce": "graphics/crops.png",
+              "Sheet ID X": 20,
+              "Sheet ID Y": 54,
+              "Sheet ID W": 8,
+              "Sheet ID H": 5
+            },
+            {
+              "Object Name": "crops3",
+              "Object ID": 2,
+              "Resoruce": "graphics/crops.png",
+              "Sheet ID X": 37,
+              "Sheet ID Y": 55,
+              "Sheet ID W": 5,
+              "Sheet ID H": 5
+            },
+            {
+              "Object Name": "crops4",
+              "Object ID": 3,
+              "Resoruce": "graphics/crops.png",
+              "Sheet ID X": 52,
+              "Sheet ID Y": 51,
+              "Sheet ID W": 8,
+              "Sheet ID H": 7
+            },
+            {
+              "Object Name": "crops5",
+              "Object ID": 4,
+              "Resoruce": "graphics/crops.png",
+              "Sheet ID X": 65,
+              "Sheet ID Y": 50,
+              "Sheet ID W": 13,
+              "Sheet ID H": 10
+            },
+            {
+              "Object Name": "crop6",
+              "Object ID": 5,
+              "Resoruce": "graphics/crops.png",
+              "Sheet ID X": 80,
+              "Sheet ID Y": 48,
+              "Sheet ID W": 14,
+              "Sheet ID H": 12
+            },
+            {
+              "Object Name": "crops7",
+              "Object ID": 6,
+              "Resoruce": "graphics/crops.png",
+              "Sheet ID X": 96,
+              "Sheet ID Y": 48,
+              "Sheet ID W": 15,
+              "Sheet ID H": 14
+            }
+          ]
+        },
+        {
+          "Type Name": "Furniture",
+          "Sheet Info":
+          [
+            {
+              "Object Name": "furniture1",
+              "Object ID": 0,
+              "Resoruce": "graphics/furniture.png",
+              "Sheet ID X": 0,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 15,
+              "Sheet ID H": 31
+            },
+            {
+              "Object Name": "furniture2",
+              "Object ID": 1,
+              "Resoruce": "graphics/furniture.png",
+              "Sheet ID X": 16,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 15,
+              "Sheet ID H": 31
+            },
+            {
+              "Object Name": "furniture3",
+              "Object ID": 2,
+              "Resoruce": "graphics/furniture.png",
+              "Sheet ID X": 32,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 15,
+              "Sheet ID H": 31
+            },
+            {
+              "Object Name": "furniture4",
+              "Object ID": 3,
+              "Resoruce": "graphics/furniture.png",
+              "Sheet ID X": 0,
+              "Sheet ID Y": 569,
+              "Sheet ID W": 31,
+              "Sheet ID H": 38
+            },
+            {
+              "Object Name": "furniture5",
+              "Object ID": 4,
+              "Resoruce": "graphics/furniture.png",
+              "Sheet ID X": 0,
+              "Sheet ID Y": 1032,
+              "Sheet ID W": 31,
+              "Sheet ID H": 54
+            }
+          ]
+        },
+        {
+          "Type Name": "Box",
+          "Sheet Info":
+          [
+            {
+              "Object Name": "box1",
+              "Object ID": 0,
+              "Resoruce": "graphics/Craftables.png",
+              "Sheet ID X": 32,
+              "Sheet ID Y": 519,
+              "Sheet ID W": 15,
+              "Sheet ID H": 24
+           },
+           {
+              "Object Name": "box2",
+              "Object ID": 1,
+              "Resoruce": "graphics/Craftables.png",
+              "Sheet ID X": 0,
+              "Sheet ID Y": 1001,
+              "Sheet ID W": 15,
+              "Sheet ID H": 22
           }
-        ],
-        [
-          {
-            "Sheet ID X": 48,
-            "Sheet ID Y": 96,
-            "Sheet ID W": 48,
-            "Sheet ID H": 96
-          },
-          {
-            "Sheet ID X": 48,
-            "Sheet ID Y": 96,
-            "Sheet ID W": 48,
-            "Sheet ID H": 96
-          }
-        ],
-        [
-          {
-            "Sheet ID X": 48,
-            "Sheet ID Y": 96,
-            "Sheet ID W": 48,
-            "Sheet ID H": 96
-          },
-          {
-            "Sheet ID X": 48,
-            "Sheet ID Y": 96,
-            "Sheet ID W": 48,
-            "Sheet ID H": 96
-          }
-        ]
+          ]
+        },
+        {
+          "Type Name": "Wall",
+          "Sheet Info":
+          [
+
+          ]
+        },
+        {
+          "Type Name": "Building",
+          "Sheet Info":
+          [
+            {
+              "Object Name": "building1",
+              "Object ID": 0,
+              "Resoruce": "graphics/houses.png",
+              "Sheet ID X": 14,
+              "Sheet ID Y": 288,
+              "Sheet ID W": 145,
+              "Sheet ID H": 143
+           },
+           {
+              "Object Name": "building2",
+              "Object ID": 1,
+              "Resoruce": "graphics/Coop.png",
+              "Sheet ID X": 0,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 95,
+              "Sheet ID H": 127
+           }  
+          ]
+        }
       ]
     }
   }

@@ -36,7 +36,7 @@
     <ClCompile Include="GameObjects\GameObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\SceneDev.cpp">
+    <ClCompile Include="Scenes\SceneGame.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="GameObjects\SpriteGo.cpp">
@@ -72,10 +72,10 @@
     <ClCompile Include="Scenes\TestMapTool.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="MapInfo.cpp">
+    <ClCompile Include="GameObjects\Player.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="MapToolUI.cpp">
+    <ClCompile Include="GameObjects\ObjectOnTile.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,7 +107,7 @@
     <ClInclude Include="GameObjects\GameObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\SceneDev.h">
+    <ClInclude Include="Scenes\SceneGame.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="GameObjects\SpriteGo.h">
@@ -146,10 +146,10 @@
     <ClInclude Include="Scenes\TestMapTool.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="MapInfo.h">
+    <ClInclude Include="GameObjects\Player.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="MapToolUI.h">
+    <ClInclude Include="GameObjects\ObjectOnTile.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

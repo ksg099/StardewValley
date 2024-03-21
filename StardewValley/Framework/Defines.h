@@ -1,5 +1,7 @@
 #pragma once
 
+class ObjectOnTile;
+
 enum class Origins
 {
 	// T M B
@@ -64,4 +66,26 @@ enum class ObjectType
 	BOX,
 	WALL,
 	BUILDING,
+};
+
+struct TileData
+{
+	int indexX = 0;
+	int indexY = 0;
+	GroundType groundType = GroundType::DIRT;
+	int groundId = 0;
+	// FloorOnTile* floor = nullptr;
+	// int floorId = 0;
+	ObjectOnTile* object = nullptr;
+	bool isPossiblePlace = true;
+	bool isPassable = true;
+};
+
+struct hash_tuple {
+	template <class T1, class T2>
+	std::size_t operator () (const std::tuple<T1, T2>& tuple) const {
+		auto hash1 = std::hash<T1>{}(std::get<0>(tuple));
+		auto hash2 = std::hash<T2>{}(std::get<1>(tuple));
+		return hash1 ^ hash2;
+	}
 };
