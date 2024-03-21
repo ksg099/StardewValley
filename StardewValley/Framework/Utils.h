@@ -41,4 +41,9 @@ public:
 	// json파일 입출력
 	static bool LoadFromFile(const std::string& rFilePath, rapidjson::Document& doc);
 	static void EditFile(const std::string& wFilePath, rapidjson::Document& doc);
+
+	// 절대경로 to 상대경로
+	static std::string ConvertToRelativePath(const std::string& absolutePath);
+	// Windows.h
+	static std::wstring OpenSaveFileDialog();
 };

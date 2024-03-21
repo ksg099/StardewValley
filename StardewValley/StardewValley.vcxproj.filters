@@ -72,10 +72,17 @@
     <ClCompile Include="Scenes\TestMapTool.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="GameObjects\Player.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="GameObjects\ObjectOnTile.cpp">
+=======
+    <ClCompile Include="MapInfo.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MapToolUI.cpp">
+>>>>>>> origin/MapTool
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -146,10 +153,17 @@
     <ClInclude Include="Scenes\TestMapTool.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="GameObjects\Player.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="GameObjects\ObjectOnTile.h">
+=======
+    <ClInclude Include="MapInfo.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MapToolUI.h">
+>>>>>>> origin/MapTool
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,7 +4,40 @@
       "HP": 50,
       "Item": 50
     },
+    "Ground Type Info":
+    [
+      {
+        "Ground Sheet ID X": 0,
+        "Ground Sheet ID Y": 96
+      },
+      {
+        "Ground Sheet ID X": 48,
+        "Ground Sheet ID Y": 96
+      },
+      {
+        "Ground Sheet ID X": 128,
+        "Ground Sheet ID Y": 208
+      }
+    ],
+    "Floor Info":
+    {
 
+    },
+    "Object Info":
+    [
+      [
+        {
+        "Resource": "graphics/grass.png",
+        "Sheet ID X": 0,
+        "Sheet ID Y": 0,
+        "Sheet Size X": 15,
+        "Sheet Size Y": 20
+        }
+      ],
+      [
+
+      ]
+    ],
     "Tile Map":
     [
       {
@@ -18,10 +51,11 @@
             "Index X": 0,
             "Index Y": 0,
             "Ground Type": 0,
-            "Ground Sheet ID X": 0,
-            "Ground Sheet ID Y": 96,
+            "Ground ID": 0,
             "Floor Type": 0,
-            "Placed Object Type": 0,
+            "Floor ID": 0,
+            "Object Type": 0,
+            "Object ID": 0,
             "Placed Possible": true,
             "Player Passable": true
           },
@@ -29,10 +63,11 @@
             "Index X": 1,
             "Index Y": 0,
             "Ground Type": 1,
-            "Ground Sheet ID X": 48,
-            "Ground Sheet ID Y": 96,
+            "Ground ID": 0,
             "Floor Type": 0,
-            "Placed Object Type": 1,
+            "Floor ID": 0,
+            "Object Type": 0,
+            "Object ID": 0,
             "Placed Possible": true,
             "Player Passable": true
           },
@@ -40,10 +75,11 @@
             "Index X": 2,
             "Index Y": 0,
             "Ground Type": 2,
-            "Ground Sheet ID X": 128,
-            "Ground Sheet ID Y": 208,
+            "Ground ID": 0,
             "Floor Type": 0,
-            "Placed Object Type": 1,
+            "Floor ID": 0,
+            "Object Type": 0,
+            "Object ID": 0,
             "Placed Possible": true,
             "Player Passable": false
           },
@@ -51,10 +87,11 @@
             "Index X": 0,
             "Index Y": 1,
             "Ground Type": 0,
-            "Ground Sheet ID X": 0,
-            "Ground Sheet ID Y": 96,
+            "Ground ID": 0,
             "Floor Type": 0,
-            "Placed Object Type": 0,
+            "Floor ID": 0,
+            "Object Type": 0,
+            "Object ID": 0,
             "Placed Possible": true,
             "Player Passable": true
           },
@@ -62,10 +99,11 @@
             "Index X": 1,
             "Index Y": 1,
             "Ground Type": 1,
-            "Ground Sheet ID X": 48,
-            "Ground Sheet ID Y": 96,
+            "Ground ID": 0,
             "Floor Type": 0,
-            "Placed Object Type": 0,
+            "Floor ID": 0,
+            "Object Type": 0,
+            "Object ID": 0,
             "Placed Possible": true,
             "Player Passable": true
           },
@@ -73,10 +111,11 @@
             "Index X": 2,
             "Index Y": 1,
             "Ground Type": 2,
-            "Ground Sheet ID X": 128,
-            "Ground Sheet ID Y": 208,
+            "Ground ID": 0,
             "Floor Type": 0,
-            "Placed Object Type": 0,
+            "Floor ID": 0,
+            "Object Type": 0,
+            "Object ID": 0,
             "Placed Possible": true,
             "Player Passable": true
           },
@@ -84,10 +123,11 @@
             "Index X": 0,
             "Index Y": 2,
             "Ground Type": 0,
-            "Ground Sheet ID X": 0,
-            "Ground Sheet ID Y": 96,
+            "Ground ID": 0,
             "Floor Type": 0,
-            "Placed Object Type": 0,
+            "Floor ID": 0,
+            "Object Type": 0,
+            "Object ID": 0,
             "Placed Possible": true,
             "Player Passable": true
           },
@@ -95,10 +135,11 @@
             "Index X": 1,
             "Index Y": 2,
             "Ground Type": 1,
-            "Ground Sheet ID X": 48,
-            "Ground Sheet ID Y": 96,
+            "Ground ID": 0,
             "Floor Type": 0,
-            "Placed Object Type": 0,
+            "Floor ID": 0,
+            "Object Type": 0,
+            "Object ID": 0,
             "Placed Possible": true,
             "Player Passable": true
           },
@@ -106,10 +147,11 @@
             "Index X": 2,
             "Index Y": 2,
             "Ground Type": 2,
-            "Ground Sheet ID X": 128,
-            "Ground Sheet ID Y": 208,
+            "Ground ID": 0,
             "Floor Type": 0,
-            "Placed Object Type": 0,
+            "Floor ID": 0,
+            "Object Type": 0,
+            "Object ID": 0,
             "Placed Possible": true,
             "Player Passable": true
           }
