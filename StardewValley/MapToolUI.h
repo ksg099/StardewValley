@@ -17,10 +17,6 @@ struct MapSheet
 class MapToolUI : public GameObject
 {
 protected:
-
-    float timer = 0.f;
-    float duration = 1.f;
-
     sf::RectangleShape outLine;
     sf::RectangleShape centerLine;
 
@@ -38,20 +34,6 @@ protected:
 
     sf::VertexArray grid;
 
- /*   SpriteGo stone_1;
-    SpriteGo stone_2;
-    SpriteGo stone_3;
-    SpriteGo stone_4;
-
-    SpriteGo tree_1;
-    SpriteGo tree_2;
-    SpriteGo tree_3;
-    SpriteGo tree_4;
-
-    SpriteGo water_1;
-    SpriteGo water_2;
-    SpriteGo water_3;
-    */
     SpriteGo saveButton;
     SpriteGo loadButton;
     SpriteGo eraseButton;
@@ -78,8 +60,6 @@ public:
     sf::FloatRect GetLoadButtonGB() { return loadButton.GetGlobalBounds(); }
     sf::FloatRect GetEraseButtonGB() { return eraseButton.GetGlobalBounds(); }
     sf::FloatRect GetMoveScreenButtonGB() { return moveScreenButton.GetGlobalBounds(); }
-
-    void UpdatePalette();
     
     void Init() override;
     void Release() override;

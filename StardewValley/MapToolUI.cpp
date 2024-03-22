@@ -86,24 +86,6 @@ sf::Vector2f MapToolUI::IndexToPos(int index)
     return sf::Vector2f(gridStart.x + x * size + size / 2, gridStart.y + y * size + size / 2);
 }
 
-
-
-void MapToolUI::UpdatePalette()
-{
-    for (auto& category : categories)
-    {
-        for (auto& obj : category)
-        {
-           // obj.SetActive(false);
-        }
-    }
-
-    for (auto& obj : categories[currentPage])
-    {
-       // obj.SetActive(true);
-    }
-}
-
 void MapToolUI::Init()
 {
     currentPage = 0;
@@ -173,29 +155,86 @@ void MapToolUI::Init()
 
     int index = 0;
     int objIndex = 0;
-    categories.resize((int)ObjectType::COUNT);
+    categories.resize(5000);
     for (int i = 0; i < (int)ObjectType::COUNT; ++i)
     {
-        ObjectType type = (ObjectType)i;
+        //ObjectType type = (ObjectType)i;
         int objectCount = OBJECT_TABLE->Count((ObjectType)i);
         for (int j = 0; j < objectCount; ++j)
         {
-            auto objectData = OBJECT_TABLE->Get((ObjectType)i,j);
-            categories[0].push_back(MapSheet());
+            auto objectData = OBJECT_TABLE->Get((ObjectType)i, j);
             std::string textureId = objectData.textureId;
+            categories[0].push_back(MapSheet());
             categories[0][objIndex].objSprite.setTexture(RES_MGR_TEXTURE.Get(textureId));
             categories[0][objIndex].resource = textureId;
             categories[0][objIndex].objectID = objectData.objectId;
-            categories[0][objIndex].sheetID_X= objectData.sheetId.x;
-            categories[0][objIndex].sheetID_Y= objectData.sheetId.y;
+            categories[0][objIndex].sheetID_X = objectData.sheetId.x;
+            categories[0][objIndex].sheetID_Y = objectData.sheetId.y;
             categories[0][objIndex].sheetID_W = objectData.sheetSize.x;
-            categories[0][objIndex].sheetID_H= objectData.sheetSize.y;
+            categories[0][objIndex].sheetID_H = objectData.sheetSize.y;
             categories[0][objIndex].indexNumber = index;
             categories[0][objIndex].objSprite.setTextureRect({ objectData.sheetId.x, objectData.sheetId.y, objectData.sheetSize.x, objectData.sheetSize.y });
             categories[0][objIndex].objSprite.setOrigin({ objectData.sheetSize.x * 0.5f, objectData.sheetSize.y * 0.5f });
-            categories[0][objIndex].objSprite.setScale({size / categories[0][objIndex].sheetID_W , size / categories[0][objIndex].sheetID_H });
+            categories[0][objIndex].objSprite.setScale({ size / categories[0][objIndex].sheetID_W , size / categories[0][objIndex].sheetID_H });
             categories[0][objIndex].objSprite.setPosition(IndexToPos(index));
             ++objIndex;
+            ++index;
+        }
+
+    }
+
+	index = 0;
+	int groundIndex = 0;
+	for (int i = 0; i < (int)GroundType::COUNT; ++i)
+	{
+		GroundType type = (GroundType)i;
+		int groundCount = GROUND_TABLE->Count((GroundType)i);
+		for (int j = 0; j < groundCount; ++j)
+		{
+			auto groundData = GROUND_TABLE->Get((GroundType)i, j);
+			categories[1].push_back(MapSheet());
+			std::string groundTextureId = GROUND_TABLE->GetTextureId();
+			categories[1][groundIndex].resource = groundTextureId;
+			categories[1][groundIndex].objectID = groundData.groundId;
+			categories[1][groundIndex].sheetID_X = groundData.sheetId.x;
+			categories[1][groundIndex].sheetID_Y = groundData.sheetId.y;
+			categories[1][groundIndex].sheetID_W = groundData.sheetSize.x;
+			categories[1][groundIndex].sheetID_H = groundData.sheetSize.y;
+			categories[1][groundIndex].indexNumber = index;
+			categories[1][groundIndex].objSprite.setTextureRect({ groundData.sheetId.x, groundData.sheetId.y, groundData.sheetSize.x, groundData.sheetSize.y });
+			categories[1][groundIndex].objSprite.setOrigin({ groundData.sheetSize.x * 0.5f, groundData.sheetSize.y * 0.5f });
+			categories[1][groundIndex].objSprite.setScale({ size / categories[1][groundIndex].sheetID_W , size / categories[1][groundIndex].sheetID_H });
+			categories[1][groundIndex].objSprite.setPosition(IndexToPos(index));
+			categories[1][groundIndex].objSprite.setTexture(RES_MGR_TEXTURE.Get(groundTextureId));
+			++groundIndex;
+			++index;
+		}
+	}
+
+    index = 0;
+    int floorIndex = 0;
+    for (int i = 0; i < (int)FloorType::COUNT; ++i)
+    {
+        FloorType type = (FloorType)i;
+        int floorCount = FLOOR_TABLE->Count((FloorType)i);
+        for (int j = 0; j < floorCount; ++j)
+        {
+            auto floorData = FLOOR_TABLE->Get((FloorType)i, j);
+            std::string floorTextureId = floorData.textureId;
+            categories[2].push_back(MapSheet());
+            categories[2][floorIndex].resource = floorTextureId;
+            categories[2][floorIndex].objectID = floorData.floorId;
+            categories[2][floorIndex].sheetID_X = floorData.sheetId.x;
+            categories[2][floorIndex].sheetID_Y = floorData.sheetId.y;
+            categories[2][floorIndex].sheetID_W = floorData.sheetSize.x;
+            categories[2][floorIndex].sheetID_H = floorData.sheetSize.y;
+            categories[2][floorIndex].indexNumber = index;
+            categories[2][floorIndex].objSprite.setTextureRect({ floorData.sheetId.x, floorData.sheetId.y, floorData.sheetSize.x, floorData.sheetSize.y });
+            categories[2][floorIndex].objSprite.setOrigin({ floorData.sheetSize.x * 0.5f, floorData.sheetSize.y * 0.5f });
+            categories[2][floorIndex].objSprite.setScale({ size / categories[2][floorIndex].sheetID_W , size / categories[2][floorIndex].sheetID_H });
+            categories[2][floorIndex].objSprite.setPosition(IndexToPos(index));
+            categories[2][floorIndex].objSprite.setTexture(RES_MGR_TEXTURE.Get(floorTextureId));
+            ++floorIndex;
             ++index;
         }
     }
@@ -225,14 +264,6 @@ void MapToolUI::Update(float dt)
     sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
     sf::Vector2f mouseUIPos = SCENE_MGR.GetCurrentScene()->ScreenToUi(mousePos);
 
-    timer += dt;
-    if (timer > duration)
-    {
-        std::cout << "UI Pos x : " << mouseUIPos.x << std::endl;
-        std::cout << "UI Pos y : " << mouseUIPos.y << std::endl;
-        timer = 0.f;
-    }
-
     if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
     {
         if (arrowLeft.GetGlobalBounds().contains(mouseUIPos))
@@ -242,7 +273,6 @@ void MapToolUI::Update(float dt)
             {
                 currentPage = categories.size() - 1;
             }
-           // UpdatePalette();
         }
         else if (arrowRight.GetGlobalBounds().contains(mouseUIPos))
         {
@@ -251,7 +281,6 @@ void MapToolUI::Update(float dt)
             {
                 currentPage = 0;
             }
-          //  UpdatePalette();
         }
     }
 
