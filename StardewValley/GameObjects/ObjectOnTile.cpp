@@ -29,3 +29,8 @@ void ObjectOnTile::Draw(sf::RenderWindow& window)
 {
 	SpriteGo::Draw(window);
 }
+
+void ObjectOnTile::InteractWithPlayer()
+{
+	SetActive(false);
+}

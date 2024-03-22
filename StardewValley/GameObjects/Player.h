@@ -18,6 +18,8 @@ private:
 	float moveTimer = 0.f;
 	float moveDuration = 0.f;
 
+	sf::Vector2i lookDir = { 0, 0 };
+
 public:
 	Player(const std::string& name = "");
 	~Player() override = default;

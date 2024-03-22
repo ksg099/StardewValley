@@ -55,5 +55,7 @@ public:
 
 
 	void LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize);
+
+	void SetPlayerPassable(int x, int y, bool isPassable);
 };
 

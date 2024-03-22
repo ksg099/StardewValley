@@ -48,7 +48,7 @@ enum class GroundType
 
 enum class FloorType
 {
-	NONE,
+	NONE = -1,
 	DRIED_ARABLE_LAND,
 	WET_ARABLE_LAND,
 	WOOD_PATH,

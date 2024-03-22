@@ -32,11 +32,6 @@ void SceneGame::Init()
 	Player* player = new Player("Player");
 	AddGo(player);
 
-	SpriteGo* stone = new SpriteGo("Stone");
-	stone->SetTextureByName("stone1");
-	stone->SetScale(sf::Vector2f(10.f, 10.f));
-	AddGo(stone);
-
 	Scene::Init();
 }
 

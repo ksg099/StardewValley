@@ -57,7 +57,7 @@ bool ObjectTable::Load(rapidjson::Document& doc)
 			table[key] = DataObject();
 			table[key].objectType = (ObjectType)i;
 			table[key].objectId = j;
-			table[key].textureId = infoArr[i]["Sheet Info"][j]["Resoruce"].GetString();
+			table[key].textureId = infoArr[i]["Sheet Info"][j]["Resource"].GetString();
 			table[key].sheetId = { infoArr[i]["Sheet Info"][j]["Sheet ID X"].GetInt(), infoArr[i]["Sheet Info"][j]["Sheet ID Y"].GetInt() };
 			table[key].sheetSize = { infoArr[i]["Sheet Info"][j]["Sheet ID W"].GetInt(), infoArr[i]["Sheet Info"][j]["Sheet ID H"].GetInt() };
 

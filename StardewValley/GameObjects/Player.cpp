@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Player.h"
 #include "TileMap.h"
+#include "ObjectOnTile.h"
 
 Player::Player(const std::string& name) : SpriteGo(name)
 {
@@ -57,19 +58,38 @@ void Player::Update(float dt)
 	}
 	else
 	{
-		direction = InputMgr::GetAxisOne();
-		if (!tileMap->GetTileData(gridIndex.x + direction.x, gridIndex.y + direction.y)->isPassable)
+		sf::Vector2i dir = InputMgr::GetAxisOne();
+		if (dir != sf::Vector2i(0, 0))
 		{
-			direction = { 0, 0 };
-		}
-		else
-		{
-			nextPosition = tileMap->GetGridPosition(gridIndex.x + direction.x, gridIndex.y + direction.y);
-			if (nextPosition != currentPosition)
+			if (!tileMap->GetTileData(gridIndex.x + dir.x, gridIndex.y + dir.y)->isPassable)
 			{
-				moveDuration = Utils::Magnitude(nextPosition - currentPosition) / speed;
-				isMove = true;
+				lookDir = dir;
+				direction = { 0, 0 };
 			}
+			else
+			{
+				lookDir = dir;
+				direction = dir;
+
+				nextPosition = tileMap->GetGridPosition(gridIndex.x + direction.x, gridIndex.y + direction.y);
+				if (nextPosition != currentPosition)
+				{
+					moveDuration = Utils::Magnitude(nextPosition - currentPosition) / speed;
+					isMove = true;
+				}
+			}
+		}
+	}
+
+
+	// 플레이어 좌클릭 처리
+	if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
+	{
+		ObjectOnTile* obj = tileMap->GetTileData(gridIndex.x + lookDir.x, gridIndex.y + lookDir.y)->object;
+		if(obj != nullptr)
+		{
+			tileMap->SetPlayerPassable(gridIndex.x + lookDir.x, gridIndex.y + lookDir.y, true);
+			obj->InteractWithPlayer();
 		}
 	}
 }
