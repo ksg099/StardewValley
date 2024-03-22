@@ -7,7 +7,7 @@ public:
 	{
 		GROUND,
 		FLOOR,
-		OBJECT
+		OBJECT,
 		String,
 		Tool,
 	};
