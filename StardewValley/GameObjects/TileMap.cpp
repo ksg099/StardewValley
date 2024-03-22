@@ -309,3 +309,13 @@ void TileMap::SetPlayerPassable(int x, int y, bool isPassable)
 
 	tiles[y * cellCount.x + x]->isPassable = isPassable;
 }
+
+bool TileMap::IsPassable(int x, int y)
+{
+	if (IsOutOfRange(x, y))
+	{
+		return false;
+	}
+
+	return tiles[y * cellCount.x + x]->isPassable;
+}

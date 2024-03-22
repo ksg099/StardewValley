@@ -56,6 +56,9 @@ public:
 
 	void LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize);
 
+	bool IsOutOfRange(int x, int y) { return (x < 0 || y < 0 || x >= cellCount.x || y >= cellCount.y); }
+
 	void SetPlayerPassable(int x, int y, bool isPassable);
+	bool IsPassable(int x, int y);
 };
 
