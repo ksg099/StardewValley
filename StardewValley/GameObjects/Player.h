@@ -13,7 +13,7 @@ private:
 	bool isMove = false;
 	sf::Vector2f currentGridPosition = { 0.f, 0.f };
 	sf::Vector2f nextGridPosition = { 0.f, 0.f };
-	float speed = 300.f;
+	float speed = 100.f;
 	sf::Vector2i tileMoveDirection = { 0, 0 };
 	float moveTimer = 0.f;
 	float moveDuration = 0.f;

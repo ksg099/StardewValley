@@ -10,6 +10,9 @@
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="GameObjects\GameObject.cpp" />
     <ClCompile Include="GameObjects\TileMap.cpp" />
+    <ClCompile Include="GameObjects\Inventory.cpp" />
+    <ClCompile Include="GameObjects\InvetorySlot.cpp" />
+    <ClCompile Include="GameObjects\Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GameObjects\ObjectOnTile.cpp" />
     <ClCompile Include="DataTables\ObjectTable.cpp" />
@@ -27,6 +30,7 @@
     <ClCompile Include="GameObjects\Inventory.cpp" />
     <ClCompile Include="GameObjects\InvetorySlot.cpp" />
     <ClCompile Include="GameObjects\Item.cpp" />
+    <ClCompile Include="DataTables\ItemTable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataTables\DataTable.h" />
@@ -44,6 +48,9 @@
     <ClInclude Include="GameObjects\TileMap.h" />
     <ClInclude Include="GameObjects\ObjectOnTile.h" />
     <ClInclude Include="DataTables\ObjectTable.h" />
+    <ClInclude Include="GameObjects\Inventory.h" />
+    <ClInclude Include="GameObjects\InvetorySlot.h" />
+    <ClInclude Include="GameObjects\Item.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="Scenes\Scene.h" />
@@ -58,5 +65,6 @@
     <ClInclude Include="GameObjects\Inventory.h" />
     <ClInclude Include="GameObjects\InvetorySlot.h" />
     <ClInclude Include="GameObjects\Item.h" />
+    <ClInclude Include="DataTables\ItemTable.h" />
   </ItemGroup>
 </Project>

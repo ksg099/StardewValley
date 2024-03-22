@@ -8,11 +8,10 @@ public:
 		GROUND,
 		FLOOR,
 		OBJECT,
-		String,
-		Tool,
+		ITEM
 	};
 	static const int TotalTypes = 3;
-
+	
 private:
 	Types type;
 

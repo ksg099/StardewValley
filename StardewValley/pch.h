@@ -49,4 +49,5 @@
 // data
 #include "GroundTable.h"
 #include "ObjectTable.h"
+#include "ItemTable.h"
 

@@ -14,6 +14,7 @@ void Inventory::Init()
 	SetTexture("graphics/Ui.png");
 	smallUi.SetTexture("graphics/smallUi.png");
 	smallUi.SetPosition({970.f, 960.f});
+	smallUi.SetOrigin(Origins::MC);
 
 	//sf::Vector2f smallUiPosition = smallUi.GetPosition();
 
@@ -27,7 +28,7 @@ void Inventory::Init()
 			//슬롯 위치 잡기
 			InvetorySlot* slot = new InvetorySlot("Inventory Slot");
 			sf::Vector2f pos = position;
-			pos += { (float)j * 60.f - 310.f, (float)i * 60.f - 300.f };
+			pos += { (float)j * 60.f - 310.f, (float)i * 60.f - 300.f }; //하드코딩
 			slot->SetPosition(pos);
 			slot->SetOrigin(Origins::MC);
 			slot->Init();
@@ -40,8 +41,8 @@ void Inventory::Init()
 	{
 		//슬롯 위치 잡기
 		InvetorySlot* smallslot = new InvetorySlot("Inventory Slot");
-		sf::Vector2f pos = smallUi.GetPosition() + sf::Vector2f((float)j * 60.f, -40.f);
-		smallslot->SetPosition(pos);
+		sf::Vector2f pos = smallUi.GetPosition();
+		smallslot->SetPosition(pos - sf::Vector2f(350.f - 70.f * j, 35.f)); //하드코딩
 		smallslot->SetOrigin(Origins::MC);
 		smallslot->Init();
 		smallslots.push_back(smallslot);
@@ -68,7 +69,6 @@ void Inventory::Reset()
 {
 	SpriteGo::Reset();
 	SetOrigin(Origins::MC);
-	smallUi.SetOrigin(Origins::MC);
 	for (int i = 0; i < countY; i++)
 	{
 		for (int j = 0; j < countX; j++)
@@ -77,10 +77,9 @@ void Inventory::Reset()
 			slots[index]->Reset();
 		}
 	}
-
+	
 	UpdateSlots(items);
-
-
+	UpdateSubSlots();
 }
 
 void Inventory::Update(float dt)
@@ -161,17 +160,30 @@ void Inventory::Update(float dt)
 	{
 		firstClickIndex = -1;
 	}
+
+	// tab을 누르면 서브 인벤토리 변경
+	if (InputMgr::GetKeyDown(sf::Keyboard::Tab))
+	{
+		++subIndexY;
+		if (subIndexY >= countY)
+		{
+			subIndexY = 0;
+		}
+		UpdateSubSlots();
+	}
 }
 
 
 void Inventory::Draw(sf::RenderWindow& window)
 {
-
+	//메인 화면에 보일 인벤토리랑 슬롯 그려주기
 	smallUi.Draw(window);
 	for (auto smallslot : smallslots)
 	{
 		smallslot->Draw(window);
 	}
+
+	//I키 눌렀을때 메인 인벤토리, 슬롯 그려주기
 	if (!isAble)
 	{
 		
@@ -181,7 +193,6 @@ void Inventory::Draw(sf::RenderWindow& window)
 		{
 			slot->Draw(window);
 		}
-		
 	}
 }
 
@@ -211,7 +222,6 @@ void Inventory::LoadData(rapidjson::Document& doc)
 
 		items.push_back(itemData);
 	}
-
 }
 
 void Inventory::SetIvenSlot(int x, int y, ItemData* data)
@@ -222,6 +232,7 @@ void Inventory::SetIvenSlot(int x, int y, ItemData* data)
 
 void Inventory::UpdateSlots(const std::list<ItemData*>& list) //
 {
+	//메인 인벤토리내를 할당하기전에 지움
 	for (int i = 0; i < countY; i++)
 	{
 		for (int j = 0; j < countX; j++)
@@ -231,10 +242,32 @@ void Inventory::UpdateSlots(const std::list<ItemData*>& list) //
 		}
 	}
 
-	for (ItemData* item : items) //
+	//메인 인벤토리에 아이템 할당
+	for (ItemData* item : items)
 	{
 		int index = item->IndexY * countX + item->IndexX;
 		SetIvenSlot(item->IndexX, item->IndexY, item);
+	}
+}
+
+void Inventory::UpdateSubSlots()
+{
+	//작은 인벤토리 슬롯 먼저 비우고
+	for (auto& smallslot : smallslots)
+	{
+		smallslot->SetEmpty();
+	}
+
+	// 작은 인벤토리 슬롯에 아이템을 할당합니다.
+	for (ItemData* item : items)
+	{
+		int indexX = item->IndexX;
+		int indexY = item->IndexY;
+
+		if (indexY == subIndexY)
+		{
+			smallslots[indexX]->SetItem(item);
+		}
 	}
 }
 
@@ -284,4 +317,5 @@ void Inventory::SwapItem(int firstClickIndex, int secondClixkIndex)
 	}
 
 	UpdateSlots(items); // 슬롯 상태 업데이트
+	UpdateSubSlots();
 }

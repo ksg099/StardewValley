@@ -24,6 +24,9 @@ protected:
 	sf::Vector2f currentMousePos;
 	sf::FloatRect slotBounds;
 
+	// 서브 인벤토리
+	int subIndexY = 0;
+
 public:
 
 	bool isAble = true;
@@ -41,6 +44,7 @@ public:
 	void SetIvenSlot(int x, int y, ItemData* data);
 
 	void UpdateSlots(const std::list<ItemData*>& list);
+	void UpdateSubSlots();
 
 	void SwapItem(int firstClickIndex, int secondClixkIndex);
 };

@@ -23,6 +23,7 @@ void SceneGame::Init()
 	{
 		GROUND_TABLE->Load(dataDoc);
 		OBJECT_TABLE->Load(dataDoc);
+		ITEM_TABLE->Load(dataDoc);
 	}
 
 	// 테스트용

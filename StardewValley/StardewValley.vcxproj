@@ -156,6 +156,7 @@
     <ClCompile Include="GameObjects\InvetorySlot.cpp" />
     <ClCompile Include="GameObjects\Item.cpp" />
     <ClCompile Include="GameObjects\TileMap.cpp" />
+    <ClCompile Include="DataTables\ItemTable.cpp" />
     <ClCompile Include="main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
     </ClCompile>
@@ -196,6 +197,7 @@
     <ClInclude Include="GameObjects\TileMap.h" />
     <ClInclude Include="GameObjects\ObjectOnTile.h" />
     <ClInclude Include="DataTables\ObjectTable.h" />
+    <ClInclude Include="DataTables\ItemTable.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="Scenes\Scene.h" />
