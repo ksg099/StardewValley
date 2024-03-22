@@ -5,15 +5,13 @@ class DataTable
 public:
 	enum class Types
 	{
-		NONE = -1,
 		GROUND,
 		FLOOR,
 		OBJECT,
-		ITEM,
-		COUNT,
+		ITEM
 	};
 	static const int TotalTypes = 3;
-
+	
 private:
 	Types type;
 

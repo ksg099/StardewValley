@@ -1,0 +1,8 @@
+ID,FPS,LOOPTYPE (0:Single 1:Loop 2:PingPong),,
+Move,10,1,,
+,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT
+graphics/player.png,0,0,14,27
+graphics/player.png,17,1,13,26
+graphics/player.png,0,0,14,27
+graphics/player.png,32,1,13,26

@@ -11,10 +11,11 @@ void Player::Init()
 {
 	SpriteGo::Init();
 
-	SetTexture("graphics/White Chicken.png");
-	SetTextureRect(sf::IntRect(0, 0, 15, 15));
+	SetTexture("graphics/player.png");
+	SetTextureRect(sf::IntRect(0, 0, 14, 27));
 	SetOrigin(Origins::BC);
 	playerHalfWidth = GetLocalBounds().width / 2.f;
+	animator.SetTarget(&sprite);
 }
 
 void Player::Release()
@@ -42,6 +43,7 @@ void Player::Reset()
 void Player::Update(float dt)
 {
 	SpriteGo::Update(dt);
+	animator.Update(dt);
 
 	// 플레이어의 타일 단위 이동
 	// MoveTileUnit(dt);
@@ -56,11 +58,37 @@ void Player::Update(float dt)
 	CheckCollision(nextPosition, prevPosition);
 	ChangeGridIndex(nextPosition);
 	SetPosition(nextPosition);
-	
+
+	// TO-DO: 애니메이션은 임시로만 구현하고, 자세한건 나중에
+	sf::Vector2f posDiff = nextPosition - prevPosition;
+	if (posDiff.x != 0.f)
+	{
+		animator.Play("animations/PlayerMoveSide.csv");
+
+		if (posDiff.x < 0)
+			SetFlipX(true);
+		else
+			SetFlipX(false);
+	}
+	if (posDiff.y > 0)
+	{
+		animator.Play("animations/PlayerMoveFront.csv");
+	}
+	else if (posDiff.y < 0)
+	{
+		animator.Play("animations/PlayerMoveBack.csv");
+	}
+
 
 
 	// 플레이어 좌클릭 처리
-	/*if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
+	sf::Vector2i dirOne = InputMgr::GetAxisOne();
+	if (dirOne != sf::Vector2i(0, 0))
+	{
+		lookDir = dirOne;
+	}
+	
+	if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
 	{
 		ObjectOnTile* obj = tileMap->GetTileData(gridIndex.x + lookDir.x, gridIndex.y + lookDir.y)->object;
 		if(obj != nullptr)
@@ -68,7 +96,7 @@ void Player::Update(float dt)
 			tileMap->SetPlayerPassable(gridIndex.x + lookDir.x, gridIndex.y + lookDir.y, true);
 			obj->InteractWithPlayer();
 		}
-	}*/
+	}
 }
 
 void Player::Draw(sf::RenderWindow& window)

@@ -48,5 +48,7 @@
 
 // data
 #include "GroundTable.h"
+#include "FloorTable.h"
 #include "ObjectTable.h"
+#include "ItemTable.h"
 

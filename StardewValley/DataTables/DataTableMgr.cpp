@@ -1,8 +1,9 @@
 #include "pch.h"
 #include "DataTableMgr.h"
 #include "GroundTable.h"
-
+#include "FloorTable.h"
 #include "ObjectTable.h"
+#include "ItemTable.h"
 
 DataTableMgr::DataTableMgr()
 {
@@ -20,15 +21,14 @@ void DataTableMgr::Init()
 	DataTable* groundTable = new GroundTable(DataTable::Types::GROUND);
 	tables.insert({ DataTable::Types::GROUND, groundTable });
 
+	DataTable* floorTable = new FloorTable(DataTable::Types::FLOOR);
+	tables.insert({ DataTable::Types::FLOOR, floorTable });
+
 	DataTable* objectTable = new ObjectTable(DataTable::Types::OBJECT);
 	tables.insert({ DataTable::Types::OBJECT, objectTable });
 
-	rapidjson::Document dataDoc;
-	if (Utils::LoadFromFile("data/DataTable.json", dataDoc))
-	{
-		GROUND_TABLE->Load(dataDoc);
-		OBJECT_TABLE->Load(dataDoc);
-	}
+	DataTable* itemTable = new ItemTable(DataTable::Types::ITEM);
+	tables.insert({ DataTable::Types::ITEM, itemTable });
 }
 
 void DataTableMgr::Release()
