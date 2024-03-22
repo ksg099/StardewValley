@@ -31,6 +31,9 @@ enum class ItemType
 struct ItemData
 {
 	ItemType type;
+	int BoxId;
+	int IndexX;
+	int IndexY;
 	int itemId;
 	int instanceId;
 	int count = 0;

@@ -1,0 +1,48 @@
+{
+  "ItemData": [
+    {
+      "Box ID": 0,
+      "Index X": 0,
+      "Index Y": 0,
+      "ItemType": 1,
+      "ItemId": 1,
+      "InstanceId": 1,
+      "Count": 5,
+      "CanOverlap": false,
+      "Resource": "graphics/shovel/ShovelWood.png"
+    },
+    {
+      "Box ID": 0,
+      "Index X": 1,
+      "Index Y": 0,
+      "ItemType": 2,
+      "ItemId": 2,
+      "InstanceId": 2,
+      "Count": 5,
+      "CanOverlap": false,
+      "Resource": "graphics/shovel/ShovelSteel.png"
+    },
+    {
+      "Box ID": 0,
+      "Index X": 2,
+      "Index Y": 0,
+      "ItemType": 3,
+      "ItemId": 3,
+      "InstanceId": 3,
+      "Count": 5,
+      "CanOverlap": false,
+      "Resource": "graphics/shovel/ShovelSteel.png"
+    },
+    {
+      "Box ID": 0,
+      "Index X": 3,
+      "Index Y": 0,
+      "ItemType": 4,
+      "ItemId": 4,
+      "InstanceId": 4,
+      "Count": 5,
+      "CanOverlap": false,
+      "Resource": "graphics/shovel/ShovelDiamond.png"
+    }
+  ]
+}
