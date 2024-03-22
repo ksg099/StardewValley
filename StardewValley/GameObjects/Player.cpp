@@ -53,45 +53,8 @@ void Player::Update(float dt)
 	sf::Vector2f prevPosition = position;
 	sf::Vector2f nextPosition = position + (freeMoveDirection * speed * dt);
 
-	if (nextPosition.x - playerHalfWidth < currentGridPosition.x - tileMap->GetCellSize().x / 2.f)
-	{
-		if (!tileMap->IsPassable(gridIndex.x - 1, gridIndex.y))
-			nextPosition.x = prevPosition.x;
-	}
-	else if (nextPosition.x + playerHalfWidth > currentGridPosition.x + tileMap->GetCellSize().x / 2.f)
-	{
-		if (!tileMap->IsPassable(gridIndex.x + 1, gridIndex.y))
-			nextPosition.x = prevPosition.x;
-	}
-	if (nextPosition.y < currentGridPosition.y - tileMap->GetCellSize().y / 2.f)
-	{
-		if (!tileMap->IsPassable(gridIndex.x, gridIndex.y - 1))
-			nextPosition.y = prevPosition.y;
-	}
-	else if (nextPosition.y > currentGridPosition.y + tileMap->GetCellSize().y / 2.f)
-	{
-		if (!tileMap->IsPassable(gridIndex.x, gridIndex.y + 1))
-			nextPosition.y = prevPosition.y;
-	}
-
-	if (nextPosition.x < currentGridPosition.x - tileMap->GetCellSize().x / 2.f && gridIndex.x > 0)
-	{
-		--gridIndex.x;
-	}
-	else if (nextPosition.x > currentGridPosition.x + tileMap->GetCellSize().x / 2.f && gridIndex.x < tileMap->GetCellCount().x - 1)
-	{
-		++gridIndex.x;
-	}
-	if (nextPosition.y < currentGridPosition.y - tileMap->GetCellSize().y / 2.f && gridIndex.y > 0)
-	{
-		--gridIndex.y;
-	}
-	else if (nextPosition.y > currentGridPosition.y + tileMap->GetCellSize().y / 2.f && gridIndex.y < tileMap->GetCellCount().y - 1)
-	{
-		++gridIndex.y;
-	}
-	// std::cout << gridIndex.x << ", " << gridIndex.y << std::endl;
-	currentGridPosition = tileMap->GetGridPosition(gridIndex.x, gridIndex.y);
+	CheckCollision(nextPosition, prevPosition);
+	ChangeGridIndex(nextPosition);
 	SetPosition(nextPosition);
 	
 
@@ -155,4 +118,50 @@ void Player::MoveTileUnit(float dt)
 			}
 		}
 	}
+}
+
+void Player::CheckCollision(sf::Vector2f& nextPos, sf::Vector2f& prevPos)
+{
+	if (nextPos.x - playerHalfWidth < currentGridPosition.x - tileMap->GetCellSize().x / 2.f)
+	{
+		if (!tileMap->IsPassable(gridIndex.x - 1, gridIndex.y))
+			nextPos.x = prevPos.x;
+	}
+	else if (nextPos.x + playerHalfWidth > currentGridPosition.x + tileMap->GetCellSize().x / 2.f)
+	{
+		if (!tileMap->IsPassable(gridIndex.x + 1, gridIndex.y))
+			nextPos.x = prevPos.x;
+	}
+	if (nextPos.y < currentGridPosition.y - tileMap->GetCellSize().y / 2.f)
+	{
+		if (!tileMap->IsPassable(gridIndex.x, gridIndex.y - 1))
+			nextPos.y = prevPos.y;
+	}
+	else if (nextPos.y > currentGridPosition.y + tileMap->GetCellSize().y / 2.f)
+	{
+		if (!tileMap->IsPassable(gridIndex.x, gridIndex.y + 1))
+			nextPos.y = prevPos.y;
+	}
+}
+
+void Player::ChangeGridIndex(sf::Vector2f& nextPos)
+{
+	if (nextPos.x < currentGridPosition.x - tileMap->GetCellSize().x / 2.f && gridIndex.x > 0)
+	{
+		--gridIndex.x;
+	}
+	else if (nextPos.x > currentGridPosition.x + tileMap->GetCellSize().x / 2.f && gridIndex.x < tileMap->GetCellCount().x - 1)
+	{
+		++gridIndex.x;
+	}
+	if (nextPos.y < currentGridPosition.y - tileMap->GetCellSize().y / 2.f && gridIndex.y > 0)
+	{
+		--gridIndex.y;
+	}
+	else if (nextPos.y > currentGridPosition.y + tileMap->GetCellSize().y / 2.f && gridIndex.y < tileMap->GetCellCount().y - 1)
+	{
+		++gridIndex.y;
+	}
+	// std::cout << gridIndex.x << ", " << gridIndex.y << std::endl;
+	currentGridPosition = tileMap->GetGridPosition(gridIndex.x, gridIndex.y);
 }
