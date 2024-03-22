@@ -6,7 +6,7 @@ enum class Origins
 {
 	// T M B
 	// L C R
-	TL, TC, TR, ML, MC, MR, BL, BC, BR, Custom,
+	TL, TC, TR, ML, MC, MR, BL, BC, BR, Custom, Object
 };
 
 enum class Sides
@@ -44,9 +44,11 @@ struct ItemData
 
 enum class GroundType
 {
+	NONE = -1,
 	WATER,
 	DIRT,
 	GRASS,
+	COUNT,
 };
 
 enum class FloorType
@@ -56,6 +58,7 @@ enum class FloorType
 	WET_ARABLE_LAND,
 	WOOD_PATH,
 	STONE_PATH,
+	COUNT,
 };
 
 enum class ObjectType
@@ -69,6 +72,7 @@ enum class ObjectType
 	BOX,
 	WALL,
 	BUILDING,
+	COUNT,
 };
 
 struct TileData

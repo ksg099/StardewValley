@@ -29,6 +29,16 @@ void DataTableMgr::Init()
 
 	DataTable* itemTable = new ItemTable(DataTable::Types::ITEM);
 	tables.insert({ DataTable::Types::ITEM, itemTable });
+
+	// 불러오기: TO-DO: 게임 초기에 수행되도록 위치 변경해야 함
+	rapidjson::Document dataDoc;
+	if (Utils::LoadFromFile("data/DataTable.json", dataDoc))
+	{
+		GROUND_TABLE->Load(dataDoc);
+		FLOOR_TABLE->Load(dataDoc);
+		OBJECT_TABLE->Load(dataDoc);
+		ITEM_TABLE->Load(dataDoc);
+	}
 }
 
 void DataTableMgr::Release()

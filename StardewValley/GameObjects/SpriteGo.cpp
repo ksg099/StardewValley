@@ -59,6 +59,11 @@ void SpriteGo::SetOrigin(Origins preset)
 	{
 		preset = Origins::TL;
 	}
+	else if (preset == Origins::Object)
+	{
+		sprite.setOrigin({ (float)(sprite.getLocalBounds().width * 0.5f), (float)(sprite.getLocalBounds().height - 7.5f) });
+		return;
+	}
 	originPreset = preset;
 	origin = Utils::SetOrigin(sprite, originPreset);
 }
