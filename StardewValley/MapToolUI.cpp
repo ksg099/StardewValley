@@ -173,11 +173,11 @@ void MapToolUI::Init()
 
     int index = 0;
     categories.resize((int)ObjectType::COUNT);
-    for (int i = 0; i < (int)ObjectType::COUNT; ++i)
+    for (int i = 0; i < (int)ObjectType::COUNT; ++i) //ground, floor, object 3개만 돌아야하고
     {
         ObjectType type = (ObjectType)i;
         int objectCount = OBJECT_TABLE->Count((ObjectType)i);
-        for (int j = 0; j < objectCount; ++j)
+        for (int j = 0; j < objectCount; ++j) //object 전체만큼 돌아야함
         {
             auto objectData = OBJECT_TABLE->Get((ObjectType)i,j);
             categories[i].push_back(MapSheet());
@@ -240,7 +240,7 @@ void MapToolUI::Update(float dt)
             {
                 currentPage = categories.size() - 1;
             }
-            UpdatePalette();
+           // UpdatePalette();
         }
         else if (arrowRight.GetGlobalBounds().contains(mouseUIPos))
         {
@@ -249,7 +249,7 @@ void MapToolUI::Update(float dt)
             {
                 currentPage = 0;
             }
-            UpdatePalette();
+          //  UpdatePalette();
         }
     }
 
