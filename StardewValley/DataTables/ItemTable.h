@@ -17,7 +17,6 @@ public:
 	static DataItem Undefined;
 
 protected:
-	std::string textureId;
 	std::unordered_map<std::tuple<ItemType, int>, DataItem, hash_tuple> table;
 	std::unordered_map < std::string, std::tuple<ItemType, int>> nameTable;
 	std::vector<int> countTable;

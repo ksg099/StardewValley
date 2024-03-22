@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "DataTableMgr.h"
 #include "GroundTable.h"
-
+#include "FloorTable.h"
 #include "ObjectTable.h"
 #include "ItemTable.h"
 
@@ -20,6 +20,9 @@ void DataTableMgr::Init()
 
 	DataTable* groundTable = new GroundTable(DataTable::Types::GROUND);
 	tables.insert({ DataTable::Types::GROUND, groundTable });
+
+	DataTable* floorTable = new FloorTable(DataTable::Types::FLOOR);
+	tables.insert({ DataTable::Types::FLOOR, floorTable });
 
 	DataTable* objectTable = new ObjectTable(DataTable::Types::OBJECT);
 	tables.insert({ DataTable::Types::OBJECT, objectTable });
