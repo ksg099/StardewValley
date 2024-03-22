@@ -66,6 +66,7 @@ enum class ObjectType
 	BOX,
 	WALL,
 	BUILDING,
+	COUNT,
 };
 
 struct TileData

@@ -94,13 +94,13 @@ void MapToolUI::UpdatePalette()
     {
         for (auto& obj : category)
         {
-            obj.SetActive(false);
+           // obj.SetActive(false);
         }
     }
 
     for (auto& obj : categories[currentPage])
     {
-        obj.SetActive(true);
+       // obj.SetActive(true);
     }
 }
 
@@ -173,25 +173,35 @@ void MapToolUI::Init()
 
 
 
-    rapidjson::Document doc;
-    Utils::LoadFromFile("data/DataTable.json", doc);
+    //rapidjson::Document doc;
+    //Utils::LoadFromFile("data/DataTable.json", doc);
 
     int index = 0;
-    auto objSheetInfo = doc["Tile Info"]["Object"]["Type Info"].GetArray();
-    categories.resize(objSheetInfo.Size());
-    for (int i = 0; i < objSheetInfo.Size(); ++i)
+    //auto objSheetInfo = doc["Tile Info"]["Object"]["Type Info"].GetArray();
+    categories.resize((int)ObjectType::COUNT);
+    for (int i = 0; i < (int)ObjectType::COUNT; ++i)
     {
         ObjectType type = (ObjectType)i;
-        auto array = objSheetInfo[i]["Sheet Info"].GetArray();
-        for (int j = 0; j < array.Size(); ++j)
+       // auto array = objSheetInfo[i]["Sheet Info"].GetArray();
+        int objectCount = OBJECT_TABLE->Count((ObjectType)i);
+        for (int j = 0; j < objectCount; ++j)
         {
-            auto elem = array[j].GetObject();
-            categories[i].push_back(SpriteGo());
-            std::string textureId = elem["Resource"].GetString();
-            categories[i][j].SetTexture(textureId);
-            categories[i][j].SetTextureRect({ elem["Sheet ID X"].GetInt(), elem["Sheet ID Y"].GetInt(), elem["Sheet ID W"].GetInt(), elem["Sheet ID H"].GetInt() });
-            categories[i][j].SetPosition(IndexToPos(index++));
-            categories[i][j].Init();
+            auto objectData = OBJECT_TABLE->Get((ObjectType)i,j);
+           // auto elem = array[j].GetObject();
+            categories[i].push_back(Object_());
+            std::string textureId = objectData.textureId;
+            categories[i][j].objSprite.setTexture(RES_MGR_TEXTURE.Get(textureId));
+            categories[i][j].indexNumber = j; //
+            categories[i][j].resource = textureId;
+            categories[i][j].objectID = j;
+            categories[i][j].sheetID_X= objectData.sheetSize.x;
+            categories[i][j].sheetID_Y= objectData.sheetSize.y;
+            categories[i][j].sheetID_W = objectData.sheetId.x;
+            categories[i][j].sheetID_H= objectData.sheetId.x;
+
+            categories[i][j].objSprite.setTextureRect({ objectData.sheetId.x, objectData.sheetId.y, objectData.sheetSize.x, objectData.sheetSize.y });
+            categories[i][j].objSprite.setPosition(IndexToPos(categories[i][j].indexNumber));
+           // categories[i][j].objSprite.Init();
         }
     }
 }
@@ -209,7 +219,8 @@ void MapToolUI::Reset()
     {
         for (auto obj : category)
         {
-            obj.Reset();
+            //obj.Reset();
+
         }
     }
 }
@@ -280,7 +291,7 @@ void MapToolUI::Draw(sf::RenderWindow& window)
 
     for (auto& obj : categories[currentPage])
     {
-        obj.Draw(window);
+        window.draw(obj.objSprite);
     }
 
     saveButton.Draw(window);

@@ -2,6 +2,18 @@
 #include "GameObject.h"
 #include "SpriteGo.h"
 
+struct Object_
+{
+    sf::Sprite objSprite;
+    int indexNumber;
+    int objectID;
+    std::string resource;
+    int sheetID_X;
+    int sheetID_Y;
+    int sheetID_W;
+    int sheetID_H;
+};
+
 class MapToolUI : public GameObject
 {
 protected:
@@ -46,7 +58,7 @@ protected:
     SpriteGo moveScreenButton;
 
     int currentPage;
-    std::vector<std::vector<SpriteGo>> categories;
+    std::vector<std::vector<Object_>> categories;
 
     int col = 40;
     int row = 30;
