@@ -35,6 +35,16 @@ const DataObject& ObjectTable::Get(const std::string& name)
 	return Get(std::get<0>(find->second), std::get<1>(find->second));
 }
 
+const int ObjectTable::Count(ObjectType type)
+{
+	int typeNum = (int)type;
+
+	if (typeNum < 0 || typeNum >= countTable.size())
+		return 0;
+
+	return countTable[(int)type];
+}
+
 bool ObjectTable::Load(rapidjson::Document& doc)
 {
 	Release();
@@ -44,6 +54,7 @@ bool ObjectTable::Load(rapidjson::Document& doc)
 	for (int i = 0; i < objectTypeCount; ++i)
 	{
 		int objectIdCount = infoArr[i]["Sheet Info"].Size();
+		countTable.push_back(objectIdCount);
 		for (int j = 0; j < objectIdCount; ++j)
 		{
 			std::tuple<ObjectType, int> key = std::make_tuple((ObjectType)i, j);
@@ -71,4 +82,6 @@ bool ObjectTable::Load(rapidjson::Document& doc)
 void ObjectTable::Release()
 {
 	table.clear();
+	nameTable.clear();
+	countTable.clear();
 }

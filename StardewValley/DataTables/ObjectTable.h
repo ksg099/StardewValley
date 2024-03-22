@@ -20,6 +20,7 @@ protected:
 	std::string textureId;
 	std::unordered_map<std::tuple<ObjectType, int>, DataObject, hash_tuple> table;
 	std::unordered_map < std::string, std::tuple<ObjectType, int>> nameTable;
+	std::vector<int> countTable;
 
 public:
 	ObjectTable(DataTable::Types type);
@@ -27,6 +28,7 @@ public:
 
 	const DataObject& Get(ObjectType type, int id);
 	const DataObject& Get(const std::string& name);
+	const int Count(ObjectType type);
 
 	bool Load(rapidjson::Document& doc) override;
 	void Release() override;
