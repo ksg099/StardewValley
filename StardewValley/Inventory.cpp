@@ -77,12 +77,12 @@ void Inventory::Update(float dt)
 	//두개 데이터 저장된 위치가 있으면 서로 전환
 	sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
 	sf::Vector2f uiPos = SCENE_MGR.GetCurrentScene()->ScreenToUi(mousePos);
+	int clickSlotIndex = -1;
 
-	if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
+	if (InputMgr::GetMouseButton(sf::Mouse::Button::Left))
 	{
-		int clickSlotIndex = -1;
-
-		//슬롯에 저장된 사이즈만큼 순회를 하고 clickSlotIndex에 할당한다. 즉 클릭된 슬롯 찾기
+		//슬롯에 저장된 사이즈만큼 순회를 하고 clickSlotIndex에 할당한다.
+		// 즉 지금 마우스로 버튼을 누르고 있는 슬롯 찾기
 		for (int i = 0; i < slots.size(); ++i)
 		{
 			sf::FloatRect slotBounds = slots[i]->GetGlobalBounds();
@@ -92,39 +92,56 @@ void Inventory::Update(float dt)
 				break;
 			}
 		}
-		
-		if (clickSlotIndex == -1) //빈 공간이 눌렸을 경우 리셋
+	}
+
+	if (InputMgr::GetMouseButtonUp(sf::Mouse::Left))
+	{
+		if (firstClickIndex != -1) //이미 첫번째 인덱스가 선택되어 있을때
 		{
-			firstClickIndex = -1;
+			//슬롯에 저장된 사이즈만큼 순회를 하고 clickSlotIndex에 할당한다.
+			// 즉 마우스 버튼을 놓은 슬롯 찾기
+			for (int i = 0; i < slots.size(); ++i)
+			{
+				sf::FloatRect slotBounds = slots[i]->GetGlobalBounds();
+				if (slotBounds.contains(uiPos))
+				{
+					clickSlotIndex = i;
+					break;
+				}
+			}
+
+			if (clickSlotIndex != -1)
+			{
+				clickSlotIndex;
+				SwapItem(firstClickIndex, clickSlotIndex);
+
+				firstClickIndex = -1;
+			}
 		}
+	}
+
+	if (clickSlotIndex == -1) //빈 공간이 눌렸을 경우 리셋
+	{
+		firstClickIndex = -1;
+	}
 
 
-		if (firstClickIndex == -1) //첫번째 인덱스를 클릭 했을 경우
-		{
-			int fx = clickSlotIndex % countX;
-			int fy = clickSlotIndex / countX;
-			auto findFirst = std::find_if(items.begin(), items.end(), [fx, fy](ItemData* elem) {
+	if (firstClickIndex == -1)
+	{
+		int fx = clickSlotIndex % countX;
+		int fy = clickSlotIndex / countX;
+		auto findFirst = std::find_if(items.begin(), items.end(), [fx, fy](ItemData* elem)
+			{
 				return elem->IndexX == fx && elem->IndexY == fy;
-				});
-			if (findFirst != items.end())
-			{
-				firstClickIndex = clickSlotIndex;
-			}
-		}
+			});
 
-		else //두번째 인덱스를 클릭 했을 경우
+		if (findFirst != items.end())
 		{
-			if (InputMgr::GetMouseButtonUp(sf::Mouse::Button::Left))
-			{
-				// 마우스 왼쪽 버튼이 방금 놓아졌을 때 실행할 코드
-			}
-			clickSlotIndex;
-			SwapItem(firstClickIndex, clickSlotIndex);
-
-			firstClickIndex = -1;
+			firstClickIndex = clickSlotIndex;
 		}
 	}
 }
+
 
 void Inventory::Draw(sf::RenderWindow& window)
 {
@@ -152,8 +169,8 @@ void Inventory::LoadData(rapidjson::Document& doc)
 	for (int i = 0; i < doc["ItemData"].Size(); ++i)
 	{
 		//rapidjson::Document의 객체 doc를 이용해서 배열ItemData의 i번째 정보를 읽는다.
-			//읽은 정보를 itemData에 할당한다.
-			//[i * countX + j] 특정 칸 찾기
+		//읽은 정보를 itemData에 할당한다.
+		//[i * countX + j] 특정 칸 찾기
 		ItemData* itemData = new ItemData;
 		itemData->BoxId = doc["ItemData"][i]["Box ID"].GetInt();
 		itemData->IndexX = doc["ItemData"][i]["Index X"].GetInt();
@@ -204,16 +221,18 @@ void Inventory::SwapItem(int firstClickIndex, int secondClixkIndex)
 	//첫번째 아이템 찾기 | 람다식
 	//elem 리스트의 각요소
 	//찾고 싶은 아이템의 열과 행을 나타냄
-	auto findFirst = std::find_if(items.begin(), items.end(), [fx, fy](ItemData* elem) {
-		return elem->IndexX == fx && elem->IndexY == fy;
-		});
+	auto findFirst = std::find_if(items.begin(), items.end(), [fx, fy](ItemData* elem)
+	{
+	return elem->IndexX == fx && elem->IndexY == fy;
+	});
 
 	//두번째 아이템 찾기 | 람다식
 	//elem 리스트의 각요소
 	//찾고 싶은 아이템의 열과 행을 나타냄
-	auto findSecond = std::find_if(items.begin(), items.end(), [sx, sy](ItemData* elem) {
-		return elem->IndexX == sx && elem->IndexY == sy;
-		});
+	auto findSecond = std::find_if(items.begin(), items.end(), [sx, sy](ItemData* elem)
+	{
+	return elem->IndexX == sx && elem->IndexY == sy;
+	});
 
 	// 두번째 인덱스가 빈공간일 경우 첫번째 아이템과 빈공간 클릭시 교환
 	//첫번째 아이템이 존재하고 두번째 아이템이 없을 경우
