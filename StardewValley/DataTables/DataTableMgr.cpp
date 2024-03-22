@@ -29,6 +29,15 @@ void DataTableMgr::Init()
 
 	DataTable* itemTable = new ItemTable(DataTable::Types::ITEM);
 	tables.insert({ DataTable::Types::ITEM, itemTable });
+
+	rapidjson::Document dataDoc;
+	if (Utils::LoadFromFile("data/DataTable.json", dataDoc))
+	{
+		GROUND_TABLE->Load(dataDoc);
+		FLOOR_TABLE->Load(dataDoc);
+		OBJECT_TABLE->Load(dataDoc);
+		ITEM_TABLE->Load(dataDoc);
+	}
 }
 
 void DataTableMgr::Release()

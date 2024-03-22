@@ -172,28 +172,30 @@ void MapToolUI::Init()
         , saveButton.GetPosition().y });
 
     int index = 0;
+    int objIndex = 0;
     categories.resize((int)ObjectType::COUNT);
-    for (int i = 0; i < (int)ObjectType::COUNT; ++i) //ground, floor, object 3개만 돌아야하고
+    for (int i = 0; i < (int)ObjectType::COUNT; ++i)
     {
         ObjectType type = (ObjectType)i;
         int objectCount = OBJECT_TABLE->Count((ObjectType)i);
-        for (int j = 0; j < objectCount; ++j) //object 전체만큼 돌아야함
+        for (int j = 0; j < objectCount; ++j)
         {
             auto objectData = OBJECT_TABLE->Get((ObjectType)i,j);
-            categories[i].push_back(MapSheet());
+            categories[0].push_back(MapSheet());
             std::string textureId = objectData.textureId;
-            categories[i][j].objSprite.setTexture(RES_MGR_TEXTURE.Get(textureId));
-            categories[i][j].resource = textureId;
-            categories[i][j].objectID = objectData.objectId;
-            categories[i][j].sheetID_X= objectData.sheetId.x;
-            categories[i][j].sheetID_Y= objectData.sheetId.y;
-            categories[i][j].sheetID_W = objectData.sheetSize.x;
-            categories[i][j].sheetID_H= objectData.sheetSize.y;
-            categories[i][j].indexNumber = index;
-            categories[i][j].objSprite.setTextureRect({ objectData.sheetId.x, objectData.sheetId.y, objectData.sheetSize.x, objectData.sheetSize.y });
-            categories[i][j].objSprite.setOrigin({ objectData.sheetSize.x * 0.5f, objectData.sheetSize.y * 0.5f });
-            categories[i][j].objSprite.setScale({size / categories[i][j].sheetID_W , size / categories[i][j].sheetID_H });
-            categories[i][j].objSprite.setPosition(IndexToPos(categories[i][j].indexNumber));
+            categories[0][objIndex].objSprite.setTexture(RES_MGR_TEXTURE.Get(textureId));
+            categories[0][objIndex].resource = textureId;
+            categories[0][objIndex].objectID = objectData.objectId;
+            categories[0][objIndex].sheetID_X= objectData.sheetId.x;
+            categories[0][objIndex].sheetID_Y= objectData.sheetId.y;
+            categories[0][objIndex].sheetID_W = objectData.sheetSize.x;
+            categories[0][objIndex].sheetID_H= objectData.sheetSize.y;
+            categories[0][objIndex].indexNumber = index;
+            categories[0][objIndex].objSprite.setTextureRect({ objectData.sheetId.x, objectData.sheetId.y, objectData.sheetSize.x, objectData.sheetSize.y });
+            categories[0][objIndex].objSprite.setOrigin({ objectData.sheetSize.x * 0.5f, objectData.sheetSize.y * 0.5f });
+            categories[0][objIndex].objSprite.setScale({size / categories[0][objIndex].sheetID_W , size / categories[0][objIndex].sheetID_H });
+            categories[0][objIndex].objSprite.setPosition(IndexToPos(index));
+            ++objIndex;
             ++index;
         }
     }

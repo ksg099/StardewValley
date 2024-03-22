@@ -17,15 +17,6 @@ SceneGame::~SceneGame()
 
 void SceneGame::Init()
 {
-	// 불러오기: TO-DO: 게임 초기에 수행되도록 위치 변경해야 함
-	rapidjson::Document dataDoc;
-	if (Utils::LoadFromFile("data/DataTable.json", dataDoc))
-	{
-		GROUND_TABLE->Load(dataDoc);
-		OBJECT_TABLE->Load(dataDoc);
-		ITEM_TABLE->Load(dataDoc);
-	}
-
 	// 테스트용
 	rapidjson::Document SaveDoc;
 	if (Utils::LoadFromFile("data/example.json", SaveDoc))
