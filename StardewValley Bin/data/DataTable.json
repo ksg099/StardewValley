@@ -536,5 +536,53 @@
         }
       ]
     }
-  }
+  },
+  "Item Info":
+  [
+    {
+      "Type Name": "Tool",
+      "Sheet Info":
+      [
+        {
+          "Item Name": "shovel",
+          "Item ID": 0,
+          "Resource": "graphics/ShovelSteel.png",
+          "Sheet ID X": 9,
+          "Sheet ID Y": 5,
+          "Sheet ID W": 45,
+          "Sheet ID H": 45
+        },
+        {
+          "Item Name": "axe",
+          "Item ID": 1,
+          "Resource": "graphics/AxeSteel.png",
+          "Sheet ID X": 10,
+          "Sheet ID Y": 9,
+          "Sheet ID W": 64,
+          "Sheet ID H": 60
+        }
+      ]
+    },
+    {
+      "Type Name": "Seed",
+      "Sheet Info":
+      [
+
+      ]
+    },
+    {
+      "Type Name": "Harvest",
+      "Sheet Info":
+      [
+
+      ]
+    },
+    {
+      "Type Name": "Ingredient",
+      "Sheet Info":
+      [
+
+      ]
+    }
+  ]
 }

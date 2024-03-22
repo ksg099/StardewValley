@@ -3,6 +3,7 @@
 #include "GroundTable.h"
 
 #include "ObjectTable.h"
+#include "ItemTable.h"
 
 DataTableMgr::DataTableMgr()
 {
@@ -23,7 +24,8 @@ void DataTableMgr::Init()
 	DataTable* objectTable = new ObjectTable(DataTable::Types::OBJECT);
 	tables.insert({ DataTable::Types::OBJECT, objectTable });
 
-
+	DataTable* itemTable = new ItemTable(DataTable::Types::ITEM);
+	tables.insert({ DataTable::Types::ITEM, itemTable });
 }
 
 void DataTableMgr::Release()
