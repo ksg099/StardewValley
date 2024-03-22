@@ -20,6 +20,7 @@ void InvetorySlot::Release()
 void InvetorySlot::Reset()
 {
 	SpriteGo::Reset();
+	SetEmpty();
 }
 
 void InvetorySlot::Update(float dt)
@@ -35,10 +36,18 @@ void InvetorySlot::SetEmpty()
 
 void InvetorySlot::SetItem(ItemData* data)
 {
-	//itemData = data;
-	if (data->count > maxCount) //한칸에 지정한 개수(5)가 넘어가면
+	itemData = data;
+
+	if (itemData->itemId == data->itemId && data->count > maxCount) //한칸에 지정한 개수(5)가 넘어가면
 	{
-		data->count = maxCount;
+		//if (data->count > maxCount)
+		//{
+			data->count = maxCount;
+		/*}*/
+		//else
+		//{
+		//	itemData->count++;
+		//}
 	}
 
 	//해당 아이템의 아이콘, 아이콘의 현재 개수
@@ -60,5 +69,20 @@ void InvetorySlot::Draw(sf::RenderWindow& window)
 			itemCountText.Draw(window);
 		}
 	}
+}
+
+void InvetorySlot::SetPosition(const sf::Vector2f& pos)
+{
+	SpriteGo::SetPosition(pos);
+	
+	
+	background.SetOrigin(Origins::MC);
+	icon.SetOrigin(Origins::MC);
+	itemCountText.SetOrigin(Origins::MC);
+
+	background.SetPosition(pos);
+	icon.SetPosition(pos);
+	itemCountText.SetPosition(pos);
+
 }
 

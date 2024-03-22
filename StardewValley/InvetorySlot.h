@@ -6,6 +6,13 @@
 class InvetorySlot : public SpriteGo
 {
 protected:
+
+	enum class state
+	{
+		empty,
+		full,
+	};
+
 	ItemData* itemData;
 
 	SpriteGo background; //기본 비어있는 상태 이미지
@@ -25,6 +32,9 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 	
+	void SetPosition(const sf::Vector2f& pos) override;
+
+
 	void SetEmpty(); //비어 있는 상태
 	void SetItem(ItemData* data); // ItemData의 데이터를 받아 아이템을 세팅
 
