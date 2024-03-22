@@ -18,6 +18,7 @@ public:
 protected:
 	std::string textureId;
 	std::unordered_map<std::tuple<GroundType, int>, DataGround, hash_tuple> table;
+	std::vector<int> countTable;
 
 public:
 	GroundTable(DataTable::Types type);
@@ -28,5 +29,6 @@ public:
 
 	bool Load(rapidjson::Document& doc) override;
 	void Release() override;
+	const int Count(GroundType type);
 };
 

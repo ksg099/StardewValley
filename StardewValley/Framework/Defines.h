@@ -41,9 +41,11 @@ struct ItemData
 
 enum class GroundType
 {
+	NONE = -1,
 	WATER,
 	DIRT,
 	GRASS,
+	COUNT,
 };
 
 enum class FloorType
@@ -53,6 +55,7 @@ enum class FloorType
 	WET_ARABLE_LAND,
 	WOOD_PATH,
 	STONE_PATH,
+	COUNT,
 };
 
 enum class ObjectType

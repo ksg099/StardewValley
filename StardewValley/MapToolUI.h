@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "SpriteGo.h"
 
-struct Object_
+struct MapSheet
 {
     sf::Sprite objSprite;
     int indexNumber;
@@ -58,7 +58,7 @@ protected:
     SpriteGo moveScreenButton;
 
     int currentPage;
-    std::vector<std::vector<Object_>> categories;
+    std::vector<std::vector<MapSheet>> categories;
 
     int col = 40;
     int row = 30;

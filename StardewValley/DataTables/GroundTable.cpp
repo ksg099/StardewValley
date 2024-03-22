@@ -34,6 +34,7 @@ bool GroundTable::Load(rapidjson::Document& doc)
 	for (int i = 0; i < groundTypeCount; ++i)
 	{
 		int groundIdCount = infoArr[i]["Sheet Info"].GetArray().Size();
+		countTable.push_back(groundIdCount);
 		for (int j = 0; j < groundIdCount; ++j)
 		{
 			std::tuple<GroundType, int> key = std::make_tuple((GroundType)i, j);
@@ -58,4 +59,15 @@ bool GroundTable::Load(rapidjson::Document& doc)
 void GroundTable::Release()
 {
 	table.clear();
+	countTable.clear();
+}
+
+const int GroundTable::Count(GroundType type)
+{
+		int typeNum = (int)type;
+
+		if (typeNum < 0 || typeNum >= countTable.size())
+			return 0;
+
+		return countTable[(int)type];
 }

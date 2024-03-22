@@ -107,19 +107,41 @@
           "Sheet Info":
           [
             {
+                "Floor Name" : "dried arable land1",
+                "Floor ID" : 0,
                 "Resource": "graphics/hoeDirt.png",
                 "Sheet ID X": 0,
                 "Sheet ID Y": 0,
-                "Sheet ID W": 14,
+                "Sheet ID W": 15,
                 "Sheet ID H": 15
             },
             {
+                "Floor Name" : "dried arable land2",
+                "Floor ID" : 1,
                 "Resource": "graphics/hoeDirt.png",
                 "Sheet ID X": 0,
                 "Sheet ID Y": 16,
-                "Sheet ID W": 14,
+                "Sheet ID W": 15,
                 "Sheet ID H": 15
-            }
+            },
+            {
+              "Floor Name" : "dried arable land3",
+              "Floor ID" : 2,
+              "Resource": "graphics/hoeDirt.png",
+              "Sheet ID X": 0,
+              "Sheet ID Y": 32,
+              "Sheet ID W": 15,
+              "Sheet ID H": 15
+          },
+          {
+              "Floor Name" : "dried arable land4",
+              "Floor ID" : 3,
+              "Resource": "graphics/hoeDirt.png",
+              "Sheet ID X": 0,
+              "Sheet ID Y": 48,
+              "Sheet ID W": 15,
+              "Sheet ID H": 15
+          }
           ]
         },
         {
@@ -127,19 +149,41 @@
           "Sheet Info":
           [
             {
+                "Floor Name" : "wet arable land1",
+                "Floor ID" : 0,
                 "Resource": "graphics/hoeDirt.png",
-                "Sheet ID X": 0,
-                "Sheet ID Y": 32,
+                "Sheet ID X": 65,
+                "Sheet ID Y": 0,
                 "Sheet ID W": 15,
                 "Sheet ID H": 15
             },
             {
+                "Floor Name" : "wet arable land2",
+                "Floor ID" : 1,
                 "Resource": "graphics/hoeDirt.png",
-                "Sheet ID X": 0,
-                "Sheet ID Y": 58,
+                "Sheet ID X": 65,
+                "Sheet ID Y": 16,
                 "Sheet ID W": 15,
                 "Sheet ID H": 15
-            }
+            },
+            {
+              "Floor Name" : "wet arable land1",
+              "Floor ID" : 0,
+              "Resource": "graphics/hoeDirt.png",
+              "Sheet ID X": 65,
+              "Sheet ID Y": 32,
+              "Sheet ID W": 15,
+              "Sheet ID H": 15
+          },
+          {
+              "Floor Name" : "wet arable land2",
+              "Floor ID" : 1,
+              "Resource": "graphics/hoeDirt.png",
+              "Sheet ID X": 65,
+              "Sheet ID Y": 48,
+              "Sheet ID W": 15,
+              "Sheet ID H": 15
+          }
           ]
         },
         {
@@ -147,6 +191,8 @@
           "Sheet Info":
           [
             {
+                "Floor Name" : "wood path1",
+                "Floor ID" : 0,
                 "Resource": "graphics/hoeDirt.png",
                 "Sheet ID X": 0,
                 "Sheet ID Y": 73,
@@ -154,6 +200,8 @@
                 "Sheet ID H": 15
             },
             {
+                "Floor Name" : "wood path2",
+                "Floor ID" : 1,
                 "Resource": "graphics/hoeDirt.png",
                 "Sheet ID X": 16,
                 "Sheet ID Y": 0,
@@ -167,6 +215,8 @@
           "Sheet Info":
           [
             {
+                "Floor Name" : "stone path1",
+                "Floor ID" : 0,
                 "Resource": "graphics/hoeDirt.png",
                 "Sheet ID X": 16,
                 "Sheet ID Y": 16,
@@ -174,6 +224,8 @@
                 "Sheet ID H": 15
             },
             {
+                "Floor Name" : "stone path2",
+                "Floor ID" : 1,
                 "Resource": "graphics/hoeDirt.png",
                 "Sheet ID X": 16,
                 "Sheet ID Y": 32,
@@ -181,6 +233,8 @@
                 "Sheet ID H": 15
             },
             {
+                "Floor Name" : "stone path2",
+                "Floor ID" : 1,
                 "Resource": "graphics/hoeDirt.png",
                 "Sheet ID X": 32,
                 "Sheet ID Y": 0,
@@ -188,6 +242,8 @@
                 "Sheet ID H": 15
             },
             {
+                "Floor Name" : "stone path3",
+                "Floor ID" : 2,
                 "Resource": "graphics/hoeDirt.png",
                 "Sheet ID X": 32,
                 "Sheet ID Y": 16,
@@ -195,6 +251,8 @@
                 "Sheet ID H": 15
             },
             {
+                "Floor Name" : "stone path4",
+                "Floor ID" : 3,
                 "Resource": "graphics/hoeDirt.png",
                 "Sheet ID X": 32,
                 "Sheet ID Y": 32,
@@ -202,6 +260,8 @@
                 "Sheet ID H": 15
             },
             {
+                "Floor Name" : "stone path5",
+                "Floor ID" : 4,
                 "Resource": "graphics/hoeDirt.png",
                 "Sheet ID X": 48,
                 "Sheet ID Y": 0,
@@ -209,6 +269,8 @@
                 "Sheet ID H": 15
             },
             {
+                "Floor Name" : "stone path6",
+                "Floor ID" : 5,
                 "Resource": "graphics/hoeDirt.png",
                 "Sheet ID X": 48,
                 "Sheet ID Y": 16,
@@ -216,6 +278,8 @@
                 "Sheet ID H": 15
             },
             {
+                "Floor Name" : "stone path7",
+                "Floor ID" : 6,
                 "Resource": "graphics/hoeDirt.png",
                 "Sheet ID X": 48,
                 "Sheet ID Y": 32,
@@ -223,6 +287,8 @@
                 "Sheet ID H": 15
             },
             {
+                "Floor Name" : "stone path8",
+                "Floor ID" : 7,
                 "Resource": "graphics/hoeDirt.png",
                 "Sheet ID X": 16,
                 "Sheet ID Y": 48,
@@ -230,6 +296,8 @@
                 "Sheet ID H": 15
             },
             {
+                "Floor Name" : "stone path9",
+                "Floor ID" : 8,
                 "Resource": "graphics/hoeDirt.png",
                 "Sheet ID X": 32,
                 "Sheet ID Y": 48,
@@ -237,6 +305,8 @@
                 "Sheet ID H": 15
             },
             {
+                "Floor Name" : "stone path10",
+                "Floor ID" : 9,
                 "Resource": "graphics/hoeDirt.png",
                 "Sheet ID X": 48,
                 "Sheet ID Y": 48,
