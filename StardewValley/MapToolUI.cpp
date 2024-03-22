@@ -172,62 +172,28 @@ void MapToolUI::Init()
         , saveButton.GetPosition().y });
 
 
+
     rapidjson::Document doc;
     Utils::LoadFromFile("data/DataTable.json", doc);
 
-    /*auto objSheetInfo = doc["Tile Info"]["Object"]["Type Info"].GetArray();
-    int stone = (int)ObjectType::STONE;
-    int stoneCount = objSheetInfo[stone]["Sheet Info"].Size();
-    for (int i = 0; i < stoneCount; ++i)
-    {
-        auto elem = objSheetInfo[stone]["Sheet Info"][i].GetObject();
-        std::cout << elem["Resoruce"].GetString() << std::endl;
-        stone_1.setTexture(RES_MGR_TEXTURE.Get(elem["Resoruce"].GetString()));
-        stone_1.setTextureRect({ elem["Sheet ID X"].GetInt(), elem["Sheet ID Y"].GetInt(), elem["Sheet ID W"].GetInt(), elem["Sheet ID H"].GetInt() });
-        stone_1.setPosition({ (float)FRAMEWORK.GetWindowSize().x * 0.675f
-    , (float)FRAMEWORK.GetWindowSize().y * 0.2f });
-    }
-
+    int index = 0;
+    auto objSheetInfo = doc["Tile Info"]["Object"]["Type Info"].GetArray();
+    categories.resize(objSheetInfo.Size());
     for (int i = 0; i < objSheetInfo.Size(); ++i)
     {
         ObjectType type = (ObjectType)i;
-        auto objectArray = objSheetInfo[i]["Sheet Info"].GetArray();
-
-        for (int j = 0; j < objectArray.Size(); ++j)
+        auto array = objSheetInfo[i]["Sheet Info"].GetArray();
+        for (int j = 0; j < array.Size(); ++j)
         {
-            auto elem = objectArray[j].GetObject();
-
+            auto elem = array[j].GetObject();
+            categories[i].push_back(SpriteGo());
+            std::string textureId = elem["Resource"].GetString();
+            categories[i][j].SetTexture(textureId);
+            categories[i][j].SetTextureRect({ elem["Sheet ID X"].GetInt(), elem["Sheet ID Y"].GetInt(), elem["Sheet ID W"].GetInt(), elem["Sheet ID H"].GetInt() });
+            categories[i][j].SetPosition(IndexToPos(index++));
+            categories[i][j].Init();
         }
     }
-    */
-
-    stone_1.SetTextureByName("stone1");
-    stone_1.SetOrigin(Origins::MC);
-    stone_1.SetPosition(IndexToPos(0));
-    stone_2.SetTextureByName("stone2");
-    stone_2.SetOrigin(Origins::MC);
-    stone_2.SetPosition(IndexToPos(1));
-    stone_3.SetTextureByName("stone3");
-    stone_3.SetOrigin(Origins::MC);
-    stone_3.SetPosition(IndexToPos(2));
-    stone_4.SetTextureByName("stone4");
-    stone_4.SetOrigin(Origins::MC);
-    stone_4.SetPosition(IndexToPos(3));
-
-    tree_1.SetTextureByName("tree1");
-    tree_1.SetOrigin(Origins::Object);
-    tree_1.SetPosition(IndexToPos(5));
-    tree_2.SetTextureByName("tree2");
-    tree_2.SetOrigin(Origins::Object);
-    tree_2.SetPosition(IndexToPos(8));
-    tree_3.SetTextureByName("tree3");
-    tree_3.SetOrigin(Origins::Object);
-    tree_3.SetPosition(IndexToPos(12));
-    tree_4.SetTextureByName("tree4");
-    tree_4.SetOrigin(Origins::Object);
-    tree_4.SetPosition(IndexToPos(16));
-
-    
 }
 
 void MapToolUI::Release()
@@ -238,15 +204,32 @@ void MapToolUI::Release()
 void MapToolUI::Reset()
 {
     GameObject::Reset();
+
+    for (auto category : categories)
+    {
+        for (auto obj : category)
+        {
+            obj.Reset();
+        }
+    }
 }
 
 void MapToolUI::Update(float dt)
 {
     sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
-    sf::Vector2f mouseWorldPos = SCENE_MGR.GetCurrentScene()->ScreenToWorld(mousePos);
+    sf::Vector2f mouseUIPos = SCENE_MGR.GetCurrentScene()->ScreenToUi(mousePos);
+
+    timer += dt;
+    if (timer > duration)
+    {
+        std::cout << "UI Pos x : " << mouseUIPos.x << std::endl;
+        std::cout << "UI Pos y : " << mouseUIPos.y << std::endl;
+        timer = 0.f;
+    }
+
     if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
     {
-        if (arrowLeft.GetGlobalBounds().contains(mouseWorldPos))
+        if (arrowLeft.GetGlobalBounds().contains(mouseUIPos))
         {
             --currentPage;
             if (currentPage < 0)
@@ -255,7 +238,7 @@ void MapToolUI::Update(float dt)
             }
             UpdatePalette();
         }
-        else if (arrowRight.GetGlobalBounds().contains(mouseWorldPos))
+        else if (arrowRight.GetGlobalBounds().contains(mouseUIPos))
         {
             ++currentPage;
             if (currentPage >= categories.size())
@@ -294,14 +277,12 @@ void MapToolUI::Draw(sf::RenderWindow& window)
     arrowLeft.Draw(window);
     arrowRight.Draw(window);
     window.draw(grid);
-    if (stone_1.GetActive()) { stone_1.Draw(window); }
-    /*stone_2.Draw(window);
-    stone_3.Draw(window);
-    stone_4.Draw(window);
-    tree_1.Draw(window);
-    tree_2.Draw(window);
-    tree_3.Draw(window);
-    tree_4.Draw(window);*/
+
+    for (auto& obj : categories[currentPage])
+    {
+        obj.Draw(window);
+    }
+
     saveButton.Draw(window);
     eraseButton.Draw(window);
     loadButton.Draw(window);

@@ -5,6 +5,10 @@
 class MapToolUI : public GameObject
 {
 protected:
+
+    float timer = 0.f;
+    float duration = 1.f;
+
     sf::RectangleShape outLine;
     sf::RectangleShape centerLine;
 
@@ -22,7 +26,7 @@ protected:
 
     sf::VertexArray grid;
 
-    SpriteGo stone_1;
+ /*   SpriteGo stone_1;
     SpriteGo stone_2;
     SpriteGo stone_3;
     SpriteGo stone_4;
@@ -32,14 +36,17 @@ protected:
     SpriteGo tree_3;
     SpriteGo tree_4;
 
+    SpriteGo water_1;
+    SpriteGo water_2;
+    SpriteGo water_3;
+    */
     SpriteGo saveButton;
     SpriteGo loadButton;
     SpriteGo eraseButton;
     SpriteGo moveScreenButton;
 
     int currentPage;
-    std::vector<std::vector<SpriteGo>> categories = { {stone_1, stone_2, stone_3, stone_4, tree_1, tree_2, tree_3, tree_4}
-    , { } }; //?
+    std::vector<std::vector<SpriteGo>> categories;
 
     int col = 40;
     int row = 30;
