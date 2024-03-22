@@ -38,12 +38,13 @@ protected:
     SpriteGo moveScreenButton;
 
     int currentPage;
-    std::vector<std::vector<SpriteGo>> categories = { {stone_1, stone_2, stone_3, stone_4}, { } }; //?
+    std::vector<std::vector<SpriteGo>> categories = { {stone_1, stone_2, stone_3, stone_4, tree_1, tree_2, tree_3, tree_4}
+    , { } }; //?
 
-    int col = 30;
+    int col = 40;
     int row = 30;
     int size = 15;
-    sf::Vector2f gridStart = { 1200.f,100.f };
+    sf::Vector2f gridStart = { 1250.f,100.f };
 
 public:
     MapToolUI(const std::string& name = "");
@@ -58,6 +59,8 @@ public:
     sf::FloatRect GetLoadButtonGB() { return loadButton.GetGlobalBounds(); }
     sf::FloatRect GetEraseButtonGB() { return eraseButton.GetGlobalBounds(); }
     sf::FloatRect GetMoveScreenButtonGB() { return moveScreenButton.GetGlobalBounds(); }
+
+    void UpdatePalette();
     
     void Init() override;
     void Release() override;

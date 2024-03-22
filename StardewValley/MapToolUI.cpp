@@ -88,6 +88,22 @@ sf::Vector2f MapToolUI::IndexToPos(int index)
 
 
 
+void MapToolUI::UpdatePalette()
+{
+    for (auto& category : categories)
+    {
+        for (auto& obj : category)
+        {
+            obj.SetActive(false);
+        }
+    }
+
+    for (auto& obj : categories[currentPage])
+    {
+        obj.SetActive(true);
+    }
+}
+
 void MapToolUI::Init()
 {
     currentPage = 0;
@@ -199,12 +215,17 @@ void MapToolUI::Init()
     stone_4.SetPosition(IndexToPos(3));
 
     tree_1.SetTextureByName("tree1");
-    tree_1.SetOrigin(Origins::MC);
+    tree_1.SetOrigin(Origins::Object);
     tree_1.SetPosition(IndexToPos(5));
     tree_2.SetTextureByName("tree2");
-    tree_2.SetOrigin(Origins::MC);
+    tree_2.SetOrigin(Origins::Object);
     tree_2.SetPosition(IndexToPos(8));
-    
+    tree_3.SetTextureByName("tree3");
+    tree_3.SetOrigin(Origins::Object);
+    tree_3.SetPosition(IndexToPos(12));
+    tree_4.SetTextureByName("tree4");
+    tree_4.SetOrigin(Origins::Object);
+    tree_4.SetPosition(IndexToPos(16));
 
     
 }
@@ -227,13 +248,22 @@ void MapToolUI::Update(float dt)
     {
         if (arrowLeft.GetGlobalBounds().contains(mouseWorldPos))
         {
-
+            --currentPage;
+            if (currentPage < 0)
+            {
+                currentPage = categories.size() - 1;
+            }
+            UpdatePalette();
         }
         else if (arrowRight.GetGlobalBounds().contains(mouseWorldPos))
         {
-
+            ++currentPage;
+            if (currentPage >= categories.size())
+            {
+                currentPage = 0;
+            }
+            UpdatePalette();
         }
-
     }
 
     GameObject::Update(dt);
@@ -264,12 +294,14 @@ void MapToolUI::Draw(sf::RenderWindow& window)
     arrowLeft.Draw(window);
     arrowRight.Draw(window);
     window.draw(grid);
-    stone_1.Draw(window);
-    stone_2.Draw(window);
+    if (stone_1.GetActive()) { stone_1.Draw(window); }
+    /*stone_2.Draw(window);
     stone_3.Draw(window);
     stone_4.Draw(window);
     tree_1.Draw(window);
     tree_2.Draw(window);
+    tree_3.Draw(window);
+    tree_4.Draw(window);*/
     saveButton.Draw(window);
     eraseButton.Draw(window);
     loadButton.Draw(window);
