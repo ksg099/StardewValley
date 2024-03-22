@@ -69,20 +69,20 @@ void Inventory::Update(float dt)
 {
 	SpriteGo::Update(dt);
 
+	//인벤토리가 안보였다면 I키를 눌렀을때 보이게 하기
 	if (InputMgr::GetKeyDown(sf::Keyboard::I))
 	{
 		isAble = !isAble;
 	}
 
-	//두개 데이터 저장된 위치가 있으면 서로 전환
 	sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
 	sf::Vector2f uiPos = SCENE_MGR.GetCurrentScene()->ScreenToUi(mousePos);
 	int clickSlotIndex = -1;
 
+	//마우스 왼쪽 버튼이 눌렸 있을때 마우스 위치에 해당하는 슬롯을
+	//순회를 돌아 찾아 clickSlotIndex에 할당
 	if (InputMgr::GetMouseButton(sf::Mouse::Button::Left))
 	{
-		//슬롯에 저장된 사이즈만큼 순회를 하고 clickSlotIndex에 할당한다.
-		// 즉 지금 마우스로 버튼을 누르고 있는 슬롯 찾기
 		for (int i = 0; i < slots.size(); ++i)
 		{
 			sf::FloatRect slotBounds = slots[i]->GetGlobalBounds();
@@ -94,6 +94,8 @@ void Inventory::Update(float dt)
 		}
 	}
 
+	//마우스 왼쪽 버튼을 놓았을때 첫번째 아이템이 선택된 상태라면
+	//마우스를 놓은곳에 해당하는 슬롯을 다시 순회를 돌아 찾아 그위치로 아이템을 SwapItem한다.
 	if (InputMgr::GetMouseButtonUp(sf::Mouse::Left))
 	{
 		if (firstClickIndex != -1) //이미 첫번째 인덱스가 선택되어 있을때
@@ -126,7 +128,7 @@ void Inventory::Update(float dt)
 	}
 
 
-	if (firstClickIndex == -1)
+	if (firstClickIndex == -1) //첫번째 클릭 된 아이템의 인덱스를 모를 경우(선택이 안된 경우)
 	{
 		int fx = clickSlotIndex % countX;
 		int fy = clickSlotIndex / countX;
@@ -145,6 +147,7 @@ void Inventory::Update(float dt)
 
 void Inventory::Draw(sf::RenderWindow& window)
 {
+
 	if (!isAble)
 	{
 		
