@@ -544,7 +544,7 @@
       "Sheet Info":
       [
         {
-          "Item Name": "shovel",
+          "Item Name": "pick",
           "Item ID": 0,
           "Resource": "graphics/ShovelSteel.png",
           "Sheet ID X": 9,
@@ -555,6 +555,33 @@
         {
           "Item Name": "axe",
           "Item ID": 1,
+          "Resource": "graphics/AxeSteel.png",
+          "Sheet ID X": 10,
+          "Sheet ID Y": 9,
+          "Sheet ID W": 64,
+          "Sheet ID H": 60
+        },
+        {
+          "Item Name": "sickle",
+          "Item ID": 2,
+          "Resource": "graphics/AxeSteel.png",
+          "Sheet ID X": 10,
+          "Sheet ID Y": 9,
+          "Sheet ID W": 64,
+          "Sheet ID H": 60
+        },
+        {
+          "Item Name": "hoe",
+          "Item ID": 3,
+          "Resource": "graphics/AxeSteel.png",
+          "Sheet ID X": 10,
+          "Sheet ID Y": 9,
+          "Sheet ID W": 64,
+          "Sheet ID H": 60
+        },
+        {
+          "Item Name": "watering can",
+          "Item ID": 4,
           "Resource": "graphics/AxeSteel.png",
           "Sheet ID X": 10,
           "Sheet ID Y": 9,

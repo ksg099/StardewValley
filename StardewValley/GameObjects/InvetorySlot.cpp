@@ -38,6 +38,7 @@ void InvetorySlot::SetItem(ItemData* data)
 {
 	itemData = data;
 
+	//나중에 수정해서 추가 필요
 	if (itemData->itemId == data->itemId && data->count > maxCount) //한칸에 지정한 개수(5)가 넘어가면
 	{
 		//if (data->count > maxCount)
@@ -54,7 +55,7 @@ void InvetorySlot::SetItem(ItemData* data)
 	auto item = ITEM_TABLE->Get(itemData->type, itemData->itemId);
 	// icon.SetTextureRect(sf::IntRect(item.sheetId.x, item.sheetId.y, item.sheetSize.x, item.sheetSize.y));
 	icon.SetTexture(item.textureId);
-	icon.SetScale({ 50.f / item.sheetSize.x, 50.f / item.sheetSize.y });
+	icon.SetScale({ 50.f / item.sheetSize.x, 50.f / item.sheetSize.y }); //이부분 슬롯의 가운데에 오도록 다시 정리필요할듯
 	icon.SetOrigin(Origins::TL);
 	itemCountText.SetString(std::to_string(itemData->count));
 	itemCountText.SetActive(true);
