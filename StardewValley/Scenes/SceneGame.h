@@ -1,16 +1,18 @@
 #pragma once
 
+class TileMap;
 class Inventory;
 
-
-class SceneDev : public Scene
+class SceneGame : public Scene
 {
 protected:
-	sf::RectangleShape land;
+	TileMap* tileMap = nullptr;
+	const sf::Vector2f tileSize = { 50.f, 50.f };
+
 	Inventory* inventory;
 public:
-	SceneDev(SceneIds id);
-	virtual ~SceneDev();
+	SceneGame(SceneIds id);
+	virtual ~SceneGame();
 
 	void Init() override;
 	void Release() override;

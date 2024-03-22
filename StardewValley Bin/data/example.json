@@ -9,57 +9,119 @@
     [
       {
         "TileMap Name": "Farm",
-        "Row": 30,
-        "Col": 30,
-        "Resoruce": "graphics/sprite_example.png",
+        "Tile Count X": 3,
+        "Tile Count Y": 3,
         "Tiles":
         [
           {
-            "PosX": 0,
-            "PosY": 0,
+            "Index X": 0,
+            "Index Y": 0,
             "Ground Type": 0,
+            "Ground ID": 0,
             "Floor Type": 0,
-            "Placed Object Type": 0,
+            "Floor ID": 0,
+            "Object Type": -1,
+            "Object ID": 0,
+            "Placed Possible": true,
+            "Player Passable": true
+          },
+          {
+            "Index X": 1,
+            "Index Y": 0,
+            "Ground Type": 1,
+            "Ground ID": 0,
+            "Floor Type": 0,
+            "Floor ID": 0,
+            "Object Type": -1,
+            "Object ID": 1,
+            "Placed Possible": true,
+            "Player Passable": true
+          },
+          {
+            "Index X": 2,
+            "Index Y": 0,
+            "Ground Type": 2,
+            "Ground ID": 0,
+            "Floor Type": 0,
+            "Floor ID": 0,
+            "Object Type": -1,
+            "Object ID": 2,
+            "Placed Possible": true,
+            "Player Passable": true
+          },
+          {
+            "Index X": 0,
+            "Index Y": 1,
+            "Ground Type": 0,
+            "Ground ID": 1,
+            "Floor Type": 0,
+            "Floor ID": 0,
+            "Object Type": 0,
+            "Object ID": 0,
             "Placed Possible": true,
             "Player Passable": false
           },
           {
-            "PosX": 1,
-            "PosY": 0,
-            "Ground Type": 0,
+            "Index X": 1,
+            "Index Y": 1,
+            "Ground Type": 1,
+            "Ground ID": 1,
             "Floor Type": 0,
-            "Placed Object Type": 0,
+            "Floor ID": 0,
+            "Object Type": 0,
+            "Object ID": 0,
             "Placed Possible": true,
-            "Player Passable": false
-          }
-        ]
-        },
-        {
-        "TileMap Name": "Village",
-        "Row": 100,
-        "Col": 200,
-        "Resoruce": "graphics/sprite_example2.png",
-        "Tiles":
-        [
-          {
-            "PosX": 0,
-            "PosY": 0,
-            "Ground Type": 0,
-            "Floor Type": 0,
-            "Placed Object Type": 7,
-            "Placed Possible": false,
             "Player Passable": false
           },
           {
-            "PosX": 1,
-            "PosY": 0,
-            "Ground Type": 0,
+            "Index X": 2,
+            "Index Y": 1,
+            "Ground Type": 2,
+            "Ground ID": 1,
             "Floor Type": 0,
-            "Placed Object Type": 0,
-            "Placed Possible": false,
+            "Floor ID": 0,
+            "Object Type": 0,
+            "Object ID": 0,
+            "Placed Possible": true,
             "Player Passable": false
+          },
+          {
+            "Index X": 0,
+            "Index Y": 2,
+            "Ground Type": 0,
+            "Ground ID": 2,
+            "Floor Type": 0,
+            "Floor ID": 0,
+            "Object Type": -1,
+            "Object ID": 1,
+            "Placed Possible": true,
+            "Player Passable": true
+          },
+          {
+            "Index X": 1,
+            "Index Y": 2,
+            "Ground Type": 1,
+            "Ground ID": 2,
+            "Floor Type": 0,
+            "Floor ID": 0,
+            "Object Type": -1,
+            "Object ID": 1,
+            "Placed Possible": true,
+            "Player Passable": true
+          },
+          {
+            "Index X": 2,
+            "Index Y": 2,
+            "Ground Type": 2,
+            "Ground ID": 2,
+            "Floor Type": 0,
+            "Floor ID": 0,
+            "Object Type": -1,
+            "Object ID": 2,
+            "Placed Possible": true,
+            "Player Passable": true
           }
         ]
-        }
+      }
     ]
   }

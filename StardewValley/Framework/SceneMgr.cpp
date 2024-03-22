@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "SceneMgr.h"
-#include "SceneDev.h"
 #include "TestMapTool.h"
+#include "SceneGame.h"
 
 SceneMgr::~SceneMgr()
 {
@@ -12,7 +12,8 @@ void SceneMgr::Init()
 {
 	Release();
 
-	scenes.push_back(new SceneDev(SceneIds::SceneDev));
+	scenes.push_back(new TestMapTool(SceneIds::SCENE_MAP_TOOL));
+	scenes.push_back(new SceneGame(SceneIds::SCENE_GAME));
 
 	for (auto scene : scenes)
 	{

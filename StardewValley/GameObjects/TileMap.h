@@ -1,24 +1,29 @@
 #pragma once
 #include "GameObject.h"
+
 class TileMap : public GameObject
 {
 protected:
+	std::vector<TileData*> tiles;
+
 	sf::VertexArray va;
 	std::string spriteSheetId;
 	sf::Texture* texture;
 
 	sf::Vector2i cellCount; // 셀의 가로줄, 세로줄 개수
 	sf::Vector2f cellSize; // 단위 셀의 가로, 세로 길이
+	const sf::Vector2f tileTextureSize = { 16.f, 16.f };
 
 	sf::Transform transform;
-
-	std::vector<int> paths;
 
 public:
 	TileMap(const std::string& name = "");
 
 	virtual sf::FloatRect GetLocalBounds() override;
 	virtual sf::FloatRect GetGlobalBounds() override;
+
+	const sf::Vector2f& GetGridPosition(int x, int y) const;
+	const TileData* GetTileData(int x, int y)const;
 
 	const sf::Vector2i& GetCellCount() const { return cellCount; }
 	const sf::Vector2f& GetCellSize() const { return cellSize; }
@@ -46,5 +51,14 @@ public:
 
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+
+
+	void LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize);
+
+	bool IsOutOfRange(int x, int y) { return (x < 0 || y < 0 || x >= cellCount.x || y >= cellCount.y); }
+
+	void SetPlayerPassable(int x, int y, bool isPassable);
+	bool IsPassable(int x, int y);
 };
 

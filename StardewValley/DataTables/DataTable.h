@@ -5,10 +5,13 @@ class DataTable
 public:
 	enum class Types
 	{
+		GROUND,
+		FLOOR,
+		OBJECT,
 		String,
 		Tool,
 	};
-	static const int TotalTypes = 2;
+	static const int TotalTypes = 3;
 
 private:
 	Types type;
@@ -23,7 +26,7 @@ public:
 	DataTable(DataTable&& ref) = delete;
 	DataTable& operator=(DataTable&& rhs) = delete;
 
-	virtual bool Load() = 0;
+	virtual bool Load(rapidjson::Document& doc) = 0;
 	virtual void Release() = 0;
 };
 
