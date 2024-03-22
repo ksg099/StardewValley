@@ -171,8 +171,6 @@ void MapToolUI::Init()
     moveScreenButton.SetPosition({ loadButton.GetPosition().x + saveButton.GetLocalBounds().width * 2.f + buttonOffset
         , saveButton.GetPosition().y });
 
-
-
     //rapidjson::Document doc;
     //Utils::LoadFromFile("data/DataTable.json", doc);
 
@@ -191,17 +189,21 @@ void MapToolUI::Init()
             categories[i].push_back(Object_());
             std::string textureId = objectData.textureId;
             categories[i][j].objSprite.setTexture(RES_MGR_TEXTURE.Get(textureId));
-            categories[i][j].indexNumber = j; //
             categories[i][j].resource = textureId;
             categories[i][j].objectID = j;
-            categories[i][j].sheetID_X= objectData.sheetSize.x;
-            categories[i][j].sheetID_Y= objectData.sheetSize.y;
-            categories[i][j].sheetID_W = objectData.sheetId.x;
-            categories[i][j].sheetID_H= objectData.sheetId.x;
-
+            categories[i][j].sheetID_X= objectData.sheetId.x;
+            categories[i][j].sheetID_Y= objectData.sheetId.y;
+            categories[i][j].sheetID_W = objectData.sheetSize.x;
+            categories[i][j].sheetID_H= objectData.sheetSize.y;
+            categories[i][j].indexNumber = index;
             categories[i][j].objSprite.setTextureRect({ objectData.sheetId.x, objectData.sheetId.y, objectData.sheetSize.x, objectData.sheetSize.y });
+            categories[i][j].objSprite.setOrigin({ objectData.sheetSize.x * 0.5f, objectData.sheetSize.y * 0.5f });
+            categories[i][j].objSprite.setScale({size / categories[i][j].sheetID_W , size / categories[i][j].sheetID_H });
             categories[i][j].objSprite.setPosition(IndexToPos(categories[i][j].indexNumber));
+            ++index;
            // categories[i][j].objSprite.Init();
+
+           // std::cout << "test" << std::endl;
         }
     }
 }

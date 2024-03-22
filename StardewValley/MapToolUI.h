@@ -62,7 +62,7 @@ protected:
 
     int col = 40;
     int row = 30;
-    int size = 15;
+    float size = 15;
     sf::Vector2f gridStart = { 1250.f,100.f };
 
 public:
