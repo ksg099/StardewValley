@@ -24,6 +24,8 @@ private:
 	sf::Vector2f freeMoveDirection = { 0.f, 0.f };
 	float playerHalfWidth = 0.f;
 
+	Animator animator;
+
 public:
 	Player(const std::string& name = "");
 	~Player() override = default;

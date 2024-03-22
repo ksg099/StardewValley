@@ -33,4 +33,3 @@ public:
 	bool Load(rapidjson::Document& doc) override;
 	void Release() override;
 };
-
