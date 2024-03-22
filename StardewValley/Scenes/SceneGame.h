@@ -10,6 +10,7 @@ protected:
 	const sf::Vector2f tileSize = { 50.f, 50.f };
 
 	Inventory* inventory;
+	Inventory* smallinventory;
 public:
 	SceneGame(SceneIds id);
 	virtual ~SceneGame();

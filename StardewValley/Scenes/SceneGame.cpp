@@ -38,7 +38,7 @@ void SceneGame::Init()
 	Player* player = new Player("Player");
 	AddGo(player);
 
-	//? 없어도 될거같은데
+	//인벤토리 위치 잡기
 	inventory = new Inventory("Inventory");
 	inventory->SetPosition({ 1920 / 2, 1080 / 2 });
 	AddGo(inventory, Ui);

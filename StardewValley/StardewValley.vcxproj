@@ -152,10 +152,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="GameObjects\GameObject.cpp" />
+    <ClCompile Include="GameObjects\Inventory.cpp" />
+    <ClCompile Include="GameObjects\InvetorySlot.cpp" />
+    <ClCompile Include="GameObjects\Item.cpp" />
     <ClCompile Include="GameObjects\TileMap.cpp" />
-    <ClCompile Include="Inventory.cpp" />
-    <ClCompile Include="InvetorySlot.cpp" />
-    <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
     </ClCompile>
@@ -190,12 +190,12 @@
     <ClInclude Include="Framework\Singleton.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="GameObjects\GameObject.h" />
+    <ClInclude Include="GameObjects\Inventory.h" />
+    <ClInclude Include="GameObjects\InvetorySlot.h" />
+    <ClInclude Include="GameObjects\Item.h" />
     <ClInclude Include="GameObjects\TileMap.h" />
     <ClInclude Include="GameObjects\ObjectOnTile.h" />
     <ClInclude Include="DataTables\ObjectTable.h" />
-    <ClInclude Include="Inventory.h" />
-    <ClInclude Include="InvetorySlot.h" />
-    <ClInclude Include="Item.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="Scenes\Scene.h" />
