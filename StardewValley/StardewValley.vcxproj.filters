@@ -62,5 +62,5 @@
     <ClInclude Include="Scenes\TestMapTool.h" />
     <ClInclude Include="DataTables\ItemTable.h" />
     <ClInclude Include="DataTables\FloorTable.h" />
-  </ItemGroup>
-</Project>
+    <ClInclude Include="GameObjects\Inventory.h" />
+    <ClInclude Include="GameObjects\InvetorySlot.h" />

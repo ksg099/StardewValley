@@ -12,9 +12,14 @@ void Inventory::Init()
 
 	//인벤토리 창 구현
 	SetTexture("graphics/Ui.png");
-	//invenLine.SetTexture("graphics/invenBoxLine.png");
+	smallUi.SetTexture("graphics/smallUi.png");
+	smallUi.SetPosition({970.f, 960.f});
+
+	//sf::Vector2f smallUiPosition = smallUi.GetPosition();
 
 	Release();
+
+	//I키 눌렀을때 나오는 메인 인벤토리 창과 그안에 들어갈 슬롯 만들기 3*10
 	for (int i = 0; i < countY; i++)
 	{
 		for (int j = 0; j < countX; j++)
@@ -29,6 +34,19 @@ void Inventory::Init()
 			slots.push_back(slot);
 		}
 	}
+
+	//메인 화면 하단에 나오는 작은 인벤토리의 슬롯 만들기
+	for (int j = 0; j < countX; j++)
+	{
+		//슬롯 위치 잡기
+		InvetorySlot* smallslot = new InvetorySlot("Inventory Slot");
+		sf::Vector2f pos = smallUi.GetPosition() + sf::Vector2f((float)j * 60.f, -40.f);
+		smallslot->SetPosition(pos);
+		smallslot->SetOrigin(Origins::MC);
+		smallslot->Init();
+		smallslots.push_back(smallslot);
+	}
+	
 }
 
 void Inventory::Release()
@@ -50,7 +68,7 @@ void Inventory::Reset()
 {
 	SpriteGo::Reset();
 	SetOrigin(Origins::MC);
-
+	smallUi.SetOrigin(Origins::MC);
 	for (int i = 0; i < countY; i++)
 	{
 		for (int j = 0; j < countX; j++)
@@ -69,20 +87,20 @@ void Inventory::Update(float dt)
 {
 	SpriteGo::Update(dt);
 
+	//인벤토리가 안보였다면 I키를 눌렀을때 보이게 하기
 	if (InputMgr::GetKeyDown(sf::Keyboard::I))
 	{
 		isAble = !isAble;
 	}
 
-	//두개 데이터 저장된 위치가 있으면 서로 전환
 	sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
 	sf::Vector2f uiPos = SCENE_MGR.GetCurrentScene()->ScreenToUi(mousePos);
 	int clickSlotIndex = -1;
 
+	//마우스 왼쪽 버튼이 눌렸 있을때 마우스 위치에 해당하는 슬롯을
+	//순회를 돌아 찾아 clickSlotIndex에 할당
 	if (InputMgr::GetMouseButton(sf::Mouse::Button::Left))
 	{
-		//슬롯에 저장된 사이즈만큼 순회를 하고 clickSlotIndex에 할당한다.
-		// 즉 지금 마우스로 버튼을 누르고 있는 슬롯 찾기
 		for (int i = 0; i < slots.size(); ++i)
 		{
 			sf::FloatRect slotBounds = slots[i]->GetGlobalBounds();
@@ -94,12 +112,12 @@ void Inventory::Update(float dt)
 		}
 	}
 
+	//마우스 왼쪽 버튼을 놓았을때 첫번째 아이템이 선택된 상태라면
+	//마우스를 놓은곳에 해당하는 슬롯을 다시 순회를 돌아 찾아 그위치로 아이템을 SwapItem한다.
 	if (InputMgr::GetMouseButtonUp(sf::Mouse::Left))
 	{
 		if (firstClickIndex != -1) //이미 첫번째 인덱스가 선택되어 있을때
 		{
-			//슬롯에 저장된 사이즈만큼 순회를 하고 clickSlotIndex에 할당한다.
-			// 즉 마우스 버튼을 놓은 슬롯 찾기
 			for (int i = 0; i < slots.size(); ++i)
 			{
 				sf::FloatRect slotBounds = slots[i]->GetGlobalBounds();
@@ -120,13 +138,9 @@ void Inventory::Update(float dt)
 		}
 	}
 
-	if (clickSlotIndex == -1) //빈 공간이 눌렸을 경우 리셋
-	{
-		firstClickIndex = -1;
-	}
-
-
-	if (firstClickIndex == -1)
+	//첫번째 클릭 된 아이템의 인덱스가 아직 아무것도 선택이 안된 경우
+	//위의 조건들일 경우
+	if (clickSlotIndex != -1 && firstClickIndex == -1)
 	{
 		int fx = clickSlotIndex % countX;
 		int fy = clickSlotIndex / countX;
@@ -135,16 +149,29 @@ void Inventory::Update(float dt)
 				return elem->IndexX == fx && elem->IndexY == fy;
 			});
 
+		//아이템이 있으면 클릭한 슬롯 인덱스를 firstClickIndex에 할당합니다.
+		//첫번째로 선택한 아이템
 		if (findFirst != items.end())
 		{
 			firstClickIndex = clickSlotIndex;
 		}
+	}
+
+	if (clickSlotIndex == -1) //빈 공간이 눌렸을 경우 선택된 인덱스를 초기화하여 선택한 것을 초기화
+	{
+		firstClickIndex = -1;
 	}
 }
 
 
 void Inventory::Draw(sf::RenderWindow& window)
 {
+
+	smallUi.Draw(window);
+	for (auto smallslot : smallslots)
+	{
+		smallslot->Draw(window);
+	}
 	if (!isAble)
 	{
 		

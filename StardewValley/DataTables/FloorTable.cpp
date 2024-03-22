@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "FloorTable.h"
 
+DataFloor FloorTable::Undefined;
+
 FloorTable::FloorTable(DataTable::Types type) : DataTable(type)
 {
 }
