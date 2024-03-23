@@ -43,9 +43,14 @@ bool ItemSave::Load(rapidjson::Document& doc)
 		itemData->count = infoArr[i]["Count"].GetInt();
 		itemData->canOverLap = infoArr[i]["CanOverlap"].GetBool();
 		itemData->type = (ItemType)infoArr[i]["ItemType"].GetInt();
-		itemData->itemFilePath = infoArr[i]["Resource"].GetString();
+		// itemData->itemFilePath = infoArr[i]["Resource"].GetString();
 
 		items->push_back(itemData);
 	}
 	return true;
+}
+
+void ItemSave::Release()
+{
+	//???
 }
