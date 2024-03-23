@@ -1,19 +1,19 @@
 #pragma once
 #include "SpriteGo.h"
 #include "TextGo.h"
-#include "Item.h"
+
 
 class InvetorySlot : public SpriteGo
 {
 protected:
 
-	enum class state
-	{
-		empty,
-		full,
-	};
+	//enum class state
+	//{
+	//	empty,
+	//	full,
+	//};
 
-	ItemData* itemData;
+	//ItemData* itemData;
 
 	SpriteGo background; //기본 비어있는 상태 이미지
 	SpriteGo icon; //아이템 아이콘 이미지
@@ -38,6 +38,6 @@ public:
 	void SetEmpty(); //비어 있는 상태
 	void SetItem(ItemData* data); // ItemData의 데이터를 받아 아이템을 세팅
 
-	void SetItemData(ItemData*& data) { itemData = data; }
+	//void SetItemData(ItemData*& data) { itemData = data; }
 };
 
