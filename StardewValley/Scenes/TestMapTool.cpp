@@ -26,6 +26,14 @@ std::string ConvertLPCWSTRToString(LPCWSTR lpcwszStr)         //LPCWSTR 유형의 �
     return str;
 }
 
+void TestMapTool::UpdateTransform()
+{
+    transform = sf::Transform::Identity;
+
+    transform.scale(FRAMEWORK.GetWindowSize().x / worldView.getSize().x, FRAMEWORK.GetWindowSize().y / worldView.getSize().y, 0.f,0.f);
+
+}
+
 std::wstring TestMapTool::SelectFile()        //대화상자(폴더)를 열기 위한 함수
 {
     wchar_t save[260];
@@ -109,12 +117,12 @@ void TestMapTool::Update(float dt)
     if (InputMgr::GetMouseWheelDown(sf::Mouse::VerticalWheel))
     {
         worldView.zoom(0.9f);
-        FRAMEWORK.GetWindow().setView(worldView);
+        UpdateTransform();
     }
     if (InputMgr::GetMouseWheelUp(sf::Mouse::VerticalWheel))
     {
         worldView.zoom(1.1f);
-        FRAMEWORK.GetWindow().setView(worldView);
+        UpdateTransform();
     }
 
     if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
@@ -201,8 +209,9 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
 
 void TestMapTool::Draw(sf::RenderWindow& window)
 {
-   // window.setView(worldView);
-    window.draw(grid);
+    sf::RenderStates state;
+    state.transform = transform;
+    window.draw(grid, state);
     window.draw(spriteFloor);
     for (int i = 0; i < mapData.size(); ++i)
     {
@@ -284,7 +293,7 @@ void TestMapTool::SetMapToolSize(int xCount, int yCount)
 //    Document::AllocatorType& allocator = doc.GetAllocator(); // 메모리 할당자 획득
 //
 //    // 타일맵 크기 저장
-//    doc.AddMember("tileSizeX", Value(tileSize.x), allocator);
+//    doc.AddMember("Resource", Value(tileSize.x), allocator);
 //    doc.AddMember("tileSizeY", Value(tileSize.y), allocator);
 //    doc.AddMember("mapSizeX", Value(tileMap.x), allocator);
 //    doc.AddMember("mapSizeY", Value(tileMap.y), allocator);
@@ -348,16 +357,14 @@ void TestMapTool::SetMapToolSize(int xCount, int yCount)
 //        const rapidjson::Value& tile = tiles[i];
 //
 //        Tile tileData;
-//        tileData.posX = tile["PosX"].GetInt();
-//        tileData.posY = tile["PosY"].GetInt();
-//        //tileData.groundType = tile["Ground Type"].GetType();
-//        tileData.groundID = tile["Ground ID"].GetInt();
-//        //tileData.floorType = tile["Floor Type"].GetType();
-//        tileData.floorID = tile["Floor ID"].GetInt();
-//        //tileData.objectType = tile["Object Type"].GetType();
-//        tileData.objectID = tile["Object ID"].GetInt();
-//        tileData.placedPossible = tile["Placed Possible"].GetBool();
-//        tileData.playerPassable = tile["Player Passable"].GetBool();
+//        tileData.sheetID_X = tile["Sheet ID X"].GetInt();
+//        tileData.sheetID_Y = tile["Sheet ID Y"].GetInt();
+//        tileData.sheetID_W = tile["Sheet ID W"].GetInt();
+//        tileData.sheetID_Y = tile["Sheet ID H"].GetInt();
+//        tileData.resource = tile["Resource"].GetString();
+//        tileData.ID = tile["Object ID"].GetInt();
+//        //tileData.placedPossible = tile["Placed Possible"].GetBool();
+//        //tileData.playerPassable = tile["Player Passable"].GetBool();
 //    }
 //}
 

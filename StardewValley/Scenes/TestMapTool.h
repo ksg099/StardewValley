@@ -59,6 +59,7 @@ public:
 	void SetMapToolSize(int xCount, int yCount);
 	void SaveMapContent();
 	void LoadMapFile(std::vector<std::vector<Tile>>& data, const std::string& filePath);
+	void UpdateTransform();
 
 	std::wstring SelectFile(); 
 	std::string ToRelativePath(const std::string& originalPath, const std::string& basePath);  //Ãß°¡

@@ -67,12 +67,12 @@ public:
 
 	static sf::Keyboard::Key MouseWheelToKey(sf::Mouse::Wheel wheel)
 	{
-		return (sf::Keyboard::Key)(wheel + sf::Keyboard::Key::KeyCount);
+		return (sf::Keyboard::Key)(wheel + sf::Keyboard::Key::KeyCount + sf::Mouse::ButtonCount);
 	}
 
 	static sf::Mouse::Wheel KeyToMouseWheel(sf::Keyboard::Key key)
 	{
-		return (sf::Mouse::Wheel)(key - sf::Keyboard::Key::KeyCount);
+		return (sf::Mouse::Wheel)(key - sf::Keyboard::Key::KeyCount - sf::Mouse::ButtonCount);
 	}
 };
 
