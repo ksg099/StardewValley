@@ -64,7 +64,23 @@ void InputMgr::UpdateEvent(const sf::Event& ev)
             upList.push_back(button);
         }
         break;
-    }
+	case sf::Event::MouseWheelScrolled:
+	    {
+         if (ev.mouseWheelScroll.delta > 0)
+          {
+             sf::Keyboard::Key button = MouseWheelToKey(ev.mouseWheelScroll.wheel);
+             ingList.push_back(button);
+             downList.push_back(button);
+          }
+        else if (ev.mouseWheelScroll.delta < 0)
+         {
+            sf::Keyboard::Key button = MouseWheelToKey(ev.mouseWheelScroll.wheel);
+            ingList.remove(button);
+            upList.push_back(button);
+         }
+	    }
+    	break;
+	}
 }
 
 void InputMgr::Update(float dt)
@@ -209,4 +225,14 @@ bool InputMgr::GetMouseButtonUp(sf::Mouse::Button button)
 bool InputMgr::GetMouseButton(sf::Mouse::Button button)
 {
     return std::find(ingList.begin(), ingList.end(), MouseButtonToKey(button)) != ingList.end();;
+}
+
+bool InputMgr::GetMouseWheelDown(sf::Mouse::Wheel wheel)
+{
+    return std::find(upList.begin(), upList.end(), MouseWheelToKey(wheel)) != upList.end();
+}
+
+bool InputMgr::GetMouseWheelUp(sf::Mouse::Wheel wheel)
+{
+    return std::find(downList.begin(), downList.end(), MouseWheelToKey(wheel)) != downList.end();
 }

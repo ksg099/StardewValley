@@ -104,11 +104,18 @@ void TestMapTool::Update(float dt)
     sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
     sf::Vector2f mouseWorldPos = SCENE_MGR.GetCurrentScene()->ScreenToWorld(mousePos);
 
-    if (InputMgr::GetKeyDown(sf::Keyboard::Left))
-    {
-        
-    }
+    float zoomAmount = 1.1f;
 
+    if (InputMgr::GetMouseWheelDown(sf::Mouse::VerticalWheel))
+    {
+        worldView.zoom(0.9f);
+        FRAMEWORK.GetWindow().setView(worldView);
+    }
+    if (InputMgr::GetMouseWheelUp(sf::Mouse::VerticalWheel))
+    {
+        worldView.zoom(1.1f);
+        FRAMEWORK.GetWindow().setView(worldView);
+    }
 
     if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
     {
