@@ -12,8 +12,8 @@ void SceneMgr::Init()
 {
 	Release();
 
-	scenes.push_back(new TestMapTool(SceneIds::SCENE_MAP_TOOL));
 	scenes.push_back(new SceneGame(SceneIds::SCENE_GAME));
+	scenes.push_back(new TestMapTool(SceneIds::SCENE_MAP_TOOL));
 
 	for (auto scene : scenes)
 	{
