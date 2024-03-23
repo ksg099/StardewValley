@@ -35,13 +35,6 @@ void SceneGame::Init()
 	inventory->SetPosition({ 1920 / 2, 1080 / 2 });
 	AddGo(inventory, Ui);
 
-	//rapidjson::Document doc파일을 load하고 위에서 동적할당한 inven의 LoadData에 doc를 적용한다.
-	rapidjson::Document doc;
-	if (Utils::LoadFromFile("data/itemDataExample.json", doc))
-	{
-		inventory->LoadData(doc);
-	}
-
 	Scene::Init();
 }
 

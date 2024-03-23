@@ -43,6 +43,28 @@
       "Count": 5,
       "CanOverlap": false,
       "Resource": "graphics/shovel/ShovelDiamond.png"
+    },
+    {
+      "Box ID": 1,
+      "Index X": 0,
+      "Index Y": 0,
+      "ItemType": 0,
+      "ItemId": 0,
+      "InstanceId": 1,
+      "Count": 5,
+      "CanOverlap": false,
+      "Resource": "graphics/shovel/ShovelWood.png"
+    },
+    {
+      "Box ID": 1,
+      "Index X": 0,
+      "Index Y": 1,
+      "ItemType": 0,
+      "ItemId": 1,
+      "InstanceId": 2,
+      "Count": 5,
+      "CanOverlap": false,
+      "Resource": "graphics/shovel/ShovelSteel.png"
     }
   ]
 }

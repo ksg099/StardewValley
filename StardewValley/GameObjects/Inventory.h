@@ -19,13 +19,15 @@ protected:
 	//SpriteGo invenLine;
 	std::vector<InvetorySlot*> slots; //slot 컨테이너
 	std::vector<InvetorySlot*> smallslots; //smallslot 컨테이너
-	std::list<ItemData*> items; // 임시
+	std::list<ItemData*>* items; // 임시
 
 	sf::Vector2f currentMousePos;
 	sf::FloatRect slotBounds;
 
 	// 서브 인벤토리
 	int subIndexY = 0;
+
+	int boxId = 0;
 
 public:
 
@@ -40,10 +42,10 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void SetPosition(const sf::Vector2f& pos) override;
-	void LoadData(rapidjson::Document& doc);
+	// void LoadData(rapidjson::Document& doc);
 	void SetIvenSlot(int x, int y, ItemData* data);
 
-	void UpdateSlots(const std::list<ItemData*>& list);
+	void UpdateSlots();
 	void UpdateSubSlots();
 
 	void SwapItem(int firstClickIndex, int secondClixkIndex);
