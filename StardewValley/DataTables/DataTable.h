@@ -8,7 +8,8 @@ public:
 		GROUND,
 		FLOOR,
 		OBJECT,
-		ITEM
+		ITEM,
+		SAVE,
 	};
 	static const int TotalTypes = 3;
 	

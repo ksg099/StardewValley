@@ -15,9 +15,10 @@ public:
 	ItemSave(DataTable::Types type);
 	~ItemSave() override;
 
-	const DataObject& Get(ObjectType type, int id);
-	const DataObject& Get(const std::string& name);
-	const int Count(ObjectType type);
+	std::list<ItemData*>* Get(int boxId);
+	const std::pair<int, std::list<ItemData*>*>& AddITemBox();
+	// const DataObject& Get(const std::string& name);
+	// const int Count(ObjectType type);
 
 	bool Load(rapidjson::Document& doc) override;
 	void Release() override;

@@ -1,6 +1,45 @@
 #include "pch.h"
 #include "ItemSave.h"
 
+ItemSave::ItemSave(DataTable::Types type) : DataTable(type)
+{
+}
+
+ItemSave::~ItemSave()
+{
+	Release();
+}
+
+std::list<ItemData*>* ItemSave::Get(int boxId)
+{
+	auto find = itemBoxTable.find(boxId);
+	if (find == itemBoxTable.end())
+	{
+		std::cout << "Item Data에 해당 Type과 ID가 없습니다" << std::endl;
+		return nullptr;
+	}
+	return find->second;
+}
+
+const std::pair<int, std::list<ItemData*>*>& ItemSave::AddITemBox()
+{
+	int itemBoxCount = itemBoxTable.size();
+	std::pair<int, std::list<ItemData*>*> boxPair = std::make_pair(-1, nullptr);
+	for (int i = 2; i <= itemBoxCount; ++i)
+	{
+		auto find = itemBoxTable.find(i);
+		if (find == itemBoxTable.end())
+		{
+			std::list<ItemData*>* items = new std::list<ItemData*>;
+			boxPair.first = i;
+			boxPair.second = items;
+			return boxPair;
+		}
+	}
+	std::cout << "아이템 박스를 추가할 수 없습니다!" << std::endl;
+	return boxPair;
+}
+
 bool ItemSave::Load(rapidjson::Document& doc)
 {
 	Release();
@@ -52,5 +91,23 @@ bool ItemSave::Load(rapidjson::Document& doc)
 
 void ItemSave::Release()
 {
-	//???
+	for (auto itemBox : itemBoxTable)
+	{
+		if (itemBox.second != nullptr)
+		{
+			for (auto item : *itemBox.second)
+			{
+				if (item != nullptr)
+				{
+					delete item;
+					item = nullptr;
+				}
+			}
+
+			delete itemBox.second;
+			itemBox.second = nullptr;
+		}
+	}
+
+	itemBoxTable.clear();
 }
