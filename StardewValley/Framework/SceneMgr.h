@@ -3,7 +3,7 @@
 
 class Scene;
 
-enum class SceneIds
+enum class SceneIds //push_back도 순서대로
 {
 	None = -1, SCENE_MAP_TOOL, SCENE_GAME, Count,
 };
