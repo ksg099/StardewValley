@@ -4,8 +4,8 @@
 
 struct MapSheet
 {
-    sf::Sprite objSprite;
-    int indexNumber;
+    sf::Sprite tileSprite;
+    int indexNumber; //UI 격자 내에 배치된 인덱스
     int objectID;
     std::string resource;
     int sheetID_X;
@@ -42,6 +42,7 @@ protected:
     int currentPage;
     std::vector<std::vector<MapSheet>> categories;
 
+
     int col = 40;
     int row = 30;
     float size = 15;
@@ -51,10 +52,18 @@ public:
     MapToolUI(const std::string& name = "");
     ~MapToolUI() override = default;
 
+
+    MapSheet selectedTile; //선택한 타일의 정보를 저장하려고 만듦
+    bool isSelected = false; //타일 선택했는지 확인
+
     void SetBackFloor(const sf::Vector2i& count, const sf::Vector2f& size);
     void SetSpriteSheetId(const std::string& id);
     void DrawGrid();
     sf::Vector2f IndexToPos(int index);
+    int PosToIndex(sf::Vector2f pos);
+
+    const MapSheet& GetSelectedObject() const { return selectedTile; }
+    void SelectTile(int index);
 
     sf::FloatRect GetSaveButtonGB() { return saveButton.GetGlobalBounds(); }
     sf::FloatRect GetLoadButtonGB() { return loadButton.GetGlobalBounds(); }

@@ -29,6 +29,7 @@
     <ClCompile Include="Scenes\TestMapTool.cpp" />
     <ClCompile Include="DataTables\ItemTable.cpp" />
     <ClCompile Include="DataTables\FloorTable.cpp" />
+    <ClCompile Include="MapToolUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataTables\DataTable.h" />
@@ -61,5 +62,7 @@
     <ClInclude Include="Framework\SoundMgr.h" />
     <ClInclude Include="Scenes\TestMapTool.h" />
     <ClInclude Include="DataTables\ItemTable.h" />
+    <ClInclude Include="DataTables\FloorTable.h" />
+    <ClInclude Include="MapToolUI.h" />
   </ItemGroup>
 </Project>

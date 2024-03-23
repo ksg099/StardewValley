@@ -69,7 +69,15 @@ TestMapTool::~TestMapTool()
 
 void TestMapTool::Init()
 {
+    sf::Vector2f windowSize = (sf::Vector2f)FRAMEWORK.GetWindowSize();
+    uiView.setSize(windowSize);
+    uiView.setCenter(-windowSize.x * 0.5f, -windowSize.y * 0.5f);
+    worldView.setCenter(-windowSize.x * 0.5f, -windowSize.y * 0.5f);
+    window.setView(worldView); // ㅠ0ㅠ
     DrawGrid();
+    transform = sf::Transform::Identity;
+    transform.scale(1.f, 1.f, 0.f, 0.f);
+  
 
     mapToolUI = new MapToolUI("UI");
     AddGo(mapToolUI, Layers::Ui);
@@ -99,26 +107,41 @@ void TestMapTool::Update(float dt)
     sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
     sf::Vector2f mouseWorldPos = SCENE_MGR.GetCurrentScene()->ScreenToWorld(mousePos);
 
+    if (InputMgr::GetKeyDown(sf::Keyboard::Left))
+    {
+        
+    }
+
+
     if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
     {
         if (mapToolUI->GetSaveButtonGB().contains(mouseWorldPos))
         {
-            SaveMapContent();
+            //SaveMapContent();
+            mapToolUI->isSelected = false;
         }
         if (mapToolUI->GetEraseButtonGB().contains(mouseWorldPos))
         {
             //배치되었던 오브젝트 지우기
+            mapToolUI->isSelected = false;
         }
         if (mapToolUI->GetLoadButtonGB().contains(mouseWorldPos))
         {
             //저장했던 맵 정보 불러오기
+            mapToolUI->isSelected = false;
         }
         if (mapToolUI->GetMoveScreenButtonGB().contains(mouseWorldPos))
         {
             //오브젝트 배치를 중지하고 격자 화면을 드래그앤 드롭해서 이동할 수 있도록
+            mapToolUI->isSelected = false;
+        }
+
+        sf::FloatRect visibleMapBounds(15.f, 15.f, 1152.f, 1050.f);
+        if (mapToolUI->isSelected && visibleMapBounds.contains(mouseWorldPos))
+        {
+            PlaceTileToIndex(PosToIndex(mouseWorldPos), mapToolUI->selectedTile);
         }
     }
-
 
     if (InputMgr::GetKeyDown(sf::Keyboard::X))
     {
@@ -146,9 +169,36 @@ void TestMapTool::Update(float dt)
     }
 }
 
+void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
+{
+    //같은 Type이면 이미 있던게 지워지고 새로 올린게 들어가야하는거고
+    //다른 Type이면 ground -> floor -> object 순으로 위에 쌓아올릴 수 있어야 함
+    if (indexNum >= 0 && indexNum <= col * row )
+    {
+        Tile placedTile;
+        placedTile.resource = tile.resource;
+        placedTile.ID = tile.objectID;
+        placedTile.indexNum = indexNum;
+        placedTile.sheetID_X = tile.sheetID_X;
+        placedTile.sheetID_Y = tile.sheetID_Y;
+        placedTile.sheetID_W = tile.sheetID_W;
+        placedTile.sheetID_H = tile.sheetID_H;
+        placedTile.tileSprite = tile.tileSprite;
+
+        placedTile.tileSprite.setTexture(RES_MGR_TEXTURE.Get(placedTile.resource));
+        placedTile.tileSprite.setTextureRect({ placedTile.sheetID_X, placedTile.sheetID_Y, placedTile.sheetID_W, placedTile.sheetID_H });
+        placedTile.tileSprite.setOrigin({ (float)(placedTile.sheetID_W) * 0.5f, (float)(placedTile.sheetID_H) * 0.5f });
+        // placedTile.tileSprite.setScale({ size / placedTile.sheetID_W , size / placedTile.sheetID_H });
+        placedTile.tileSprite.setPosition(IndexToPos(indexNum));
+    }
+}
+
 void TestMapTool::Draw(sf::RenderWindow& window)
 {
-    window.draw(grid);
+    sf::RenderStates state;
+    state.transform = transform;
+    window.setView(worldView);
+    window.draw(grid, state);
     window.draw(spriteFloor);
     Scene::Draw(window);
 }
@@ -194,6 +244,22 @@ void TestMapTool::DrawGrid()
     }
 }
 
+int TestMapTool::PosToIndex(sf::Vector2f pos)
+{
+    int rowIndex = (pos.y -  (size / 2)) / size;
+    int columnIndex = (pos.x - (size / 2)) / size;
+
+    int index = rowIndex * col + columnIndex;
+    return index;
+}
+
+sf::Vector2f TestMapTool::IndexToPos(int index)
+{
+    int x = index % col;
+    int y = index / col;
+    return sf::Vector2f( x * size + size / 2,  y * size + size / 2);
+}
+
 
 void TestMapTool::SetMapToolSize(int xCount, int yCount)
 {
@@ -201,69 +267,89 @@ void TestMapTool::SetMapToolSize(int xCount, int yCount)
     col = yCount;
 }
 
-void TestMapTool::SaveMapContent()
-{
-    rapidjson::Document doc;
-    doc.SetObject();
-    rapidjson::Document::AllocatorType& allocator = doc.GetAllocator();
-
-    // 예제 데이터, 실제 데이터는 맵에서 가져온 데이터로 대체해야 합니다.
-    rapidjson::Value tiles(rapidjson::kArrayType);
-
-    // 여기서 타일 데이터를 JSON 배열로 추가
-    for (const auto& row : mapData) 
-    {
-        for (const auto& tile : row) 
-        {
-           /* rapidjson::Value tileData(rapidjson::kObjectType);
-            tileData.AddMember("PosX", tile.posX, allocator);
-            tileData.AddMember("PosY", tile.posY, allocator);
-            tileData.AddMember("Ground Type", tile.groundType, allocator);
-            tileData.AddMember("Ground ID", tile.groundID, allocator);
-            tileData.AddMember("Floor Type", tile.floorType, allocator);
-            tileData.AddMember("Object Type", tile.objectType, allocator);
-            tileData.AddMember("Object ID", tile.objectID, allocator);
-            tileData.AddMember("Placed Possible", tile.placedPossible, allocator);
-            tileData.AddMember("Player Passable", tile.playerPassable, allocator);
-            tiles.PushBack(tileData, allocator);*/
-        }
-    }
-
-    doc.AddMember("tiles", tiles, allocator);
-
-    rapidjson::StringBuffer buffer;
-    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-    doc.Accept(writer);
-
-    std::ofstream outFile("data"); //이게 맞나?
-    outFile << buffer.GetString();
-}
-
-void TestMapTool::LoadMapFile(std::vector<std::vector<Tile>>& data, const std::string& filePath)
-{
-    std::ifstream inFile(filePath);
-    std::string content((std::istreambuf_iterator<char>(inFile)),
-        std::istreambuf_iterator<char>());
-
-    rapidjson::Document doc;
-    doc.Parse(content.c_str());
-
-    const rapidjson::Value& tiles = doc["tiles"];
-    for (rapidjson::SizeType i = 0; i < tiles.Size(); i++)
-    {
-        const rapidjson::Value& tile = tiles[i];
-
-        Tile tileData;
-        tileData.posX = tile["PosX"].GetInt();
-        tileData.posY = tile["PosY"].GetInt();
-        //tileData.groundType = tile["Ground Type"].GetType();
-        tileData.groundID = tile["Ground ID"].GetInt();
-        //tileData.floorType = tile["Floor Type"].GetType();
-        tileData.floorID = tile["Floor ID"].GetInt();
-        //tileData.objectType = tile["Object Type"].GetType();
-        tileData.objectID = tile["Object ID"].GetInt();
-        tileData.placedPossible = tile["Placed Possible"].GetBool();
-        tileData.playerPassable = tile["Player Passable"].GetBool();
-    }
-}
+//void TestMapTool::SaveMapContent()
+//{
+//    using namespace rapidjson;
+//
+//    rapidjson::Document doc;
+//    doc.SetObject();
+//    Document::AllocatorType& allocator = doc.GetAllocator(); // 메모리 할당자 획득
+//
+//    // 타일맵 크기 저장
+//    doc.AddMember("tileSizeX", Value(tileSize.x), allocator);
+//    doc.AddMember("tileSizeY", Value(tileSize.y), allocator);
+//    doc.AddMember("mapSizeX", Value(tileMap.x), allocator);
+//    doc.AddMember("mapSizeY", Value(tileMap.y), allocator);
+//
+//    // 각 타일의 정보를 담을 JSON 배열 객체 생성
+//    Value tilesArray(kArrayType);
+//
+//    for (const auto& row : tiles)
+//    {
+//        for (const auto& tile : row)
+//        {
+//            Value tileObject(kObjectType); // 개별 타일 정보를 담을 JSON 객체 생성
+//            tileObject.AddMember("type", (int)tile.type, allocator); // 타일 타입 정보 추가
+//            // rapidjson 은 std::string 호환이 안되서 const char* 으로 넘겨줘야함 
+//            // TODO : 임시방편으로 상대경로로 변환뒤 저장
+//            std::string relativePath = Utils::ConvertToRelativePath(tile.textureFilePath);
+//            tileObject.AddMember("texture FilePath", rapidjson::Value(relativePath.c_str(), allocator), allocator);
+//            tileObject.AddMember("x Pos", tile.shape.getPosition().x, allocator);
+//            tileObject.AddMember("y Pos", tile.shape.getPosition().y, allocator);
+//
+//            // 타일 객체를 타일 배열에 추가
+//            tilesArray.PushBack(tileObject, allocator);
+//        }
+//    }
+//
+//    // 타일 배열들 저장
+//    doc.AddMember("tiles", tilesArray, allocator);
+//
+//    // 이제 파일을 저장해야함
+//    std::wstring savePath = Utils::OpenSaveFileDialog();
+//    if (savePath.empty())
+//    {
+//        return; // 취소할 경우 return
+//    }
+//
+//    // JSON 문서를 파일에 쓰기
+//    // TODO : fopen 수정하기
+//    std::string sSavePath = Utils::WSTRINGToString(savePath);
+//    FILE* fp = fopen(sSavePath.c_str(), "wb");
+//
+//    char writeBuffer[65536];
+//    FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
+//    PrettyWriter<FileWriteStream> writer(os);
+//    doc.Accept(writer);
+//    fclose(fp);
+//}
+//
+//void TestMapTool::LoadMapFile(std::vector<std::vector<Tile>>& data, const std::string& filePath)
+//{
+//    std::ifstream inFile(filePath);
+//    std::string content((std::istreambuf_iterator<char>(inFile)),
+//        std::istreambuf_iterator<char>());
+//
+//    rapidjson::Document doc;
+//    doc.Parse(content.c_str());
+//    doc.SetObject();
+//
+//    const rapidjson::Value& tiles = doc["tiles"];
+//    for (rapidjson::SizeType i = 0; i < tiles.Size(); i++)
+//    {
+//        const rapidjson::Value& tile = tiles[i];
+//
+//        Tile tileData;
+//        tileData.posX = tile["PosX"].GetInt();
+//        tileData.posY = tile["PosY"].GetInt();
+//        //tileData.groundType = tile["Ground Type"].GetType();
+//        tileData.groundID = tile["Ground ID"].GetInt();
+//        //tileData.floorType = tile["Floor Type"].GetType();
+//        tileData.floorID = tile["Floor ID"].GetInt();
+//        //tileData.objectType = tile["Object Type"].GetType();
+//        tileData.objectID = tile["Object ID"].GetInt();
+//        tileData.placedPossible = tile["Placed Possible"].GetBool();
+//        tileData.playerPassable = tile["Player Passable"].GetBool();
+//    }
+//}
 

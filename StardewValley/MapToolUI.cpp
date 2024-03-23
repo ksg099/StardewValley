@@ -79,11 +79,29 @@ void MapToolUI::DrawGrid()
     }
 }
 
+int MapToolUI::PosToIndex(sf::Vector2f pos)
+{
+        int rowIndex = (pos.y - gridStart.y - (size / 2)) / size;
+        int columnIndex = (pos.x - gridStart.x - (size / 2)) / size;
+
+        int index = rowIndex * col + columnIndex;
+        return index;
+}
+
 sf::Vector2f MapToolUI::IndexToPos(int index)
 {
     int x = index % col;
     int y = index / col;
-    return sf::Vector2f(gridStart.x + x * size + size / 2, gridStart.y + y * size + size / 2);
+    return sf::Vector2f(gridStart.x + x * size + size / 2, gridStart.y + y * size + size / 2); //격자 가운데 배치
+}
+
+void MapToolUI::SelectTile(int index)
+{
+    if (index >= 0 && index < categories[currentPage].size()) 
+    {
+        selectedTile = categories[currentPage][index];
+        isSelected = true;
+    }
 }
 
 void MapToolUI::Init()
@@ -155,17 +173,16 @@ void MapToolUI::Init()
 
     int index = 0;
     int objIndex = 0;
-    categories.resize(5000);
+    categories.resize(3);
     for (int i = 0; i < (int)ObjectType::COUNT; ++i)
     {
-        //ObjectType type = (ObjectType)i;
         int objectCount = OBJECT_TABLE->Count((ObjectType)i);
         for (int j = 0; j < objectCount; ++j)
         {
             auto objectData = OBJECT_TABLE->Get((ObjectType)i, j);
             std::string textureId = objectData.textureId;
             categories[0].push_back(MapSheet());
-            categories[0][objIndex].objSprite.setTexture(RES_MGR_TEXTURE.Get(textureId));
+            categories[0][objIndex].tileSprite.setTexture(RES_MGR_TEXTURE.Get(textureId));
             categories[0][objIndex].resource = textureId;
             categories[0][objIndex].objectID = objectData.objectId;
             categories[0][objIndex].sheetID_X = objectData.sheetId.x;
@@ -173,21 +190,19 @@ void MapToolUI::Init()
             categories[0][objIndex].sheetID_W = objectData.sheetSize.x;
             categories[0][objIndex].sheetID_H = objectData.sheetSize.y;
             categories[0][objIndex].indexNumber = index;
-            categories[0][objIndex].objSprite.setTextureRect({ objectData.sheetId.x, objectData.sheetId.y, objectData.sheetSize.x, objectData.sheetSize.y });
-            categories[0][objIndex].objSprite.setOrigin({ objectData.sheetSize.x * 0.5f, objectData.sheetSize.y * 0.5f });
-            categories[0][objIndex].objSprite.setScale({ size / categories[0][objIndex].sheetID_W , size / categories[0][objIndex].sheetID_H });
-            categories[0][objIndex].objSprite.setPosition(IndexToPos(index));
+            categories[0][objIndex].tileSprite.setTextureRect({ objectData.sheetId.x, objectData.sheetId.y, objectData.sheetSize.x, objectData.sheetSize.y });
+            categories[0][objIndex].tileSprite.setOrigin({ objectData.sheetSize.x * 0.5f, objectData.sheetSize.y * 0.5f });
+            categories[0][objIndex].tileSprite.setScale({ size / categories[0][objIndex].sheetID_W , size / categories[0][objIndex].sheetID_H });
+            categories[0][objIndex].tileSprite.setPosition(IndexToPos(index));
             ++objIndex;
             ++index;
         }
-
     }
 
 	index = 0;
 	int groundIndex = 0;
 	for (int i = 0; i < (int)GroundType::COUNT; ++i)
 	{
-		GroundType type = (GroundType)i;
 		int groundCount = GROUND_TABLE->Count((GroundType)i);
 		for (int j = 0; j < groundCount; ++j)
 		{
@@ -201,11 +216,11 @@ void MapToolUI::Init()
 			categories[1][groundIndex].sheetID_W = groundData.sheetSize.x;
 			categories[1][groundIndex].sheetID_H = groundData.sheetSize.y;
 			categories[1][groundIndex].indexNumber = index;
-			categories[1][groundIndex].objSprite.setTextureRect({ groundData.sheetId.x, groundData.sheetId.y, groundData.sheetSize.x, groundData.sheetSize.y });
-			categories[1][groundIndex].objSprite.setOrigin({ groundData.sheetSize.x * 0.5f, groundData.sheetSize.y * 0.5f });
-			categories[1][groundIndex].objSprite.setScale({ size / categories[1][groundIndex].sheetID_W , size / categories[1][groundIndex].sheetID_H });
-			categories[1][groundIndex].objSprite.setPosition(IndexToPos(index));
-			categories[1][groundIndex].objSprite.setTexture(RES_MGR_TEXTURE.Get(groundTextureId));
+			categories[1][groundIndex].tileSprite.setTextureRect({ groundData.sheetId.x, groundData.sheetId.y, groundData.sheetSize.x, groundData.sheetSize.y });
+			categories[1][groundIndex].tileSprite.setOrigin({ groundData.sheetSize.x * 0.5f, groundData.sheetSize.y * 0.5f });
+			categories[1][groundIndex].tileSprite.setScale({ size / categories[1][groundIndex].sheetID_W , size / categories[1][groundIndex].sheetID_H });
+			categories[1][groundIndex].tileSprite.setPosition(IndexToPos(index));
+			categories[1][groundIndex].tileSprite.setTexture(RES_MGR_TEXTURE.Get(groundTextureId));
 			++groundIndex;
 			++index;
 		}
@@ -215,7 +230,6 @@ void MapToolUI::Init()
     int floorIndex = 0;
     for (int i = 0; i < (int)FloorType::COUNT; ++i)
     {
-        FloorType type = (FloorType)i;
         int floorCount = FLOOR_TABLE->Count((FloorType)i);
         for (int j = 0; j < floorCount; ++j)
         {
@@ -229,11 +243,11 @@ void MapToolUI::Init()
             categories[2][floorIndex].sheetID_W = floorData.sheetSize.x;
             categories[2][floorIndex].sheetID_H = floorData.sheetSize.y;
             categories[2][floorIndex].indexNumber = index;
-            categories[2][floorIndex].objSprite.setTextureRect({ floorData.sheetId.x, floorData.sheetId.y, floorData.sheetSize.x, floorData.sheetSize.y });
-            categories[2][floorIndex].objSprite.setOrigin({ floorData.sheetSize.x * 0.5f, floorData.sheetSize.y * 0.5f });
-            categories[2][floorIndex].objSprite.setScale({ size / categories[2][floorIndex].sheetID_W , size / categories[2][floorIndex].sheetID_H });
-            categories[2][floorIndex].objSprite.setPosition(IndexToPos(index));
-            categories[2][floorIndex].objSprite.setTexture(RES_MGR_TEXTURE.Get(floorTextureId));
+            categories[2][floorIndex].tileSprite.setTextureRect({ floorData.sheetId.x, floorData.sheetId.y, floorData.sheetSize.x, floorData.sheetSize.y });
+            categories[2][floorIndex].tileSprite.setOrigin({ floorData.sheetSize.x * 0.5f, floorData.sheetSize.y * 0.5f });
+            categories[2][floorIndex].tileSprite.setScale({ size / categories[2][floorIndex].sheetID_W , size / categories[2][floorIndex].sheetID_H });
+            categories[2][floorIndex].tileSprite.setPosition(IndexToPos(index));
+            categories[2][floorIndex].tileSprite.setTexture(RES_MGR_TEXTURE.Get(floorTextureId));
             ++floorIndex;
             ++index;
         }
@@ -248,15 +262,6 @@ void MapToolUI::Release()
 void MapToolUI::Reset()
 {
     GameObject::Reset();
-
-    for (auto category : categories)
-    {
-        for (auto obj : category)
-        {
-            //obj.Reset();
-
-        }
-    }
 }
 
 void MapToolUI::Update(float dt)
@@ -266,6 +271,8 @@ void MapToolUI::Update(float dt)
 
     if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
     {
+        SelectTile(PosToIndex(mouseUIPos));
+
         if (arrowLeft.GetGlobalBounds().contains(mouseUIPos))
         {
             --currentPage;
@@ -283,7 +290,6 @@ void MapToolUI::Update(float dt)
             }
         }
     }
-
     GameObject::Update(dt);
 }
 
@@ -315,7 +321,7 @@ void MapToolUI::Draw(sf::RenderWindow& window)
 
     for (auto& obj : categories[currentPage])
     {
-        window.draw(obj.objSprite);
+        window.draw(obj.tileSprite);
     }
 
     saveButton.Draw(window);
