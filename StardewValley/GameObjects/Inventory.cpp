@@ -182,6 +182,7 @@ void Inventory::Update(float dt)
 	}
 	itemInfoText.SetPosition(uiPos);
 	//마우스 커서 위치에 있는 슬롯 아이템 정보 표시
+	bool mouseOverSlot = false;
 	for (int i = 0; i < slots.size(); ++i)
 	{
 		sf::FloatRect slotBounds = slots[i]->GetGlobalBounds();
@@ -190,14 +191,21 @@ void Inventory::Update(float dt)
 			for (auto& item : items)
 			{
 				int indexX = i % countX;
-				int indexY = i / countY;
-				if (item->IndexX == indexX && item->IndexY == indexY)
+				int indexY = i / countX;
+				if (item->IndexX == indexX && item->IndexY == indexY && item != nullptr)
 				{
 					DisplayItemInfo(*item, uiPos);
+					mouseOverSlot = true;
+
 					break;
 				}
 			}
 		}
+	}
+
+	if (!mouseOverSlot)
+	{
+		itemInfoText.SetString("");
 	}
 
 	if (clickSlotIndex == -1) //빈 공간이 눌렸을 경우 선택된 인덱스를 초기화하여 선택한 것을 초기화
@@ -360,9 +368,10 @@ void Inventory::SwapItem(int firstClickIndex, int secondClixkIndex)
 
 void Inventory::DisplayItemInfo(ItemData& itemData, sf::Vector2f& position)
 {
-
-	std::string info = "Type : " + std::to_string((int)itemData.type) + " ID : " + std::to_string(itemData.itemId) + "IndexX "
-		+ std::to_string(itemData.IndexX) + "IndexY" + std::to_string(itemData.IndexY);
+	//itemData.type타입이 int형이 아니라 형변환함
+	//아이템의 type과 id를 출력
+	//인덱스 부분 생략함 + "IndexX "+ std::to_string(itemData.IndexX) + "IndexY" + std::to_string(itemData.IndexY)
+	std::string info = "Type : " + std::to_string((int)itemData.type) + "  ID : " + std::to_string(itemData.itemId);
 	itemInfoText.Set(RES_MGR_FONT.Get("fonts/Arial.ttf"), info, 20, sf::Color::Black);
 }
 
