@@ -75,6 +75,15 @@
     <OutDir>..\$(ProjectName) Bin\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\$(ProjectName) Bin\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\$(ProjectName) Bin\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\$(ProjectName) Bin\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -158,6 +167,7 @@
     <ClCompile Include="GameObjects\Item.cpp" />
     <ClCompile Include="DataTables\ItemTable.cpp" />
     <ClCompile Include="GameObjects\TileMap.cpp" />
+    <ClCompile Include="DataTables\ItemSave.cpp" />
     <ClCompile Include="main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
     </ClCompile>
@@ -203,6 +213,7 @@
     <ClInclude Include="GameObjects\ObjectOnTile.h" />
     <ClInclude Include="DataTables\ObjectTable.h" />
     <ClInclude Include="DataTables\ItemTable.h" />
+    <ClInclude Include="DataTables\ItemSave.h" />
     <ClInclude Include="MapToolUI.h">
       <DeploymentContent>true</DeploymentContent>
     </ClInclude>
