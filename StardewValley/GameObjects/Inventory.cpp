@@ -84,8 +84,6 @@ void Inventory::Reset()
 
 void Inventory::Update(float dt)
 {
-	SpriteGo::Update(dt);
-
 	//인벤토리가 안보였다면 I키를 눌렀을때 보이게 하기
 	if (InputMgr::GetKeyDown(sf::Keyboard::I))
 	{
@@ -107,6 +105,31 @@ void Inventory::Update(float dt)
 			{
 				clickSlotIndex = i;
 				break;
+			}
+		}
+		if (InputMgr::GetKeyDown(sf::Keyboard::D))
+		{
+			if (firstClickIndex != -1) // 이미 선택된 아이템이 있으면
+			{
+				int fx = firstClickIndex % countX;
+				int fy = firstClickIndex / countX;
+
+				auto it = std::find_if(items.begin(), items.end(), [fx, fy](ItemData* elem) {
+					return elem->IndexX == fx && elem->IndexY == fy;
+					});
+
+				if (it != items.end())
+				{
+					// 선택된 아이템을 items 리스트에서 삭제
+					items.erase(it);
+
+					// 인벤토리 UI 갱신
+					UpdateSlots(items);
+					UpdateSubSlots();
+
+					// 선택 초기화
+					firstClickIndex = -1;
+				}
 			}
 		}
 	}
@@ -164,7 +187,7 @@ void Inventory::Update(float dt)
 	// tab을 누르면 서브 인벤토리 변경
 	if (InputMgr::GetKeyDown(sf::Keyboard::Tab))
 	{
-		++subIndexY;
+		subIndexY++;
 		if (subIndexY >= countY)
 		{
 			subIndexY = 0;
@@ -300,7 +323,6 @@ void Inventory::SwapItem(int firstClickIndex, int secondClixkIndex)
 	{
 		(*findFirst)->IndexX = sx;
 		(*findFirst)->IndexY = sy;
-		//전의 인덱스 위치를 초기화 해야하나?
 	}
 
 	// 그냥 아이템끼리 교환
