@@ -69,16 +69,10 @@ TestMapTool::~TestMapTool()
 
 void TestMapTool::Init()
 {
-    sf::Vector2f windowSize = (sf::Vector2f)FRAMEWORK.GetWindowSize();
-    uiView.setSize(windowSize);
-    uiView.setCenter(-windowSize.x * 0.5f, -windowSize.y * 0.5f);
-    worldView.setCenter(-windowSize.x * 0.5f, -windowSize.y * 0.5f);
-    window.setView(worldView); // ¤Ð0¤Ð
     DrawGrid();
     transform = sf::Transform::Identity;
     transform.scale(1.f, 1.f, 0.f, 0.f);
   
-
     mapToolUI = new MapToolUI("UI");
     AddGo(mapToolUI, Layers::Ui);
     
@@ -93,6 +87,9 @@ void TestMapTool::Release()
 void TestMapTool::Enter()
 {
     Scene::Enter();
+    sf::Vector2f windowSize = (sf::Vector2f)FRAMEWORK.GetWindowSize();
+    worldView.setCenter(windowSize.x * 0.5f, windowSize.y * 0.5f);
+    window.setView(worldView);
 }
 
 void TestMapTool::Exit()
@@ -190,16 +187,20 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
         placedTile.tileSprite.setOrigin({ (float)(placedTile.sheetID_W) * 0.5f, (float)(placedTile.sheetID_H) * 0.5f });
         // placedTile.tileSprite.setScale({ size / placedTile.sheetID_W , size / placedTile.sheetID_H });
         placedTile.tileSprite.setPosition(IndexToPos(indexNum));
+
+        mapData.push_back(placedTile);
     }
 }
 
 void TestMapTool::Draw(sf::RenderWindow& window)
 {
-    sf::RenderStates state;
-    state.transform = transform;
-    window.setView(worldView);
-    window.draw(grid, state);
+   // window.setView(worldView);
+    window.draw(grid);
     window.draw(spriteFloor);
+    for (int i = 0; i < mapData.size(); ++i)
+    {
+        window.draw(mapData[i].tileSprite);
+    }
     Scene::Draw(window);
 }
 

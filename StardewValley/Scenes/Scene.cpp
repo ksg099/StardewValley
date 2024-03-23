@@ -33,7 +33,7 @@ void Scene::Init()
 {
 	sf::Vector2f windowSize = (sf::Vector2f)FRAMEWORK.GetWindowSize();
 	sf::Vector2f centerPos = windowSize * 0.5f;
-	worldView.setSize(windowSize * 0.5f);
+	worldView.setSize(windowSize);
 	worldView.setCenter({ 0.f, 0.f });
 	uiView.setSize(windowSize);
 	uiView.setCenter(centerPos);

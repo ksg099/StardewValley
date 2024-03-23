@@ -30,7 +30,7 @@ protected:
 	rapidjson::Document doc;
 
 	MapToolUI* mapToolUI;
-	std::vector<std::vector<Tile>> mapData;
+	std::vector<Tile> mapData;
 	sf::RenderWindow window;
 
 	sf::Transform transform;
