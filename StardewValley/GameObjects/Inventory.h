@@ -13,6 +13,9 @@ protected:
 
 	int countX = 10;
 	int countY = 3;
+	int secondcountX = 10;
+	int secondcountY = 3;
+
 	int index;
 
 	SpriteGo smallUi;
@@ -21,6 +24,7 @@ protected:
 	int firstClickIndex = -1;
 	
 	std::vector<InvetorySlot*> slots; //slot 컨테이너
+	std::vector<InvetorySlot*> secondSlots; //두번째 slot 컨테이너
 	std::vector<InvetorySlot*> smallslots; //smallslot 컨테이너
 	std::list<ItemData*>* items;
 
@@ -34,7 +38,6 @@ protected:
 
 public:
 
-	bool isAble = true;
 	Inventory(const std::string& name = "");
 	~Inventory() = default;
 
@@ -44,8 +47,11 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
+	bool isAble = true;
+	bool IsItemInBox(ItemData* item, int boxId) { return item->BoxId == boxId; }
+	
 	void SetPosition(const sf::Vector2f& pos) override;
-	void LoadData(rapidjson::Document& doc);
+	//void LoadData(rapidjson::Document& doc);
 	void SetIvenSlot(int x, int y, ItemData* data);
 
 	void UpdateSlots();
