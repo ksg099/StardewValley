@@ -190,7 +190,7 @@ void Inventory::Update(float dt)
 		sf::FloatRect slotBounds = slots[i]->GetGlobalBounds();
 		if (slotBounds.contains(uiPos))
 		{
-			for (auto& item : items)
+			for (auto& item : *items)
 			{
 				int indexX = i % countX;
 				int indexY = i / countX;
@@ -305,11 +305,11 @@ void Inventory::UpdateSubSlots()
 //아이템 검사 및 수령 조절
 void Inventory::AddItem(ItemData* currentItem)
 {
-	for (auto& item : items) {
+	for (auto& item : *items) {
 		if (item->type == currentItem->type && item->itemId == currentItem->itemId) {
 			// 이미 존재하는 아이템이면 개수만 증가시킴
 			item->count += currentItem->count;
-			UpdateSlots(items); // UI 갱신
+			UpdateSlots(); // UI 갱신
 			return;
 		}
 	}
@@ -317,7 +317,7 @@ void Inventory::AddItem(ItemData* currentItem)
 	// 새 아이템이면 다음 빈 슬롯에 추가
 
 
-	UpdateSlots(items); // UI 갱신
+	UpdateSlots(); // UI 갱신
 }
 
 void Inventory::SwapItem(int firstClickIndex, int secondClixkIndex)

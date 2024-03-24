@@ -22,15 +22,15 @@ protected:
 	
 	std::vector<InvetorySlot*> slots; //slot 컨테이너
 	std::vector<InvetorySlot*> smallslots; //smallslot 컨테이너
-	std::list<ItemData*> items;
+	std::list<ItemData*>* items;
 
 	sf::Vector2f currentMousePos;
 	sf::FloatRect slotBounds;
 
-
-
 	// 서브 인벤토리
 	int subIndexY = 0;
+
+	int boxId = 0;
 
 public:
 
@@ -48,7 +48,7 @@ public:
 	void LoadData(rapidjson::Document& doc);
 	void SetIvenSlot(int x, int y, ItemData* data);
 
-	void UpdateSlots(const std::list<ItemData*>& list);
+	void UpdateSlots();
 	void UpdateSubSlots();
 
 	void AddItem(ItemData* currentItem);
