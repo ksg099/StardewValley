@@ -42,6 +42,15 @@ struct ItemData
 	std::string itemFilePath; 
 };
 
+enum class TileType
+{
+	NONE = -1,
+	Ground,
+	Floor,
+	Object,
+	COUNT,
+};
+
 enum class GroundType
 {
 	NONE = -1,

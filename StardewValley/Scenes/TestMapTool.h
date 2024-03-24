@@ -2,18 +2,24 @@
 #include "Scene.h"
 #include "MapToolUI.h"
 
-//class MapToolUI;
-
 struct Tile //UI에서 가지고 있는 정보들 그대로 받으려고 내부 형식 동일하게 적어줌
 {
 	sf::Sprite tileSprite;
-	int indexNum; //MapToolUI 격자에 배치된 인덱스 번호
+	int worldIndexNum; //MapToolUI 격자에 배치된 인덱스 번호
 	int ID;
 	std::string resource;
+	TileType tileType;
 	int sheetID_X;
 	int sheetID_Y;
 	int sheetID_W;
 	int sheetID_H;
+};
+
+struct TileLayer
+{
+	Tile groundLayer;
+	Tile floorLayer;
+	Tile objectLayer;
 };
 
 class TestMapTool : public Scene
@@ -30,7 +36,7 @@ protected:
 	rapidjson::Document doc;
 
 	MapToolUI* mapToolUI;
-	std::vector<Tile> mapData;
+	std::vector<TileLayer> mapData;
 	sf::RenderWindow window;
 
 	sf::Transform transform;
@@ -48,6 +54,7 @@ public:
 	void Update(float dt) override;
 
 	void PlaceTileToIndex(int indexNum, MapSheet& tile);
+	Tile* GetIndexState(int index);
 
 	void Draw(sf::RenderWindow& window) override;    
 	

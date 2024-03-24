@@ -83,6 +83,8 @@ void TestMapTool::Init()
   
     mapToolUI = new MapToolUI("UI");
     AddGo(mapToolUI, Layers::Ui);
+
+    mapData.resize(col * row);
     
     Scene::Init();
 }
@@ -114,12 +116,13 @@ void TestMapTool::Update(float dt)
 
     float zoomAmount = 1.1f;
 
-    if (InputMgr::GetMouseWheelDown(sf::Mouse::VerticalWheel))
+    sf::FloatRect worldMapBounds = { 15.f,15.f,(float)FRAMEWORK.GetWindowSize().x * 0.6f - 15.f, (float)FRAMEWORK.GetWindowSize().y - 15.f };
+    if (worldMapBounds.contains(mouseWorldPos) && InputMgr::GetMouseWheelDown(sf::Mouse::VerticalWheel))
     {
         worldView.zoom(0.9f);
         UpdateTransform();
     }
-    if (InputMgr::GetMouseWheelUp(sf::Mouse::VerticalWheel))
+    if (worldMapBounds.contains(mouseWorldPos) && InputMgr::GetMouseWheelUp(sf::Mouse::VerticalWheel))
     {
         worldView.zoom(1.1f);
         UpdateTransform();
@@ -187,24 +190,79 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
     //다른 Type이면 ground -> floor -> object 순으로 위에 쌓아올릴 수 있어야 함
     if (indexNum >= 0 && indexNum <= col * row )
     {
-        Tile placedTile;
-        placedTile.resource = tile.resource;
-        placedTile.ID = tile.objectID;
-        placedTile.indexNum = indexNum;
-        placedTile.sheetID_X = tile.sheetID_X;
-        placedTile.sheetID_Y = tile.sheetID_Y;
-        placedTile.sheetID_W = tile.sheetID_W;
-        placedTile.sheetID_H = tile.sheetID_H;
-        placedTile.tileSprite = tile.tileSprite;
+        //Tile* placedTile = GetIndexState(indexNum); //아무것도 없으면 null
 
-        placedTile.tileSprite.setTexture(RES_MGR_TEXTURE.Get(placedTile.resource));
-        placedTile.tileSprite.setTextureRect({ placedTile.sheetID_X, placedTile.sheetID_Y, placedTile.sheetID_W, placedTile.sheetID_H });
-        placedTile.tileSprite.setOrigin({ (float)(placedTile.sheetID_W) * 0.5f, (float)(placedTile.sheetID_H) * 0.5f });
-        // placedTile.tileSprite.setScale({ size / placedTile.sheetID_W , size / placedTile.sheetID_H });
-        placedTile.tileSprite.setPosition(IndexToPos(indexNum));
+        TileLayer& cell = mapData[indexNum];
 
-        mapData.push_back(placedTile);
+        sf::Sprite groundSprite = cell.groundLayer.tileSprite;
+        sf::Sprite floorSprite = cell.floorLayer.tileSprite;
+        sf::Sprite objectSprite = cell.objectLayer.tileSprite;
+
+        switch (tile.tileType)
+        {
+        case TileType::Ground:
+            cell.groundLayer.ID = tile.objectID;
+            cell.groundLayer.resource = tile.resource;
+            cell.groundLayer.sheetID_X = tile.sheetID_X;
+            cell.groundLayer.sheetID_Y = tile.sheetID_Y;
+            cell.groundLayer.sheetID_W = tile.sheetID_W;
+            cell.groundLayer.sheetID_H = tile.sheetID_H;
+            cell.groundLayer.tileSprite = tile.tileSprite;
+            cell.groundLayer.worldIndexNum = indexNum;
+            cell.groundLayer.tileType = tile.tileType;
+            groundSprite.setTexture(RES_MGR_TEXTURE.Get(tile.resource));
+            groundSprite.setTextureRect({ tile.sheetID_X, tile.sheetID_Y, tile.sheetID_W, tile.sheetID_H });
+            groundSprite.setOrigin(groundSprite.getLocalBounds().width * 0.5f, groundSprite.getLocalBounds().height * 0.5f);
+            groundSprite.setPosition(IndexToPos(indexNum));
+            break;
+        case TileType::Floor:
+            cell.floorLayer.ID = tile.objectID;
+            cell.floorLayer.resource = tile.resource;
+            cell.floorLayer.sheetID_X = tile.sheetID_X;
+            cell.floorLayer.sheetID_Y = tile.sheetID_Y;
+            cell.floorLayer.sheetID_W = tile.sheetID_W;
+            cell.floorLayer.sheetID_H = tile.sheetID_H;
+            cell.floorLayer.tileSprite = tile.tileSprite;
+            cell.floorLayer.worldIndexNum = indexNum;
+            cell.floorLayer.tileType = tile.tileType;
+            floorSprite.setTexture(RES_MGR_TEXTURE.Get(tile.resource));
+            floorSprite.setTextureRect({ tile.sheetID_X, tile.sheetID_Y, tile.sheetID_W, tile.sheetID_H });
+            floorSprite.setOrigin(floorSprite.getLocalBounds().width * 0.5f, floorSprite.getLocalBounds().height * 0.5f);
+            floorSprite.setPosition(IndexToPos(indexNum));
+            break;
+        case TileType::Object:
+            cell.objectLayer.ID = tile.objectID;
+            cell.objectLayer.resource = tile.resource;
+            cell.objectLayer.sheetID_X = tile.sheetID_X;
+            cell.objectLayer.sheetID_Y = tile.sheetID_Y;
+            cell.objectLayer.sheetID_W = tile.sheetID_W;
+            cell.objectLayer.sheetID_H = tile.sheetID_H;
+            cell.objectLayer.tileSprite = tile.tileSprite;
+            cell.objectLayer.worldIndexNum = indexNum;
+            cell.objectLayer.tileType = tile.tileType;
+            cell.groundLayer.tileType = tile.tileType;
+            objectSprite.setTexture(RES_MGR_TEXTURE.Get(tile.resource));
+            objectSprite.setTextureRect({ tile.sheetID_X, tile.sheetID_Y, tile.sheetID_W, tile.sheetID_H });
+            objectSprite.setOrigin(objectSprite.getLocalBounds().width * 0.5f, objectSprite.getLocalBounds().height * 0.5f);
+            objectSprite.setPosition(IndexToPos(indexNum));
+            break;
+        default:
+            break;
+        }
     }
+}
+
+Tile* TestMapTool::GetIndexState(int index)
+{
+	//for (auto& tile : mapData)
+	//{
+	//	if (tile.ground)
+	//	{
+	//		return &tile.second; // 해당 인덱스의 타일 찾음
+	//	}
+	//}
+	//return nullptr; // 타일이 없으면 nullptr 반환
+    return nullptr;
 }
 
 void TestMapTool::Draw(sf::RenderWindow& window)
@@ -213,9 +271,20 @@ void TestMapTool::Draw(sf::RenderWindow& window)
     state.transform = transform;
     window.draw(grid, state);
     window.draw(spriteFloor);
-    for (int i = 0; i < mapData.size(); ++i)
+    for (const auto& cell : mapData)
     {
-        window.draw(mapData[i].tileSprite);
+        if (cell.groundLayer.tileSprite.getTexture())
+        {
+            window.draw(cell.groundLayer.tileSprite);
+        }
+        if (cell.floorLayer.tileSprite.getTexture())
+        {
+            window.draw(cell.floorLayer.tileSprite);
+        }
+        if (cell.objectLayer.tileSprite.getTexture())
+        {
+            window.draw(cell.objectLayer.tileSprite);
+        }
     }
     Scene::Draw(window);
 }
