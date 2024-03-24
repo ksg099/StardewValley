@@ -40,7 +40,7 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	void MoveTileUnit(float dt);
+	// void MoveTileUnit(float dt);
 	void CheckCollision(sf::Vector2f& nextPos, sf::Vector2f& prevPos);
 	void ChangeGridIndex(sf::Vector2f& nextPos);
 };

@@ -30,7 +30,34 @@ void ObjectOnTile::Draw(sf::RenderWindow& window)
 	SpriteGo::Draw(window);
 }
 
-void ObjectOnTile::InteractWithPlayer()
+std::pair<bool, bool> ObjectOnTile::InteractWithObject(const ItemType type, const int id)
 {
-	SetActive(false);
+	switch (objectType)
+	{
+	case ObjectType::STONE:
+		if (type == ItemType::Tool && id == 0)
+		{
+			SetActive(false);
+			return std::make_pair(true, true);
+		}
+		break;
+	case ObjectType::TREE:
+		break;
+	case ObjectType::WEED:
+		break;
+	case ObjectType::CROPS:
+		break;
+	case ObjectType::FURNITURE:
+		break;
+	case ObjectType::BOX:
+		break;
+	case ObjectType::WALL:
+		break;
+	case ObjectType::BUILDING:
+		break;
+	default:
+		break;
+	}
+
+	return std::make_pair(false, false);
 }

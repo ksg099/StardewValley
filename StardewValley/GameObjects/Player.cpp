@@ -109,12 +109,16 @@ void Player::Update(float dt)
 	
 	if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
 	{
-		ObjectOnTile* obj = tileMap->GetTileData(gridIndex.x + lookDir.x, gridIndex.y + lookDir.y)->object;
+		if (itemInUse != nullptr)
+			tileMap->InteractWithTile(gridIndex.x + lookDir.x, gridIndex.y + lookDir.y, itemInUse->type, itemInUse->itemId);
+		else
+			tileMap->InteractWithTile(gridIndex.x + lookDir.x, gridIndex.y + lookDir.y, ItemType::None, -1);
+		/*ObjectOnTile* obj = tileMap->GetTileData(gridIndex.x + lookDir.x, gridIndex.y + lookDir.y)->object;
 		if(obj != nullptr)
 		{
 			tileMap->SetPlayerPassable(gridIndex.x + lookDir.x, gridIndex.y + lookDir.y, true);
 			obj->InteractWithPlayer();
-		}
+		}*/
 	}
 }
 
@@ -123,49 +127,49 @@ void Player::Draw(sf::RenderWindow& window)
 	SpriteGo::Draw(window);
 }
 
-void Player::MoveTileUnit(float dt)
-{
-	if (isMove)
-	{
-		if (moveTimer < moveDuration)
-		{
-			Translate((sf::Vector2f)tileMoveDirection * speed * dt);
-			moveTimer += dt;
-		}
-		else
-		{
-			currentGridPosition = nextGridPosition;
-			SetPosition(currentGridPosition);
-			gridIndex += tileMoveDirection;
-			moveTimer = 0.f;
-			isMove = false;
-		}
-	}
-	else
-	{
-		sf::Vector2i dir = InputMgr::GetAxisOne();
-		if (dir != sf::Vector2i(0, 0))
-		{
-			if (!tileMap->GetTileData(gridIndex.x + dir.x, gridIndex.y + dir.y)->isPassable)
-			{
-				lookDir = dir;
-				tileMoveDirection = { 0, 0 };
-			}
-			else
-			{
-				lookDir = dir;
-				tileMoveDirection = dir;
-
-				nextGridPosition = tileMap->GetGridPosition(gridIndex.x + tileMoveDirection.x, gridIndex.y + tileMoveDirection.y);
-				if (nextGridPosition != currentGridPosition)
-				{
-					moveDuration = Utils::Magnitude(nextGridPosition - currentGridPosition) / speed;
-					isMove = true;
-				}
-			}
-		}
-	}
-}
+//void Player::MoveTileUnit(float dt)
+//{
+//	if (isMove)
+//	{
+//		if (moveTimer < moveDuration)
+//		{
+//			Translate((sf::Vector2f)tileMoveDirection * speed * dt);
+//			moveTimer += dt;
+//		}
+//		else
+//		{
+//			currentGridPosition = nextGridPosition;
+//			SetPosition(currentGridPosition);
+//			gridIndex += tileMoveDirection;
+//			moveTimer = 0.f;
+//			isMove = false;
+//		}
+//	}
+//	else
+//	{
+//		sf::Vector2i dir = InputMgr::GetAxisOne();
+//		if (dir != sf::Vector2i(0, 0))
+//		{
+//			if (!tileMap->GetTileData(gridIndex.x + dir.x, gridIndex.y + dir.y)->isPassable)
+//			{
+//				lookDir = dir;
+//				tileMoveDirection = { 0, 0 };
+//			}
+//			else
+//			{
+//				lookDir = dir;
+//				tileMoveDirection = dir;
+//
+//				nextGridPosition = tileMap->GetGridPosition(gridIndex.x + tileMoveDirection.x, gridIndex.y + tileMoveDirection.y);
+//				if (nextGridPosition != currentGridPosition)
+//				{
+//					moveDuration = Utils::Magnitude(nextGridPosition - currentGridPosition) / speed;
+//					isMove = true;
+//				}
+//			}
+//		}
+//	}
+//}
 
 void Player::CheckCollision(sf::Vector2f& nextPos, sf::Vector2f& prevPos)
 {

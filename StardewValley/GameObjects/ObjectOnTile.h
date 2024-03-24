@@ -19,6 +19,6 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	void InteractWithPlayer();
+	virtual std::pair<bool, bool> InteractWithObject(const ItemType type, const int id);
 };
 

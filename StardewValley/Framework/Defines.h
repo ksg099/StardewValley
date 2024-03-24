@@ -22,6 +22,7 @@ enum class Languages
 
 enum class ItemType
 {
+	None = -1,
 	Tool,
 	Seed,
 	Harvest,

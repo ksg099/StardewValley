@@ -30,8 +30,10 @@ const sf::Vector2f& TileMap::GetGridPosition(int x, int y) const
 
 const TileData* TileMap::GetTileData(int x, int y) const
 {
-	x = Utils::Clamp(x, 0, cellCount.x - 1);
-	y = Utils::Clamp(y, 0, cellCount.y - 1);
+	if (IsOutOfRange(x, y))
+	{
+		return nullptr;
+	}
 
 	return tiles[y * cellCount.x + x];
 }
@@ -299,6 +301,28 @@ void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize
 				va[vertexIndex].texCoords.y += GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetId.y;
 			}
 		}
+	}
+}
+
+void TileMap::InteractWithTile(const int x, const int y, const ItemType type, const int id)
+{
+	if (IsOutOfRange(x, y))
+		return;
+
+	TileData* tile = tiles[y * cellCount.x + x];
+	if (tile->object != nullptr) // object 상호작용
+	{
+		std::pair<bool, bool> passAndPlaced = tile->object->InteractWithObject(type, id);
+		tile->isPassable = passAndPlaced.first;
+		tile->isPossiblePlace = passAndPlaced.second;
+	}
+	else if (false) // floor 상호작용
+	{
+
+	}
+	else // ground 상호작용
+	{
+
 	}
 }
 
