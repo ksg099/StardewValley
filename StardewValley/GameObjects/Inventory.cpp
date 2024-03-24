@@ -400,3 +400,11 @@ void Inventory::Draw(sf::RenderWindow& window)
 		itemInfoText.Draw(window);
 	}
 }
+
+ItemData* Inventory::GetItemData(const int x, const int y) const
+{
+	if (x < 0 || y < 0 || x >= countX || y >= countY)
+		return nullptr;
+
+	return slots[y * countX + x]->GetItemData();
+}

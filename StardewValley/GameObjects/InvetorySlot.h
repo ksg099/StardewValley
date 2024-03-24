@@ -39,5 +39,6 @@ public:
 	void SetItem(ItemData* data); // ItemData의 데이터를 받아 아이템을 세팅
 
 	void SetItemData(ItemData*& data) { itemData = data; }
+	ItemData* GetItemData() const { return itemData; }
 };
 

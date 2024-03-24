@@ -196,6 +196,22 @@ bool InputMgr::GetKey(sf::Keyboard::Key key)
     return std::find(ingList.begin(), ingList.end(), key) != ingList.end();
 }
 
+std::pair<bool, int> InputMgr::GetKeyNumber()
+{
+    std::pair<bool, int> key = std::make_pair(false, -1);
+    for (int i = 0; i <= 9; ++i)
+    {
+        sf::Keyboard::Key numKey = (sf::Keyboard::Key)((int)sf::Keyboard::Key::Num0 + i);
+        if (GetKeyDown(numKey))
+        {
+            key.first = true;
+            key.second = i;
+            return key;
+        }
+    }
+    return key;
+}
+
 bool InputMgr::GetMouseButtonDown(sf::Mouse::Button button)
 {
     return std::find(downList.begin(), downList.end(), MouseButtonToKey(button)) != downList.end();

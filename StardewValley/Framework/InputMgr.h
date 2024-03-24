@@ -42,6 +42,7 @@ public:
 	static bool GetKeyDown(sf::Keyboard::Key key);
 	static bool GetKeyUp(sf::Keyboard::Key key);
 	static bool GetKey(sf::Keyboard::Key key);
+	static std::pair<bool, int> GetKeyNumber();
 
 	static sf::Vector2f GetMousePos()
 	{

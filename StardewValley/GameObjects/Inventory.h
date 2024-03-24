@@ -45,7 +45,6 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void SetPosition(const sf::Vector2f& pos) override;
-	void LoadData(rapidjson::Document& doc);
 	void SetIvenSlot(int x, int y, ItemData* data);
 
 	void UpdateSlots();
@@ -54,5 +53,8 @@ public:
 	void AddItem(ItemData* currentItem);
 	void SwapItem(int firstClickIndex, int secondClixkIndex);
 	void DisplayItemInfo(ItemData& itemData, sf::Vector2f& position);
+
+	const int GetSubSlotIndexY() const { return subIndexY; }
+	ItemData* GetItemData(const int x, const int y) const;
 };
 

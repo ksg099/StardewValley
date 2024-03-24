@@ -2,11 +2,15 @@
 #include "SpriteGo.h"
 
 class TileMap;
+class Inventory;
 
 class Player : public SpriteGo
 {
 private:
 	TileMap* tileMap = nullptr;
+	Inventory* inventory = nullptr;
+
+	ItemData* itemInUse = nullptr;
 
 	sf::Vector2i gridIndex = { 0, 0 };
 

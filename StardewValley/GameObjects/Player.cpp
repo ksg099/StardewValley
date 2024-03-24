@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "TileMap.h"
 #include "ObjectOnTile.h"
+#include "Inventory.h"
 
 Player::Player(const std::string& name) : SpriteGo(name)
 {
@@ -30,6 +31,7 @@ void Player::Reset()
 	hasHitBox = true;
 
 	tileMap = dynamic_cast<TileMap*>(SCENE_MGR.GetCurrentScene()->FindGo("Background"));
+	inventory = dynamic_cast<Inventory*>(SCENE_MGR.GetCurrentScene()->FindGo("Inventory"));
 
 	gridIndex = { 1, 0 };
 	currentGridPosition = tileMap->GetGridPosition(gridIndex.x, gridIndex.y);
@@ -79,7 +81,24 @@ void Player::Update(float dt)
 		animator.Play("animations/PlayerMoveBack.csv");
 	}
 
-
+	// 퀵슬롯으로부터 아이템 셋팅
+	auto numKey = InputMgr::GetKeyNumber();
+	if (numKey.first)
+	{
+		int num = numKey.second - 1;
+		if (num == -1)
+			num = 9;
+		itemInUse = inventory->GetItemData(num, inventory->GetSubSlotIndexY());
+		if (itemInUse == nullptr)
+		{
+			std::cout << "아이템 없음" << std::endl;
+		}
+		else
+		{
+			std::cout << "box ID: " << itemInUse->BoxId << ", index X: " << itemInUse->IndexX << ", index Y: " << itemInUse->IndexY << std::endl;
+			std::cout << "Item Type: " << (int)itemInUse->type << ", Item ID: " << itemInUse->itemId << std::endl;
+		}
+	}
 
 	// 플레이어 좌클릭 처리
 	sf::Vector2i dirOne = InputMgr::GetAxisOne();
