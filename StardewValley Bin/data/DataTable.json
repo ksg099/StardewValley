@@ -632,31 +632,31 @@
           "Sheet ID H": 60
         },
         {
-          "Item Name": "sickle",
+          "Item Name": "scythe",
           "Item ID": 2,
-          "Resource": "graphics/AxeSteel.png",
-          "Sheet ID X": 10,
-          "Sheet ID Y": 9,
-          "Sheet ID W": 64,
-          "Sheet ID H": 60
+          "Resource": "graphics/scythe.png",
+          "Sheet ID X": 0,
+          "Sheet ID Y": 0,
+          "Sheet ID W": 48,
+          "Sheet ID H": 48
         },
         {
           "Item Name": "hoe",
           "Item ID": 3,
-          "Resource": "graphics/AxeSteel.png",
-          "Sheet ID X": 10,
-          "Sheet ID Y": 9,
-          "Sheet ID W": 64,
-          "Sheet ID H": 60
+          "Resource": "graphics/tools.png",
+          "Sheet ID X": 81,
+          "Sheet ID Y": 34,
+          "Sheet ID W": 15,
+          "Sheet ID H": 13
         },
         {
           "Item Name": "watering can",
           "Item ID": 4,
-          "Resource": "graphics/AxeSteel.png",
-          "Sheet ID X": 10,
-          "Sheet ID Y": 9,
-          "Sheet ID W": 64,
-          "Sheet ID H": 60
+          "Resource": "graphics/tools.png",
+          "Sheet ID X": 32,
+          "Sheet ID Y": 228,
+          "Sheet ID W": 16,
+          "Sheet ID H": 11
         }
       ]
     },

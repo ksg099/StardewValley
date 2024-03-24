@@ -1,6 +1,7 @@
 #pragma once
 
 class ObjectOnTile;
+class FloorOnTile;
 
 enum class Origins
 {
@@ -11,7 +12,7 @@ enum class Origins
 
 enum class Sides
 {
-	None = -1, Left, Right, Count
+	None = -1, Left, Right, Up, Down, Count
 };
 
 enum class Languages
@@ -82,8 +83,7 @@ struct TileData
 	int indexY = 0;
 	GroundType groundType = GroundType::DIRT;
 	int groundId = 0;
-	// FloorOnTile* floor = nullptr;
-	// int floorId = 0;
+	FloorOnTile* floor = nullptr;
 	ObjectOnTile* object = nullptr;
 	bool isPossiblePlace = true;
 	bool isPassable = true;

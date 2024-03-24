@@ -57,4 +57,3 @@ public:
 	const int GetSubSlotIndexY() const { return subIndexY; }
 	ItemData* GetItemData(const int x, const int y) const;
 };
-

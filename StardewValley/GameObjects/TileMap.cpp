@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "TileMap.h"
 #include "ObjectOnTile.h"
+#include "FloorOnTile.h"
 
 TileMap::TileMap(const std::string& name) : GameObject(name)
 {
@@ -106,6 +107,10 @@ void TileMap::UpdateTransform()
 		if (tile->object != nullptr)
 		{
 			tile->object->SetPosition(GetGridPosition(tile->indexX, tile->indexY));
+		}
+		if (tile->floor != nullptr)
+		{
+			tile->floor->SetPosition(GetGridPosition(tile->indexX, tile->indexY));
 		}
 	}
 }
@@ -220,6 +225,10 @@ void TileMap::Draw(sf::RenderWindow& window)
 
 	for (auto tile : tiles)
 	{
+		if (tile->floor != nullptr && tile->floor->GetActive())
+		{
+			tile->floor->Draw(window);
+		}
 		if (tile->object != nullptr && tile->object->GetActive())
 		{
 			tile->object->Draw(window);
@@ -260,22 +269,33 @@ void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize
 			tile->indexY = i;
 			tile->groundType = (GroundType)doc["Tile Map"][0]["Tiles"][quadIndex]["Ground Type"].GetInt();
 			tile->groundId = doc["Tile Map"][0]["Tiles"][quadIndex]["Ground ID"].GetInt();
-			// (FloorType)doc["Tile Map"][0]["Tiles"][quadIndex]["Floor Type"].GetInt(); // 해당 타입을 갖는 FloorOnTile 객체 생성
+
+			FloorType floorType = (FloorType)doc["Tile Map"][0]["Tiles"][quadIndex]["Floor Type"].GetInt(); // 해당 타입을 갖는 FloorOnTile 객체 생성
+			int floorId = doc["Tile Map"][0]["Tiles"][quadIndex]["Floor ID"].GetInt();
+			tile->floor = CreateFloor(floorType, floorId);
+			if (tile->floor != nullptr)
+			{
+				tile->floor->SetTileData(tile);
+			}
 			
 			ObjectType objType = (ObjectType)doc["Tile Map"][0]["Tiles"][quadIndex]["Object Type"].GetInt();
 			int objId = doc["Tile Map"][0]["Tiles"][quadIndex]["Object ID"].GetInt();
 			ObjectOnTile* obj = nullptr;
-			if ((int)objType != -1)
+			if (objType != ObjectType::NONE)
 			{
 				obj = new ObjectOnTile("Object");
 				obj->SetObjectType(objType);
 				obj->SetObjectId(objId);
-				obj->SetTexture(OBJECT_TABLE->Get(objType, objId).textureId);
-				obj->SetTextureRect(sf::IntRect(OBJECT_TABLE->Get(objType, objId).sheetId.x, OBJECT_TABLE->Get(objType, objId).sheetId.y,
-					OBJECT_TABLE->Get(objType, objId).sheetSize.x, OBJECT_TABLE->Get(objType, objId).sheetSize.y));
+				auto& objData = OBJECT_TABLE->Get(objType, objId);
+				obj->SetTexture(objData.textureId);
+				obj->SetTextureRect(sf::IntRect(objData.sheetId.x, objData.sheetId.y, objData.sheetSize.x, objData.sheetSize.y));
 				obj->SetOrigin(Origins::MC);
 			}
 			tile->object = obj;
+			if (tile->object != nullptr)
+			{
+				tile->object->SetTileData(tile);
+			}
 
 			tile->isPossiblePlace = doc["Tile Map"][0]["Tiles"][quadIndex]["Placed Possible"].GetBool();
 			tile->isPassable = doc["Tile Map"][0]["Tiles"][quadIndex]["Player Passable"].GetBool();
@@ -304,6 +324,22 @@ void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize
 	}
 }
 
+FloorOnTile* TileMap::CreateFloor(const FloorType type, const int id)
+{
+	if (type == FloorType::NONE || type == FloorType::COUNT)
+		return nullptr;
+
+	FloorOnTile* floor = new FloorOnTile("Floor");
+	floor->SetFloorType(type);
+	floor->SetFloorId(id);
+	auto& floorData = FLOOR_TABLE->Get(type, id);
+	floor->SetTexture(floorData.textureId);
+	floor->SetTextureRect(sf::IntRect(floorData.sheetId.x, floorData.sheetId.y, floorData.sheetSize.x, floorData.sheetSize.y));
+	floor->SetOrigin(Origins::MC);
+
+	return floor;
+}
+
 void TileMap::InteractWithTile(const int x, const int y, const ItemType type, const int id)
 {
 	if (IsOutOfRange(x, y))
@@ -316,13 +352,18 @@ void TileMap::InteractWithTile(const int x, const int y, const ItemType type, co
 		tile->isPassable = passAndPlaced.first;
 		tile->isPossiblePlace = passAndPlaced.second;
 	}
-	else if (false) // floor 상호작용
+	else if (tile->floor != nullptr) // floor 상호작용
 	{
 
 	}
 	else // ground 상호작용
 	{
-
+		if (tile->groundType != GroundType::WATER && type == ItemType::Tool && id == 3)
+		{
+			tile->floor = CreateFloor(FloorType::DRIED_ARABLE_LAND, 0);
+			tile->floor->SetPosition(GetGridPosition(tile->indexX, tile->indexY));
+			tile->floor->SetTileData(tile);
+		}
 	}
 }
 

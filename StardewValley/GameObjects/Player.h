@@ -22,6 +22,7 @@ private:
 	float moveTimer = 0.f;
 	float moveDuration = 0.f;
 
+	Sides side = Sides::None;
 	sf::Vector2i lookDir = { 0, 0 };
 
 	// free move

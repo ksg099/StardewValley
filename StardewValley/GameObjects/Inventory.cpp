@@ -31,11 +31,14 @@ void Inventory::Init()
 		{
 			//슬롯 위치 잡기
 			InvetorySlot* slot = new InvetorySlot("Inventory Slot");
+			slot->Init();
+			slot->Reset();
+
 			sf::Vector2f pos = position;
-			pos += { (float)j * 60.f - 310.f, (float)i * 60.f - 300.f }; //하드코딩
+			pos += { (float)j * 60.f - 270.f, (float)i * 60.f - 250.f }; //하드코딩
 			slot->SetPosition(pos);
 			slot->SetOrigin(Origins::MC);
-			slot->Init();
+			
 			slots.push_back(slot);
 		}
 	}
@@ -46,9 +49,11 @@ void Inventory::Init()
 		//슬롯 위치 잡기
 		InvetorySlot* smallslot = new InvetorySlot("Inventory Slot");
 		sf::Vector2f pos = smallUi.GetPosition();
-		smallslot->SetPosition(pos - sf::Vector2f(350.f - 70.f * j, 35.f)); //하드코딩
-		smallslot->SetOrigin(Origins::MC);
 		smallslot->Init();
+
+		smallslot->SetPosition(pos - sf::Vector2f(320.f - 70.f * j, 0.f)); //하드코딩
+		smallslot->SetOrigin(Origins::MC);
+
 		smallslots.push_back(smallslot);
 	}
 	

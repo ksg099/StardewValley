@@ -53,9 +53,9 @@ bool ItemTable::Load(rapidjson::Document& doc)
 	int itemTypeCount = infoArr.Size();
 	for (int i = 0; i < itemTypeCount; ++i)
 	{
-		int objectIdCount = infoArr[i]["Sheet Info"].Size();
-		countTable.push_back(objectIdCount);
-		for (int j = 0; j < objectIdCount; ++j)
+		int itemIdCount = infoArr[i]["Sheet Info"].Size();
+		countTable.push_back(itemIdCount);
+		for (int j = 0; j < itemIdCount; ++j)
 		{
 			std::tuple<ItemType, int> key = std::make_tuple((ItemType)i, j);
 

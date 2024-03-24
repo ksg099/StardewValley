@@ -8,8 +8,7 @@
       "ItemId": 0,
       "InstanceId": 1,
       "Count": 5,
-      "CanOverlap": false,
-      "Resource": "graphics/shovel/ShovelWood.png"
+      "CanOverlap": false
     },
     {
       "Box ID": 0,
@@ -19,30 +18,37 @@
       "ItemId": 1,
       "InstanceId": 2,
       "Count": 5,
-      "CanOverlap": false,
-      "Resource": "graphics/shovel/ShovelSteel.png"
+      "CanOverlap": false
     },
     {
       "Box ID": 0,
       "Index X": 2,
       "Index Y": 0,
       "ItemType": 0,
-      "ItemId": 0,
+      "ItemId": 2,
       "InstanceId": 3,
       "Count": 5,
-      "CanOverlap": false,
-      "Resource": "graphics/shovel/ShovelSteel.png"
+      "CanOverlap": false
     },
     {
       "Box ID": 0,
       "Index X": 3,
       "Index Y": 0,
       "ItemType": 0,
-      "ItemId": 1,
+      "ItemId": 3,
       "InstanceId": 4,
       "Count": 5,
-      "CanOverlap": false,
-      "Resource": "graphics/shovel/ShovelDiamond.png"
+      "CanOverlap": false
+    },
+    {
+      "Box ID": 0,
+      "Index X": 4,
+      "Index Y": 0,
+      "ItemType": 0,
+      "ItemId": 4,
+      "InstanceId": 4,
+      "Count": 5,
+      "CanOverlap": false
     },
     {
       "Box ID": 1,
@@ -52,8 +58,7 @@
       "ItemId": 0,
       "InstanceId": 1,
       "Count": 5,
-      "CanOverlap": false,
-      "Resource": "graphics/shovel/ShovelWood.png"
+      "CanOverlap": false
     },
     {
       "Box ID": 1,
@@ -63,8 +68,7 @@
       "ItemId": 1,
       "InstanceId": 2,
       "Count": 5,
-      "CanOverlap": false,
-      "Resource": "graphics/shovel/ShovelSteel.png"
+      "CanOverlap": false
     }
   ]
 }

@@ -30,6 +30,7 @@
     <ClCompile Include="DataTables\FloorTable.cpp" />
     <ClCompile Include="MapToolUI.cpp" />
     <ClCompile Include="DataTables\ItemSave.cpp" />
+    <ClCompile Include="GameObjects\FloorOnTile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataTables\DataTable.h" />
@@ -64,5 +65,6 @@
     <ClInclude Include="DataTables\FloorTable.h" />
     <ClInclude Include="MapToolUI.h" />
     <ClInclude Include="DataTables\ItemSave.h" />
+    <ClInclude Include="GameObjects\FloorOnTile.h" />
   </ItemGroup>
 </Project>

@@ -45,10 +45,10 @@ void InvetorySlot::SetItem(ItemData* data)
 
 	//해당 아이템의 아이콘, 아이콘의 현재 개수
 	auto item = ITEM_TABLE->Get(itemData->type, itemData->itemId);
-	// icon.SetTextureRect(sf::IntRect(item.sheetId.x, item.sheetId.y, item.sheetSize.x, item.sheetSize.y));
+	icon.SetTextureRect(sf::IntRect(item.sheetId.x, item.sheetId.y, item.sheetSize.x, item.sheetSize.y));
 	icon.SetTexture(item.textureId);
 	icon.SetScale({ 50.f / item.sheetSize.x, 50.f / item.sheetSize.y }); //이부분 슬롯의 가운데에 오도록 다시 정리필요할듯
-	icon.SetOrigin(Origins::TL);
+	icon.SetOrigin(Origins::MC);
 	itemCountText.SetString(std::to_string(itemData->count));
 	itemCountText.SetActive(true);
 }
@@ -75,6 +75,7 @@ void InvetorySlot::SetPosition(const sf::Vector2f& pos)
 	
 	background.SetOrigin(Origins::MC);
 	icon.SetOrigin(Origins::MC);
+	itemCountText.SetOrigin(Origins::MC);
 	itemCountText.SetOrigin(Origins::MC);
 
 	background.SetPosition(pos);

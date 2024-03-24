@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "ObjectOnTile.h"
+#include "SceneGame.h"
 
 ObjectOnTile::ObjectOnTile(const std::string& name) : SpriteGo(name)
 {
@@ -38,6 +39,7 @@ std::pair<bool, bool> ObjectOnTile::InteractWithObject(const ItemType type, cons
 		if (type == ItemType::Tool && id == 0)
 		{
 			SetActive(false);
+			// tileData->object = nullptr;
 			return std::make_pair(true, true);
 		}
 		break;

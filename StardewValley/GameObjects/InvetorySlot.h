@@ -2,7 +2,6 @@
 #include "SpriteGo.h"
 #include "TextGo.h"
 
-
 class InvetorySlot : public SpriteGo
 {
 protected:
@@ -18,7 +17,7 @@ protected:
 	SpriteGo background; //기본 비어있는 상태 이미지
 	SpriteGo icon; //아이템 아이콘 이미지
 	TextGo itemCountText; //아이템 개수 몇개인지
-	
+
 	int maxCount = 5; //한칸 당 최대 아이템 개수
 
 public:
@@ -31,7 +30,7 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
-	
+
 	void SetPosition(const sf::Vector2f& pos) override;
 
 
@@ -41,4 +40,3 @@ public:
 	void SetItemData(ItemData*& data) { itemData = data; }
 	ItemData* GetItemData() const { return itemData; }
 };
-

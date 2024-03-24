@@ -63,22 +63,32 @@ void Player::Update(float dt)
 
 	// TO-DO: 애니메이션은 임시로만 구현하고, 자세한건 나중에
 	sf::Vector2f posDiff = nextPosition - prevPosition;
-	if (posDiff.x != 0.f)
+	if (posDiff.x > 0.f && side != Sides::Right)
 	{
 		animator.Play("animations/PlayerMoveSide.csv");
-
-		if (posDiff.x < 0)
-			SetFlipX(true);
-		else
-			SetFlipX(false);
+		SetFlipX(false);
+		side = Sides::Right;
 	}
-	if (posDiff.y > 0)
+	else if(posDiff.x < 0.f && side != Sides::Left)
+	{
+		animator.Play("animations/PlayerMoveSide.csv");
+		SetFlipX(true);
+		side = Sides::Left;
+	}
+	else if (posDiff.y > 0 && side != Sides::Down)
 	{
 		animator.Play("animations/PlayerMoveFront.csv");
+		side = Sides::Down;
 	}
-	else if (posDiff.y < 0)
+	else if (posDiff.y < 0 && side != Sides::Up)
 	{
 		animator.Play("animations/PlayerMoveBack.csv");
+		side = Sides::Up;
+	}
+	else if (posDiff.x == 0 && posDiff.y == 0)
+	{
+		animator.Stop();
+		side = Sides::None;
 	}
 
 	// 퀵슬롯으로부터 아이템 셋팅
