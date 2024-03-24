@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Inventory.h"
 #include "InvetorySlot.h"
+#include "TextGo.h"
+
 
 Inventory::Inventory(const std::string& name) : SpriteGo(name)
 {
@@ -180,6 +182,33 @@ void Inventory::Update(float dt)
 			firstClickIndex = clickSlotIndex;
 		}
 	}
+	itemInfoText.SetPosition(uiPos);
+	//마우스 커서 위치에 있는 슬롯 아이템 정보 표시
+	bool mouseOverSlot = false;
+	for (int i = 0; i < slots.size(); ++i)
+	{
+		sf::FloatRect slotBounds = slots[i]->GetGlobalBounds();
+		if (slotBounds.contains(uiPos))
+		{
+			for (auto& item : items)
+			{
+				int indexX = i % countX;
+				int indexY = i / countX;
+				if (item->IndexX == indexX && item->IndexY == indexY && item != nullptr)
+				{
+					DisplayItemInfo(*item, uiPos);
+					mouseOverSlot = true;
+
+					break;
+				}
+			}
+		}
+	}
+
+	if (!mouseOverSlot)
+	{
+		itemInfoText.SetString("");
+	}
 
 	if (clickSlotIndex == -1) //빈 공간이 눌렸을 경우 선택된 인덱스를 초기화하여 선택한 것을 초기화
 	{
@@ -195,29 +224,6 @@ void Inventory::Update(float dt)
 			subIndexY = 0;
 		}
 		UpdateSubSlots();
-	}
-}
-
-
-void Inventory::Draw(sf::RenderWindow& window)
-{
-	//메인 화면에 보일 인벤토리랑 슬롯 그려주기
-	smallUi.Draw(window);
-	for (auto smallslot : smallslots)
-	{
-		smallslot->Draw(window);
-	}
-
-	//I키 눌렀을때 메인 인벤토리, 슬롯 그려주기
-	if (!isAble)
-	{
-		
-		SpriteGo::Draw(window);
-
-		for (auto slot : slots)
-		{
-			slot->Draw(window);
-		}
 	}
 }
 
@@ -296,6 +302,24 @@ void Inventory::UpdateSubSlots()
 	}
 }
 
+//아이템 검사 및 수령 조절
+void Inventory::AddItem(ItemData* currentItem)
+{
+	for (auto& item : items) {
+		if (item->type == currentItem->type && item->itemId == currentItem->itemId) {
+			// 이미 존재하는 아이템이면 개수만 증가시킴
+			item->count += currentItem->count;
+			UpdateSlots(items); // UI 갱신
+			return;
+		}
+	}
+
+	// 새 아이템이면 다음 빈 슬롯에 추가
+
+
+	UpdateSlots(items); // UI 갱신
+}
+
 void Inventory::SwapItem(int firstClickIndex, int secondClixkIndex)
 {
 	int fx = firstClickIndex % countX;
@@ -342,4 +366,37 @@ void Inventory::SwapItem(int firstClickIndex, int secondClixkIndex)
 
 	UpdateSlots(); // 슬롯 상태 업데이트
 	UpdateSubSlots();
+}
+
+void Inventory::DisplayItemInfo(ItemData& itemData, sf::Vector2f& position)
+{
+	//itemData.type타입이 int형이 아니라 형변환함
+	//아이템의 type과 id를 출력
+	//인덱스 부분 생략함 + "IndexX "+ std::to_string(itemData.IndexX) + "IndexY" + std::to_string(itemData.IndexY)
+	std::string info = "Type : " + std::to_string((int)itemData.type) + "  ID : " + std::to_string(itemData.itemId);
+	itemInfoText.Set(RES_MGR_FONT.Get("fonts/Arial.ttf"), info, 20, sf::Color::Black);
+}
+
+void Inventory::Draw(sf::RenderWindow& window)
+{
+	//메인 화면에 보일 인벤토리랑 슬롯 그려주기
+	smallUi.Draw(window);
+	for (auto smallslot : smallslots)
+	{
+		smallslot->Draw(window);
+	}
+
+	//I키 눌렀을때 메인 인벤토리, 슬롯 그려주기
+	if (!isAble)
+	{
+
+		SpriteGo::Draw(window);
+
+		for (auto slot : slots)
+		{
+			slot->Draw(window);
+		}
+		
+		itemInfoText.Draw(window);
+	}
 }

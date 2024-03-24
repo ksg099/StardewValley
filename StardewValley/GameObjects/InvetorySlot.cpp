@@ -20,6 +20,7 @@ void InvetorySlot::Release()
 void InvetorySlot::Reset()
 {
 	SpriteGo::Reset();
+	hasHitBox = true;
 	SetEmpty();
 }
 
@@ -34,22 +35,13 @@ void InvetorySlot::SetEmpty()
 	itemCountText.SetActive(false);
 }
 
+//슬롯에 아이템 그리기만 해준다.
 void InvetorySlot::SetItem(ItemData* data)
 {
 	itemData = data;
 
-	//나중에 수정해서 추가 필요
-	if (itemData->itemId == data->itemId && data->count > maxCount) //한칸에 지정한 개수(5)가 넘어가면
-	{
-		//if (data->count > maxCount)
-		//{
-			data->count = maxCount;
-		/*}*/
-		//else
-		//{
-		//	itemData->count++;
-		//}
-	}
+	data->count = maxCount;
+
 
 	//해당 아이템의 아이콘, 아이콘의 현재 개수
 	auto item = ITEM_TABLE->Get(itemData->type, itemData->itemId);

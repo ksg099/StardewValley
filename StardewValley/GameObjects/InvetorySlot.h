@@ -1,17 +1,17 @@
 #pragma once
 #include "SpriteGo.h"
 #include "TextGo.h"
-#include "Item.h"
+
 
 class InvetorySlot : public SpriteGo
 {
 protected:
 
-	enum class state
-	{
-		empty,
-		full,
-	};
+	//enum class state
+	//{
+	//	empty,
+	//	full,
+	//};
 
 	ItemData* itemData;
 
