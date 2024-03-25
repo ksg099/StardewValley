@@ -122,6 +122,7 @@ void TestMapTool::Update(float dt)
         worldView.zoom(0.9f);
         UpdateTransform();
     }
+
     if (worldMapBounds.contains(mouseWorldPos) && InputMgr::GetMouseWheelUp(sf::Mouse::VerticalWheel))
     {
         worldView.zoom(1.1f);
@@ -192,11 +193,7 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
     {
         //Tile* placedTile = GetIndexState(indexNum); //아무것도 없으면 null
 
-        TileLayer& cell = mapData[indexNum];
-
-        sf::Sprite groundSprite = cell.groundLayer.tileSprite;
-        sf::Sprite floorSprite = cell.floorLayer.tileSprite;
-        sf::Sprite objectSprite = cell.objectLayer.tileSprite;
+        TileLayer cell;
 
         switch (tile.tileType)
         {
@@ -210,10 +207,11 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             cell.groundLayer.tileSprite = tile.tileSprite;
             cell.groundLayer.worldIndexNum = indexNum;
             cell.groundLayer.tileType = tile.tileType;
-            groundSprite.setTexture(RES_MGR_TEXTURE.Get(tile.resource));
-            groundSprite.setTextureRect({ tile.sheetID_X, tile.sheetID_Y, tile.sheetID_W, tile.sheetID_H });
-            groundSprite.setOrigin(groundSprite.getLocalBounds().width * 0.5f, groundSprite.getLocalBounds().height * 0.5f);
-            groundSprite.setPosition(IndexToPos(indexNum));
+            cell.groundLayer.tileSprite.setTexture(RES_MGR_TEXTURE.Get(tile.resource));
+            cell.groundLayer.tileSprite.setTextureRect({ tile.sheetID_X, tile.sheetID_Y, tile.sheetID_W, tile.sheetID_H });
+            cell.groundLayer.tileSprite.setOrigin(cell.groundLayer.tileSprite.getLocalBounds().width * 0.5f, cell.groundLayer.tileSprite.getLocalBounds().height * 0.5f);
+            cell.groundLayer.tileSprite.setPosition(IndexToPos(indexNum));
+            mapData[indexNum].groundLayer = cell.groundLayer;
             break;
         case TileType::Floor:
             cell.floorLayer.ID = tile.objectID;
@@ -225,10 +223,11 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             cell.floorLayer.tileSprite = tile.tileSprite;
             cell.floorLayer.worldIndexNum = indexNum;
             cell.floorLayer.tileType = tile.tileType;
-            floorSprite.setTexture(RES_MGR_TEXTURE.Get(tile.resource));
-            floorSprite.setTextureRect({ tile.sheetID_X, tile.sheetID_Y, tile.sheetID_W, tile.sheetID_H });
-            floorSprite.setOrigin(floorSprite.getLocalBounds().width * 0.5f, floorSprite.getLocalBounds().height * 0.5f);
-            floorSprite.setPosition(IndexToPos(indexNum));
+            cell.floorLayer.tileSprite.setTexture(RES_MGR_TEXTURE.Get(tile.resource));
+            cell.floorLayer.tileSprite.setTextureRect({ tile.sheetID_X, tile.sheetID_Y, tile.sheetID_W, tile.sheetID_H });
+            cell.floorLayer.tileSprite.setOrigin(cell.floorLayer.tileSprite.getLocalBounds().width * 0.5f, cell.floorLayer.tileSprite.getLocalBounds().height * 0.5f);
+            cell.floorLayer.tileSprite.setPosition(IndexToPos(indexNum));
+            mapData[indexNum].floorLayer = cell.floorLayer;
             break;
         case TileType::Object:
             cell.objectLayer.ID = tile.objectID;
@@ -240,11 +239,12 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             cell.objectLayer.tileSprite = tile.tileSprite;
             cell.objectLayer.worldIndexNum = indexNum;
             cell.objectLayer.tileType = tile.tileType;
-            cell.groundLayer.tileType = tile.tileType;
-            objectSprite.setTexture(RES_MGR_TEXTURE.Get(tile.resource));
-            objectSprite.setTextureRect({ tile.sheetID_X, tile.sheetID_Y, tile.sheetID_W, tile.sheetID_H });
-            objectSprite.setOrigin(objectSprite.getLocalBounds().width * 0.5f, objectSprite.getLocalBounds().height * 0.5f);
-            objectSprite.setPosition(IndexToPos(indexNum));
+            cell.objectLayer.tileType = tile.tileType;
+            cell.objectLayer.tileSprite.setTexture(RES_MGR_TEXTURE.Get(tile.resource));
+            cell.objectLayer.tileSprite.setTextureRect({ tile.sheetID_X, tile.sheetID_Y, tile.sheetID_W, tile.sheetID_H });
+            cell.objectLayer.tileSprite.setOrigin(cell.objectLayer.tileSprite.getLocalBounds().width * 0.5f, cell.objectLayer.tileSprite.getLocalBounds().height * 0.5f);
+            cell.objectLayer.tileSprite.setPosition(IndexToPos(indexNum));
+            mapData[indexNum].objectLayer = cell.objectLayer;
             break;
         default:
             break;
@@ -334,8 +334,8 @@ int TestMapTool::PosToIndex(sf::Vector2f pos)
 {
     int rowIndex = (pos.y -  (size / 2)) / size;
     int columnIndex = (pos.x - (size / 2)) / size;
-
     int index = rowIndex * col + columnIndex;
+
     return index;
 }
 
