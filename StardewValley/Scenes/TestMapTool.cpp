@@ -241,7 +241,14 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             cell.objectLayer.worldIndexNum = indexNum;
             cell.objectLayer.tileType = tile.tileType;
             cell.objectLayer.tileType = tile.tileType;
-            cell.objectLayer.tileSprite.setOrigin(cell.objectLayer.tileSprite.getLocalBounds().width * 0.5f, cell.objectLayer.tileSprite.getLocalBounds().height * 0.5f);
+            if (cell.objectLayer.tileSprite.getLocalBounds().height > size)
+            {
+                cell.objectLayer.tileSprite.setOrigin(cell.objectLayer.tileSprite.getLocalBounds().width * 0.5f, cell.objectLayer.tileSprite.getLocalBounds().height - size*0.5);
+            }
+            else
+            {
+                cell.objectLayer.tileSprite.setOrigin(cell.objectLayer.tileSprite.getLocalBounds().width * 0.5f, cell.objectLayer.tileSprite.getLocalBounds().height * 0.5f);
+            }
             cell.objectLayer.tileSprite.setPosition(IndexToPos(indexNum));
             mapData[indexNum].objectLayer = cell.objectLayer;
             break;
