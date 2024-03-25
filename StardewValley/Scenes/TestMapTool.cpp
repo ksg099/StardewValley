@@ -81,6 +81,7 @@ void TestMapTool::Init()
 
     mapData.resize(col * row);
     
+    
     Scene::Init();
 }
 
@@ -194,8 +195,6 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             cell.groundLayer.groundType = tile.groundType;
             cell.groundLayer.tileSprite.setOrigin(cell.groundLayer.tileSprite.getLocalBounds().width * 0.5f, cell.groundLayer.tileSprite.getLocalBounds().height * 0.5f);
             cell.groundLayer.tileSprite.setPosition(IndexToPos(indexNum));
-            cell.IndexX = indexNum / row + indexNum % row;
-            cell.IndexY = indexNum / col + indexNum % col;
             if (tile.groundType == GroundType::WATER)
             {
                 cell.placedPossible = false;
@@ -221,8 +220,6 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             cell.floorLayer.floorType = tile.floorType;
             cell.floorLayer.tileSprite.setOrigin(cell.floorLayer.tileSprite.getLocalBounds().width * 0.5f, cell.floorLayer.tileSprite.getLocalBounds().height * 0.5f);
             cell.floorLayer.tileSprite.setPosition(IndexToPos(indexNum));
-            cell.IndexX = indexNum / row + indexNum % row;
-            cell.IndexY = indexNum / col + indexNum % col;
             cell.placedPossible = true;
             cell.playerPassable = true;
             mapData[indexNum].floorLayer = cell.floorLayer;
@@ -238,8 +235,6 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             cell.objectLayer.worldIndexNum = indexNum;
             cell.objectLayer.tileType = tile.tileType;
             cell.objectLayer.objectType = tile.objectType;
-            cell.IndexX = indexNum / row + indexNum % row;
-            cell.IndexY = indexNum / col + indexNum % col;
             cell.placedPossible = false;
             cell.playerPassable = false;
             if (cell.objectLayer.tileSprite.getLocalBounds().height > size)
@@ -300,17 +295,17 @@ void TestMapTool::DrawGrid()
 {
     grid.clear();
     grid.setPrimitiveType(sf::Lines);
-    grid.resize((col + 1 + row + 1) * 2);
+    grid.resize((col + 2 + row + 2) * 2);
 
-    sf::Vector2f startLine = { 0.f, 0.f };
+    sf::Vector2f startLine = { gridStartX, gridStartY };
     sf::Vector2f endLine = startLine;
 
     int gridIndex = 0;
 
-    for (int i = 0; i < row + 1; ++i)
+    for (int i = 0; i <= row + 1; ++i)
     {
-        startLine = { 0.f , (float)(i * size) };
-        endLine = { (float)FRAMEWORK.GetWindowSize().x, startLine.y };
+        startLine = { startLine.x , (float)(i * size) + gridStartY };
+        endLine = { (float)FRAMEWORK.GetWindowSize().x * 0.6f - 15.f, startLine.y };
 
         grid[gridIndex].color = sf::Color::White;
         grid[gridIndex].position = startLine;
@@ -320,13 +315,13 @@ void TestMapTool::DrawGrid()
         gridIndex += 2;
     }
 
-    startLine = { 0.f, 0.f };
+    startLine = { gridStartX, gridStartY };
     endLine = startLine;
 
-    for (int i = 0; i < col + 1; ++i)
+    for (int j = 0; j <= col + 1; ++j)
     {
-        startLine = { (float)(i * size), 0.f };
-        endLine = { startLine.x, (float)FRAMEWORK.GetWindowSize().y };
+        startLine = { (float)(j * size) + gridStartX, startLine.y };
+        endLine = { startLine.x , (float)FRAMEWORK.GetWindowSize().y };
 
         grid[gridIndex].color = sf::Color::White;
         grid[gridIndex].position = startLine;
@@ -339,8 +334,8 @@ void TestMapTool::DrawGrid()
 
 int TestMapTool::PosToIndex(sf::Vector2f pos)
 {
-    int rowIndex = static_cast<int>((pos.y - (size / 2))) / size;
-    int columnIndex = static_cast<int>((pos.x - (size / 2))) / size;
+    int rowIndex = static_cast<int>((pos.y - gridStartY - (size / 2))) / col;
+    int columnIndex = static_cast<int>((pos.x - gridStartX - (size / 2))) / col;
     int index = rowIndex * col + columnIndex;
 
     return index;
@@ -350,13 +345,13 @@ sf::Vector2f TestMapTool::IndexToPos(int index)
 {
     int x = index % col;
     int y = index / col;
-    return sf::Vector2f( x * size + size / 2,  y * size + size / 2);
+    return sf::Vector2f( (x * size + size / 2) + gridStartX,  (y * size + size / 2) + gridStartY);
 }
 
 int TestMapTool::SelectIndex(sf::Vector2f pos)
 {
-    int rowIndex = static_cast<int>(pos.y / size);
-    int columnIndex = static_cast<int>(pos.x / size);
+    int rowIndex = (int)((pos.y - gridStartY) / size);
+    int columnIndex = (int)((pos.x - gridStartX) / size);
     int index = rowIndex * col + columnIndex;
 
     return index;
@@ -384,12 +379,20 @@ void TestMapTool::SaveMapContent()
     // 각 타일의 정보를 담을 JSON 배열 객체 생성
     Value tilesArray(kArrayType);
 
+    int X = 0;
+    int Y = 0;
+
     for (const auto& map : mapData)
     {
             Value tileContent(kObjectType); // 개별 타일 정보를 담을 JSON 객체 생성
-
-            tileContent.AddMember("Index X", map.IndexX, allocator);
-            tileContent.AddMember("Index Y", map.IndexY, allocator);
+            
+            if (X >= row)
+            {
+                ++Y;
+                X = 0;
+            }
+            tileContent.AddMember("Index X", X, allocator);
+            tileContent.AddMember("Index Y", Y, allocator);
             tileContent.AddMember("Ground Type", (int)(map.groundLayer.groundType), allocator);
             tileContent.AddMember("Ground ID", map.groundLayer.ID, allocator);
             tileContent.AddMember("Floor Type", (int)(map.floorLayer.floorType), allocator);
@@ -398,7 +401,7 @@ void TestMapTool::SaveMapContent()
             tileContent.AddMember("Object ID", map.objectLayer.ID, allocator);
             tileContent.AddMember("Placed Possible", map.placedPossible, allocator);
             tileContent.AddMember("Player Passable", map.playerPassable, allocator);
-
+            ++X;
             // 타일 객체를 타일 배열에 추가
             tilesArray.PushBack(tileContent, allocator);
     }

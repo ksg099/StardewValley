@@ -9,9 +9,9 @@ struct Tile //UI에서 가지고 있는 정보들 그대로 받으려고 내부 형식 동일하게 적어�
 	int ID;
 	std::string resource;
 	TileType tileType;
-	GroundType groundType;
-	FloorType floorType;
-	ObjectType objectType;
+	GroundType groundType = GroundType::NONE;
+	FloorType floorType = FloorType::NONE;
+	ObjectType objectType = ObjectType::NONE;
 	int sheetID_X;
 	int sheetID_Y;
 	int sheetID_W;
@@ -36,9 +36,12 @@ protected:
 	sf::Sprite spriteFloor;        //추가
 
 	sf::VertexArray grid;
-	int col = 10;
-	int row = 10;
-	int size = 30;
+	int col = 100;
+	int row = 100;
+	int size = 15;
+
+	float gridStartX = 30.f;
+	float gridStartY = 30.f;
 
 	float timer = 0.f;
 	float duration = 3.f;
