@@ -35,36 +35,41 @@ void InvetorySlot::SetEmpty()
 	itemCountText.SetActive(false);
 }
 
-//½½·Ô¿¡ ¾ÆÀÌÅÛ ±×¸®±â¸¸ ÇØÁØ´Ù.
+//ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½â¸¸ ï¿½ï¿½ï¿½Ø´ï¿½.
 void InvetorySlot::SetItem(ItemData* data)
 {
 	itemData = data;
 
-	data->count = maxCount;
+	//maxCountï¿½Ê°ï¿½ï¿½ï¿½ maxCountï¿½ï¿½ ï¿½Ò´ï¿½
+	//if (itemData->count > maxCount)
+	//{
+	//	itemData->count = maxCount;
+	//}
 
 
-	//ÇØ´ç ¾ÆÀÌÅÛÀÇ ¾ÆÀÌÄÜ, ¾ÆÀÌÄÜÀÇ ÇöÀç °³¼ö
+	//ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	auto item = ITEM_TABLE->Get(itemData->type, itemData->itemId);
 	icon.SetTextureRect(sf::IntRect(item.sheetId.x, item.sheetId.y, item.sheetSize.x, item.sheetSize.y));
 	icon.SetTexture(item.textureId);
-	icon.SetScale({ 50.f / item.sheetSize.x, 50.f / item.sheetSize.y }); //ÀÌºÎºÐ ½½·ÔÀÇ °¡¿îµ¥¿¡ ¿Àµµ·Ï ´Ù½Ã Á¤¸®ÇÊ¿äÇÒµí
+	icon.SetScale({ 50.f / item.sheetSize.x, 50.f / item.sheetSize.y }); //ï¿½ÌºÎºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½îµ¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½Òµï¿½
 	icon.SetOrigin(Origins::MC);
-	itemCountText.SetString(std::to_string(itemData->count));
-	itemCountText.SetActive(true);
+	//itemCountText.SetString(std::to_string(itemData->count));
+	//itemCountText.SetActive(true);
 }
 
 void InvetorySlot::Draw(sf::RenderWindow& window)
 {
 	SpriteGo::Draw(window);
 
-	//¾ÆÀÌÅÛ µ¥ÀÌÅÍ°¡ ÀÖÀ» °æ¿ì¿¡¸¸ ±×¸®°í °³¼ö ¾Ë·ÁÁÖ±â
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë·ï¿½ï¿½Ö±ï¿½
 	if (itemData != nullptr)
 	{
 		icon.Draw(window);
-		if (itemCountText.GetActive())
-		{
-			itemCountText.Draw(window);
-		}
+		itemCountText.Draw(window);
+		//if (itemCountText.GetActive())
+		//{
+		//	itemCountText.Draw(window);
+		//}
 	}
 }
 
@@ -80,7 +85,10 @@ void InvetorySlot::SetPosition(const sf::Vector2f& pos)
 
 	background.SetPosition(pos);
 	icon.SetPosition(pos);
-	itemCountText.SetPosition(pos);
+	//itemCountText.SetPosition(pos);
+
+	//sf::Vector2f itemCountPosition = icon.GetPosition();
+	//itemCountText.SetPosition(itemCountPosition);
 
 }
 

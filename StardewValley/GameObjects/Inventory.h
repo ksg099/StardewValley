@@ -13,46 +13,50 @@ protected:
 
 	int countX = 10;
 	int countY = 3;
+	int secondcountX = 10;
+	int secondcountY = 3;
+
 	int index;
 
 	SpriteGo smallUi;
 	TextGo itemInfoText;
-	//ÀÎµ¦½º °ª ÇÒ´ç
+	//ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ò´ï¿½
 	int firstClickIndex = -1;
 	
-	std::vector<InvetorySlot*> slots; //slot ÄÁÅ×ÀÌ³Ê
-	std::vector<InvetorySlot*> smallslots; //smallslot ÄÁÅ×ÀÌ³Ê
+	std::vector<InvetorySlot*> slots; //slot ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½
+	std::vector<InvetorySlot*> smallslots; //smallslot ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½
 	std::list<ItemData*>* items;
-
+	
+	
 	sf::Vector2f currentMousePos;
 	sf::FloatRect slotBounds;
 
-	// ¼­ºê ÀÎº¥Åä¸®
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸®
 	int subIndexY = 0;
 
-	int boxId = 0;
+	const int inventoryBoxId = 0;
 
 public:
 
-	bool isAble = true;
 	Inventory(const std::string& name = "");
-	~Inventory() = default;
+	~Inventory() override = default;
 
-	void Init() override;
-	void Release() override;
-	void Reset() override;
-	void Update(float dt) override;
-	void Draw(sf::RenderWindow& window) override;
+	virtual void Init() override;
+	virtual void Release() override;
+	virtual void Reset() override;
+	virtual void Update(float dt) override;
+	virtual void Draw(sf::RenderWindow& window) override;
 
-	void SetPosition(const sf::Vector2f& pos) override;
-	void SetIvenSlot(int x, int y, ItemData* data);
-
-	void UpdateSlots();
-	void UpdateSubSlots();
-
-	void AddItem(ItemData* currentItem);
-	void SwapItem(int firstClickIndex, int secondClixkIndex);
-	void DisplayItemInfo(ItemData& itemData, sf::Vector2f& position);
+	bool isAble = true;
+	bool IsItemInBox(ItemData* item, int boxId) { return item->BoxId == boxId; }
+	
+	virtual void SetPosition(const sf::Vector2f& pos) override;
+	virtual void SetIvenSlot(int x, int y, ItemData* data); 
+	virtual void UpdateSlots();
+	virtual void UpdateSubSlots();
+	//virtual void AddItem(ItemData* currentItem);
+	virtual void SwapItem(int firstClickIndex, int secondClickIndex);
+	virtual void DisplayItemInfo(ItemData& itemData, sf::Vector2f& position);
 
 	const int GetSubSlotIndexY() const { return subIndexY; }
 	ItemData* GetItemData(const int x, const int y) const;

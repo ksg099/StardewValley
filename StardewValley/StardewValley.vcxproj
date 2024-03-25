@@ -156,6 +156,7 @@
     <ClCompile Include="DataTables\DataTable.cpp" />
     <ClCompile Include="DataTables\GroundTable.cpp" />
     <ClCompile Include="DataTables\FloorTable.cpp" />
+    <ClCompile Include="GameObjects\BoxInven.cpp" />
     <ClCompile Include="GameObjects\FloorOnTile.cpp" />
     <ClCompile Include="Framework\Animator.cpp" />
     <ClCompile Include="DataTables\DataTableMgr.cpp">
@@ -203,6 +204,7 @@
     <ClInclude Include="DataTables\DataTable.h" />
     <ClInclude Include="DataTables\GroundTable.h" />
     <ClInclude Include="DataTables\FloorTable.h" />
+    <ClInclude Include="GameObjects\BoxInven.h" />
     <ClInclude Include="GameObjects\FloorOnTile.h" />
     <ClInclude Include="Framework\Animator.h" />
     <ClInclude Include="DataTables\DataTableMgr.h">

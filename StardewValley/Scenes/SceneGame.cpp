@@ -7,6 +7,8 @@
 #include "SpriteGo.h"
 #include "Inventory.h"
 
+#include "BoxInven.h"
+
 SceneGame::SceneGame(SceneIds id) : Scene(id)
 {
 }
@@ -37,6 +39,9 @@ void SceneGame::Init()
 	inventory->SetPosition({ 1920 / 2, 1080 / 2 });
 	AddGo(inventory, Ui);
 
+	boxInven = new BoxInven("Inventory");
+	boxInven->SetPosition({ 1920 / 2, 1080 / 2 });
+	AddGo(boxInven, Ui);
 	Scene::Init();
 }
 

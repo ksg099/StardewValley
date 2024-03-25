@@ -6,12 +6,6 @@ class InvetorySlot : public SpriteGo
 {
 protected:
 
-	//enum class state
-	//{
-	//	empty,
-	//	full,
-	//};
-
 	ItemData* itemData;
 
 	SpriteGo background; //기본 비어있는 상태 이미지
