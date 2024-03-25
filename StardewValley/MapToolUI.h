@@ -5,6 +5,7 @@
 struct MapSheet
 {
     sf::Sprite tileSprite;
+    sf::Sprite originalSprite;
     int uiIndexNumber; //UI 격자 내에 배치된 인덱스
     int objectID;
     TileType tileType;

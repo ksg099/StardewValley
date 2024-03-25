@@ -183,6 +183,7 @@ void MapToolUI::Init()
             std::string textureId = objectData.textureId;
             categories[0].push_back(MapSheet());
             categories[0][objIndex].tileSprite.setTexture(RES_MGR_TEXTURE.Get(textureId));
+            categories[0][objIndex].originalSprite.setTexture(RES_MGR_TEXTURE.Get(textureId));
             categories[0][objIndex].resource = textureId;
             categories[0][objIndex].objectID = objectData.objectId;
             categories[0][objIndex].tileType = TileType::Object;
@@ -192,6 +193,7 @@ void MapToolUI::Init()
             categories[0][objIndex].sheetID_H = objectData.sheetSize.y;
             categories[0][objIndex].uiIndexNumber = index;
             categories[0][objIndex].tileSprite.setTextureRect({ objectData.sheetId.x, objectData.sheetId.y, objectData.sheetSize.x, objectData.sheetSize.y });
+            categories[0][objIndex].originalSprite.setTextureRect({ objectData.sheetId.x, objectData.sheetId.y, objectData.sheetSize.x, objectData.sheetSize.y });
             categories[0][objIndex].tileSprite.setOrigin({ objectData.sheetSize.x * 0.5f, objectData.sheetSize.y * 0.5f });
             categories[0][objIndex].tileSprite.setScale({ size / categories[0][objIndex].sheetID_W , size / categories[0][objIndex].sheetID_H });
             categories[0][objIndex].tileSprite.setPosition(IndexToPos(index));
@@ -210,6 +212,8 @@ void MapToolUI::Init()
 			auto groundData = GROUND_TABLE->Get((GroundType)i, j);
 			categories[1].push_back(MapSheet());
 			std::string groundTextureId = GROUND_TABLE->GetTextureId();
+			categories[1][groundIndex].tileSprite.setTexture(RES_MGR_TEXTURE.Get(groundTextureId));
+            categories[1][groundIndex].originalSprite.setTexture(RES_MGR_TEXTURE.Get(groundTextureId));
 			categories[1][groundIndex].resource = groundTextureId;
 			categories[1][groundIndex].objectID = groundData.groundId;
             categories[1][groundIndex].tileType = TileType::Ground;
@@ -219,10 +223,10 @@ void MapToolUI::Init()
 			categories[1][groundIndex].sheetID_H = groundData.sheetSize.y;
 			categories[1][groundIndex].uiIndexNumber = index;
 			categories[1][groundIndex].tileSprite.setTextureRect({ groundData.sheetId.x, groundData.sheetId.y, groundData.sheetSize.x, groundData.sheetSize.y });
+            categories[1][groundIndex].originalSprite.setTextureRect({ groundData.sheetId.x, groundData.sheetId.y, groundData.sheetSize.x, groundData.sheetSize.y });
 			categories[1][groundIndex].tileSprite.setOrigin({ groundData.sheetSize.x * 0.5f, groundData.sheetSize.y * 0.5f });
 			categories[1][groundIndex].tileSprite.setScale({ size / categories[1][groundIndex].sheetID_W , size / categories[1][groundIndex].sheetID_H });
 			categories[1][groundIndex].tileSprite.setPosition(IndexToPos(index));
-			categories[1][groundIndex].tileSprite.setTexture(RES_MGR_TEXTURE.Get(groundTextureId));
 			++groundIndex;
 			++index;
 		}
@@ -238,6 +242,8 @@ void MapToolUI::Init()
             auto floorData = FLOOR_TABLE->Get((FloorType)i, j);
             std::string floorTextureId = floorData.textureId;
             categories[2].push_back(MapSheet());
+            categories[2][floorIndex].tileSprite.setTexture(RES_MGR_TEXTURE.Get(floorTextureId));
+            categories[2][floorIndex].originalSprite.setTexture(RES_MGR_TEXTURE.Get(floorTextureId));
             categories[2][floorIndex].resource = floorTextureId;
             categories[2][floorIndex].objectID = floorData.floorId;
             categories[2][floorIndex].tileType = TileType::Floor;
@@ -247,10 +253,10 @@ void MapToolUI::Init()
             categories[2][floorIndex].sheetID_H = floorData.sheetSize.y;
             categories[2][floorIndex].uiIndexNumber = index;
             categories[2][floorIndex].tileSprite.setTextureRect({ floorData.sheetId.x, floorData.sheetId.y, floorData.sheetSize.x, floorData.sheetSize.y });
+            categories[2][floorIndex].originalSprite.setTextureRect({ floorData.sheetId.x, floorData.sheetId.y, floorData.sheetSize.x, floorData.sheetSize.y });
             categories[2][floorIndex].tileSprite.setOrigin({ floorData.sheetSize.x * 0.5f, floorData.sheetSize.y * 0.5f });
             categories[2][floorIndex].tileSprite.setScale({ size / categories[2][floorIndex].sheetID_W , size / categories[2][floorIndex].sheetID_H });
             categories[2][floorIndex].tileSprite.setPosition(IndexToPos(index));
-            categories[2][floorIndex].tileSprite.setTexture(RES_MGR_TEXTURE.Get(floorTextureId));
             ++floorIndex;
             ++index;
         }
