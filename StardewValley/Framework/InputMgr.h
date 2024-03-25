@@ -53,6 +53,9 @@ public:
 	static bool GetMouseButtonUp(sf::Mouse::Button key);
 	static bool GetMouseButton(sf::Mouse::Button key);
 
+	static bool GetMouseWheelDown(sf::Mouse::Wheel wheel);
+	static bool GetMouseWheelUp(sf::Mouse::Wheel wheel);
+
 	static sf::Keyboard::Key MouseButtonToKey(sf::Mouse::Button button)
 	{
 		return (sf::Keyboard::Key)(button + sf::Keyboard::Key::KeyCount);
@@ -61,6 +64,16 @@ public:
 	static sf::Mouse::Button KeyToMouseButton(sf::Keyboard::Key key)
 	{
 		return (sf::Mouse::Button)(key - sf::Keyboard::Key::KeyCount);
+	}
+
+	static sf::Keyboard::Key MouseWheelToKey(sf::Mouse::Wheel wheel)
+	{
+		return (sf::Keyboard::Key)(wheel + sf::Keyboard::Key::KeyCount + sf::Mouse::ButtonCount);
+	}
+
+	static sf::Mouse::Wheel KeyToMouseWheel(sf::Keyboard::Key key)
+	{
+		return (sf::Mouse::Wheel)(key - sf::Keyboard::Key::KeyCount - sf::Mouse::ButtonCount);
 	}
 };
 

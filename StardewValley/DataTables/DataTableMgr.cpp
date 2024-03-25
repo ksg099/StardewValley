@@ -34,7 +34,7 @@ void DataTableMgr::Init()
 	DataTable* itemSaveTable = new ItemSave(DataTable::Types::SAVE);
 	tables.insert({ DataTable::Types::SAVE, itemSaveTable });
 
-	// ºÒ·¯¿À±â: TO-DO: °ÔÀÓ ÃÊ±â¿¡ ¼öÇàµÇµµ·Ï À§Ä¡ º¯°æÇØ¾ß ÇÔ
+	// ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½: TO-DO: ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±â¿¡ ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½
 	rapidjson::Document dataDoc;
 	if (Utils::LoadFromFile("data/DataTable.json", dataDoc))
 	{
@@ -44,9 +44,9 @@ void DataTableMgr::Init()
 		ITEM_TABLE->Load(dataDoc);
 	}
 
-	 // rapidjson::Document docÆÄÀÏÀ» loadÇÏ°í À§¿¡¼­ µ¿ÀûÇÒ´çÇÑ invenÀÇ LoadData¿¡ doc¸¦ Àû¿ëÇÑ´Ù.
+	 // rapidjson::Document docï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ loadï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò´ï¿½ï¿½ï¿½ invenï¿½ï¿½ LoadDataï¿½ï¿½ docï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	rapidjson::Document SaveDoc;
-	if (Utils::LoadFromFile("data/example.json", SaveDoc))
+	if (Utils::LoadFromFile("data/itemDataExample.json", SaveDoc))
 	{
 		ITEM_SAVE->Load(SaveDoc);
 	}

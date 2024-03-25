@@ -75,7 +75,7 @@ void ItemSave::Save()
 
 	doc.AddMember("ItemData", itemDataArr, allocator);
 
-	Utils::EditFile("data/example3.json", doc);
+	Utils::EditFile("data/itemDataExample.json", doc);
 }
 
 bool ItemSave::Load(rapidjson::Document& doc)

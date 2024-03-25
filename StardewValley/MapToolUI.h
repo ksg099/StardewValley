@@ -4,10 +4,15 @@
 
 struct MapSheet
 {
-    sf::Sprite objSprite;
-    int indexNumber;
+    sf::Sprite tileSprite;
+    sf::Sprite originalSprite;
+    int uiIndexNumber; //UI 격자 내에 배치된 인덱스
     int objectID;
+    TileType tileType;
     std::string resource;
+    GroundType groundType = GroundType::NONE;
+    FloorType floorType = FloorType::NONE;
+    ObjectType objectType = ObjectType::NONE;
     int sheetID_X;
     int sheetID_Y;
     int sheetID_W;
@@ -17,10 +22,6 @@ struct MapSheet
 class MapToolUI : public GameObject
 {
 protected:
-
-    float timer = 0.f;
-    float duration = 1.f;
-
     sf::RectangleShape outLine;
     sf::RectangleShape centerLine;
 
@@ -38,20 +39,6 @@ protected:
 
     sf::VertexArray grid;
 
- /*   SpriteGo stone_1;
-    SpriteGo stone_2;
-    SpriteGo stone_3;
-    SpriteGo stone_4;
-
-    SpriteGo tree_1;
-    SpriteGo tree_2;
-    SpriteGo tree_3;
-    SpriteGo tree_4;
-
-    SpriteGo water_1;
-    SpriteGo water_2;
-    SpriteGo water_3;
-    */
     SpriteGo saveButton;
     SpriteGo loadButton;
     SpriteGo eraseButton;
@@ -59,6 +46,7 @@ protected:
 
     int currentPage;
     std::vector<std::vector<MapSheet>> categories;
+
 
     int col = 40;
     int row = 30;
@@ -69,17 +57,26 @@ public:
     MapToolUI(const std::string& name = "");
     ~MapToolUI() override = default;
 
+    float timer = 0.f;
+    float duration = 3.f;
+
+    MapSheet selectedTile; //선택한 타일의 정보를 저장하려고 만듦
+    bool isSelected = false; //타일 선택했는지 확인
+
     void SetBackFloor(const sf::Vector2i& count, const sf::Vector2f& size);
     void SetSpriteSheetId(const std::string& id);
     void DrawGrid();
     sf::Vector2f IndexToPos(int index);
+    int PosToIndex(sf::Vector2f pos);
+    int SelectIndex(sf::Vector2f pos); //선택할 때 마우스 포지션을 받아서 인덱스 번호로 바꿔주기
+
+    const MapSheet& GetSelectedObject() const { return selectedTile; }
+    void SelectTile(int index);
 
     sf::FloatRect GetSaveButtonGB() { return saveButton.GetGlobalBounds(); }
     sf::FloatRect GetLoadButtonGB() { return loadButton.GetGlobalBounds(); }
     sf::FloatRect GetEraseButtonGB() { return eraseButton.GetGlobalBounds(); }
     sf::FloatRect GetMoveScreenButtonGB() { return moveScreenButton.GetGlobalBounds(); }
-
-    void UpdatePalette();
     
     void Init() override;
     void Release() override;

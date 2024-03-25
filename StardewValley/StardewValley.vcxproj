@@ -119,7 +119,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>.;.\SFML-2.6.1\include;.\Framework;.\GameObjects;.\Scenes;.\DataTables;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -195,7 +195,9 @@
     <ClCompile Include="GameObjects\UiHud.cpp" />
     <ClCompile Include="GameObjects\SpriteGoEffect.cpp" />
     <ClCompile Include="Framework\SoundMgr.cpp" />
-    <ClCompile Include="Scenes\TestMapTool.cpp" />
+    <ClCompile Include="Scenes\TestMapTool.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataTables\DataTable.h" />
@@ -232,7 +234,9 @@
     <ClInclude Include="GameObjects\UiHud.h" />
     <ClInclude Include="GameObjects\SpriteGoEffect.h" />
     <ClInclude Include="Framework\SoundMgr.h" />
-    <ClInclude Include="Scenes\TestMapTool.h" />
+    <ClInclude Include="Scenes\TestMapTool.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
