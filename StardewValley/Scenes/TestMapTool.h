@@ -29,9 +29,12 @@ protected:
 	sf::Sprite spriteFloor;        //추가
 
 	sf::VertexArray grid;
-	int col = 200;
-	int row = 200;
-	int size = 15;
+	int col = 10;
+	int row = 10;
+	int size = 30;
+
+	float timer = 0.f;
+	float duration = 3.f;
 
 	rapidjson::Document doc;
 
@@ -62,6 +65,7 @@ public:
 
 	int PosToIndex(sf::Vector2f pos);
 	sf::Vector2f IndexToPos(int index);
+	int SelectIndex(sf::Vector2f pos); //선택할 때 마우스 포지션을 받아서 인덱스 번호로 바꿔주기
 
 	void SetMapToolSize(int xCount, int yCount);
 	void SaveMapContent();

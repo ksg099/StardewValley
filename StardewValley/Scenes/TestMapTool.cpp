@@ -114,6 +114,13 @@ void TestMapTool::Update(float dt)
     sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
     sf::Vector2f mouseWorldPos = SCENE_MGR.GetCurrentScene()->ScreenToWorld(mousePos);
 
+    timer += dt;
+    if (timer > duration)
+    {
+        printf("WORLD : (%f, %f)\n", mouseWorldPos.x, mouseWorldPos.y);
+        timer = 0.f;
+    }
+
     float zoomAmount = 1.1f;
 
     sf::FloatRect worldMapBounds = { 15.f,15.f,(float)FRAMEWORK.GetWindowSize().x * 0.6f - 15.f, (float)FRAMEWORK.GetWindowSize().y - 15.f };
@@ -155,7 +162,7 @@ void TestMapTool::Update(float dt)
         sf::FloatRect visibleMapBounds(15.f, 15.f, 1152.f, 1050.f);
         if (mapToolUI->isSelected && visibleMapBounds.contains(mouseWorldPos))
         {
-            PlaceTileToIndex(PosToIndex(mouseWorldPos), mapToolUI->selectedTile);
+            PlaceTileToIndex(SelectIndex(mouseWorldPos), mapToolUI->selectedTile);
         }
     }
 
@@ -191,8 +198,6 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
     //다른 Type이면 ground -> floor -> object 순으로 위에 쌓아올릴 수 있어야 함
     if (indexNum >= 0 && indexNum <= col * row )
     {
-        //Tile* placedTile = GetIndexState(indexNum); //아무것도 없으면 null
-
         TileLayer cell;
 
         switch (tile.tileType)
@@ -207,8 +212,6 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             cell.groundLayer.tileSprite = tile.originalSprite;
             cell.groundLayer.worldIndexNum = indexNum;
             cell.groundLayer.tileType = tile.tileType;
-           // cell.groundLayer.tileSprite.setTexture(RES_MGR_TEXTURE.Get(tile.resource));
-            //cell.groundLayer.tileSprite.setTextureRect({ tile.sheetID_X, tile.sheetID_Y, tile.sheetID_W, tile.sheetID_H });
             cell.groundLayer.tileSprite.setOrigin(cell.groundLayer.tileSprite.getLocalBounds().width * 0.5f, cell.groundLayer.tileSprite.getLocalBounds().height * 0.5f);
             cell.groundLayer.tileSprite.setPosition(IndexToPos(indexNum));
             mapData[indexNum].groundLayer = cell.groundLayer;
@@ -223,8 +226,6 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             cell.floorLayer.tileSprite = tile.originalSprite;
             cell.floorLayer.worldIndexNum = indexNum;
             cell.floorLayer.tileType = tile.tileType;
-         //   cell.floorLayer.tileSprite.setTexture(RES_MGR_TEXTURE.Get(tile.resource));
-          //  cell.floorLayer.tileSprite.setTextureRect({ tile.sheetID_X, tile.sheetID_Y, tile.sheetID_W, tile.sheetID_H });
             cell.floorLayer.tileSprite.setOrigin(cell.floorLayer.tileSprite.getLocalBounds().width * 0.5f, cell.floorLayer.tileSprite.getLocalBounds().height * 0.5f);
             cell.floorLayer.tileSprite.setPosition(IndexToPos(indexNum));
             mapData[indexNum].floorLayer = cell.floorLayer;
@@ -240,8 +241,6 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             cell.objectLayer.worldIndexNum = indexNum;
             cell.objectLayer.tileType = tile.tileType;
             cell.objectLayer.tileType = tile.tileType;
-           // cell.objectLayer.tileSprite.setTexture(RES_MGR_TEXTURE.Get(tile.resource));
-           // cell.objectLayer.tileSprite.setTextureRect({ tile.sheetID_X, tile.sheetID_Y, tile.sheetID_W, tile.sheetID_H });
             cell.objectLayer.tileSprite.setOrigin(cell.objectLayer.tileSprite.getLocalBounds().width * 0.5f, cell.objectLayer.tileSprite.getLocalBounds().height * 0.5f);
             cell.objectLayer.tileSprite.setPosition(IndexToPos(indexNum));
             mapData[indexNum].objectLayer = cell.objectLayer;
@@ -332,8 +331,8 @@ void TestMapTool::DrawGrid()
 
 int TestMapTool::PosToIndex(sf::Vector2f pos)
 {
-    int rowIndex = (pos.y -  (size / 2)) / size;
-    int columnIndex = (pos.x - (size / 2)) / size;
+    int rowIndex = static_cast<int>((pos.y - (size / 2))) / size;
+    int columnIndex = static_cast<int>((pos.x - (size / 2))) / size;
     int index = rowIndex * col + columnIndex;
 
     return index;
@@ -344,6 +343,15 @@ sf::Vector2f TestMapTool::IndexToPos(int index)
     int x = index % col;
     int y = index / col;
     return sf::Vector2f( x * size + size / 2,  y * size + size / 2);
+}
+
+int TestMapTool::SelectIndex(sf::Vector2f pos)
+{
+    int rowIndex = static_cast<int>(pos.y / size);
+    int columnIndex = static_cast<int>(pos.x / size);
+    int index = rowIndex * col + columnIndex;
+
+    return index;
 }
 
 

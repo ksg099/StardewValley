@@ -54,6 +54,8 @@ public:
     MapToolUI(const std::string& name = "");
     ~MapToolUI() override = default;
 
+    float timer = 0.f;
+    float duration = 3.f;
 
     MapSheet selectedTile; //선택한 타일의 정보를 저장하려고 만듦
     bool isSelected = false; //타일 선택했는지 확인
@@ -63,6 +65,7 @@ public:
     void DrawGrid();
     sf::Vector2f IndexToPos(int index);
     int PosToIndex(sf::Vector2f pos);
+    int SelectIndex(sf::Vector2f pos); //선택할 때 마우스 포지션을 받아서 인덱스 번호로 바꿔주기
 
     const MapSheet& GetSelectedObject() const { return selectedTile; }
     void SelectTile(int index);

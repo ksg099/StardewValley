@@ -81,11 +81,11 @@ void MapToolUI::DrawGrid()
 
 int MapToolUI::PosToIndex(sf::Vector2f pos)
 {
-        int rowIndex = (pos.y - gridStart.y - (size / 2)) / size;
-        int columnIndex = (pos.x - gridStart.x - (size / 2)) / size;
+	int rowIndex = static_cast<int>(pos.y - gridStart.y - (size / 2)) / size;
+	int columnIndex = static_cast<int>(pos.x - gridStart.x - (size / 2)) / size;
+	int index = rowIndex * col + columnIndex;
 
-        int index = rowIndex * col + columnIndex;
-        return index;
+	return index;
 }
 
 sf::Vector2f MapToolUI::IndexToPos(int index)
@@ -102,6 +102,15 @@ void MapToolUI::SelectTile(int index)
         selectedTile = categories[currentPage][index];
         isSelected = true;
     }
+}
+
+int MapToolUI::SelectIndex(sf::Vector2f pos)
+{
+    int rowIndex = static_cast<int>(pos.y - gridStart.y) / size;
+    int columnIndex = static_cast<int>(pos.x - gridStart.x ) / size;
+    int index = rowIndex * col + columnIndex;
+
+    return index;
 }
 
 void MapToolUI::Init()
@@ -278,9 +287,20 @@ void MapToolUI::Update(float dt)
     sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
     sf::Vector2f mouseUIPos = SCENE_MGR.GetCurrentScene()->ScreenToUi(mousePos);
 
+    timer += dt;
+    if (timer > duration)
+    {
+        printf("UI : (%f, %f)\n", mouseUIPos.x, mouseUIPos.y);
+        timer = 0.f;
+    }
+
     if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
     {
-        SelectTile(PosToIndex(mouseUIPos));
+        sf::FloatRect worldMapBounds = { (float)FRAMEWORK.GetWindowSize().x * 0.6f + 15.f, 15.f, (float)FRAMEWORK.GetWindowSize().x - 15.f, (float)FRAMEWORK.GetWindowSize().y + 15.f};
+        if (worldMapBounds.contains(mouseUIPos))
+        {
+            SelectTile(SelectIndex(mouseUIPos));
+        }
 
         if (arrowLeft.GetGlobalBounds().contains(mouseUIPos))
         {
