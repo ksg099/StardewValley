@@ -24,7 +24,7 @@ void SceneGame::Init()
 	if (Utils::LoadFromFile("data/example.json", SaveDoc))
 	{
 		tileMap = new TileMap("Background");
-		tileMap->LoadTileMap(SaveDoc, tileSize);
+		tileMap->LoadTileMap("Farm");
 		tileMap->SetOrigin(Origins::MC);
 		tileMap->sortLayer = -1;
 		AddGo(tileMap);
@@ -66,7 +66,11 @@ void SceneGame::Update(float dt)
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
 	{
-		ITEM_SAVE->Save();
+		rapidjson::Document saveDoc;
+		saveDoc.SetObject();
+		TILEMAP_SAVE->Save(saveDoc);
+		ITEM_SAVE->Save(saveDoc);
+		Utils::EditFile("data/example_save.json", saveDoc);
 	}
 }
 

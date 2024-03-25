@@ -8,7 +8,8 @@ class TileMap : public GameObject
 protected:
 	SceneGame* sceneGame = nullptr;
 
-	std::vector<TileData*> tiles;
+	std::vector<TileData*>* tiles;
+	sf::Vector2f tileSize = { 25.f, 25.f };
 
 	sf::VertexArray va;
 	std::string spriteSheetId;
@@ -58,7 +59,7 @@ public:
 
 
 
-	void LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize);
+	void LoadTileMap(const std::string& name);
 	FloorOnTile* CreateFloor(const FloorType type, const int id);
 	ObjectOnTile* CreateObject(const ObjectType type, const int id);
 

@@ -4,6 +4,7 @@
 #include "FloorTable.h"
 #include "ObjectTable.h"
 #include "ItemTable.h"
+#include "TileMapSave.h"
 #include "ItemSave.h"
 
 DataTableMgr::DataTableMgr()
@@ -31,10 +32,12 @@ void DataTableMgr::Init()
 	DataTable* itemTable = new ItemTable(DataTable::Types::ITEM);
 	tables.insert({ DataTable::Types::ITEM, itemTable });
 
-	DataTable* itemSaveTable = new ItemSave(DataTable::Types::SAVE);
-	tables.insert({ DataTable::Types::SAVE, itemSaveTable });
+	DataTable* tileMapSave = new TileMapSave(DataTable::Types::TILEMAP_SAVE_DATA);
+	tables.insert({ DataTable::Types::TILEMAP_SAVE_DATA, tileMapSave });
 
-	// �ҷ�����: TO-DO: ���� �ʱ⿡ ����ǵ��� ��ġ �����ؾ� ��
+	DataTable* itemSaveTable = new ItemSave(DataTable::Types::ITEM_SAVE_DATA);
+	tables.insert({ DataTable::Types::ITEM_SAVE_DATA, itemSaveTable });
+
 	rapidjson::Document dataDoc;
 	if (Utils::LoadFromFile("data/DataTable.json", dataDoc))
 	{
@@ -44,10 +47,10 @@ void DataTableMgr::Init()
 		ITEM_TABLE->Load(dataDoc);
 	}
 
-	 // rapidjson::Document doc������ load�ϰ� ������ �����Ҵ��� inven�� LoadData�� doc�� �����Ѵ�.
 	rapidjson::Document SaveDoc;
-	if (Utils::LoadFromFile("data/itemDataExample.json", SaveDoc))
+	if (Utils::LoadFromFile("data/example_save.json", SaveDoc))
 	{
+		TILEMAP_SAVE->Load(SaveDoc);
 		ITEM_SAVE->Load(SaveDoc);
 	}
 }

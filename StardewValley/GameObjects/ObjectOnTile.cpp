@@ -45,6 +45,8 @@ void ObjectOnTile::InteractWithObject(const ItemType type, const int id)
 			SetActive(false);
 			sceneGame->RemoveGo(this);
 			tileData->object = nullptr;
+			tileData->objectType = ObjectType::NONE;
+			tileData->objectId = 0;
 
 			tileData->isPassable = true;
 			tileData->isPossiblePlace = true;

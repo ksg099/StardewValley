@@ -37,7 +37,7 @@ const TileData* TileMap::GetTileData(int x, int y) const
 		return nullptr;
 	}
 
-	return tiles[y * cellCount.x + x];
+	return (*tiles)[y * cellCount.x + x];
 }
 
 void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
@@ -103,7 +103,7 @@ void TileMap::UpdateTransform()
 	transform.rotate(rotation, position.x, position.y);
 	transform.translate(position - origin);
 
-	for (auto tile : tiles)
+	for (auto tile : *tiles)
 	{
 		if (tile->object != nullptr)
 		{
@@ -212,7 +212,7 @@ void TileMap::Reset()
 
 	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
 
-	for (auto tile : tiles)
+	for (auto tile : *tiles)
 	{
 		if (tile->floor != nullptr)
 			sceneGame->AddGo(tile->floor);
@@ -234,7 +234,7 @@ void TileMap::Draw(sf::RenderWindow& window)
 
 	window.draw(va, state);
 
-	for (auto tile : tiles)
+	for (auto tile : *tiles)
 	{
 		if (tile->floor != nullptr && tile->floor->GetActive())
 		{
@@ -247,10 +247,14 @@ void TileMap::Draw(sf::RenderWindow& window)
 	}
 }
 
-void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize)
+void TileMap::LoadTileMap(const std::string& name)
 {
-	cellCount.x = doc["Tile Map"][0]["Tile Count X"].GetInt();
-	cellCount.y = doc["Tile Map"][0]["Tile Count Y"].GetInt();
+	tiles = TILEMAP_SAVE->Get(name);
+	if (tiles == nullptr)
+		return;
+
+	cellCount.x = TILEMAP_SAVE->GetTileMapSize(name)->x;
+	cellCount.y = TILEMAP_SAVE->GetTileMapSize(name)->y;
 	SetSpriteSheetId(GROUND_TABLE->GetTextureId());
 
 	cellSize = tileSize;
@@ -266,60 +270,34 @@ void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize
 		{ 0, tileSize.y }
 	};
 
-	for (int i = 0; i < cellCount.y; i++)
+	for (auto tile : *tiles)
 	{
-		for (int j = 0; j < cellCount.x; j++)
+		tile->floor = CreateFloor(tile->floorType, tile->floorId);
+		if (tile->floor != nullptr)
+			tile->floor->SetTileData(tile);
+
+		tile->object = CreateObject(tile->objectType, tile->objectId);
+		if (tile->object != nullptr)
+			tile->object->SetTileData(tile);
+
+		sf::Vector2f sheetSize = (sf::Vector2f)GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetSize;
+		sf::Vector2f texCoord0[4] = {
+			{ 0, 0 },
+			{ sheetSize.x, 0 },
+			{ sheetSize.x, sheetSize.y },
+			{ 0, sheetSize.y }
+		};
+
+		int quadIndex = tile->indexY * cellCount.x + tile->indexX; // 2차원 인덱스를 1차원 인덱스로 변환
+		sf::Vector2f quadPos(tileSize.x * tile->indexX, tileSize.y * tile->indexY);
+
+		for (int k = 0; k < 4; k++)
 		{
-			int quadIndex = i * cellCount.x + j; // 2차원 인덱스를 1차원 인덱스로 변환
-			sf::Vector2f quadPos(tileSize.x * j, tileSize.y * i);
-
-
-
-			TileData* tile = new TileData();
-			tile->indexX = j;
-			tile->indexY = i;
-			tile->groundType = (GroundType)doc["Tile Map"][0]["Tiles"][quadIndex]["Ground Type"].GetInt();
-			tile->groundId = doc["Tile Map"][0]["Tiles"][quadIndex]["Ground ID"].GetInt();
-
-			FloorType floorType = (FloorType)doc["Tile Map"][0]["Tiles"][quadIndex]["Floor Type"].GetInt(); // 해당 타입을 갖는 FloorOnTile 객체 생성
-			int floorId = doc["Tile Map"][0]["Tiles"][quadIndex]["Floor ID"].GetInt();
-			tile->floor = CreateFloor(floorType, floorId);
-			if (tile->floor != nullptr)
-			{
-				tile->floor->SetTileData(tile);
-			}
-			
-			ObjectType objType = (ObjectType)doc["Tile Map"][0]["Tiles"][quadIndex]["Object Type"].GetInt();
-			int objId = doc["Tile Map"][0]["Tiles"][quadIndex]["Object ID"].GetInt();
-			tile->object = CreateObject(objType, objId);
-			if (tile->object != nullptr)
-			{
-				tile->object->SetTileData(tile);
-			}
-
-			tile->isPossiblePlace = doc["Tile Map"][0]["Tiles"][quadIndex]["Placed Possible"].GetBool();
-			tile->isPassable = doc["Tile Map"][0]["Tiles"][quadIndex]["Player Passable"].GetBool();
-
-			tiles.push_back(tile);
-
-			sf::Vector2f sheetSize = (sf::Vector2f)GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetSize;
-			sf::Vector2f texCoord0[4] = {
-				{ 0, 0 },
-				{ sheetSize.x, 0 },
-				{ sheetSize.x, sheetSize.y },
-				{ 0, sheetSize.y }
-			};
-
-
-
-			for (int k = 0; k < 4; k++)
-			{
-				int vertexIndex = (quadIndex * 4) + k;
-				va[vertexIndex].position = quadPos + posOffsets[k];
-				va[vertexIndex].texCoords = texCoord0[k];
-				va[vertexIndex].texCoords.x += GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetId.x;
-				va[vertexIndex].texCoords.y += GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetId.y;
-			}
+			int vertexIndex = (quadIndex * 4) + k;
+			va[vertexIndex].position = quadPos + posOffsets[k];
+			va[vertexIndex].texCoords = texCoord0[k];
+			va[vertexIndex].texCoords.x += GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetId.x;
+			va[vertexIndex].texCoords.y += GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetId.y;
 		}
 	}
 }
@@ -366,7 +344,7 @@ void TileMap::InteractWithTile(const int x, const int y, const ItemType type, co
 	if (IsOutOfRange(x, y))
 		return;
 
-	TileData* tile = tiles[y * cellCount.x + x];
+	TileData* tile = (*tiles)[y * cellCount.x + x];
 	if (tile->object != nullptr) // object 상호작용
 	{
 		tile->object->InteractWithObject(type, id);
@@ -379,7 +357,10 @@ void TileMap::InteractWithTile(const int x, const int y, const ItemType type, co
 	{
 		if (tile->groundType != GroundType::WATER && type == ItemType::Tool && id == 3)
 		{
-			tile->floor = CreateFloor(FloorType::DRIED_ARABLE_LAND, 0);
+			tile->floorType = FloorType::DRIED_ARABLE_LAND;
+			tile->floorId = 0;
+
+			tile->floor = CreateFloor(tile->floorType, tile->floorId);
 			tile->floor->SetPosition(GetGridPosition(tile->indexX, tile->indexY));
 			tile->floor->SetTileData(tile);
 		}
@@ -391,7 +372,7 @@ void TileMap::SetPlayerPassable(int x, int y, bool isPassable)
 	if (x < 0 || y < 0 || x > cellCount.x - 1 || y > cellCount.y - 1)
 		return;
 
-	tiles[y * cellCount.x + x]->isPassable = isPassable;
+	(*tiles)[y * cellCount.x + x]->isPassable = isPassable;
 }
 
 bool TileMap::IsPassable(int x, int y)
@@ -401,5 +382,5 @@ bool TileMap::IsPassable(int x, int y)
 		return false;
 	}
 
-	return tiles[y * cellCount.x + x]->isPassable;
+	return (*tiles)[y * cellCount.x + x]->isPassable;
 }

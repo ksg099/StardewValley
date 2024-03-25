@@ -45,7 +45,7 @@ void FloorOnTile::InteractWithFloor(const ItemType type, const int id)
 		// 물뿌리개 상호작용
 		if (type == ItemType::Tool && id == 4)
 		{
-			floorType = FloorType::WET_ARABLE_LAND;
+			tileData->floorType = floorType = FloorType::WET_ARABLE_LAND;
 			auto floorData = FLOOR_TABLE->Get(floorType, floorId);
 			SetTexture(floorData.textureId);
 			SetTextureRect(sf::IntRect(floorData.sheetId.x, floorData.sheetId.y, floorData.sheetSize.x, floorData.sheetSize.y));
@@ -53,8 +53,9 @@ void FloorOnTile::InteractWithFloor(const ItemType type, const int id)
 		// 씨앗 상호작용
 		if (type == ItemType::Seed && tileData->object == nullptr)
 		{
-			int objId = id; // 아이디 계산해야 함
-			ObjectOnTile* obj = tileMap->CreateObject(ObjectType::CROPS, objId);
+			tileData->objectType = ObjectType::CROPS;
+			tileData->objectId = id; // 아이디 계산해야 함
+			ObjectOnTile* obj = tileMap->CreateObject(tileData->objectType, tileData->objectId);
 			obj->SetPosition(tileMap->GetGridPosition(tileData->indexX, tileData->indexY));
 			tileData->object = obj;
 			tileData->object->SetTileData(tileData);
