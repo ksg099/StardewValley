@@ -9,6 +9,9 @@ struct Tile //UI에서 가지고 있는 정보들 그대로 받으려고 내부 형식 동일하게 적어�
 	int ID;
 	std::string resource;
 	TileType tileType;
+	GroundType groundType;
+	FloorType floorType;
+	ObjectType objectType;
 	int sheetID_X;
 	int sheetID_Y;
 	int sheetID_W;
@@ -20,6 +23,10 @@ struct TileLayer
 	Tile groundLayer;
 	Tile floorLayer;
 	Tile objectLayer;
+	int IndexX;
+	int IndexY;
+	bool placedPossible = false;
+	bool playerPassable = false;
 };
 
 class TestMapTool : public Scene
@@ -72,6 +79,8 @@ public:
 	void LoadMapFile(std::vector<std::vector<Tile>>& data, const std::string& filePath);
 	void UpdateTransform();
 
-	std::wstring SelectFile(); 
+	std::wstring SaveFilePath(); 
+	std::string WstringToString(const std::wstring& var);
+
 	std::string ToRelativePath(const std::string& originalPath, const std::string& basePath);  //추가
 };

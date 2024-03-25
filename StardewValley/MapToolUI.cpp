@@ -195,7 +195,9 @@ void MapToolUI::Init()
             categories[0][objIndex].originalSprite.setTexture(RES_MGR_TEXTURE.Get(textureId));
             categories[0][objIndex].resource = textureId;
             categories[0][objIndex].objectID = objectData.objectId;
+            categories[0][objIndex].objectType = objectData.objectType;
             categories[0][objIndex].tileType = TileType::Object;
+
             categories[0][objIndex].sheetID_X = objectData.sheetId.x;
             categories[0][objIndex].sheetID_Y = objectData.sheetId.y;
             categories[0][objIndex].sheetID_W = objectData.sheetSize.x;
@@ -226,6 +228,8 @@ void MapToolUI::Init()
 			categories[1][groundIndex].resource = groundTextureId;
 			categories[1][groundIndex].objectID = groundData.groundId;
             categories[1][groundIndex].tileType = TileType::Ground;
+            categories[1][groundIndex].groundType = groundData.groundType;
+
 			categories[1][groundIndex].sheetID_X = groundData.sheetId.x;
 			categories[1][groundIndex].sheetID_Y = groundData.sheetId.y;
 			categories[1][groundIndex].sheetID_W = groundData.sheetSize.x;
@@ -256,6 +260,7 @@ void MapToolUI::Init()
             categories[2][floorIndex].resource = floorTextureId;
             categories[2][floorIndex].objectID = floorData.floorId;
             categories[2][floorIndex].tileType = TileType::Floor;
+            categories[2][floorIndex].floorType = floorData.floorType;
             categories[2][floorIndex].sheetID_X = floorData.sheetId.x;
             categories[2][floorIndex].sheetID_Y = floorData.sheetId.y;
             categories[2][floorIndex].sheetID_W = floorData.sheetSize.x;

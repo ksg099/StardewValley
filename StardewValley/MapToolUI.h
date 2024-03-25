@@ -10,6 +10,9 @@ struct MapSheet
     int objectID;
     TileType tileType;
     std::string resource;
+    GroundType groundType = GroundType::NONE;
+    FloorType floorType = FloorType::NONE;
+    ObjectType objectType = ObjectType::NONE;
     int sheetID_X;
     int sheetID_Y;
     int sheetID_W;
