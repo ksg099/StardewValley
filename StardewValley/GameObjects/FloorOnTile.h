@@ -2,11 +2,13 @@
 #include "SpriteGo.h"
 
 class SceneGame;
+class TileMap;
 
 class FloorOnTile : public SpriteGo
 {
 private:
 	SceneGame* sceneGame = nullptr;
+	TileMap* tileMap = nullptr;
 	TileData* tileData = nullptr;
 
 	FloorType floorType = FloorType::NONE;

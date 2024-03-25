@@ -26,6 +26,6 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	virtual std::pair<bool, bool> InteractWithObject(const ItemType type, const int id);
+	virtual void InteractWithObject(const ItemType type, const int id);
 };
 

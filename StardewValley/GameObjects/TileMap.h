@@ -60,6 +60,7 @@ public:
 
 	void LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize);
 	FloorOnTile* CreateFloor(const FloorType type, const int id);
+	ObjectOnTile* CreateObject(const ObjectType type, const int id);
 
 	void InteractWithTile(const int x, const int y, const ItemType type, const int id);
 

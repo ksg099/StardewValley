@@ -664,7 +664,15 @@
       "Type Name": "Seed",
       "Sheet Info":
       [
-
+        {
+          "Item Name": "Cauliflower Seeds",
+          "Item ID": 0,
+          "Resource": "graphics/Seeds/Cauliflower_Seeds.png",
+          "Sheet ID X": 0,
+          "Sheet ID Y": 0,
+          "Sheet ID W": 48,
+          "Sheet ID H": 48
+        }
       ]
     },
     {

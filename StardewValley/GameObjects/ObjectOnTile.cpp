@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "ObjectOnTile.h"
 #include "SceneGame.h"
+#include "FloorOnTile.h"
 
 ObjectOnTile::ObjectOnTile(const std::string& name) : SpriteGo(name)
 {
@@ -33,7 +34,7 @@ void ObjectOnTile::Draw(sf::RenderWindow& window)
 	SpriteGo::Draw(window);
 }
 
-std::pair<bool, bool> ObjectOnTile::InteractWithObject(const ItemType type, const int id)
+void ObjectOnTile::InteractWithObject(const ItemType type, const int id)
 {
 	switch (objectType)
 	{
@@ -43,7 +44,9 @@ std::pair<bool, bool> ObjectOnTile::InteractWithObject(const ItemType type, cons
 			SetActive(false);
 			sceneGame->RemoveGo(this);
 			tileData->object = nullptr;
-			return std::make_pair(true, true);
+
+			tileData->isPassable = true;
+			tileData->isPossiblePlace = true;
 		}
 		break;
 	case ObjectType::TREE:
@@ -51,6 +54,10 @@ std::pair<bool, bool> ObjectOnTile::InteractWithObject(const ItemType type, cons
 	case ObjectType::WEED:
 		break;
 	case ObjectType::CROPS:
+		if (type == ItemType::Tool && id == 4)
+		{
+			tileData->floor->InteractWithFloor(type, id);
+		}
 		break;
 	case ObjectType::FURNITURE:
 		break;
@@ -63,6 +70,4 @@ std::pair<bool, bool> ObjectOnTile::InteractWithObject(const ItemType type, cons
 	default:
 		break;
 	}
-
-	return std::make_pair(false, false);
 }

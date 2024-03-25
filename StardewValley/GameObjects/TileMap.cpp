@@ -291,18 +291,7 @@ void TileMap::LoadTileMap(rapidjson::Document& doc, const sf::Vector2f& tileSize
 			
 			ObjectType objType = (ObjectType)doc["Tile Map"][0]["Tiles"][quadIndex]["Object Type"].GetInt();
 			int objId = doc["Tile Map"][0]["Tiles"][quadIndex]["Object ID"].GetInt();
-			ObjectOnTile* obj = nullptr;
-			if (objType != ObjectType::NONE)
-			{
-				obj = new ObjectOnTile("Object");
-				obj->SetObjectType(objType);
-				obj->SetObjectId(objId);
-				auto& objData = OBJECT_TABLE->Get(objType, objId);
-				obj->SetTexture(objData.textureId);
-				obj->SetTextureRect(sf::IntRect(objData.sheetId.x, objData.sheetId.y, objData.sheetSize.x, objData.sheetSize.y));
-				obj->SetOrigin(Origins::MC);
-			}
-			tile->object = obj;
+			tile->object = CreateObject(objType, objId);
 			if (tile->object != nullptr)
 			{
 				tile->object->SetTileData(tile);
@@ -347,8 +336,29 @@ FloorOnTile* TileMap::CreateFloor(const FloorType type, const int id)
 	floor->SetTexture(floorData.textureId);
 	floor->SetTextureRect(sf::IntRect(floorData.sheetId.x, floorData.sheetId.y, floorData.sheetSize.x, floorData.sheetSize.y));
 	floor->SetOrigin(Origins::MC);
+	floor->Init();
+	floor->Reset();
 
 	return floor;
+}
+
+ObjectOnTile* TileMap::CreateObject(const ObjectType type, const int id)
+{
+	if (type == ObjectType::NONE || type == ObjectType::COUNT)
+		return nullptr;
+
+	ObjectOnTile* obj = new ObjectOnTile("Object");
+	
+	obj->SetObjectType(type);
+	obj->SetObjectId(id);
+	auto& objData = OBJECT_TABLE->Get(type, id);
+	obj->SetTexture(objData.textureId);
+	obj->SetTextureRect(sf::IntRect(objData.sheetId.x, objData.sheetId.y, objData.sheetSize.x, objData.sheetSize.y));
+	obj->SetOrigin(Origins::MC);
+	obj->Init();
+	obj->Reset();
+
+	return obj;
 }
 
 void TileMap::InteractWithTile(const int x, const int y, const ItemType type, const int id)
@@ -359,9 +369,7 @@ void TileMap::InteractWithTile(const int x, const int y, const ItemType type, co
 	TileData* tile = tiles[y * cellCount.x + x];
 	if (tile->object != nullptr) // object 상호작용
 	{
-		std::pair<bool, bool> passAndPlaced = tile->object->InteractWithObject(type, id);
-		tile->isPassable = passAndPlaced.first;
-		tile->isPossiblePlace = passAndPlaced.second;
+		tile->object->InteractWithObject(type, id);
 	}
 	else if (tile->floor != nullptr) // floor 상호작용
 	{
