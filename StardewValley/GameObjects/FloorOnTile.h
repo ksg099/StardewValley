@@ -1,11 +1,15 @@
 #pragma once
 #include "SpriteGo.h"
+
+class SceneGame;
+
 class FloorOnTile : public SpriteGo
 {
 private:
+	SceneGame* sceneGame = nullptr;
 	TileData* tileData = nullptr;
 
-	FloorType objectType = FloorType::NONE;
+	FloorType floorType = FloorType::NONE;
 	int floorId = 0;
 
 public:
@@ -13,7 +17,7 @@ public:
 	~FloorOnTile() override = default;
 
 	void SetTileData(TileData*& data) { tileData = data; }
-	void SetFloorType(const FloorType type) { objectType = type; }
+	void SetFloorType(const FloorType type) { floorType = type; }
 	void SetFloorId(const int id) { floorId = id; }
 
 	void Init() override;
@@ -22,6 +26,6 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	// virtual std::pair<bool, bool> InteractWithFloor(const ItemType type, const int id);
+	virtual void InteractWithFloor(const ItemType type, const int id);
 };
 

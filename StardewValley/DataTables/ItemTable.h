@@ -6,6 +6,8 @@ struct DataItem
 	ItemType itemType;
 	int itemId;
 
+	std::string name;
+
 	std::string textureId;
 	sf::Vector2i sheetId;
 	sf::Vector2i sheetSize;

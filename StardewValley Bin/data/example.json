@@ -23,7 +23,7 @@
             "Object Type": -1,
             "Object ID": 0,
             "Placed Possible": true,
-            "Player Passable": true
+            "Player Passable": false
           },
           {
             "Index X": 1,
@@ -56,7 +56,7 @@
             "Ground ID": 1,
             "Floor Type": -1,
             "Floor ID": 0,
-            "Object Type": 0,
+            "Object Type": -1,
             "Object ID": 0,
             "Placed Possible": true,
             "Player Passable": false
@@ -95,7 +95,7 @@
             "Object Type": -1,
             "Object ID": 1,
             "Placed Possible": true,
-            "Player Passable": true
+            "Player Passable": false
           },
           {
             "Index X": 1,

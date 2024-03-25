@@ -1,9 +1,12 @@
 #pragma once
 #include "SpriteGo.h"
 
+class SceneGame;
+
 class ObjectOnTile : public SpriteGo
 {
 private:
+	SceneGame* sceneGame = nullptr;
 	TileData* tileData = nullptr;
 
 	ObjectType objectType = ObjectType::NONE;

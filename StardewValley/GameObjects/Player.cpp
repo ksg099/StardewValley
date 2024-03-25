@@ -63,33 +63,7 @@ void Player::Update(float dt)
 
 	// TO-DO: 애니메이션은 임시로만 구현하고, 자세한건 나중에
 	sf::Vector2f posDiff = nextPosition - prevPosition;
-	if (posDiff.x > 0.f && side != Sides::Right)
-	{
-		animator.Play("animations/PlayerMoveSide.csv");
-		SetFlipX(false);
-		side = Sides::Right;
-	}
-	else if(posDiff.x < 0.f && side != Sides::Left)
-	{
-		animator.Play("animations/PlayerMoveSide.csv");
-		SetFlipX(true);
-		side = Sides::Left;
-	}
-	else if (posDiff.y > 0 && side != Sides::Down)
-	{
-		animator.Play("animations/PlayerMoveFront.csv");
-		side = Sides::Down;
-	}
-	else if (posDiff.y < 0 && side != Sides::Up)
-	{
-		animator.Play("animations/PlayerMoveBack.csv");
-		side = Sides::Up;
-	}
-	else if (posDiff.x == 0 && posDiff.y == 0)
-	{
-		animator.Stop();
-		side = Sides::None;
-	}
+	PlayMoveAnimation(posDiff);
 
 	// 퀵슬롯으로부터 아이템 셋팅
 	auto numKey = InputMgr::GetKeyNumber();
@@ -115,6 +89,26 @@ void Player::Update(float dt)
 	if (dirOne != sf::Vector2i(0, 0))
 	{
 		lookDir = dirOne;
+
+		// TO-DO: 텍스처 처리(나중에 수정)
+		if (lookDir.x < 0)
+		{
+			SetFlipX(true);
+			SetTextureRect(sf::IntRect(0, 31, 12, 28));
+		}
+		else if (lookDir.x > 0)
+		{
+			SetFlipX(false);
+			SetTextureRect(sf::IntRect(0, 31, 12, 28));
+		}
+		else if (lookDir.y > 0)
+		{
+			SetTextureRect(sf::IntRect(0, 0, 14, 27));
+		}
+		else if (lookDir.y < 0)
+		{
+			SetTextureRect(sf::IntRect(0, 64, 14, 27));
+		}
 	}
 	
 	if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
@@ -180,6 +174,56 @@ void Player::Draw(sf::RenderWindow& window)
 //		}
 //	}
 //}
+
+void Player::PlayMoveAnimation(sf::Vector2f posDiff)
+{
+	if (posDiff.x > 0.f && side != Sides::Right)
+	{
+		animator.Play("animations/PlayerMoveSide.csv");
+		SetFlipX(false);
+		side = Sides::Right;
+	}
+	else if (posDiff.x < 0.f && side != Sides::Left)
+	{
+		animator.Play("animations/PlayerMoveSide.csv");
+		SetFlipX(true);
+		side = Sides::Left;
+	}
+	else if (posDiff.y > 0 && side != Sides::Down)
+	{
+		animator.Play("animations/PlayerMoveFront.csv");
+		side = Sides::Down;
+	}
+	else if (posDiff.y < 0 && side != Sides::Up)
+	{
+		animator.Play("animations/PlayerMoveBack.csv");
+		side = Sides::Up;
+	}
+	else if (posDiff.x == 0 && posDiff.y == 0)
+	{
+		animator.Stop();
+		switch (side)
+		{
+		case Sides::Left:
+			SetFlipX(true);
+			SetTextureRect(sf::IntRect(0, 31, 12, 28));
+			break;
+		case Sides::Right:
+			SetFlipX(false);
+			SetTextureRect(sf::IntRect(0, 31, 12, 28));
+			break;
+		case Sides::Up:
+			SetTextureRect(sf::IntRect(0, 64, 14, 27));
+			break;
+		case Sides::Down:
+			SetTextureRect(sf::IntRect(0, 0, 14, 27));
+			break;
+		default:
+			break;
+		}
+		side = Sides::None;
+	}
+}
 
 void Player::CheckCollision(sf::Vector2f& nextPos, sf::Vector2f& prevPos)
 {

@@ -21,13 +21,15 @@ void SceneGame::Init()
 	rapidjson::Document SaveDoc;
 	if (Utils::LoadFromFile("data/example.json", SaveDoc))
 	{
-		TileMap* tileMap = new TileMap("Background");
+		tileMap = new TileMap("Background");
 		tileMap->LoadTileMap(SaveDoc, tileSize);
 		tileMap->SetOrigin(Origins::MC);
+		tileMap->sortLayer = -1;
 		AddGo(tileMap);
 	}
 
 	Player* player = new Player("Player");
+	player->sortLayer = 1;
 	AddGo(player);
 
 	//인벤토리 위치 잡기

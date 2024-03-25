@@ -52,8 +52,8 @@
     },
     {
       "Box ID": 1,
-      "Index X": 0,
-      "Index Y": 0,
+      "Index X": 6,
+      "Index Y": 2,
       "ItemType": 0,
       "ItemId": 0,
       "InstanceId": 1,
@@ -62,7 +62,7 @@
     },
     {
       "Box ID": 1,
-      "Index X": 0,
+      "Index X": 7,
       "Index Y": 1,
       "ItemType": 0,
       "ItemId": 1,

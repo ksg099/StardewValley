@@ -42,6 +42,7 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	// void MoveTileUnit(float dt);
+	void PlayMoveAnimation(sf::Vector2f posDIff);
 	void CheckCollision(sf::Vector2f& nextPos, sf::Vector2f& prevPos);
 	void ChangeGridIndex(sf::Vector2f& nextPos);
 };

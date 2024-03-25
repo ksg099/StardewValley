@@ -93,6 +93,19 @@ void Inventory::Reset()
 
 void Inventory::Update(float dt)
 {
+	if (InputMgr::GetKeyDown(sf::Keyboard::E))
+	{
+		if (boxId == 0)
+			boxId = 1;
+		else
+			boxId = 0;
+		items = ITEM_SAVE->Get(0);
+		items = ITEM_SAVE->Get(1);
+		items = ITEM_SAVE->Get(boxId);
+		UpdateSlots();
+	}
+
+
 	//인벤토리가 안보였다면 I키를 눌렀을때 보이게 하기
 	if (InputMgr::GetKeyDown(sf::Keyboard::I))
 	{
@@ -378,7 +391,9 @@ void Inventory::DisplayItemInfo(ItemData& itemData, sf::Vector2f& position)
 	//itemData.type타입이 int형이 아니라 형변환함
 	//아이템의 type과 id를 출력
 	//인덱스 부분 생략함 + "IndexX "+ std::to_string(itemData.IndexX) + "IndexY" + std::to_string(itemData.IndexY)
-	std::string info = "Type : " + std::to_string((int)itemData.type) + "  ID : " + std::to_string(itemData.itemId);
+	std::string info = "Box: " + std::to_string(itemData.BoxId) + ", X: " + std::to_string(itemData.IndexX) + ", Y: " + std::to_string(itemData.IndexY)
+		+ ",\nType: " + std::to_string((int)itemData.type) + ", ID: " + std::to_string(itemData.itemId)
+		+ ",\nName: " + ITEM_TABLE->Get(itemData.type, itemData.itemId).name;
 	itemInfoText.Set(RES_MGR_FONT.Get("fonts/Arial.ttf"), info, 20, sf::Color::Black);
 }
 

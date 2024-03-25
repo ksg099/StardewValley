@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "SceneGame.h"
 #include "TileMap.h"
 #include "ObjectOnTile.h"
 #include "FloorOnTile.h"
@@ -208,6 +209,16 @@ void TileMap::Release()
 void TileMap::Reset()
 {
 	GameObject::Reset();
+
+	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
+
+	for (auto tile : tiles)
+	{
+		if (tile->floor != nullptr)
+			sceneGame->AddGo(tile->floor);
+		if (tile->object != nullptr)
+			sceneGame->AddGo(tile->object);
+	}
 }
 
 void TileMap::Update(float dt)
@@ -354,7 +365,7 @@ void TileMap::InteractWithTile(const int x, const int y, const ItemType type, co
 	}
 	else if (tile->floor != nullptr) // floor 상호작용
 	{
-
+		tile->floor->InteractWithFloor(type, id);
 	}
 	else // ground 상호작용
 	{

@@ -1,9 +1,13 @@
 #pragma once
 #include "GameObject.h"
 
+class SceneGame;
+
 class TileMap : public GameObject
 {
 protected:
+	SceneGame* sceneGame = nullptr;
+
 	std::vector<TileData*> tiles;
 
 	sf::VertexArray va;

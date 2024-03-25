@@ -19,6 +19,8 @@ void ObjectOnTile::Release()
 void ObjectOnTile::Reset()
 {
 	SpriteGo::Reset();
+
+	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
 }
 
 void ObjectOnTile::Update(float dt)
@@ -39,7 +41,8 @@ std::pair<bool, bool> ObjectOnTile::InteractWithObject(const ItemType type, cons
 		if (type == ItemType::Tool && id == 0)
 		{
 			SetActive(false);
-			// tileData->object = nullptr;
+			sceneGame->RemoveGo(this);
+			tileData->object = nullptr;
 			return std::make_pair(true, true);
 		}
 		break;
