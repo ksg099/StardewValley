@@ -6,10 +6,10 @@ struct Tile //UI에서 가지고 있는 정보들 그대로 받으려고 내부 형식 동일하게 적어�
 {
 	sf::Sprite tileSprite;
 	int worldIndexNum; //MapToolUI 격자에 배치된 인덱스 번호
-	int ID;
+	int ID = 0;
 	std::string resource;
 	TileType tileType;
-	GroundType groundType = GroundType::NONE;
+	GroundType groundType = GroundType::DIRT; // 아무것도 지정안하면 흙길
 	FloorType floorType = FloorType::NONE;
 	ObjectType objectType = ObjectType::NONE;
 	int sheetID_X;
