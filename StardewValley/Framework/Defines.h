@@ -93,7 +93,11 @@ struct TileData
 	GroundType groundType = GroundType::DIRT;
 	int groundId = 0;
 	FloorOnTile* floor = nullptr;
+	FloorType floorType = FloorType::NONE;
+	int floorId = 0;
 	ObjectOnTile* object = nullptr;
+	ObjectType objectType = ObjectType::NONE;
+	int objectId = 0;
 	bool isPossiblePlace = true;
 	bool isPassable = true;
 };

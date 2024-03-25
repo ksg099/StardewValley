@@ -40,10 +40,8 @@ const std::pair<int, std::list<ItemData*>*>& ItemSave::AddITemBox()
 	return boxPair;
 }
 
-void ItemSave::Save()
+void ItemSave::Save(rapidjson::Document& doc)
 {
-	rapidjson::Document doc;
-	doc.SetObject();
 	rapidjson::Document::AllocatorType& allocator = doc.GetAllocator();
 	
 	rapidjson::Value itemDataArr(rapidjson::kArrayType);
@@ -74,8 +72,6 @@ void ItemSave::Save()
 	}
 
 	doc.AddMember("ItemData", itemDataArr, allocator);
-
-	Utils::EditFile("data/itemDataExample.json", doc);
 }
 
 bool ItemSave::Load(rapidjson::Document& doc)

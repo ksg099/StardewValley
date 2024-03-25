@@ -9,7 +9,8 @@ public:
 		FLOOR,
 		OBJECT,
 		ITEM,
-		SAVE,
+		TILEMAP_SAVE_DATA,
+		ITEM_SAVE_DATA,
 	};
 	static const int TotalTypes = 3;
 	
