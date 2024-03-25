@@ -205,6 +205,8 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
                 cell.placedPossible = true;
                 cell.playerPassable = true;
             }
+            mapData[indexNum].placedPossible = cell.placedPossible;
+            mapData[indexNum].playerPassable = cell.playerPassable;
             mapData[indexNum].groundLayer = cell.groundLayer;
             break;
         case TileType::Floor:
@@ -222,6 +224,8 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             cell.floorLayer.tileSprite.setPosition(IndexToPos(indexNum));
             cell.placedPossible = true;
             cell.playerPassable = true;
+            mapData[indexNum].placedPossible = cell.placedPossible;
+            mapData[indexNum].playerPassable = cell.playerPassable;
             mapData[indexNum].floorLayer = cell.floorLayer;
             break;
         case TileType::Object:
@@ -237,6 +241,8 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             cell.objectLayer.objectType = tile.objectType;
             cell.placedPossible = false;
             cell.playerPassable = false;
+            mapData[indexNum].placedPossible = cell.placedPossible;
+            mapData[indexNum].playerPassable = cell.playerPassable;
             if (cell.objectLayer.tileSprite.getLocalBounds().height > size)
             {
                 cell.objectLayer.tileSprite.setOrigin(cell.objectLayer.tileSprite.getLocalBounds().width * 0.5f, cell.objectLayer.tileSprite.getLocalBounds().height - size*0.5);
