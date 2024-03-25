@@ -46,7 +46,7 @@ void DataTableMgr::Init()
 
 	 // rapidjson::Document doc파일을 load하고 위에서 동적할당한 inven의 LoadData에 doc를 적용한다.
 	rapidjson::Document SaveDoc;
-	if (Utils::LoadFromFile("data/itemDataExample.json", SaveDoc))
+	if (Utils::LoadFromFile("data/example.json", SaveDoc))
 	{
 		ITEM_SAVE->Load(SaveDoc);
 	}

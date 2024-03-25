@@ -58,6 +58,11 @@ void SceneGame::Exit()
 void SceneGame::Update(float dt)
 {
 	Scene::Update(dt);
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+	{
+		ITEM_SAVE->Save();
+	}
 }
 
 void SceneGame::Draw(sf::RenderWindow& window)

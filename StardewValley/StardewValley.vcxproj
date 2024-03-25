@@ -179,9 +179,7 @@
     </ClCompile>
     <ClCompile Include="GameObjects\ObjectOnTile.cpp" />
     <ClCompile Include="DataTables\ObjectTable.cpp" />
-    <ClCompile Include="MapToolUI.cpp">
-      <DeploymentContent>true</DeploymentContent>
-    </ClCompile>
+    <ClCompile Include="MapToolUI.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -223,9 +221,7 @@
     <ClInclude Include="DataTables\ObjectTable.h" />
     <ClInclude Include="DataTables\ItemTable.h" />
     <ClInclude Include="DataTables\ItemSave.h" />
-    <ClInclude Include="MapToolUI.h">
-      <DeploymentContent>true</DeploymentContent>
-    </ClInclude>
+    <ClInclude Include="MapToolUI.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="Scenes\Scene.h" />

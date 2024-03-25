@@ -17,6 +17,7 @@ public:
 
 	std::list<ItemData*>* Get(int boxId);
 	const std::pair<int, std::list<ItemData*>*>& AddITemBox();
+	void Save();
 	// const DataObject& Get(const std::string& name);
 	// const int Count(ObjectType type);
 

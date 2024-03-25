@@ -39,6 +39,7 @@ void ObjectOnTile::InteractWithObject(const ItemType type, const int id)
 	switch (objectType)
 	{
 	case ObjectType::STONE:
+		// °î±ªÀÌ »óÈ£ÀÛ¿ë
 		if (type == ItemType::Tool && id == 0)
 		{
 			SetActive(false);
@@ -54,6 +55,7 @@ void ObjectOnTile::InteractWithObject(const ItemType type, const int id)
 	case ObjectType::WEED:
 		break;
 	case ObjectType::CROPS:
+		// ¹°»Ñ¸®°³ »óÈ£ÀÛ¿ë
 		if (type == ItemType::Tool && id == 4)
 		{
 			tileData->floor->InteractWithFloor(type, id);

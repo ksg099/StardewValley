@@ -42,6 +42,7 @@ void FloorOnTile::InteractWithFloor(const ItemType type, const int id)
 	{;
 	case FloorType::DRIED_ARABLE_LAND:
 	case FloorType::WET_ARABLE_LAND:
+		// 물뿌리개 상호작용
 		if (type == ItemType::Tool && id == 4)
 		{
 			floorType = FloorType::WET_ARABLE_LAND;
@@ -49,22 +50,14 @@ void FloorOnTile::InteractWithFloor(const ItemType type, const int id)
 			SetTexture(floorData.textureId);
 			SetTextureRect(sf::IntRect(floorData.sheetId.x, floorData.sheetId.y, floorData.sheetSize.x, floorData.sheetSize.y));
 		}
-		if (type == ItemType::Seed)
+		// 씨앗 상호작용
+		if (type == ItemType::Seed && tileData->object == nullptr)
 		{
-			if (tileData->object == nullptr)
-			{
-				ObjectOnTile* obj = new ObjectOnTile("Object");
-				obj->SetObjectType(ObjectType::CROPS);
-				int objId = id; // 아이디 계산해야 함
-				obj->SetObjectId(objId);
-				auto& objData = OBJECT_TABLE->Get(ObjectType::CROPS, objId);
-				obj->SetTexture(objData.textureId);
-				obj->SetTextureRect(sf::IntRect(objData.sheetId.x, objData.sheetId.y, objData.sheetSize.x, objData.sheetSize.y));
-				obj->SetOrigin(Origins::MC);
-				obj->SetPosition(tileMap->GetGridPosition(tileData->indexX, tileData->indexY));
-				tileData->object = obj;
-				tileData->object->SetTileData(tileData);
-			}
+			int objId = id; // 아이디 계산해야 함
+			ObjectOnTile* obj = tileMap->CreateObject(ObjectType::CROPS, objId);
+			obj->SetPosition(tileMap->GetGridPosition(tileData->indexX, tileData->indexY));
+			tileData->object = obj;
+			tileData->object->SetTileData(tileData);
 		}
 		break;
 	case FloorType::WOOD_PATH:

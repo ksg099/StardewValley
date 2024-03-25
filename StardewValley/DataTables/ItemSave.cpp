@@ -40,6 +40,44 @@ const std::pair<int, std::list<ItemData*>*>& ItemSave::AddITemBox()
 	return boxPair;
 }
 
+void ItemSave::Save()
+{
+	rapidjson::Document doc;
+	doc.SetObject();
+	rapidjson::Document::AllocatorType& allocator = doc.GetAllocator();
+	
+	rapidjson::Value itemDataArr(rapidjson::kArrayType);
+
+	for (auto itemBox : itemBoxTable)
+	{
+		if (itemBox.second == nullptr)
+			continue;
+
+		for (auto item : *itemBox.second)
+		{
+			if (item == nullptr)
+				continue;
+
+			rapidjson::Value itemData;
+			itemData.SetObject();
+			itemData.AddMember("Box ID", item->BoxId, allocator);
+			itemData.AddMember("Index X", item->IndexX, allocator);
+			itemData.AddMember("Index Y", item->IndexY, allocator);
+			itemData.AddMember("ItemType", (int)item->type, allocator);
+			itemData.AddMember("ItemId", item->itemId, allocator);
+			itemData.AddMember("InstanceId", item->instanceId, allocator);
+			itemData.AddMember("Count", item->count, allocator);
+			itemData.AddMember("CanOverlap", item->canOverLap, allocator);
+			// itemData.AddMember("name", rapidjson::Value(name.c_str(), allocator), allocator);
+			itemDataArr.PushBack(itemData, allocator);
+		}
+	}
+
+	doc.AddMember("ItemData", itemDataArr, allocator);
+
+	Utils::EditFile("data/example3.json", doc);
+}
+
 bool ItemSave::Load(rapidjson::Document& doc)
 {
 	Release();
