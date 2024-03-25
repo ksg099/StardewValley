@@ -48,9 +48,14 @@ void DataTableMgr::Init()
 	}
 
 	rapidjson::Document SaveDoc;
+	rapidjson::Document testDoc;
+	if (Utils::LoadFromFile("data/byeongmin.json", testDoc))
+	{
+		TILEMAP_SAVE->Load(testDoc);
+	}
+
 	if (Utils::LoadFromFile("data/example_save.json", SaveDoc))
 	{
-		TILEMAP_SAVE->Load(SaveDoc);
 		ITEM_SAVE->Load(SaveDoc);
 	}
 }

@@ -2986,9 +2986,9 @@
                     "Index Y": 12,
                     "Ground Type": 1,
                     "Ground ID": 0,
-                    "Floor Type": 0,
+                    "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 3,
+                    "Object Type": -1,
                     "Object ID": 0,
                     "Placed Possible": true,
                     "Player Passable": true
@@ -2998,9 +2998,9 @@
                     "Index Y": 12,
                     "Ground Type": 1,
                     "Ground ID": 0,
-                    "Floor Type": 1,
+                    "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 3,
+                    "Object Type": -1,
                     "Object ID": 0,
                     "Placed Possible": true,
                     "Player Passable": true
@@ -4806,88 +4806,6 @@
                     "Player Passable": true
                 }
             ]
-        }
-    ],
-    "ItemData": [
-        {
-            "Box ID": 0,
-            "Index X": 0,
-            "Index Y": 0,
-            "ItemType": 0,
-            "ItemId": 0,
-            "InstanceId": 1,
-            "Count": 5,
-            "CanOverlap": false
-        },
-        {
-            "Box ID": 0,
-            "Index X": 5,
-            "Index Y": 1,
-            "ItemType": 0,
-            "ItemId": 1,
-            "InstanceId": 2,
-            "Count": 5,
-            "CanOverlap": false
-        },
-        {
-            "Box ID": 0,
-            "Index X": 2,
-            "Index Y": 0,
-            "ItemType": 0,
-            "ItemId": 2,
-            "InstanceId": 3,
-            "Count": 5,
-            "CanOverlap": false
-        },
-        {
-            "Box ID": 0,
-            "Index X": 1,
-            "Index Y": 2,
-            "ItemType": 0,
-            "ItemId": 3,
-            "InstanceId": 4,
-            "Count": 5,
-            "CanOverlap": false
-        },
-        {
-            "Box ID": 0,
-            "Index X": 6,
-            "Index Y": 2,
-            "ItemType": 0,
-            "ItemId": 4,
-            "InstanceId": 4,
-            "Count": 5,
-            "CanOverlap": false
-        },
-        {
-            "Box ID": 0,
-            "Index X": 3,
-            "Index Y": 2,
-            "ItemType": 1,
-            "ItemId": 0,
-            "InstanceId": 4,
-            "Count": 5,
-            "CanOverlap": false
-        },
-        {
-            "Box ID": 1,
-            "Index X": 6,
-            "Index Y": 2,
-            "ItemType": 0,
-            "ItemId": 0,
-            "InstanceId": 1,
-            "Count": 5,
-            "CanOverlap": false
-        },
-        {
-            "Box ID": 1,
-            "Index X": 7,
-            "Index Y": 1,
-            "ItemType": 0,
-            "ItemId": 1,
-            "InstanceId": 2,
-            "Count": 5,
-            "CanOverlap": false
         }
     ]
 }

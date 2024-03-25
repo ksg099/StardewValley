@@ -25,8 +25,8 @@ struct TileLayer
 	Tile objectLayer;
 	int IndexX;
 	int IndexY;
-	bool placedPossible = false;
-	bool playerPassable = false;
+	bool placedPossible = true;
+	bool playerPassable = true;
 };
 
 class TestMapTool : public Scene
@@ -36,8 +36,8 @@ protected:
 	sf::Sprite spriteFloor;        //Ãß°¡
 
 	sf::VertexArray grid;
-	int col = 100;
-	int row = 100;
+	int col = 20;
+	int row = 20;
 	int size = 15;
 
 	float gridStartX = 30.f;
@@ -50,7 +50,9 @@ protected:
 
 	MapToolUI* mapToolUI;
 	std::vector<TileLayer> mapData;
-	sf::RenderWindow window;
+	sf::RenderWindow window; 
+	
+	std::vector<TileData*>* tiles;
 
 	sf::Transform transform;
 
@@ -79,7 +81,8 @@ public:
 
 	void SetMapToolSize(int xCount, int yCount);
 	void SaveMapContent();
-	void LoadMapFile(std::vector<std::vector<Tile>>& data, const std::string& filePath);
+	void LoadTileMap(const std::string& name);
+	void LoadMapFile(const std::string& name);
 	void UpdateTransform();
 
 	std::wstring SaveFilePath(); 

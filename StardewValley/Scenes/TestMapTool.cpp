@@ -377,10 +377,14 @@ void TestMapTool::SaveMapContent()
     rapidjson::Document doc;
     doc.SetObject();
     Document::AllocatorType& allocator = doc.GetAllocator(); // 메모리 할당자 획득
+    
+    Value array(kArrayType);
+    Value tileMapData;
+    tileMapData.SetObject();
 
-    doc.AddMember("TileMap Name", Value("NAME"), allocator);
-    doc.AddMember("Tile Count X", Value(col), allocator);
-    doc.AddMember("Tile Count Y", Value(row), allocator);
+    tileMapData.AddMember("TileMap Name", Value("Farm"), allocator);
+    tileMapData.AddMember("Tile Count X", Value(col), allocator);
+    tileMapData.AddMember("Tile Count Y", Value(row), allocator);
 
     // 각 타일의 정보를 담을 JSON 배열 객체 생성
     Value tilesArray(kArrayType);
@@ -412,7 +416,9 @@ void TestMapTool::SaveMapContent()
             tilesArray.PushBack(tileContent, allocator);
     }
 
-    doc.AddMember("Tiles", tilesArray, allocator);
+    tileMapData.AddMember("Tiles", tilesArray, allocator);
+    array.PushBack(tileMapData, allocator);
+    doc.AddMember("Tile Map", array, allocator);
 
     std::wstring savePath = SaveFilePath();
     if (savePath.empty())
@@ -431,9 +437,66 @@ void TestMapTool::SaveMapContent()
     doc.Accept(writer);
     fclose(fp);
 }
-
-//void TestMapTool::LoadMapFile(std::vector<std::vector<Tile>>& data, const std::string& filePath)
+//
+//void TestMapTool::LoadTileMap(const std::string& name)
 //{
+//    tiles = TILEMAP_SAVE->Get(name);
+//    if (tiles == nullptr)
+//        return;
+//
+//    sf::Vector2i cellCount;
+//    cellCount.x = TILEMAP_SAVE->GetTileMapSize(name)->x;
+//    cellCount.y = TILEMAP_SAVE->GetTileMapSize(name)->y;
+//    SetSpriteSheetId(GROUND_TABLE->GetTextureId());
+//
+//    cellSize = tileSize;
+//
+//    va.clear();
+//    va.setPrimitiveType(sf::Quads);
+//    va.resize(cellCount.x * cellCount.y * 4);
+//
+//    sf::Vector2f posOffsets[4] = {
+//        { 0, 0 },
+//        { tileSize.x, 0 },
+//        { tileSize.x, tileSize.y },
+//        { 0, tileSize.y }
+//    };
+//
+//    for (auto tile : *tiles)
+//    {
+//        tile->floor = CreateFloor(tile->floorType, tile->floorId);
+//        if (tile->floor != nullptr)
+//            tile->floor->SetTileData(tile);
+//
+//        tile->object = CreateObject(tile->objectType, tile->objectId);
+//        if (tile->object != nullptr)
+//            tile->object->SetTileData(tile);
+//
+//        sf::Vector2f sheetSize = (sf::Vector2f)GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetSize;
+//        sf::Vector2f texCoord0[4] = {
+//            { 0, 0 },
+//            { sheetSize.x, 0 },
+//            { sheetSize.x, sheetSize.y },
+//            { 0, sheetSize.y }
+//        };
+//
+//        int quadIndex = tile->indexY * cellCount.x + tile->indexX; // 2차원 인덱스를 1차원 인덱스로 변환
+//        sf::Vector2f quadPos(tileSize.x * tile->indexX, tileSize.y * tile->indexY);
+//
+//        for (int k = 0; k < 4; k++)
+//        {
+//            int vertexIndex = (quadIndex * 4) + k;
+//            va[vertexIndex].position = quadPos + posOffsets[k];
+//            va[vertexIndex].texCoords = texCoord0[k];
+//            va[vertexIndex].texCoords.x += GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetId.x;
+//            va[vertexIndex].texCoords.y += GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetId.y;
+//        }
+//    }
+//}
+//
+//void TestMapTool::LoadMapFile(const std::string& name)
+//{
+//    std::string filePath = 
 //    std::ifstream inFile(filePath);
 //    std::string content((std::istreambuf_iterator<char>(inFile)),
 //        std::istreambuf_iterator<char>());
@@ -447,15 +510,17 @@ void TestMapTool::SaveMapContent()
 //    {
 //        const rapidjson::Value& tile = tiles[i];
 //
-//        Tile tileData;
-//        tileData.sheetID_X = tile["Sheet ID X"].GetInt();
-//        tileData.sheetID_Y = tile["Sheet ID Y"].GetInt();
-//        tileData.sheetID_W = tile["Sheet ID W"].GetInt();
-//        tileData.sheetID_Y = tile["Sheet ID H"].GetInt();
-//        tileData.resource = tile["Resource"].GetString();
-//        tileData.ID = tile["Object ID"].GetInt();
-//        //tileData.placedPossible = tile["Placed Possible"].GetBool();
-//        //tileData.playerPassable = tile["Player Passable"].GetBool();
+//        TileLayer tileData;
+//        tileData.IndexX = tile["Index X"].GetInt();
+//        tileData.IndexY = tile["Index Y"].GetInt();
+//        tileData.groundLayer.groundType = (GroundType)tile["Ground Type"].GetInt();
+//        tileData.groundLayer.ID = tile["Ground ID"].GetInt();
+//        tileData.floorLayer.floorType = (FloorType)tile["Floor Type"].GetInt();
+//        tileData.floorLayer.ID = tile["Floor ID"].GetInt();
+//        tileData.objectLayer.objectType = (ObjectType)tile["Object Type"].GetInt();
+//        tileData.objectLayer.ID = tile["Object ID"].GetInt();
+//        tileData.placedPossible = tile["Placed Possible"].GetBool();
+//        tileData.playerPassable = tile["Player Passable"].GetBool();
 //    }
 //}
-
+//
