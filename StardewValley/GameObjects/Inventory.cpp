@@ -12,15 +12,13 @@ void Inventory::Init()
 {
 	SpriteGo::Init();
 
-	items = ITEM_SAVE->Get(boxId);
+	items = ITEM_SAVE->Get(inventoryBoxId);
 
 	//인벤토리 창 구현
 	SetTexture("graphics/Ui.png");
 	smallUi.SetTexture("graphics/smallUi.png");
 	smallUi.SetPosition({970.f, 960.f});
 	smallUi.SetOrigin(Origins::MC);
-
-	//sf::Vector2f smallUiPosition = smallUi.GetPosition();
 
 	Release();
 
@@ -40,21 +38,7 @@ void Inventory::Init()
 		}
 	}
 
-	//I키 눌렀을때 나오는 메인 인벤토리 창과 그안에 들어갈 슬롯 만들기2
-	for (int i = 0; i < secondcountY; i++)
-	{
-		for (int j = 0; j < secondcountX; j++)
-		{
-			//슬롯 위치 잡기
-			InvetorySlot* secondSlots = new InvetorySlot("Inventory Slot");
-			sf::Vector2f pos = position;
-			pos += { (float)j * 60.f - 310.f, (float)i * 60.f - 50.f }; //하드코딩
-			secondSlots->SetPosition(pos);
-			secondSlots->SetOrigin(Origins::MC);
-			secondSlots->Init();
-			slots.push_back(secondSlots);
-		}
-	}
+	
 
 
 	//메인 화면 하단에 나오는 작은 인벤토리의 슬롯 만들기
@@ -250,29 +234,6 @@ void Inventory::SetPosition(const sf::Vector2f& pos)
 	SpriteGo::SetPosition(pos);
 }
 
-//void Inventory::LoadData(rapidjson::Document& doc)
-//{
-//	//인덱스 사이즈만큼 순회
-//	for (int i = 0; i < doc["ItemData"].Size(); ++i)
-//	{
-//		//rapidjson::Document의 객체 doc를 이용해서 배열ItemData의 i번째 정보를 읽는다.
-//		//읽은 정보를 itemData에 할당한다.
-//		//[i * countX + j] 특정 칸 찾기
-//		ItemData* itemData = new ItemData;
-//		itemData->BoxId = doc["ItemData"][i]["Box ID"].GetInt();
-//		itemData->IndexX = doc["ItemData"][i]["Index X"].GetInt();
-//		itemData->IndexY = doc["ItemData"][i]["Index Y"].GetInt();
-//		itemData->itemId = doc["ItemData"][i]["ItemId"].GetInt();
-//		itemData->instanceId = doc["ItemData"][i]["InstanceId"].GetInt();
-//		itemData->count = doc["ItemData"][i]["Count"].GetInt();
-//		itemData->canOverLap = doc["ItemData"][i]["CanOverlap"].GetBool();
-//		itemData->type = (ItemType)doc["ItemData"][i]["ItemType"].GetInt();
-//		itemData->itemFilePath = doc["ItemData"][i]["Resource"].GetString();
-//
-//		items->push_back(itemData);
-//	}
-//}
-
 void Inventory::SetIvenSlot(int x, int y, ItemData* data)
 {
 	int index = y * countX + x;
@@ -309,7 +270,7 @@ void Inventory::UpdateSlots() //
 	//	// 이미 할당된 슬롯에서 동일한 id를 가진 아이템을 찾습니다.
 	//	for (int i = 0; i < slots.size() && !placed; i++)
 	//	{
-	//		if (slots[i]->item != nullptr && slots[i]->item->itemId == currentItem->itemId)
+	//		if (item->IndexX == indexX && item->IndexY == indexY && item != nullptr && item == boxId)
 	//		{
 	//			//찾으면 아이템 할당하고 할당된 장소라고 선언
 	//			slots[i]->item->count += currentItem->count;
@@ -354,48 +315,46 @@ void Inventory::UpdateSubSlots()
 }
 
 //아이템 검사 및 수령 조절
-void Inventory::AddItem(ItemData* currentItem)
-{
-	//for (auto& item : *items) {
-	//	if (item->type == currentItem->type && item->itemId == currentItem->itemId) {
-	//		// 이미 존재하는 아이템이면 개수만 증가시킴
-	//		item->count += currentItem->count;
-	//		UpdateSlots(); // UI 갱신
-	//		return;
-	//	}
-	//}
-
-	//// 새 아이템이면 다음 빈 슬롯에 추가
-
-
-	//UpdateSlots(); // UI 갱신
-}
+//void Inventory::AddItem(ItemData* currentItem)
+//{
+//	//for (auto& item : *items) {
+//	//	if (item->type == currentItem->type && item->itemId == currentItem->itemId) {
+//	//		// 이미 존재하는 아이템이면 개수만 증가시킴
+//	//		item->count += currentItem->count;
+//	//		UpdateSlots(); // UI 갱신
+//	//		return;
+//	//	}
+//	//}
+//
+//	//// 새 아이템이면 다음 빈 슬롯에 추가
+//
+//
+//	//UpdateSlots(); // UI 갱신
+//}
 
 void Inventory::SwapItem(int firstClickIndex, int secondClickIndex)
 {
 
-	int firstBoxId = firstClickIndex / (countX * countY);  // 첫 번째 아이템의 박스 ID 계산
-	int secondBoxId = secondClickIndex / (countX * countY); // 두 번째 아이템의 박스 ID 계산
+	int fx = firstClickIndex % countX; //가로
+	int fy = firstClickIndex / countX; //세로
 
-	int fx = firstClickIndex % countX;
-	int fy = firstClickIndex / countX;
-	int sx = secondClickIndex % countX;
-	int sy = secondClickIndex / countX;
+	int sx = secondClickIndex % countX; //가로
+	int sy = secondClickIndex / countX; //세로
 
 	//첫번째 아이템 찾기 | 람다식
 	//elem 리스트의 각요소
 	//찾고 싶은 아이템의 열과 행을 나타냄
-	auto findFirst = std::find_if(items->begin(), items->end(), [fx, fy, firstBoxId](ItemData* elem)
+	auto findFirst = std::find_if(items->begin(), items->end(), [fx, fy](ItemData* elem)
 	{
-	return elem->IndexX == fx && elem->IndexY == fy && elem->BoxId == firstBoxId;
+	return elem->IndexX == fx && elem->IndexY == fy;
 	});
 
 	//두번째 아이템 찾기 | 람다식
 	//elem 리스트의 각요소
 	//찾고 싶은 아이템의 열과 행을 나타냄
-	auto findSecond = std::find_if(items->begin(), items->end(), [sx, sy, secondBoxId](ItemData* elem)
+	auto findSecond = std::find_if(items->begin(), items->end(), [sx, sy](ItemData* elem)
 	{
-	return elem->IndexX == sx && elem->IndexY == sy &&elem->BoxId == secondBoxId;
+	return elem->IndexX == sx && elem->IndexY == sy;
 	});
 
 	// 두번째 인덱스가 빈공간일 경우 첫번째 아이템과 빈공간 클릭시 교환
@@ -404,7 +363,7 @@ void Inventory::SwapItem(int firstClickIndex, int secondClickIndex)
 	{
 		(*findFirst)->IndexX = sx;
 		(*findFirst)->IndexY = sy;
-		(*findFirst)->BoxId = secondBoxId;
+		//(*findFirst)->BoxId = secondBoxId;
 	}
 
 	// 그냥 아이템끼리 교환
@@ -438,33 +397,24 @@ void Inventory::DisplayItemInfo(ItemData& itemData, sf::Vector2f& position)
 
 void Inventory::Draw(sf::RenderWindow& window)
 {
+
+	//I키 눌렀을때 메인 인벤토리, 슬롯 그려주기
+	if (!isAble)
+	{
+		SpriteGo::Draw(window);
+		for (auto slot : slots)
+		{
+			slot->Draw(window);
+		}
+		itemInfoText.Draw(window);
+	}
 	//메인 화면에 보일 인벤토리랑 슬롯 그려주기
-	if (isAble)
+	else
 	{
 		smallUi.Draw(window);
 		for (auto smallslot : smallslots)
 		{
 			smallslot->Draw(window);
 		}
-	}
-
-
-	//I키 눌렀을때 메인 인벤토리, 슬롯 그려주기
-	if (!isAble)
-	{
-
-		SpriteGo::Draw(window);
-
-		for (auto slot : slots)
-		{
-			slot->Draw(window);
-		}
-
-		for (auto extraSlot : secondSlots)
-		{
-			extraSlot->Draw(window);
-		}
-		
-		itemInfoText.Draw(window);
 	}
 }

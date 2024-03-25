@@ -24,41 +24,38 @@ protected:
 	int firstClickIndex = -1;
 	
 	std::vector<InvetorySlot*> slots; //slot 컨테이너
-	std::vector<InvetorySlot*> secondSlots; //두번째 slot 컨테이너
 	std::vector<InvetorySlot*> smallslots; //smallslot 컨테이너
 	std::list<ItemData*>* items;
-
+	
+	
 	sf::Vector2f currentMousePos;
 	sf::FloatRect slotBounds;
 
 	// 서브 인벤토리
 	int subIndexY = 0;
 
-	int boxId = 0;
+	const int inventoryBoxId = 0;
 
 public:
 
 	Inventory(const std::string& name = "");
-	~Inventory() = default;
+	~Inventory() override = default;
 
-	void Init() override;
-	void Release() override;
-	void Reset() override;
-	void Update(float dt) override;
-	void Draw(sf::RenderWindow& window) override;
+	virtual void Init() override;
+	virtual void Release() override;
+	virtual void Reset() override;
+	virtual void Update(float dt) override;
+	virtual void Draw(sf::RenderWindow& window) override;
 
 	bool isAble = true;
 	bool IsItemInBox(ItemData* item, int boxId) { return item->BoxId == boxId; }
 	
-	void SetPosition(const sf::Vector2f& pos) override;
-	//void LoadData(rapidjson::Document& doc);
-	void SetIvenSlot(int x, int y, ItemData* data);
-
-	void UpdateSlots();
-	void UpdateSubSlots();
-
-	void AddItem(ItemData* currentItem);
-	void SwapItem(int firstClickIndex, int secondClixkIndex);
-	void DisplayItemInfo(ItemData& itemData, sf::Vector2f& position);
+	virtual void SetPosition(const sf::Vector2f& pos) override;
+	virtual void SetIvenSlot(int x, int y, ItemData* data); 
+	virtual void UpdateSlots();
+	virtual void UpdateSubSlots();
+	//virtual void AddItem(ItemData* currentItem);
+	virtual void SwapItem(int firstClickIndex, int secondClickIndex);
+	virtual void DisplayItemInfo(ItemData& itemData, sf::Vector2f& position);
 };
 

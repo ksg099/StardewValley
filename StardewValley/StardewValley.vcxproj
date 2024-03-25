@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameObjects\BoxInven.cpp" />
     <ClCompile Include="DataTables\DataTable.cpp" />
     <ClCompile Include="DataTables\GroundTable.cpp" />
     <ClCompile Include="DataTables\FloorTable.cpp" />
@@ -190,6 +191,7 @@
     <ClCompile Include="Scenes\TestMapTool.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameObjects\BoxInven.h" />
     <ClInclude Include="DataTables\DataTable.h" />
     <ClInclude Include="DataTables\GroundTable.h" />
     <ClInclude Include="DataTables\FloorTable.h" />

@@ -2,6 +2,7 @@
 
 class TileMap;
 class Inventory;
+class BoxInven;
 
 class SceneGame : public Scene
 {
@@ -10,7 +11,7 @@ protected:
 	const sf::Vector2f tileSize = { 25.f, 25.f };
 
 	Inventory* inventory;
-	Inventory* smallinventory;
+	BoxInven* boxInven;
 public:
 	SceneGame(SceneIds id);
 	virtual ~SceneGame();
