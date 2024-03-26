@@ -98,7 +98,7 @@ void TestMapTool::LoadMapFile()
                 mapData[i].objectLayer.objectType = (ObjectType)(tile["Object Type"].GetInt());
                 mapData[i].objectLayer.ID = tile["Object ID"].GetInt();
                 auto objectData = OBJECT_TABLE->Get(mapData[i].objectLayer.objectType, mapData[i].objectLayer.ID);
-                mapData[i].objectLayer.resource = objectData.objectId;
+                mapData[i].objectLayer.resource = objectData.textureId;
                 mapData[i].objectLayer.tileSprite.setTexture(RES_MGR_TEXTURE.Get(mapData[i].objectLayer.resource));
                 mapData[i].objectLayer.sheetID_X = objectData.sheetId.x;
                 mapData[i].objectLayer.sheetID_Y = objectData.sheetId.y;
@@ -106,8 +106,14 @@ void TestMapTool::LoadMapFile()
                 mapData[i].objectLayer.sheetID_H = objectData.sheetSize.y;
                 mapData[i].objectLayer.tileSprite.setTextureRect({ mapData[i].objectLayer.sheetID_X ,
                     mapData[i].objectLayer.sheetID_Y, mapData[i].objectLayer.sheetID_W, mapData[i].objectLayer.sheetID_H });
-                mapData[i].objectLayer.tileSprite.setOrigin({ mapData[i].objectLayer.tileSprite.getLocalBounds().width * 0.5f,
-                    mapData[i].objectLayer.tileSprite.getLocalBounds().height * 0.5f});
+                if (mapData[i].objectLayer.tileSprite.getLocalBounds().height > size)
+                {
+                    mapData[i].objectLayer.tileSprite.setOrigin(mapData[i].objectLayer.tileSprite.getLocalBounds().width * 0.5f, mapData[i].objectLayer.tileSprite.getLocalBounds().height - size * 0.5);
+                }
+                else
+                {
+                    mapData[i].objectLayer.tileSprite.setOrigin(mapData[i].objectLayer.tileSprite.getLocalBounds().width * 0.5f, mapData[i].objectLayer.tileSprite.getLocalBounds().height * 0.5f);
+                }
                 mapData[i].objectLayer.tileSprite.setPosition(IndexToPos(mapData[i].IndexY * col + mapData[i].IndexX));
 
                 //bool
@@ -117,16 +123,15 @@ void TestMapTool::LoadMapFile()
             }
         }
     }
-    std::cout << "0 groundType : " << (int)(mapData[0].groundLayer.groundType) << std::endl;
-    std::cout << "0 groundID : " << mapData[0].groundLayer.ID << std::endl;
-    std::cout << "0 floorType : " << (int)(mapData[0].floorLayer.floorType) << std::endl;
-    std::cout << "0 floorID : " << mapData[0].floorLayer.ID << std::endl;
-    std::cout << "1 groundType : " << (int)(mapData[1].groundLayer.groundType) << std::endl;
-    std::cout << "1 groundID : " << mapData[1].groundLayer.ID << std::endl;
-    std::cout << "1 floorType : " << (int)(mapData[1].floorLayer.floorType) << std::endl;
-    std::cout << "1 floorID : " << mapData[1].floorLayer.ID << std::endl;
-    std::cout << "2 groundType : " << (int)(mapData[2].groundLayer.groundType) << std::endl;
-    std::cout << "3 groundType : " << (int)(mapData[3].groundLayer.groundType) << std::endl;
+    std::cout << "380 objectType : " << (int)(mapData[380].objectLayer.objectType) << std::endl;
+    std::cout << "380 objectID : " << mapData[380].objectLayer.ID << std::endl;
+    std::cout << "381 objectType : " << (int)(mapData[381].objectLayer.objectType) << std::endl;
+    std::cout << "381 objectID : " << mapData[381].objectLayer.ID << std::endl;
+    std::cout << "382 objectType : " << (int)(mapData[382].objectLayer.objectType) << std::endl;
+    std::cout << "382 objectID : " << mapData[382].objectLayer.ID << std::endl;
+    std::cout << "383 objectType : " << (int)(mapData[383].objectLayer.objectType) << std::endl;
+    std::cout << "383 objectID : " << mapData[383].objectLayer.ID << std::endl;
+    
 }
 
 void TestMapTool::UpdateTransform()
@@ -440,7 +445,7 @@ void TestMapTool::DrawGrid()
 
     int gridIndex = 0;
 
-    for (int i = 0; i <= row + 1; ++i)
+    for (int i = 0; i < row + 1; ++i)
     {
         startLine = { startLine.x , (float)(i * size) + gridStartY };
         endLine = { (float)FRAMEWORK.GetWindowSize().x * 0.6f - 15.f, startLine.y };
@@ -456,7 +461,7 @@ void TestMapTool::DrawGrid()
     startLine = { gridStartX, gridStartY };
     endLine = startLine;
 
-    for (int j = 0; j <= col + 1; ++j)
+    for (int j = 0; j < col + 1; ++j)
     {
         startLine = { (float)(j * size) + gridStartX, startLine.y };
         endLine = { startLine.x , (float)FRAMEWORK.GetWindowSize().y };
