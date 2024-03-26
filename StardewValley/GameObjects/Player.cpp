@@ -270,3 +270,8 @@ void Player::ChangeGridIndex(sf::Vector2f& nextPos)
 	// std::cout << gridIndex.x << ", " << gridIndex.y << std::endl;
 	currentGridPosition = tileMap->GetGridPosition(gridIndex.x, gridIndex.y);
 }
+
+void Player::OnDrop()
+{
+	
+}
