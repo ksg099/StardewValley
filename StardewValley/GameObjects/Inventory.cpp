@@ -97,6 +97,23 @@ void Inventory::Update(float dt)
 	sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
 	sf::Vector2f uiPos = SCENE_MGR.GetCurrentScene()->ScreenToUi(mousePos);
 	int clickSlotIndex = -1;
+	if (firstClickIndex != -1 && !isClick)
+	{
+		ItemData* itemData = GetItemData(firstClickIndex % countX, firstClickIndex / countX);
+		if (itemData != nullptr)
+		{
+			auto item = ITEM_TABLE->Get(itemData->type, itemData->itemId);
+			firstClickSprite.setTexture(RES_MGR_TEXTURE.Get(item.textureId));
+			firstClickSprite.setTextureRect(sf::IntRect(item.sheetId.x, item.sheetId.y, item.sheetSize.x, item.sheetSize.y));
+			Utils::SetOrigin(firstClickSprite, Origins::MC);
+			isClick = true;
+		}
+	}
+	else if (firstClickIndex == -1 && isClick)
+	{
+		isClick = false;
+	}
+	firstClickSprite.setPosition(uiPos);
 
 	//마우스 왼쪽 버튼이 눌렸 있을때 마우스 위치에 해당하는 슬롯을
 	//순회를 돌아 찾아 clickSlotIndex에 할당
@@ -409,6 +426,11 @@ void Inventory::Draw(sf::RenderWindow& window)
 	for (auto smallslot : smallslots)
 	{
 		smallslot->Draw(window);
+	}
+
+	if (isClick)
+	{
+		window.draw(firstClickSprite);
 	}
 }
 

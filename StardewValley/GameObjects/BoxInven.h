@@ -13,10 +13,14 @@ protected:
 
 	SpriteGo smallUi;
 	TextGo itemInfoText;
-	int firstClickBoxId = -1;
-	int firstClickIndex = -1;
+
+	//int firstClickBoxId = -1;
+	//int firstClickIndex = -1;
 	ItemData* itemClick = nullptr;
 	ItemData* itemExchange = nullptr;
+
+	sf::Sprite firstClickSprite;
+	bool isClick = false;
 
 	std::vector<InvetorySlot*> firtstSlots;
 	std::list<ItemData*>* firstItems;

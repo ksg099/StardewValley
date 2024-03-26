@@ -119,33 +119,50 @@ void BoxInven::Update(float dt)
 	sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
 	sf::Vector2f uiPos = SCENE_MGR.GetCurrentScene()->ScreenToUi(mousePos);
 
+	if (itemClick != nullptr && !isClick)
+	{
+		auto item = ITEM_TABLE->Get(itemClick->type, itemClick->itemId);
+		firstClickSprite.setTexture(RES_MGR_TEXTURE.Get(item.textureId));
+		firstClickSprite.setTextureRect(sf::IntRect(item.sheetId.x, item.sheetId.y, item.sheetSize.x, item.sheetSize.y));
+		firstClickSprite.setScale(sf::Vector2f(50.f / item.sheetSize.x, 50.f / item.sheetSize.y));
+		Utils::SetOrigin(firstClickSprite, Origins::MC);
+		isClick = true;
+	}
+	else if (itemClick == nullptr && isClick)
+	{
+		isClick = false;
+	}
+	firstClickSprite.setPosition(uiPos);
+
 	if (InputMgr::GetMouseButtonDown(sf::Mouse::Button::Left))
 	{
 		itemClick = SaveClickItemData(uiPos);
 
 		if (InputMgr::GetKeyDown(sf::Keyboard::D))
 		{
-			if (firstClickIndex != -1) // 이미 선택된 아이템이 있으면
+			if (itemClick != nullptr) // 이미 선택된 아이템이 있으면
 			{
-				int fx = firstClickIndex % countX;
-				int fy = firstClickIndex / countX;
-
-				auto it = std::find_if(firstItems->begin(), firstItems->end(), [fx, fy](ItemData* elem) {
-					return elem->IndexX == fx && elem->IndexY == fy;
-					});
-
-				if (it != firstItems->end())
+				if (itemClick->BoxId == firstBoxId)
 				{
-					// 선택된 아이템을 items 리스트에서 삭제
-					delete* it;
-					firstItems->erase(it);
-
-					// 인벤토리 UI 갱신
-					UpdateSlots();
-
-					// 선택 초기화
-					firstClickIndex = -1;
+					auto it = std::find(firstItems->begin(), firstItems->end(), itemClick);
+					if (it != firstItems->end())
+					{
+						delete* it;
+						firstItems->erase(it);
+					}
 				}
+				else
+				{
+					auto it = std::find(secondItems->begin(), secondItems->end(), itemClick);
+					if (it != secondItems->end())
+					{
+						delete* it;
+						secondItems->erase(it);
+					}
+				}
+				UpdateSlots();
+				itemClick = nullptr;
+				itemExchange = nullptr;
 			}
 		}
 	}
@@ -388,7 +405,14 @@ void BoxInven::Draw(sf::RenderWindow& window)
 		slot->Draw(window);
 	}
 
-	itemInfoText.Draw(window);
+	if (isClick)
+	{
+		window.draw(firstClickSprite);
+	}
+	else
+	{
+		itemInfoText.Draw(window);
+	}
 }
 
 ItemData* BoxInven::GetItemData(const int x, const int y, const bool isFirstBox) const

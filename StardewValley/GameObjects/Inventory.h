@@ -22,6 +22,8 @@ protected:
 	TextGo itemInfoText;
 	//�ε��� �� �Ҵ�
 	int firstClickIndex = -1;
+	sf::Sprite firstClickSprite;
+	bool isClick = false;
 	
 	std::vector<InvetorySlot*> slots; //slot �����̳�
 	std::vector<InvetorySlot*> smallslots; //smallslot �����̳�
