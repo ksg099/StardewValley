@@ -88,8 +88,11 @@ void BoxInven::Reset()
 	firstItems = ITEM_SAVE->Get(firstBoxId);
 	secondItems = ITEM_SAVE->Get(secondBoxId);
 
+	itemClick = nullptr;
+
 	SpriteGo::Reset();
 	SetOrigin(Origins::MC);
+
 	for (int i = 0; i < countY; i++)
 	{
 		for (int j = 0; j < countX; j++)
@@ -113,29 +116,13 @@ void BoxInven::Reset()
 
 void BoxInven::Update(float dt)
 {
-	//인벤토리가 안보였다면 I키를 눌렀을때 보이게 하기
-	if (InputMgr::GetKeyDown(sf::Keyboard::U))
-	{
-		isAble = !isAble;
-	}
-
 	sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
 	sf::Vector2f uiPos = SCENE_MGR.GetCurrentScene()->ScreenToUi(mousePos);
-	int clickSlotIndex = -1;
 
-	//마우스 왼쪽 버튼이 눌렸 있을때 마우스 위치에 해당하는 슬롯을
-	//순회를 돌아 찾아 clickSlotIndex에 할당
-	if (InputMgr::GetMouseButton(sf::Mouse::Button::Left))
+	if (InputMgr::GetMouseButtonDown(sf::Mouse::Button::Left))
 	{
-		for (int i = 0; i < firtstSlots.size(); ++i)
-		{
-			sf::FloatRect slotBounds = firtstSlots[i]->GetGlobalBounds();
-			if (slotBounds.contains(uiPos))
-			{
-				clickSlotIndex = i;
-				break;
-			}
-		}
+		itemClick = SaveClickItemData(uiPos);
+
 		if (InputMgr::GetKeyDown(sf::Keyboard::D))
 		{
 			if (firstClickIndex != -1) // 이미 선택된 아이템이 있으면
@@ -165,48 +152,68 @@ void BoxInven::Update(float dt)
 
 	//마우스 왼쪽 버튼을 놓았을때 첫번째 아이템이 선택된 상태라면
 	//마우스를 놓은곳에 해당하는 슬롯을 다시 순회를 돌아 찾아 그위치로 아이템을 SwapItem한다.
-	if (InputMgr::GetMouseButtonUp(sf::Mouse::Left))
+	if (InputMgr::GetMouseButtonUp(sf::Mouse::Left) && itemClick != nullptr)
 	{
-		if (firstClickIndex != -1) //이미 첫번째 인덱스가 선택되어 있을때
+		// 3. 같은 박스 교환
+		// 3-2. 다른 박스 교환
+		std::pair<int, bool> mouseIndex = CheckPosIndex(uiPos);
+		if (mouseIndex.first == -1) // 아무것도 아닌 공간
 		{
-			for (int i = 0; i < firtstSlots.size(); ++i)
+
+		}
+		else
+		{
+			int indexExchangeX = mouseIndex.first % countX;
+			int indexExchangeY = mouseIndex.first / countX;
+
+			itemExchange = GetItemData(indexExchangeX, indexExchangeY, mouseIndex.second);
+			if (itemExchange == nullptr) // 빈 공간
 			{
-				sf::FloatRect slotBounds = firtstSlots[i]->GetGlobalBounds();
-				if (slotBounds.contains(uiPos))
+				if ((itemClick->BoxId != firstBoxId && mouseIndex.second) ||
+					(itemClick->BoxId == firstBoxId && !mouseIndex.second))
 				{
-					clickSlotIndex = i;
-					break;
+					SwapItemDiffBox(itemClick, itemExchange, itemClick->BoxId == firstBoxId);
+				}
+				itemClick->IndexX = indexExchangeX;
+				itemClick->IndexY = indexExchangeY;
+			}
+			else // 같은 박스 교환
+			{
+				itemExchange->IndexX = itemClick->IndexX;
+				itemExchange->IndexY = itemClick->IndexY;
+
+				itemClick->IndexX = indexExchangeX;
+				itemClick->IndexY = indexExchangeY;
+
+				if (itemClick->BoxId != itemExchange->BoxId) // 다른 박스 교환
+				{
+					SwapItemDiffBox(itemClick, itemExchange, itemClick->BoxId == firstBoxId);
 				}
 			}
-
-			if (clickSlotIndex != -1)
-			{
-				clickSlotIndex;
-				SwapItem(firstClickIndex, clickSlotIndex);
-
-				firstClickIndex = -1;
-			}
 		}
+		UpdateSlots();
+		itemClick = nullptr;
+		itemExchange = nullptr;
 	}
 
-	//첫번째 클릭 된 아이템의 인덱스가 아직 아무것도 선택이 안된 경우
-	//위의 조건들일 경우
-	if (clickSlotIndex != -1 && firstClickIndex == -1)
-	{
-		int fx = clickSlotIndex % countX;
-		int fy = clickSlotIndex / countX;
-		auto findFirst = std::find_if(firstItems->begin(), firstItems->end(), [fx, fy](ItemData* elem)
-			{
-				return elem->IndexX == fx && elem->IndexY == fy;
-			});
+	////첫번째 클릭 된 아이템의 인덱스가 아직 아무것도 선택이 안된 경우
+	////위의 조건들일 경우
+	//if (clickSlotIndex != -1 && firstClickIndex == -1)
+	//{
+	//	int fx = clickSlotIndex % countX;
+	//	int fy = clickSlotIndex / countX;
+	//	auto findFirst = std::find_if(firstItems->begin(), firstItems->end(), [fx, fy](ItemData* elem)
+	//		{
+	//			return elem->IndexX == fx && elem->IndexY == fy;
+	//		});
 
-		//아이템이 있으면 클릭한 슬롯 인덱스를 firstClickIndex에 할당합니다.
-		//첫번째로 선택한 아이템
-		if (findFirst != firstItems->end())
-		{
-			firstClickIndex = clickSlotIndex;
-		}
-	}
+	//	//아이템이 있으면 클릭한 슬롯 인덱스를 firstClickIndex에 할당합니다.
+	//	//첫번째로 선택한 아이템
+	//	if (findFirst != firstItems->end())
+	//	{
+	//		firstClickIndex = clickSlotIndex;
+	//	}
+	//}
 	itemInfoText.SetPosition(uiPos);
 	//마우스 커서 위치에 있는 슬롯 아이템 정보 표시
 	bool mouseOverSlot = false;
@@ -219,7 +226,7 @@ void BoxInven::Update(float dt)
 			{
 				int indexX = i % countX;
 				int indexY = i / countX;
-				if (item->IndexX == indexX && item->IndexY == indexY && item != nullptr)
+				if (item != nullptr && item->IndexX == indexX && item->IndexY == indexY)
 				{
 					DisplayItemInfo(*item, uiPos);
 					mouseOverSlot = true;
@@ -254,10 +261,10 @@ void BoxInven::Update(float dt)
 		itemInfoText.SetString("");
 	}
 
-	if (clickSlotIndex == -1) //빈 공간이 눌렸을 경우 선택된 인덱스를 초기화하여 선택한 것을 초기화
-	{
-		firstClickIndex = -1;
-	}
+	//if (clickSlotIndex == -1) //빈 공간이 눌렸을 경우 선택된 인덱스를 초기화하여 선택한 것을 초기화
+	//{
+	//	firstClickIndex = -1;
+	//}
 }
 
 void BoxInven::SetPosition(const sf::Vector2f& pos)
@@ -271,18 +278,13 @@ void BoxInven::SetIvenSlot(int x, int y, ItemData* data, std::vector<InvetorySlo
 	slots[index]->SetItem(data);
 }
 
-void BoxInven::UpdateSlots() //
+void BoxInven::UpdateSlots()
 {
-	//auto& slote
-	//for (auto& slot : slots) {
-	//slot->SetEmpty();
-	// }
-	//메인 인벤토리내를 할당하기전에 지움
 	for (int i = 0; i < countY; i++)
 	{
 		for (int j = 0; j < countX; j++)
 		{
-			int index = i * countX + j; //
+			int index = i * countX + j;
 			firtstSlots[index]->SetEmpty();
 		}
 	}
@@ -310,54 +312,7 @@ void BoxInven::UpdateSlots() //
 		int index = item->IndexY * countX + item->IndexX;
 		SetIvenSlot(item->IndexX, item->IndexY, item, secondSlots);
 	}
-
-	//
-	//for (auto& currentItem : *items) {
-	//	bool placed = false;
-
-	//	// 이미 할당된 슬롯에서 동일한 id를 가진 아이템을 찾습니다.
-	//	for (int i = 0; i < slots.size() && !placed; i++)
-	//	{
-	//		if (item->IndexX == indexX && item->IndexY == indexY && item != nullptr && item == boxId)
-	//		{
-	//			//찾으면 아이템 할당하고 할당된 장소라고 선언
-	//			slots[i]->item->count += currentItem->count;
-	//			placed = true;
-	//		}
-	//	}
-
-	//	// 아직 아이템을 배치하지 않았다면, 슬롯에 접근하여 아이템을 할당
-	//	if (!placed)
-	//	{
-	//		for (int i = 0; i < slots.size() && !placed; i++)
-	//		{
-	//			if (slots[i]->item == nullptr)
-	//			{
-	//				slots[i]->item = currentItem;
-	//				placed = true;
-	//			}
-	//		}
-	//	}
-	//}
 }
-
-//아이템 검사 및 수령 조절
-//void Inventory::AddItem(ItemData* currentItem)
-//{
-//	//for (auto& item : *items) {
-//	//	if (item->type == currentItem->type && item->itemId == currentItem->itemId) {
-//	//		// 이미 존재하는 아이템이면 개수만 증가시킴
-//	//		item->count += currentItem->count;
-//	//		UpdateSlots(); // UI 갱신
-//	//		return;
-//	//	}
-//	//}
-//
-//	//// 새 아이템이면 다음 빈 슬롯에 추가
-//
-//
-//	//UpdateSlots(); // UI 갱신
-//}
 
 void BoxInven::SwapItem(int firstClickIndex, int secondClickIndex)
 {
@@ -409,14 +364,11 @@ void BoxInven::SwapItem(int firstClickIndex, int secondClickIndex)
 		(*findSecond)->IndexY = tempY;
 	}
 
-	UpdateSlots(); // 슬롯 상태 업데이트
+	UpdateSlots();
 }
 
 void BoxInven::DisplayItemInfo(ItemData& itemData, sf::Vector2f& position)
 {
-	//itemData.type타입이 int형이 아니라 형변환함
-	//아이템의 type과 id를 출력
-	//인덱스 부분 생략함 + "IndexX "+ std::to_string(itemData.IndexX) + "IndexY" + std::to_string(itemData.IndexY)
 	std::string info = "Box: " + std::to_string(itemData.BoxId) + ", X: " + std::to_string(itemData.IndexX) + ", Y: " + std::to_string(itemData.IndexY)
 		+ ",\nType: " + std::to_string((int)itemData.type) + ", ID: " + std::to_string(itemData.itemId)
 		+ ",\nName: " + ITEM_TABLE->Get(itemData.type, itemData.itemId).name;
@@ -425,30 +377,108 @@ void BoxInven::DisplayItemInfo(ItemData& itemData, sf::Vector2f& position)
 
 void BoxInven::Draw(sf::RenderWindow& window)
 {
-
-	//I키 눌렀을때 메인 인벤토리, 슬롯 그려주기
-	if (!isAble)
+	SpriteGo::Draw(window);
+	for (auto slot : firtstSlots)
 	{
-		SpriteGo::Draw(window);
-		for (auto slot : firtstSlots)
-		{
-			slot->Draw(window);
-		}
-
-		for (auto slot : secondSlots)
-		{
-			slot->Draw(window);
-		}
-
-		itemInfoText.Draw(window);
+		slot->Draw(window);
 	}
+
+	for (auto slot : secondSlots)
+	{
+		slot->Draw(window);
+	}
+
+	itemInfoText.Draw(window);
 }
 
-ItemData* BoxInven::GetItemData(const int x, const int y) const
+ItemData* BoxInven::GetItemData(const int x, const int y, const bool isFirstBox) const
 {
 	if (x < 0 || y < 0 || x >= countX || y >= countY)
 		return nullptr;
 
-	return firtstSlots[y * countX + x]->GetItemData();
+	if (isFirstBox)
+		return firtstSlots[y * countX + x]->GetItemData();
+	else
+		return secondSlots[y * countX + x]->GetItemData();
+}
 
+std::pair<int, bool> BoxInven::CheckPosIndex(sf::Vector2f uiPos)
+{
+	for (int i = 0; i < firtstSlots.size(); ++i)
+	{
+		sf::FloatRect slotBounds = firtstSlots[i]->GetGlobalBounds();
+		if (slotBounds.contains(uiPos))
+		{
+			return std::make_pair(i, true);
+		}
+	}
+	for (int i = 0; i < firtstSlots.size(); ++i)
+	{
+		sf::FloatRect slotBounds = secondSlots[i]->GetGlobalBounds();
+		if (slotBounds.contains(uiPos))
+		{
+			return std::make_pair(i, false);
+		}
+	}
+	return std::make_pair(-1, true);
+}
+
+ItemData* BoxInven::SaveClickItemData(sf::Vector2f uiPos)
+{
+	for (int i = 0; i < firtstSlots.size(); ++i)
+	{
+		sf::FloatRect slotBounds = firtstSlots[i]->GetGlobalBounds();
+		if (slotBounds.contains(uiPos))
+		{
+			return GetItemData(i % countX, i / countX, true);
+		}
+	}
+	for (int i = 0; i < firtstSlots.size(); ++i)
+	{
+		sf::FloatRect slotBounds = secondSlots[i]->GetGlobalBounds();
+		if (slotBounds.contains(uiPos))
+		{
+			return GetItemData(i % countX, i / countX, false);
+		}
+	}
+
+	return nullptr;
+}
+
+void BoxInven::SwapItemDiffBox(ItemData* itemClick, ItemData* itemExchange, bool isClickFirst)
+{
+	if (isClickFirst)
+	{
+		if (itemExchange != nullptr)
+		{
+			firstItems->push_back(itemExchange);
+			auto findExchange = std::find(secondItems->begin(), secondItems->end(), itemExchange);
+			secondItems->erase(findExchange);
+
+			itemExchange->BoxId = firstBoxId;
+		}
+
+		secondItems->push_back(itemClick);
+		auto findClick = std::find(firstItems->begin(), firstItems->end(), itemClick);
+		firstItems->erase(findClick);
+
+		itemClick->BoxId = secondBoxId;
+	}
+	else
+	{
+		if (itemExchange != nullptr)
+		{
+			secondItems->push_back(itemExchange);
+			auto findExchange = std::find(firstItems->begin(), firstItems->end(), itemExchange);
+			firstItems->erase(findExchange);
+
+			itemExchange->BoxId = secondBoxId;
+		}
+
+		firstItems->push_back(itemClick);
+		auto findClick = std::find(secondItems->begin(), secondItems->end(), itemClick);
+		secondItems->erase(findClick);
+
+		itemClick->BoxId = firstBoxId;
+	}
 }

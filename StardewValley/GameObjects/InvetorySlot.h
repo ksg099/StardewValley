@@ -6,7 +6,7 @@ class InvetorySlot : public SpriteGo
 {
 protected:
 
-	ItemData* itemData;
+	ItemData* itemData = nullptr;
 
 	SpriteGo background; //기본 비어있는 상태 이미지
 	SpriteGo icon; //아이템 아이콘 이미지

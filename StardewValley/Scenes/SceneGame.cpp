@@ -63,6 +63,9 @@ void SceneGame::Enter()
 	tileMap->LoadTileMap("Farm");
 	tileMap->SetOrigin(Origins::MC);
 
+	inventory->SetActive(false);
+	boxInven->SetActive(false);
+
 	Scene::Enter();
 }
 
@@ -84,6 +87,7 @@ void SceneGame::Update(float dt)
 {
 	Scene::Update(dt);
 
+	// save the file
 	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
 	{
 		rapidjson::Document saveDoc;
@@ -92,6 +96,9 @@ void SceneGame::Update(float dt)
 		ITEM_SAVE->Save(saveDoc);
 		Utils::EditFile(DT_MGR.GetGameSaveSelect(), saveDoc);
 	}
+
+	// inventory active/inactive
+	SetInventory();
 
 	dailyTime += (dt);
 	if (dailyTime >= 24)
@@ -136,4 +143,26 @@ void SceneGame::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
 	//window.draw(overlayer);
+}
+
+void SceneGame::SetInventory()
+{
+	if (InputMgr::GetKeyDown(sf::Keyboard::I) && !boxInven->GetActive())
+	{
+		inventory->SetActive(!inventory->GetActive());
+		if (inventory->GetActive())
+		{
+			inventory->UpdateSlots();
+		}
+	}
+
+	//인벤토리가 안보였다면 I키를 눌렀을때 보이게 하기
+	if (InputMgr::GetKeyDown(sf::Keyboard::U) && !inventory->GetActive())
+	{
+		boxInven->SetActive(!boxInven->GetActive());
+		if (boxInven->GetActive())
+		{
+			boxInven->UpdateSlots();
+		}
+	}
 }

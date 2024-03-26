@@ -94,12 +94,6 @@ void Inventory::Reset()
 
 void Inventory::Update(float dt)
 {
-	//인벤토리가 안보였다면 I키를 눌렀을때 보이게 하기
-	if (InputMgr::GetKeyDown(sf::Keyboard::I))
-	{
-		isAble = !isAble;
-	}
-
 	sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
 	sf::Vector2f uiPos = SCENE_MGR.GetCurrentScene()->ScreenToUi(mousePos);
 	int clickSlotIndex = -1;
@@ -404,25 +398,17 @@ void Inventory::DisplayItemInfo(ItemData& itemData, sf::Vector2f& position)
 
 void Inventory::Draw(sf::RenderWindow& window)
 {
-
-	//I키 눌렀을때 메인 인벤토리, 슬롯 그려주기
-	if (!isAble)
+	SpriteGo::Draw(window);
+	for (auto slot : slots)
 	{
-		SpriteGo::Draw(window);
-		for (auto slot : slots)
-		{
-			slot->Draw(window);
-		}
-		itemInfoText.Draw(window);
+		slot->Draw(window);
 	}
-	//메인 화면에 보일 인벤토리랑 슬롯 그려주기
-	else
+	itemInfoText.Draw(window);
+
+	smallUi.Draw(window);
+	for (auto smallslot : smallslots)
 	{
-		smallUi.Draw(window);
-		for (auto smallslot : smallslots)
-		{
-			smallslot->Draw(window);
-		}
+		smallslot->Draw(window);
 	}
 }
 
