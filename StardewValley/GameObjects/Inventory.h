@@ -35,7 +35,7 @@ protected:
 	int subIndexY = 0;
 
 	const int inventoryBoxId = 0;
-
+	bool isInvenOpen;
 public:
 
 	Inventory(const std::string& name = "");
@@ -46,17 +46,16 @@ public:
 	virtual void Reset() override;
 	virtual void Update(float dt) override;
 	virtual void Draw(sf::RenderWindow& window) override;
-
-	bool isAble = true;
-	bool IsItemInBox(ItemData* item, int boxId) { return item->BoxId == boxId; }
-	
 	virtual void SetPosition(const sf::Vector2f& pos) override;
 	virtual void SetIvenSlot(int x, int y, ItemData* data); 
 	virtual void UpdateSlots();
 	virtual void UpdateSubSlots();
-	//virtual void AddItem(ItemData* currentItem);
 	virtual void SwapItem(int firstClickIndex, int secondClickIndex);
 	virtual void DisplayItemInfo(ItemData& itemData, sf::Vector2f& position);
+
+	void SetInvenOpen(const bool isBoxInvenOpen) { this->isInvenOpen = isBoxInvenOpen; }
+	bool IsInvenOpen() const { return isInvenOpen; }
+	bool IsItemInBox(ItemData* item, int boxId) { return item->BoxId == boxId; }
 
 	const int GetSubSlotIndexY() const { return subIndexY; }
 	ItemData* GetItemData(const int x, const int y) const;

@@ -64,6 +64,15 @@ void SceneGame::Update(float dt)
 {
 	Scene::Update(dt);
 
+	//인벤토리가 안보였다면 I키를 눌렀을때 보이게 하기
+	//if (InputMgr::GetKeyDown(sf::Keyboard::U) && )
+	//{
+
+	//}
+	//else if (InputMgr::GetKeyDown(sf::Keyboard::I) &&)
+	//{
+
+	//}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
 	{
 		rapidjson::Document saveDoc;
