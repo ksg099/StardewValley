@@ -82,11 +82,12 @@ public:
 	void SetMapToolSize(int xCount, int yCount);
 	void SaveMapContent();
 	void LoadTileMap(const std::string& name);
-	void LoadMapFile(const std::string& name);
+	void LoadMapFile();
 	void UpdateTransform();
 
 	std::wstring SaveFilePath(); 
 	std::string WstringToString(const std::wstring& var);
+	std::wstring OpenFilePath();
 
 	std::string ToRelativePath(const std::string& originalPath, const std::string& basePath);  //Ãß°¡
 };

@@ -26,6 +26,114 @@ std::string ConvertLPCWSTRToString(LPCWSTR lpcwszStr)         //LPCWSTR 유형의 �
     return str;
 }
 
+void TestMapTool::LoadMapFile()
+{
+    std::wstring filePathW = OpenFilePath();
+    if (filePathW.empty()) 
+        return;
+
+    std::string filePath = WstringToString(filePathW);
+
+    std::ifstream inFile(filePath);
+    if (!inFile.is_open()) 
+        return;
+
+    std::string content((std::istreambuf_iterator<char>(inFile)),
+        std::istreambuf_iterator<char>());
+
+    rapidjson::Document doc;
+    doc.Parse(content.c_str());
+
+    //데이터 내용대로 맵툴에 내용 구현하는 내용
+    if (doc.HasMember("Tile Map") && doc["Tile Map"].IsArray())
+    {
+        mapData.clear();
+        int i = 0;
+        const rapidjson::Value& tileMaps = doc["Tile Map"];
+        for (const auto& tileMap : tileMaps.GetArray())
+        {
+            col = tileMap["Tile Count X"].GetInt();
+            row = tileMap["Tile Count Y"].GetInt();
+            mapData.resize(col * row);
+
+            const rapidjson::Value& tiles = tileMap["Tiles"];
+            for (const auto& tile : tiles.GetArray())
+            {
+                mapData[i].IndexX = tile["Index X"].GetInt();
+                mapData[i].IndexY = tile["Index Y"].GetInt();
+                
+                //ground
+                mapData[i].groundLayer.groundType = (GroundType)(tile["Ground Type"].GetInt());
+                mapData[i].groundLayer.ID = tile["Ground ID"].GetInt();
+                DataGround dataGround = GROUND_TABLE->Get(mapData[i].groundLayer.groundType, mapData[i].groundLayer.ID);
+                mapData[i].groundLayer.resource = GROUND_TABLE->GetTextureId();
+                mapData[i].groundLayer.tileSprite.setTexture(RES_MGR_TEXTURE.Get(GROUND_TABLE->GetTextureId()));
+                mapData[i].groundLayer.sheetID_X = dataGround.sheetId.x;
+                mapData[i].groundLayer.sheetID_Y = dataGround.sheetId.y;
+                mapData[i].groundLayer.sheetID_W = dataGround.sheetSize.x;
+                mapData[i].groundLayer.sheetID_H = dataGround.sheetSize.y;
+                mapData[i].groundLayer.tileSprite.setTextureRect({ mapData[i].groundLayer.sheetID_X,
+                    mapData[i].groundLayer.sheetID_Y,mapData[i].groundLayer.sheetID_W, mapData[i].groundLayer.sheetID_H });
+                mapData[i].groundLayer.tileSprite.setOrigin({ mapData[i].groundLayer.tileSprite.getLocalBounds().width * 0.5f,
+                    mapData[i].groundLayer.tileSprite.getLocalBounds().height * 0.5f });
+                mapData[i].groundLayer.tileSprite.setPosition(IndexToPos(mapData[i].IndexY * col + mapData[i].IndexX));
+                
+                //floor
+                mapData[i].floorLayer.floorType = (FloorType)(tile["Floor Type"].GetInt());
+                mapData[i].floorLayer.ID = tile["Floor ID"].GetInt();
+                auto floorData = FLOOR_TABLE->Get(mapData[i].floorLayer.floorType, mapData[i].floorLayer.ID);
+                mapData[i].floorLayer.resource = floorData.textureId;
+                mapData[i].floorLayer.tileSprite.setTexture(RES_MGR_TEXTURE.Get(mapData[i].floorLayer.resource));
+                mapData[i].floorLayer.sheetID_X = floorData.sheetId.x;
+                mapData[i].floorLayer.sheetID_Y = floorData.sheetId.y;
+                mapData[i].floorLayer.sheetID_W = floorData.sheetSize.x;
+                mapData[i].floorLayer.sheetID_H = floorData.sheetSize.y;
+                mapData[i].floorLayer.tileSprite.setTextureRect({ mapData[i].floorLayer.sheetID_X, 
+                    mapData[i].floorLayer.sheetID_Y, mapData[i].floorLayer.sheetID_W, mapData[i].floorLayer.sheetID_H });
+                mapData[i].floorLayer.tileSprite.setOrigin({ mapData[i].floorLayer.tileSprite.getLocalBounds().width * 0.5f,
+                   mapData[i].floorLayer.tileSprite.getLocalBounds().height * 0.5f });
+                mapData[i].floorLayer.tileSprite.setPosition(IndexToPos(mapData[i].IndexY * col + mapData[i].IndexX));
+                
+                //object
+                mapData[i].objectLayer.objectType = (ObjectType)(tile["Object Type"].GetInt());
+                mapData[i].objectLayer.ID = tile["Object ID"].GetInt();
+                auto objectData = OBJECT_TABLE->Get(mapData[i].objectLayer.objectType, mapData[i].objectLayer.ID);
+                mapData[i].objectLayer.resource = objectData.textureId;
+                mapData[i].objectLayer.tileSprite.setTexture(RES_MGR_TEXTURE.Get(mapData[i].objectLayer.resource));
+                mapData[i].objectLayer.sheetID_X = objectData.sheetId.x;
+                mapData[i].objectLayer.sheetID_Y = objectData.sheetId.y;
+                mapData[i].objectLayer.sheetID_W = objectData.sheetSize.x;
+                mapData[i].objectLayer.sheetID_H = objectData.sheetSize.y;
+                mapData[i].objectLayer.tileSprite.setTextureRect({ mapData[i].objectLayer.sheetID_X ,
+                    mapData[i].objectLayer.sheetID_Y, mapData[i].objectLayer.sheetID_W, mapData[i].objectLayer.sheetID_H });
+                if (mapData[i].objectLayer.tileSprite.getLocalBounds().height > size)
+                {
+                    mapData[i].objectLayer.tileSprite.setOrigin(mapData[i].objectLayer.tileSprite.getLocalBounds().width * 0.5f, mapData[i].objectLayer.tileSprite.getLocalBounds().height - size * 0.5);
+                }
+                else
+                {
+                    mapData[i].objectLayer.tileSprite.setOrigin(mapData[i].objectLayer.tileSprite.getLocalBounds().width * 0.5f, mapData[i].objectLayer.tileSprite.getLocalBounds().height * 0.5f);
+                }
+                mapData[i].objectLayer.tileSprite.setPosition(IndexToPos(mapData[i].IndexY * col + mapData[i].IndexX));
+
+                //bool
+                mapData[i].placedPossible = tile["Placed Possible"].GetBool();
+                mapData[i].playerPassable = tile["Player Passable"].GetBool();
+                ++i;
+            }
+        }
+    }
+    std::cout << "380 objectType : " << (int)(mapData[380].objectLayer.objectType) << std::endl;
+    std::cout << "380 objectID : " << mapData[380].objectLayer.ID << std::endl;
+    std::cout << "381 objectType : " << (int)(mapData[381].objectLayer.objectType) << std::endl;
+    std::cout << "381 objectID : " << mapData[381].objectLayer.ID << std::endl;
+    std::cout << "382 objectType : " << (int)(mapData[382].objectLayer.objectType) << std::endl;
+    std::cout << "382 objectID : " << mapData[382].objectLayer.ID << std::endl;
+    std::cout << "383 objectType : " << (int)(mapData[383].objectLayer.objectType) << std::endl;
+    std::cout << "383 objectID : " << mapData[383].objectLayer.ID << std::endl;
+    
+}
+
 void TestMapTool::UpdateTransform()
 {
     transform = sf::Transform::Identity;
@@ -59,6 +167,30 @@ std::string TestMapTool::WstringToString(const std::wstring& var)
 	static std::locale loc("");
 	auto& facet = std::use_facet<std::codecvt<wchar_t, char, std::mbstate_t>>(loc);
 	return std::wstring_convert<std::remove_reference<decltype(facet)>::type, wchar_t>(&facet).to_bytes(var);
+}
+
+std::wstring TestMapTool::OpenFilePath()
+{
+    OPENFILENAME ofn;       // 공통 대화 상자 구조체
+    wchar_t szFile[260];    // 파일 이름을 저장할 배열
+    ZeroMemory(&ofn, sizeof(ofn));
+    ofn.lStructSize = sizeof(ofn);
+    ofn.hwndOwner = NULL;  // 대화 상자의 부모 윈도우 핸들
+    ofn.lpstrFile = szFile;
+    ofn.lpstrFile[0] = '\0';
+    ofn.nMaxFile = sizeof(szFile);
+    ofn.lpstrFilter = L"JSON Files (*.json)\0*.json\0All Files (*.*)\0*.*\0";
+    ofn.nFilterIndex = 1;
+    ofn.lpstrFileTitle = NULL;
+    ofn.nMaxFileTitle = 0;
+    ofn.lpstrInitialDir = NULL;
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+    if (GetOpenFileName(&ofn) == TRUE)
+    {
+        return ofn.lpstrFile; // 사용자가 선택한 파일 경로 반환
+    }
+    return L""; // 사용자가 취소하면 빈 문자열 반환
 }
 
 TestMapTool::TestMapTool(SceneIds id)
@@ -110,12 +242,12 @@ void TestMapTool::Update(float dt)
     sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
     sf::Vector2f mouseWorldPos = SCENE_MGR.GetCurrentScene()->ScreenToWorld(mousePos);
 
-    timer += dt;
+    /*timer += dt;
     if (timer > duration)
     {
         printf("WORLD : (%f, %f)\n", mouseWorldPos.x, mouseWorldPos.y);
         timer = 0.f;
-    }
+    }*/
 
     float zoomAmount = 1.1f;
 
@@ -165,6 +297,11 @@ void TestMapTool::Update(float dt)
     if (InputMgr::GetKeyDown(sf::Keyboard::X))
     {
         SaveMapContent();
+    }
+
+    if (InputMgr::GetKeyDown(sf::Keyboard::L))
+    {
+        LoadMapFile();
     }
 }
 
@@ -308,7 +445,7 @@ void TestMapTool::DrawGrid()
 
     int gridIndex = 0;
 
-    for (int i = 0; i <= row + 1; ++i)
+    for (int i = 0; i < row + 1; ++i)
     {
         startLine = { startLine.x , (float)(i * size) + gridStartY };
         endLine = { (float)FRAMEWORK.GetWindowSize().x * 0.6f - 15.f, startLine.y };
@@ -324,7 +461,7 @@ void TestMapTool::DrawGrid()
     startLine = { gridStartX, gridStartY };
     endLine = startLine;
 
-    for (int j = 0; j <= col + 1; ++j)
+    for (int j = 0; j < col + 1; ++j)
     {
         startLine = { (float)(j * size) + gridStartX, startLine.y };
         endLine = { startLine.x , (float)FRAMEWORK.GetWindowSize().y };

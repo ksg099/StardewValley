@@ -34,6 +34,16 @@ void SpriteGo::SetTextureRect(const sf::IntRect& rect)
 	sprite.setTextureRect(rect);
 }
 
+void SpriteGo::SetFillColor(sf::Color color)
+{
+	sprite.setColor(color);
+}
+
+sf::Color SpriteGo::GetFillColor()
+{
+	return sprite.getColor();
+}
+
 void SpriteGo::SetPosition(const sf::Vector2f& pos)
 {
 	//GameObject::SetPosition(pos);
