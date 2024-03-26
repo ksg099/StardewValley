@@ -292,12 +292,12 @@ void MapToolUI::Update(float dt)
     sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
     sf::Vector2f mouseUIPos = SCENE_MGR.GetCurrentScene()->ScreenToUi(mousePos);
 
-    timer += dt;
+    /*timer += dt;
     if (timer > duration)
     {
         printf("UI : (%f, %f)\n", mouseUIPos.x, mouseUIPos.y);
         timer = 0.f;
-    }
+    }*/
 
     if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
     {
