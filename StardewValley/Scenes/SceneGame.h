@@ -5,13 +5,14 @@ class TileMap;
 class Inventory;
 class BoxInven;
 class TestMapTool;
+class Player;
 
 class SceneGame : public Scene
 {
 protected:
 	TileMap* tileMap = nullptr;
-
 	TestMapTool* testMapTool;
+	Player* player = nullptr;
 
 	// const sf::Vector2f tileSize = { 25.f, 25.f };
 

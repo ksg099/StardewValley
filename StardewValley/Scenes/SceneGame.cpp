@@ -25,7 +25,7 @@ void SceneGame::Init()
 	tileMap->sortLayer = -1;
 	AddGo(tileMap);
 
-	Player* player = new Player("Player");
+	player = new Player("Player");
 	player->sortLayer = 1;
 	AddGo(player);
 
@@ -125,15 +125,15 @@ void SceneGame::Enter()
 	tileMap->LoadTileMap("Farm");
 	tileMap->SetOrigin(Origins::MC);
 	Scene::Enter();
-	Plant1->SetPosition(IndexToPos(0));
-	Plant2->SetPosition(IndexToPos(0));
-	Plant3->SetPosition(IndexToPos(0));
-	Plant4->SetPosition(IndexToPos(0));
-	Plant5->SetPosition(IndexToPos(0));
-	Plant6->SetPosition(IndexToPos(0));
 
+	//sf::Vector2f playerPosition = player->GetPosition();
 
-
+	//Plant1->SetPosition(playerPosition);
+	//Plant2->SetPosition(playerPosition);
+	//Plant3->SetPosition(playerPosition);
+	//Plant4->SetPosition(playerPosition);
+	//Plant5->SetPosition(playerPosition);
+	//Plant6->SetPosition(playerPosition);
 }
 
 void SceneGame::Exit()
@@ -173,13 +173,70 @@ void SceneGame::Update(float dt)
 		Utils::EditFile(DT_MGR.GetGameSaveSelect(), saveDoc);
 	}
 
-	dailyTime += (dt);
+	Scene::Update(dt);
+
+	// 시간 업데이트
+	dailyTime += dt;
+
+	// 하루가 지나면 day를 증가시키고, 식물들의 상태를 초기화
 	if (dailyTime >= 24)
 	{
-		dailyTime = 0.f;
+		dailyTime -= 24; // 다음 날로 넘어감
 		++day;
 		std::cout << "Day : " << day << std::endl;
+
+		// 모든 식물을 비활성화
+		Plant1->SetActive(false);
+		Plant2->SetActive(false);
+		Plant3->SetActive(false);
+		Plant4->SetActive(false);
+		Plant5->SetActive(false);
+		Plant6->SetActive(false);
 	}
+
+	// Z키 입력을 감지하여 식물 위치 설정
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	{
+		sf::Vector2f playerPosition = player->GetPosition();
+		// 첫 번째 식물의 위치를 플레이어의 현재 위치로 설정
+		Plant1->SetPosition(playerPosition);
+		Plant2->SetPosition(playerPosition);
+		Plant3->SetPosition(playerPosition);
+		Plant4->SetPosition(playerPosition);
+		Plant5->SetPosition(playerPosition);
+		Plant6->SetPosition(playerPosition);
+	}
+
+	// day에 따라 특정 식물 활성화
+	switch (day)
+	{
+	case 1:
+		Plant1->SetActive(true);
+		break;
+	case 2:
+		Plant2->SetActive(true);
+		break;
+	case 3:
+		Plant3->SetActive(true);
+		break;
+	case 4:
+		Plant4->SetActive(true);
+		break;
+	case 5:
+		Plant5->SetActive(true);
+		break;
+	case 6:
+		Plant6->SetActive(true);
+		break;
+	}
+
+	//dailyTime += (dt);
+	//if (dailyTime >= 24)
+	//{
+	//	dailyTime = 0.f;
+	//	++day;
+	//	std::cout << "Day : " << day << std::endl;
+	//}
 
 	if (dailyTime >= 6 && dailyTime < 16 && targetColor != dayColor)
 	{
@@ -221,14 +278,28 @@ void SceneGame::Update(float dt)
 	//	else
 	//		plants[i]->SetActive(false);
 	//}
-	if (day == 1)
-	{
-		Plant1->SetActive(true);
-	}
 
-	if (day == 2)
-	{
-		Plant2->SetActive(true);
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	//{
+	//	// 플레이어의 현재 위치를 가져옴
+	//	sf::Vector2f playerPosition = player->GetPosition();
+
+	//	// 식물의 위치를 설정하지만, 아직 활성화하지 않음
+	//	Plant1->SetPosition(playerPosition);
+	//	Plant2->SetPosition(playerPosition);
+	//	Plant3->SetPosition(playerPosition);
+	//	Plant4->SetPosition(playerPosition);
+	//	Plant5->SetPosition(playerPosition);
+	//	Plant6->SetPosition(playerPosition);
+	//}
+	/*if (day == 1)
+	//{
+	//	Plant1->SetActive(true);
+	//}
+
+	//if (day == 2)
+	//{
+	//	Plant2->SetActive(true);
 		Plant1->SetActive(false);
 	}
 
@@ -262,7 +333,7 @@ void SceneGame::Update(float dt)
 		Plant4->SetActive(false);
 		Plant5->SetActive(false);
 		Plant6->SetActive(true);
-	}
+	}*/
 
 }
 

@@ -3,6 +3,8 @@
 #include "TileMap.h"
 #include "ObjectOnTile.h"
 #include "Inventory.h"
+#include "SceneGame.h"
+#include "Scene.h"
 
 Player::Player(const std::string& name) : SpriteGo(name)
 {
@@ -32,6 +34,7 @@ void Player::Reset()
 
 	tileMap = dynamic_cast<TileMap*>(SCENE_MGR.GetCurrentScene()->FindGo("Background"));
 	inventory = dynamic_cast<Inventory*>(SCENE_MGR.GetCurrentScene()->FindGo("Inventory"));
+	SceneGame* currentScene = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene()->FindGo("newSeed"));
 
 	gridIndex = { 1, 0 };
 	currentGridPosition = tileMap->GetGridPosition(gridIndex.x, gridIndex.y);
@@ -223,6 +226,11 @@ void Player::PlayMoveAnimation(sf::Vector2f posDiff)
 		}
 		side = Sides::None;
 	}
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+	{
+		OnDrop();
+	}
 }
 
 void Player::CheckCollision(sf::Vector2f& nextPos, sf::Vector2f& prevPos)
@@ -273,5 +281,11 @@ void Player::ChangeGridIndex(sf::Vector2f& nextPos)
 
 void Player::OnDrop()
 {
-	
+	//SpriteGo* newSeed = new SpriteGo("newSeed");
+	//newSeed->Init();
+	//newSeed->Reset();
+	//newSeed->SetPosition(this->GetPosition());
+	//newSeed->SetOrigin(Origins::MC);
+	//newSeed->SetActive(true);
+	//currentScene->AddGo(newSeed, Layers::World);
 }
