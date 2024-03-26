@@ -355,7 +355,7 @@ void TileMap::InteractWithTile(const int x, const int y, const ItemType type, co
 	}
 	else // ground 상호작용
 	{
-		if (tile->groundType != GroundType::WATER && type == ItemType::Tool && id == 3)
+		if (tile->groundType == GroundType::DIRT && type == ItemType::Tool && id == 3)
 		{
 			tile->floorType = FloorType::DRIED_ARABLE_LAND;
 			tile->floorId = 0;

@@ -4860,6 +4860,16 @@
             "CanOverlap": false
         },
         {
+            "Box ID": 0,
+            "Index X": 9,
+            "Index Y": 1,
+            "ItemType": 0,
+            "ItemId": 1,
+            "InstanceId": 4,
+            "Count": 5,
+            "CanOverlap": false
+        },
+        {
             "Box ID": 1,
             "Index X": 6,
             "Index Y": 2,

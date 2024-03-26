@@ -292,17 +292,19 @@ void TestMapTool::Update(float dt)
         {
             PlaceTileToIndex(SelectIndex(mouseWorldPos), mapToolUI->selectedTile);
         }
+
+        if (mapToolUI->GetSaveButtonGB().contains(mouseWorldPos))
+        {
+            SaveMapContent();
+        }
+
+        if (mapToolUI->GetLoadButtonGB().contains(mouseWorldPos))
+        {
+            LoadMapFile();
+        }
     }
 
-    if (InputMgr::GetKeyDown(sf::Keyboard::X))
-    {
-        SaveMapContent();
-    }
-
-    if (InputMgr::GetKeyDown(sf::Keyboard::L))
-    {
-        LoadMapFile();
-    }
+    
 }
 
 void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)

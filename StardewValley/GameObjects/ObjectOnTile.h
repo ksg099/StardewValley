@@ -12,6 +12,8 @@ private:
 	ObjectType objectType = ObjectType::NONE;
 	int objectId = 0;
 
+	int value = 0;
+
 public:
 	ObjectOnTile(const std::string& name = "");
 	~ObjectOnTile() override = default;

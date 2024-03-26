@@ -10,6 +10,7 @@ ObjectOnTile::ObjectOnTile(const std::string& name) : SpriteGo(name)
 void ObjectOnTile::Init()
 {
 	SpriteGo::Init();
+	value = 0;
 }
 
 void ObjectOnTile::Release()
@@ -20,7 +21,7 @@ void ObjectOnTile::Release()
 void ObjectOnTile::Reset()
 {
 	SpriteGo::Reset();
-
+	value = 0;
 	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
 }
 
@@ -56,14 +57,68 @@ void ObjectOnTile::InteractWithObject(const ItemType type, const int id)
 		//도끼 상호작용
 		if (type == ItemType::Tool && id == 1)
 		{
-			//여러번 도끼질해야 나무를 베는건데 이걸 어떻게 처리하지?
-			//도끼질 하다가 다른 나무로 가서 도끼질하면 처음부터 도끼질해야하는건데 그냥 count ++ 하면 안된다.
+			++value;
+			if (value == 5)
+			{
+				//TO-DO : 나무 아이템 드롭
+				value = 0;
+				SetActive(false);
+				sceneGame->RemoveGo(this);
+				tileData->object = nullptr;
+				tileData->objectType = ObjectType::NONE;
+				tileData->objectId = 0;
+
+				tileData->isPassable = true;
+				tileData->isPossiblePlace = true;
+			}
+		}
+		break;
+	case ObjectType::BRANCH:
+		//도끼 상호작용
+		if (type == ItemType::Tool && id == 1)
+		{
+			++value;
+			if (value == 1)
+			{
+				//TO-DO : 나무 아이템 드롭
+				value = 0;
+				SetActive(false);
+				sceneGame->RemoveGo(this);
+				tileData->object = nullptr;
+				tileData->objectType = ObjectType::NONE;
+				tileData->objectId = 0;
+
+				tileData->isPassable = true;
+				tileData->isPossiblePlace = true;
+			}
+		}
+		break;
+	case ObjectType::STUMP:
+		//도끼 상호작용
+		if (type == ItemType::Tool && id == 1)
+		{
+			++value;
+			if (value == 2)
+			{
+				//TO-DO : 나무 아이템 드롭
+				value = 0;
+				SetActive(false);
+				sceneGame->RemoveGo(this);
+				tileData->object = nullptr;
+				tileData->objectType = ObjectType::NONE;
+				tileData->objectId = 0;
+
+				tileData->isPassable = true;
+				tileData->isPossiblePlace = true;
+			}
 		}
 		break;
 	case ObjectType::WEED:
-		//낫 상호작용
-		if (type == ItemType::Tool && id == 2)
+		//도끼, 낫 상호작용
+		if ((type == ItemType::Tool && id == 1) ||
+			(type == ItemType::Tool && id == 2))
 		{
+			//TO-DO : 잡초 아이템 드롭
 			SetActive(false);
 			sceneGame->RemoveGo(this);
 			tileData->object = nullptr;
@@ -83,12 +138,38 @@ void ObjectOnTile::InteractWithObject(const ItemType type, const int id)
 		break;
 	case ObjectType::FURNITURE:
 		//곡괭이 상호작용
+		if (type == ItemType::Tool && id == 0)
+		{
+			//TO-DO : 해당 가구 아이템 드롭
+			SetActive(false);
+			sceneGame->RemoveGo(this);
+			tileData->object = nullptr;
+			tileData->objectType = ObjectType::NONE;
+			tileData->objectId = 0;
+
+			tileData->isPassable = true;
+			tileData->isPossiblePlace = true;
+		}
 		break;
 	case ObjectType::BOX:
+		//곡괭이 상호작용
+		if (type == ItemType::Tool && id == 0)
+		{
+			//TO-DO : 상자 아이템 드롭
+			SetActive(false);
+			sceneGame->RemoveGo(this);
+			tileData->object = nullptr;
+			tileData->objectType = ObjectType::NONE;
+			tileData->objectId = 0;
+
+			tileData->isPassable = true;
+			tileData->isPossiblePlace = true;
+		}
 		break;
 	case ObjectType::WALL:
 		break;
 	case ObjectType::BUILDING:
+		//건물 들어가기
 		break;
 	default:
 		break;
