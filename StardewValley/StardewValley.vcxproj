@@ -175,6 +175,7 @@
     <ClCompile Include="DataTables\ItemTable.cpp" />
     <ClCompile Include="GameObjects\TileMap.cpp" />
     <ClCompile Include="DataTables\ItemSave.cpp" />
+    <ClCompile Include="GameObjects\LoadBoxUi.cpp" />
     <ClCompile Include="main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
     </ClCompile>
@@ -196,6 +197,7 @@
     <ClCompile Include="GameObjects\UiHud.cpp" />
     <ClCompile Include="GameObjects\SpriteGoEffect.cpp" />
     <ClCompile Include="Framework\SoundMgr.cpp" />
+    <ClCompile Include="Scenes\SceneTitle.cpp" />
     <ClCompile Include="Scenes\TestMapTool.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -226,6 +228,7 @@
     <ClInclude Include="DataTables\ObjectTable.h" />
     <ClInclude Include="DataTables\ItemTable.h" />
     <ClInclude Include="DataTables\ItemSave.h" />
+    <ClInclude Include="GameObjects\LoadBoxUi.h" />
     <ClInclude Include="MapToolUI.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="GameObjects\Player.h" />
@@ -237,6 +240,7 @@
     <ClInclude Include="GameObjects\UiHud.h" />
     <ClInclude Include="GameObjects\SpriteGoEffect.h" />
     <ClInclude Include="Framework\SoundMgr.h" />
+    <ClInclude Include="Scenes\SceneTitle.h" />
     <ClInclude Include="Scenes\TestMapTool.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>

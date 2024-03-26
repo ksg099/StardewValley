@@ -10,6 +10,13 @@ private:
 	~DataTableMgr();
 
 	std::unordered_map<DataTable::Types, DataTable*> tables;
+	std::vector<std::string> tileMapData;
+	std::vector<std::string> gameSaveData;
+
+	std::string gameSaveSelect = "data/Save Data/example_save.json";
+	bool isSaveSelect = false;
+	std::string tileMapSelect = "";
+	bool isTileMapSelect = false;
 
 public:
 	void Init();
@@ -17,6 +24,16 @@ public:
 
 	template<typename T>
 	T* Get(DataTable::Types type);
+
+	const std::vector<std::string>& GetTileMapData() { return tileMapData; }
+	const std::vector<std::string>& GetGameSaveData() { return gameSaveData; }
+
+	void SetTileMapSelect(const std::string& name);
+	const std::string& GetTileMapSelect() { return tileMapSelect; }
+	void SetGameSaveSelect(const std::string& name);
+	const std::string& GetGameSaveSelect() { return gameSaveSelect; }
+
+	bool LoadSaveData();
 };
 
 template<typename T>

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Utils.h"
+#include <filesystem>
 
 float Utils::Clamp(float v, float min, float max)
 {
@@ -201,4 +202,36 @@ void Utils::EditFile(const std::string& wFilePath, rapidjson::Document& doc)
 	ofs << buffer.GetString();
 
 	ofs.close();
+}
+
+void Utils::ListFiles(const std::string& path, std::vector<std::string>& fileNames)
+{
+	try {
+		// 주어진 경로가 존재하고, 디렉토리인지 확인
+		if (std::filesystem::exists(path) && std::filesystem::is_directory(path))
+		{
+			// 디렉토리 내의 모든 항목을 순회
+			for (const auto& entry : std::filesystem::directory_iterator(path))
+			{
+				auto fileName = entry.path().filename().string(); // 파일 이름 추출
+				if (fileName.find(".json") != std::string::npos) // json 파일 검사
+				{
+					std::cout << fileName << std::endl;
+					fileNames.push_back(path + "/" + fileName);
+				}
+			}
+		}
+		else
+		{
+			std::cout << "Path does not exist or is not a directory." << std::endl;
+		}
+	}
+	catch (const std::filesystem::filesystem_error& err)
+	{
+		std::cerr << "Filesystem error: " << err.what() << std::endl;
+	}
+	catch (const std::exception& e)
+	{
+		std::cerr << "General error: " << e.what() << std::endl;
+	}
 }

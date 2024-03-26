@@ -41,4 +41,7 @@ public:
 	// json파일 입출력
 	static bool LoadFromFile(const std::string& rFilePath, rapidjson::Document& doc);
 	static void EditFile(const std::string& wFilePath, rapidjson::Document& doc);
+
+	// 주어진 경로의 파일 이름 출력
+	static void ListFiles(const std::string& path, std::vector<std::string>& fileNames);
 };

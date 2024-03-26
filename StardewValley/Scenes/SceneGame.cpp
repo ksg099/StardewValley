@@ -19,16 +19,9 @@ SceneGame::~SceneGame()
 
 void SceneGame::Init()
 {
-	// 테스트용
-	rapidjson::Document SaveDoc;
-	if (Utils::LoadFromFile("data/example.json", SaveDoc))
-	{
-		tileMap = new TileMap("Background");
-		tileMap->LoadTileMap("Farm");
-		tileMap->SetOrigin(Origins::MC);
-		tileMap->sortLayer = -1;
-		AddGo(tileMap);
-	}
+	tileMap = new TileMap("Background");
+	tileMap->sortLayer = -1;
+	AddGo(tileMap);
 
 	Player* player = new Player("Player");
 	player->sortLayer = 1;
@@ -52,6 +45,9 @@ void SceneGame::Release()
 
 void SceneGame::Enter()
 {
+	tileMap->LoadTileMap("Farm");
+	tileMap->SetOrigin(Origins::MC);
+
 	Scene::Enter();
 }
 
@@ -70,7 +66,7 @@ void SceneGame::Update(float dt)
 		saveDoc.SetObject();
 		TILEMAP_SAVE->Save(saveDoc);
 		ITEM_SAVE->Save(saveDoc);
-		Utils::EditFile("data/example_save.json", saveDoc);
+		Utils::EditFile(DT_MGR.GetGameSaveSelect(), saveDoc);
 	}
 }
 

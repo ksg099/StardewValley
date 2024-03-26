@@ -31,6 +31,10 @@
     <ClCompile Include="GameObjects\FloorOnTile.cpp" />
     <ClCompile Include="Scenes\TestMapTool.cpp" />
     <ClCompile Include="MapToolUI.cpp" />
+    <ClCompile Include="GameObjects\BoxInven.cpp" />
+    <ClCompile Include="DataTables\TileMapSave.cpp" />
+    <ClCompile Include="Scenes\SceneTitle.cpp" />
+    <ClCompile Include="GameObjects\LoadBoxUi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataTables\DataTable.h" />
@@ -66,5 +70,9 @@
     <ClInclude Include="GameObjects\FloorOnTile.h" />
     <ClInclude Include="Scenes\TestMapTool.h" />
     <ClInclude Include="MapToolUI.h" />
+    <ClInclude Include="GameObjects\BoxInven.h" />
+    <ClInclude Include="DataTables\TileMapSave.h" />
+    <ClInclude Include="Scenes\SceneTitle.h" />
+    <ClInclude Include="GameObjects\LoadBoxUi.h" />
   </ItemGroup>
 </Project>

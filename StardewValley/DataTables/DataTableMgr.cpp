@@ -38,6 +38,9 @@ void DataTableMgr::Init()
 	DataTable* itemSaveTable = new ItemSave(DataTable::Types::ITEM_SAVE_DATA);
 	tables.insert({ DataTable::Types::ITEM_SAVE_DATA, itemSaveTable });
 
+	Utils::ListFiles("data/Tile Map", tileMapData);
+	Utils::ListFiles("data/Save Data", gameSaveData);
+
 	rapidjson::Document dataDoc;
 	if (Utils::LoadFromFile("data/DataTable.json", dataDoc))
 	{
@@ -45,18 +48,6 @@ void DataTableMgr::Init()
 		FLOOR_TABLE->Load(dataDoc);
 		OBJECT_TABLE->Load(dataDoc);
 		ITEM_TABLE->Load(dataDoc);
-	}
-
-	rapidjson::Document SaveDoc;
-	rapidjson::Document testDoc;
-	if (Utils::LoadFromFile("data/byeongmin.json", testDoc))
-	{
-		TILEMAP_SAVE->Load(testDoc);
-	}
-
-	if (Utils::LoadFromFile("data/example_save.json", SaveDoc))
-	{
-		ITEM_SAVE->Load(SaveDoc);
 	}
 }
 
@@ -67,4 +58,45 @@ void DataTableMgr::Release()
 		delete pair.second;
 	}
 	tables.clear();
+}
+
+void DataTableMgr::SetTileMapSelect(const std::string& name)
+{
+	tileMapSelect = name;
+	isTileMapSelect = true;
+}
+
+void DataTableMgr::SetGameSaveSelect(const std::string& name)
+{
+	gameSaveSelect = name;
+	isSaveSelect = true;
+}
+
+bool DataTableMgr::LoadSaveData()
+{
+	if (!isSaveSelect)
+	{
+		return false;
+	}
+
+	if (!isTileMapSelect)
+	{
+		tileMapSelect = gameSaveSelect;
+	}
+
+	rapidjson::Document tileMapDoc;
+	if (!Utils::LoadFromFile(tileMapSelect, tileMapDoc))
+	{
+		return false;
+	}
+	TILEMAP_SAVE->Load(tileMapDoc);
+
+	rapidjson::Document SaveDoc;
+	if (!Utils::LoadFromFile(gameSaveSelect, SaveDoc))
+	{
+		return false;
+	}
+	ITEM_SAVE->Load(SaveDoc);
+
+	return true;
 }

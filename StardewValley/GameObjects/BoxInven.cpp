@@ -12,9 +12,6 @@ void BoxInven::Init()
 {
 	SpriteGo::Init();
 
-	firstItems = ITEM_SAVE->Get(firstBoxId);
-	secondItems = ITEM_SAVE->Get(secondBoxId);
-
 	//인벤토리 창 구현
 	SetTexture("graphics/Ui.png");
 	smallUi.SetTexture("graphics/smallUi.png");
@@ -88,6 +85,9 @@ void BoxInven::Release()
 
 void BoxInven::Reset()
 {
+	firstItems = ITEM_SAVE->Get(firstBoxId);
+	secondItems = ITEM_SAVE->Get(secondBoxId);
+
 	SpriteGo::Reset();
 	SetOrigin(Origins::MC);
 	for (int i = 0; i < countY; i++)
