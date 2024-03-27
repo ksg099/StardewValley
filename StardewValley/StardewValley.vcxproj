@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ChangeHarvest.cpp" />
     <ClCompile Include="DataTables\DataTable.cpp" />
     <ClCompile Include="DataTables\GroundTable.cpp" />
     <ClCompile Include="DataTables\FloorTable.cpp" />
@@ -207,6 +208,7 @@
     <ClCompile Include="GameObjects\UiStore.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ChangeHarvest.h" />
     <ClInclude Include="DataTables\DataTable.h" />
     <ClInclude Include="DataTables\GroundTable.h" />
     <ClInclude Include="DataTables\FloorTable.h" />

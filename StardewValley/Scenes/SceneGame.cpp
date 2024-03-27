@@ -7,6 +7,9 @@
 #include "BoxInven.h"
 #include "UiStore.h"
 
+#include "TestMapTool.h"
+#include "ChangeHarvest.h"
+
 SceneGame::SceneGame(SceneIds id) : Scene(id)
 {
 }
@@ -25,7 +28,7 @@ void SceneGame::Init()
 	player->sortLayer = 1;
 	AddGo(player);
 
-	//ÀÎº¥Åä¸® À§Ä¡ Àâ±â
+	//ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½
 	inventory = new Inventory("Inventory");
 	inventory->SetPosition({ 1920 / 2, 1080 / 2 });
 	AddGo(inventory, Ui);
@@ -34,11 +37,7 @@ void SceneGame::Init()
 	boxInven->SetPosition({ 1920 / 2, 1080 / 2 });
 	AddGo(boxInven, Ui);
 
-	dailyTime = 6.f;
-	/*overlayer.setSize({ (float)FRAMEWORK.GetWindowSize().x, (float)FRAMEWORK.GetWindowSize().y });
-	overlayer.setFillColor(dayColor);
-	overlayer.setOrigin(0.f, 0.f);
-	overlayer.setPosition(0.f, 0.f);*/
+	dailyTime = 2.f;
 
 	layer = new SpriteGo("layer");
 	layer->SetTexture("graphics/layout.png");
@@ -85,6 +84,16 @@ sf::Color SceneGame::LerpColor(const sf::Color& start, const sf::Color& end, flo
 		start.a + (end.a - start.a) * t);
 }
 
+sf::Vector2f SceneGame::IndexToPos(int index)
+{
+	const sf::Vector2f& size = tileMap->GetCellSize();
+	col = tileMap->GetCellSize().y;
+
+	int y = index / col;
+	int x = index % col;
+	return sf::Vector2f((x * size.x + size.x / 2) + gridStartX, (y * size.y + size.y / 2) + gridStartY);
+}
+
 void SceneGame::Update(float dt)
 {
 	Scene::Update(dt);
@@ -98,20 +107,22 @@ void SceneGame::Update(float dt)
 		ITEM_SAVE->Save(saveDoc);
 		Utils::EditFile(DT_MGR.GetGameSaveSelect(), saveDoc);
 	}
+	Scene::Update(dt);
+
+	// ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+	dailyTime += dt;
+
+	// ï¿½Ï·ç°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ dayï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½, ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½Ê±ï¿½È­
 
 	// inventory active/inactive
 	SetInventory();
 
-	
-
-	dailyTime += (dt);
 	if (dailyTime >= 24)
 	{
-		dailyTime = 0.f;
+		dailyTime -= 24; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¨
 		++day;
-		std::cout << "Day : " << day << std::endl;
 
-		SellAllItemsInBox();
+		std::cout << "Day : " << day << std::endl;
 	}
 
 	if (dailyTime >= 6 && dailyTime < 16 && targetColor != dayColor)
@@ -126,14 +137,14 @@ void SceneGame::Update(float dt)
 		currentColor = layer->GetFillColor();
 		progress = 0.f;
 	}
-	else if(dailyTime >= 20 || dailyTime < 6 && targetColor != nightColor)
+	else if (dailyTime >= 20 || dailyTime < 6 && targetColor != nightColor)
 	{
 		targetColor = nightColor;
 		currentColor = layer->GetFillColor();
 		progress = 0.f;
 	}
 
-	if (progress < 5.f)
+	if (progress < 7.f)
 	{
 		progress += dt / transitionDuration;
 		if (progress > 5.f)
@@ -142,6 +153,7 @@ void SceneGame::Update(float dt)
 		}
 		layer->SetFillColor(LerpColor(layer->GetFillColor(), targetColor, progress));
 	}
+
 	if (!dropItemList.empty())
 	{
 		for (auto& item : dropItemList)
@@ -187,7 +199,6 @@ void SceneGame::Update(float dt)
 			++it;
 		}
 	}
-
 }
 
 void SceneGame::Draw(sf::RenderWindow& window)
@@ -254,6 +265,7 @@ void SceneGame::CreateItem(DataItem data, int indexX, int indexY)
 	}
 }
 
+
 void SceneGame::SetInventory()
 {
 	if (InputMgr::GetKeyDown(sf::Keyboard::I) && !boxInven->GetActive())
@@ -265,7 +277,7 @@ void SceneGame::SetInventory()
 		}
 	}
 
-	//ÀÎº¥Åä¸®°¡ ¾Èº¸¿´´Ù¸é IÅ°¸¦ ´­·¶À»¶§ º¸ÀÌ°Ô ÇÏ±â
+	//ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½Èºï¿½ï¿½ï¿½ï¿½Ù¸ï¿½ IÅ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½Ï±ï¿½
 	if (InputMgr::GetKeyDown(sf::Keyboard::U) && !inventory->GetActive())
 	{
 		boxInven->SetActive(!boxInven->GetActive());
@@ -292,10 +304,10 @@ void SceneGame::SellAllItemsInBox()
 	{
 		if (item != nullptr)
 		{
-			// ¾ÆÀÌÅÛ °¡°Ý °è»ê
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			sellingPrice += ITEM_TABLE->Get(item->type, item->itemId).sellingPrice * item->count;
 
-			// ¾ÆÀÌÅÛ »èÁ¦
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			delete item;
 			item = nullptr;
 		}

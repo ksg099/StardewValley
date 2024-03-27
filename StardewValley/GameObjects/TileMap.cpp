@@ -40,6 +40,16 @@ const TileData* TileMap::GetTileData(int x, int y) const
 	return (*tiles)[y * cellCount.x + x];
 }
 
+TileData* TileMap::GetTileData(int x, int y)
+{
+	if (IsOutOfRange(x, y))
+	{
+		return nullptr;
+	}
+
+	return (*tiles)[y * cellCount.x + x];
+}
+
 void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
 {
 	cellCount = count;

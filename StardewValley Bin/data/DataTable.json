@@ -1160,7 +1160,7 @@
     {
       "Harvest Name": "Cauliflower6",
       "Harvest ID": 0,
-      "Growing Day": 2,
+      "Growing Day": 0,
       "Growing Level": 6
     },
     {
@@ -1190,7 +1190,7 @@
     {
       "Harvest Name": "Parsnip5",
       "Harvest ID": 1,
-      "Growing Day": 1,
+      "Growing Day": 0,
       "Growing Level": 5
     }
   ]

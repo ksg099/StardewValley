@@ -9,8 +9,8 @@ class Player : public SpriteGo
 private:
 	TileMap* tileMap = nullptr;
 	Inventory* inventory = nullptr;
-
 	ItemData* itemInUse = nullptr;
+
 
 	sf::Vector2i gridIndex = { 0, 0 };
 
@@ -40,10 +40,14 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	//sf::Vector2f GetPosition() const { return position; }
 	float GetSpeed() { return speed; }
 	// void MoveTileUnit(float dt);
 	void PlayMoveAnimation(sf::Vector2f posDIff);
 	void CheckCollision(sf::Vector2f& nextPos, sf::Vector2f& prevPos);
 	void ChangeGridIndex(sf::Vector2f& nextPos);
+
+	void SetPlant();
 };
 

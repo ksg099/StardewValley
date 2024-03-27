@@ -12,7 +12,7 @@ HarvestTable::~HarvestTable()
 	Release();
 }
 
-const DataHarvest& HarvestTable::Get(HarvestType type, int id)
+const DataHarvest& HarvestTable::Get(HarvestType type)
 {
 	auto find = harvestTable.find(type);
 	if (find == harvestTable.end())
