@@ -22,6 +22,8 @@ void InvetorySlot::Reset()
 	SpriteGo::Reset();
 	hasHitBox = true;
 	SetEmpty();
+
+	isDraw = true;
 }
 
 void InvetorySlot::Update(float dt)
@@ -51,10 +53,13 @@ void InvetorySlot::SetItem(ItemData* data)
 	auto item = ITEM_TABLE->Get(itemData->type, itemData->itemId);
 	icon.SetTextureRect(sf::IntRect(item.sheetId.x, item.sheetId.y, item.sheetSize.x, item.sheetSize.y));
 	icon.SetTexture(item.textureId);
-	icon.SetScale({ 50.f / item.sheetSize.x, 50.f / item.sheetSize.y }); //�̺κ� ������ ����� ������ �ٽ� �����ʿ��ҵ�
+	float scale = item.sheetSize.x > item.sheetSize.y ? item.sheetSize.x : item.sheetSize.y;
+	icon.SetScale(sf::Vector2f(50.f / scale, 50.f / scale));
+	// icon.SetScale({ 50.f / item.sheetSize.x, 50.f / item.sheetSize.y }); //�̺κ� ������ ����� ������ �ٽ� �����ʿ��ҵ�
 	icon.SetOrigin(Origins::MC);
 	//itemCountText.SetString(std::to_string(itemData->count));
 	//itemCountText.SetActive(true);
+	isDraw = true;
 }
 
 void InvetorySlot::Draw(sf::RenderWindow& window)
@@ -62,7 +67,7 @@ void InvetorySlot::Draw(sf::RenderWindow& window)
 	SpriteGo::Draw(window);
 
 	//������ �����Ͱ� ���� ��쿡�� �׸��� ���� �˷��ֱ�
-	if (itemData != nullptr)
+	if (itemData != nullptr && isDraw)
 	{
 		icon.Draw(window);
 		itemCountText.Draw(window);

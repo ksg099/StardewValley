@@ -4,6 +4,7 @@
 #include "FloorTable.h"
 #include "ObjectTable.h"
 #include "ItemTable.h"
+#include "HarvestTable.h"
 #include "TileMapSave.h"
 #include "ItemSave.h"
 
@@ -32,6 +33,9 @@ void DataTableMgr::Init()
 	DataTable* itemTable = new ItemTable(DataTable::Types::ITEM);
 	tables.insert({ DataTable::Types::ITEM, itemTable });
 
+	DataTable* harvestTable = new HarvestTable(DataTable::Types::HARVEST);
+	tables.insert({ DataTable::Types::HARVEST, harvestTable });
+
 	DataTable* tileMapSave = new TileMapSave(DataTable::Types::TILEMAP_SAVE_DATA);
 	tables.insert({ DataTable::Types::TILEMAP_SAVE_DATA, tileMapSave });
 
@@ -48,6 +52,7 @@ void DataTableMgr::Init()
 		FLOOR_TABLE->Load(dataDoc);
 		OBJECT_TABLE->Load(dataDoc);
 		ITEM_TABLE->Load(dataDoc);
+		HARVEST_TABLE->Load(dataDoc);
 	}
 }
 

@@ -5,6 +5,7 @@
 #include "Inventory.h"
 #include "SceneGame.h"
 #include "Scene.h"
+#include "ChangeHarvest.h"
 
 Player::Player(const std::string& name) : SpriteGo(name)
 {
@@ -127,6 +128,12 @@ void Player::Update(float dt)
 			obj->InteractWithPlayer();
 		}*/
 	}
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::C))
+	{
+		SetPlant();
+	}
+
 }
 
 void Player::Draw(sf::RenderWindow& window)
@@ -229,7 +236,7 @@ void Player::PlayMoveAnimation(sf::Vector2f posDiff)
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 	{
-		OnDrop();
+
 	}
 }
 
@@ -277,6 +284,30 @@ void Player::ChangeGridIndex(sf::Vector2f& nextPos)
 	}
 	// std::cout << gridIndex.x << ", " << gridIndex.y << std::endl;
 	currentGridPosition = tileMap->GetGridPosition(gridIndex.x, gridIndex.y);
+}
+
+void Player::SetPlant()
+{
+	std::cout << gridIndex.x <<  gridIndex.y << std::endl;
+	TileData* tiledata = tileMap->GetTileData(gridIndex.x, gridIndex.y);
+	tiledata->objectType = ObjectType::CROPS;
+	tiledata->objectId = 0; // 6: Parsnip1
+
+	ChangeHarvest* obj = new ChangeHarvest("changeHarvest");;
+	obj->SetData(&HARVEST_TABLE->Get(HarvestType::CAULIFLOWER));
+	obj->SetObjectType(tiledata->objectType);
+	obj->SetObjectId(tiledata->objectId);
+	obj->SetPosition(tileMap->GetGridPosition(gridIndex.x, gridIndex.y));
+
+	tiledata->object = obj;
+
+	//auto& objData = OBJECT_TABLE->Get(ObjectType::CROPS, (int)HarvestType::CAULIFLOWER);
+	//obj->SetTexture(objData.textureId);
+	//obj->SetTextureRect(sf::IntRect(objData.sheetId.x, objData.sheetId.y, objData.sheetSize.x, objData.sheetSize.y));
+	//obj->SetOrigin(Origins::MC);
+	obj->Init();
+	obj->Reset();
+
 }
 
 void Player::OnDrop()

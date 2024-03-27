@@ -11,6 +11,7 @@ private:
 	Inventory* inventory = nullptr;
 	ItemData* itemInUse = nullptr;
 
+
 	sf::Vector2i gridIndex = { 0, 0 };
 
 	bool isMove = false;
@@ -46,6 +47,7 @@ public:
 	void CheckCollision(sf::Vector2f& nextPos, sf::Vector2f& prevPos);
 	void ChangeGridIndex(sf::Vector2f& nextPos);
 
+	void SetPlant();
 	void OnDrop();
 };
 

@@ -9,6 +9,7 @@ public:
 		FLOOR,
 		OBJECT,
 		ITEM,
+		HARVEST,
 		TILEMAP_SAVE_DATA,
 		ITEM_SAVE_DATA,
 	};

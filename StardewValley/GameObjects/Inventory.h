@@ -22,6 +22,8 @@ protected:
 	TextGo itemInfoText;
 	//�ε��� �� �Ҵ�
 	int firstClickIndex = -1;
+	sf::Sprite firstClickSprite;
+	bool isClick = false;
 	
 	std::vector<InvetorySlot*> slots; //slot �����̳�
 	std::vector<InvetorySlot*> smallslots; //smallslot �����̳�
@@ -47,7 +49,6 @@ public:
 	virtual void Update(float dt) override;
 	virtual void Draw(sf::RenderWindow& window) override;
 
-	bool isAble = true;
 	bool IsItemInBox(ItemData* item, int boxId) { return item->BoxId == boxId; }
 	
 	virtual void SetPosition(const sf::Vector2f& pos) override;

@@ -5,7 +5,7 @@ class SceneGame;
 
 class ObjectOnTile : public SpriteGo
 {
-private:
+protected:
 	SceneGame* sceneGame = nullptr;
 	TileData* tileData = nullptr;
 
@@ -19,7 +19,6 @@ public:
 	void SetTileData(TileData*& data) { tileData = data; }
 	void SetObjectType(const ObjectType type) { objectType = type; }
 	void SetObjectId(const int id) { objectId = id; }
-
 	void Init() override;
 	void Release() override;
 	void Reset() override;
