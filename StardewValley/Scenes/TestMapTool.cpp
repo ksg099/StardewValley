@@ -123,15 +123,6 @@ void TestMapTool::LoadMapFile()
             }
         }
     }
-    std::cout << "380 objectType : " << (int)(mapData[380].objectLayer.objectType) << std::endl;
-    std::cout << "380 objectID : " << mapData[380].objectLayer.ID << std::endl;
-    std::cout << "381 objectType : " << (int)(mapData[381].objectLayer.objectType) << std::endl;
-    std::cout << "381 objectID : " << mapData[381].objectLayer.ID << std::endl;
-    std::cout << "382 objectType : " << (int)(mapData[382].objectLayer.objectType) << std::endl;
-    std::cout << "382 objectID : " << mapData[382].objectLayer.ID << std::endl;
-    std::cout << "383 objectType : " << (int)(mapData[383].objectLayer.objectType) << std::endl;
-    std::cout << "383 objectID : " << mapData[383].objectLayer.ID << std::endl;
-    
 }
 
 void TestMapTool::UpdateTransform()
@@ -553,29 +544,29 @@ void TestMapTool::SaveMapContent()
     int X = 0;
     int Y = 0;
 
-    for (const auto& map : mapData)
-    {
-            Value tileContent(kObjectType); // 개별 타일 정보를 담을 JSON 객체 생성
-            
-            if (X >= row)
-            {
-                ++Y;
-                X = 0;
-            }
-            tileContent.AddMember("Index X", X, allocator);
-            tileContent.AddMember("Index Y", Y, allocator);
-            tileContent.AddMember("Ground Type", (int)(map.groundLayer.groundType), allocator);
-            tileContent.AddMember("Ground ID", map.groundLayer.ID, allocator);
-            tileContent.AddMember("Floor Type", (int)(map.floorLayer.floorType), allocator);
-            tileContent.AddMember("Floor ID", map.floorLayer.ID, allocator);
-            tileContent.AddMember("Object Type", (int)(map.objectLayer.objectType), allocator);
-            tileContent.AddMember("Object ID", map.objectLayer.ID, allocator);
-            tileContent.AddMember("Placed Possible", map.placedPossible, allocator);
-            tileContent.AddMember("Player Passable", map.playerPassable, allocator);
-            ++X;
-            // 타일 객체를 타일 배열에 추가
-            tilesArray.PushBack(tileContent, allocator);
-    }
+	for (const auto& map : mapData)
+	{
+		Value tileContent(kObjectType); // 개별 타일 정보를 담을 JSON 객체 생성
+
+		if (X >= row)
+		{
+			++Y;
+			X = 0;
+		}
+		tileContent.AddMember("Index X", X, allocator);
+		tileContent.AddMember("Index Y", Y, allocator);
+		tileContent.AddMember("Ground Type", (int)(map.groundLayer.groundType), allocator);
+		tileContent.AddMember("Ground ID", map.groundLayer.ID, allocator);
+		tileContent.AddMember("Floor Type", (int)(map.floorLayer.floorType), allocator);
+		tileContent.AddMember("Floor ID", map.floorLayer.ID, allocator);
+		tileContent.AddMember("Object Type", (int)(map.objectLayer.objectType), allocator);
+		tileContent.AddMember("Object ID", map.objectLayer.ID, allocator);
+		tileContent.AddMember("Placed Possible", map.placedPossible, allocator);
+		tileContent.AddMember("Player Passable", map.playerPassable, allocator);
+		++X;
+		
+		tilesArray.PushBack(tileContent, allocator);
+	}
 
     tileMapData.AddMember("Tiles", tilesArray, allocator);
     array.PushBack(tileMapData, allocator);
@@ -584,11 +575,9 @@ void TestMapTool::SaveMapContent()
     std::wstring savePath = SaveFilePath();
     if (savePath.empty())
     {
-        return; // 취소할 경우 return
+        return;
     }
 
-    // JSON 문서를 파일에 쓰기
-    // TODO : fopen 수정하기
     std::string sSavePath = WstringToString(savePath);
     FILE* fp = fopen(sSavePath.c_str(), "wb");
 

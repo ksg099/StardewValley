@@ -313,6 +313,7 @@ FloorOnTile* TileMap::CreateFloor(const FloorType type, const int id)
 	auto& floorData = FLOOR_TABLE->Get(type, id);
 	floor->SetTexture(floorData.textureId);
 	floor->SetTextureRect(sf::IntRect(floorData.sheetId.x, floorData.sheetId.y, floorData.sheetSize.x, floorData.sheetSize.y));
+	floor->SetScale({cellSize.x / floorData.sheetSize.x, cellSize.y / floorData.sheetSize.y});
 	floor->SetOrigin(Origins::MC);
 	floor->Init();
 	floor->Reset();
