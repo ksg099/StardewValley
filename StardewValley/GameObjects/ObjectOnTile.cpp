@@ -47,7 +47,6 @@ void ObjectOnTile::InteractWithObject(const ItemType type, const int id)
 		{
 			DataItem itemData = ITEM_TABLE->Get("stoneItem");
 			sceneGame->CreateItem(itemData, tileData->indexX, tileData->indexY);
-			//인벤토리에 돌맹이 아이템 추가되어야 함
 			SetActive(false);
 			sceneGame->RemoveGo(this);
 			tileData->object = nullptr;
@@ -65,7 +64,8 @@ void ObjectOnTile::InteractWithObject(const ItemType type, const int id)
 			++value;
 			if (value == 5)
 			{
-				//TO-DO : 나무 아이템 드롭
+				DataItem itemData = ITEM_TABLE->Get("branchItem");
+				sceneGame->CreateItem(itemData, tileData->indexX, tileData->indexY);
 				value = 0;
 				SetActive(false);
 				sceneGame->RemoveGo(this);
@@ -85,7 +85,8 @@ void ObjectOnTile::InteractWithObject(const ItemType type, const int id)
 			++value;
 			if (value == 1)
 			{
-				//TO-DO : 나무 아이템 드롭
+				DataItem itemData = ITEM_TABLE->Get("branchItem");
+				sceneGame->CreateItem(itemData, tileData->indexX, tileData->indexY);
 				value = 0;
 				SetActive(false);
 				sceneGame->RemoveGo(this);
@@ -105,7 +106,8 @@ void ObjectOnTile::InteractWithObject(const ItemType type, const int id)
 			++value;
 			if (value == 2)
 			{
-				//TO-DO : 나무 아이템 드롭
+				DataItem itemData = ITEM_TABLE->Get("branchItem");
+				sceneGame->CreateItem(itemData, tileData->indexX, tileData->indexY);
 				value = 0;
 				SetActive(false);
 				sceneGame->RemoveGo(this);
@@ -123,7 +125,8 @@ void ObjectOnTile::InteractWithObject(const ItemType type, const int id)
 		if ((type == ItemType::Tool && id == 1) ||
 			(type == ItemType::Tool && id == 2))
 		{
-			//TO-DO : 잡초 아이템 드롭
+			DataItem itemData = ITEM_TABLE->Get("weedItem");
+			sceneGame->CreateItem(itemData, tileData->indexX, tileData->indexY);
 			SetActive(false);
 			sceneGame->RemoveGo(this);
 			tileData->object = nullptr;
@@ -140,6 +143,7 @@ void ObjectOnTile::InteractWithObject(const ItemType type, const int id)
 		{
 			tileData->floor->InteractWithFloor(type, id);
 		}
+		//TO-DO : 다 자란 작물만 수확 상호작용할 수 있게 짜기
 		break;
 	case ObjectType::FURNITURE:
 		//곡괭이 상호작용

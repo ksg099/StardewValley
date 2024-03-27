@@ -46,6 +46,8 @@ protected:
 	float timer = 0.f;
 	float duration = 3.f;
 
+	bool isErase = false;
+
 	rapidjson::Document doc;
 
 	MapToolUI* mapToolUI;
@@ -68,8 +70,8 @@ public:
 
 	void Update(float dt) override;
 
+	void ErasePlacedTile(int indexNum);
 	void PlaceTileToIndex(int indexNum, MapSheet& tile);
-	Tile* GetIndexState(int index);
 
 	void Draw(sf::RenderWindow& window) override;    
 	

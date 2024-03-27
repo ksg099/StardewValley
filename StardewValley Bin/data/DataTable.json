@@ -33,6 +33,38 @@
               "Sheet ID Y": 208,
               "Sheet ID W": 16,
               "Sheet ID H": 16
+            },
+            {
+              "Tile Name": "Water4",
+              "Tile ID": 3,
+              "Sheet ID X": 160,
+              "Sheet ID Y": 96,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+            },
+            {
+              "Tile Name": "Water5",
+              "Tile ID": 4,
+              "Sheet ID X": 335,
+              "Sheet ID Y": 800,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+            },
+            {
+              "Tile Name": "Water6",
+              "Tile ID": 5,
+              "Sheet ID X": 352,
+              "Sheet ID Y": 784,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+            },
+            {
+              "Tile Name": "Water7",
+              "Tile ID": 6,
+              "Sheet ID X": 369,
+              "Sheet ID Y": 784,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
             }
           ]
         },
@@ -63,6 +95,14 @@
                 "Sheet ID Y": 144,
                 "Sheet ID W": 16,
                 "Sheet ID H": 16
+              },
+              {
+                "Tile Name": "dirt4",
+                "Tile ID": 3,
+                "Sheet ID X": 192,
+                "Sheet ID Y": 336,
+                "Sheet ID W": 16,
+                "Sheet ID H": 16
               }
             ]
         },
@@ -91,6 +131,30 @@
               "Tile ID": 2,
               "Sheet ID X": 80,
               "Sheet ID Y": 192,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+            },
+            {
+              "Tile Name": "grass4",
+              "Tile ID": 3,
+              "Sheet ID X": 0,
+              "Sheet ID Y": 112,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+            },
+            {
+              "Tile Name": "grass5",
+              "Tile ID": 4,
+              "Sheet ID X": 64,
+              "Sheet ID Y": 112,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+            },
+            {
+              "Tile Name": "grass6",
+              "Tile ID": 5,
+              "Sheet ID X": 80,
+              "Sheet ID Y": 112,
               "Sheet ID W": 16,
               "Sheet ID H": 16
             }
@@ -193,21 +257,147 @@
             {
                 "Floor Name" : "wood path1",
                 "Floor ID" : 0,
-                "Resource": "graphics/hoeDirt.png",
+                "Resource": "graphics/Flooring.png",
                 "Sheet ID X": 0,
-                "Sheet ID Y": 73,
-                "Sheet ID W": 15,
-                "Sheet ID H": 15
+                "Sheet ID Y": 0,
+                "Sheet ID W": 16,
+                "Sheet ID H": 16
             },
             {
                 "Floor Name" : "wood path2",
                 "Floor ID" : 1,
-                "Resource": "graphics/hoeDirt.png",
+                "Resource": "graphics/Flooring.png",
                 "Sheet ID X": 16,
                 "Sheet ID Y": 0,
-                "Sheet ID W": 15,
-                "Sheet ID H": 15
-            }
+                "Sheet ID W": 16,
+                "Sheet ID H": 16
+            },
+            {
+               "Floor Name" : "wood path3",
+               "Floor ID" : 2,
+               "Resource": "graphics/Flooring.png",
+               "Sheet ID X": 32,
+               "Sheet ID Y": 0,
+               "Sheet ID W": 16,
+               "Sheet ID H": 16
+           },
+           {
+              "Floor Name" : "wood path4",
+              "Floor ID" : 3,
+              "Resource": "graphics/Flooring.png",
+              "Sheet ID X": 48,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+           },
+           {
+              "Floor Name" : "wood path5",
+              "Floor ID" : 4,
+              "Resource": "graphics/Flooring.png",
+              "Sheet ID X": 0,
+              "Sheet ID Y": 16,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+           },
+           {
+             "Floor Name" : "wood path6",
+             "Floor ID" : 5,
+             "Resource": "graphics/Flooring.png",
+             "Sheet ID X": 16,
+             "Sheet ID Y": 16,
+             "Sheet ID W": 16,
+             "Sheet ID H": 16
+           },
+           {
+             "Floor Name" : "wood path7",
+             "Floor ID" : 6,
+             "Resource": "graphics/Flooring.png",
+             "Sheet ID X": 32,
+             "Sheet ID Y": 16,
+             "Sheet ID W": 16,
+             "Sheet ID H": 16
+           },
+           {
+             "Floor Name" : "wood path8",
+             "Floor ID" : 7,
+             "Resource": "graphics/Flooring.png",
+             "Sheet ID X": 48,
+             "Sheet ID Y": 16,
+             "Sheet ID W": 16,
+             "Sheet ID H": 16
+           },
+           {
+             "Floor Name" : "wood path9",
+             "Floor ID" : 8,
+             "Resource": "graphics/Flooring.png",
+             "Sheet ID X": 0,
+             "Sheet ID Y": 32,
+             "Sheet ID W": 16,
+             "Sheet ID H": 16
+           },
+           {
+             "Floor Name" : "wood path10",
+             "Floor ID" : 9,
+             "Resource": "graphics/Flooring.png",
+             "Sheet ID X": 16,
+             "Sheet ID Y": 32,
+             "Sheet ID W": 16,
+             "Sheet ID H": 16
+           },
+           {
+             "Floor Name" : "wood path10",
+             "Floor ID" : 9,
+             "Resource": "graphics/Flooring.png",
+             "Sheet ID X": 32,
+             "Sheet ID Y": 32,
+             "Sheet ID W": 16,
+             "Sheet ID H": 16
+           },
+           {
+             "Floor Name" : "wood path11",
+             "Floor ID" : 10,
+             "Resource": "graphics/Flooring.png",
+             "Sheet ID X": 48,
+             "Sheet ID Y": 32,
+             "Sheet ID W": 16,
+             "Sheet ID H": 16
+           },
+           {
+             "Floor Name" : "wood path12",
+             "Floor ID" : 11,
+             "Resource": "graphics/Flooring.png",
+             "Sheet ID X": 0,
+             "Sheet ID Y": 48,
+             "Sheet ID W": 16,
+             "Sheet ID H": 16
+           },
+           {
+             "Floor Name" : "wood path13",
+             "Floor ID" : 12,
+             "Resource": "graphics/Flooring.png",
+             "Sheet ID X": 16,
+             "Sheet ID Y": 48,
+             "Sheet ID W": 16,
+             "Sheet ID H": 16
+           },
+           {
+             "Floor Name" : "wood path14",
+             "Floor ID" : 13,
+             "Resource": "graphics/Flooring.png",
+             "Sheet ID X": 32,
+             "Sheet ID Y": 48,
+             "Sheet ID W": 16,
+             "Sheet ID H": 16
+           },
+           {
+             "Floor Name" : "wood path15",
+             "Floor ID" : 14,
+             "Resource": "graphics/Flooring.png",
+             "Sheet ID X": 48,
+             "Sheet ID Y": 48,
+             "Sheet ID W": 16,
+             "Sheet ID H": 16
+           }
           ]
         },
         {
@@ -217,102 +407,156 @@
             {
                 "Floor Name" : "stone path1",
                 "Floor ID" : 0,
-                "Resource": "graphics/hoeDirt.png",
-                "Sheet ID X": 16,
-                "Sheet ID Y": 16,
-                "Sheet ID W": 15,
-                "Sheet ID H": 15
+                "Resource": "graphics/Flooring.png",
+                "Sheet ID X": 0,
+                "Sheet ID Y": 192,
+                "Sheet ID W": 16,
+                "Sheet ID H": 16
             },
             {
                 "Floor Name" : "stone path2",
                 "Floor ID" : 1,
-                "Resource": "graphics/hoeDirt.png",
+                "Resource": "graphics/Flooring.png",
                 "Sheet ID X": 16,
-                "Sheet ID Y": 32,
-                "Sheet ID W": 15,
-                "Sheet ID H": 15
+                "Sheet ID Y": 192,
+                "Sheet ID W": 16,
+                "Sheet ID H": 16
             },
             {
                 "Floor Name" : "stone path2",
                 "Floor ID" : 1,
-                "Resource": "graphics/hoeDirt.png",
+                "Resource": "graphics/Flooring.png",
                 "Sheet ID X": 32,
-                "Sheet ID Y": 0,
-                "Sheet ID W": 15,
-                "Sheet ID H": 15
+                "Sheet ID Y": 192,
+                "Sheet ID W": 16,
+                "Sheet ID H": 16
             },
             {
                 "Floor Name" : "stone path3",
                 "Floor ID" : 2,
-                "Resource": "graphics/hoeDirt.png",
-                "Sheet ID X": 32,
-                "Sheet ID Y": 16,
+                "Resource": "graphics/Flooring.png",
+                "Sheet ID X": 48,
+                "Sheet ID Y": 192,
                 "Sheet ID W": 15,
                 "Sheet ID H": 15
             },
             {
                 "Floor Name" : "stone path4",
                 "Floor ID" : 3,
-                "Resource": "graphics/hoeDirt.png",
-                "Sheet ID X": 32,
-                "Sheet ID Y": 32,
-                "Sheet ID W": 15,
-                "Sheet ID H": 15
+                "Resource": "graphics/Flooring.png",
+                "Sheet ID X": 0,
+                "Sheet ID Y": 208,
+                "Sheet ID W": 16,
+                "Sheet ID H": 16
             },
             {
                 "Floor Name" : "stone path5",
                 "Floor ID" : 4,
-                "Resource": "graphics/hoeDirt.png",
-                "Sheet ID X": 48,
-                "Sheet ID Y": 0,
-                "Sheet ID W": 15,
-                "Sheet ID H": 15
+                "Resource": "graphics/Flooring.png",
+                "Sheet ID X": 16,
+                "Sheet ID Y": 208,
+                "Sheet ID W": 16,
+                "Sheet ID H": 16
             },
             {
                 "Floor Name" : "stone path6",
                 "Floor ID" : 5,
-                "Resource": "graphics/hoeDirt.png",
-                "Sheet ID X": 48,
-                "Sheet ID Y": 16,
-                "Sheet ID W": 15,
-                "Sheet ID H": 15
+                "Resource": "graphics/Flooring.png",
+                "Sheet ID X": 32,
+                "Sheet ID Y": 208,
+                "Sheet ID W": 16,
+                "Sheet ID H": 16
             },
             {
                 "Floor Name" : "stone path7",
                 "Floor ID" : 6,
-                "Resource": "graphics/hoeDirt.png",
+                "Resource": "graphics/Flooring.png",
                 "Sheet ID X": 48,
-                "Sheet ID Y": 32,
-                "Sheet ID W": 15,
-                "Sheet ID H": 15
-            },
-            {
+                "Sheet ID Y": 208,
+                "Sheet ID W": 16,
+                "Sheet ID H": 16
+             },
+             {
                 "Floor Name" : "stone path8",
                 "Floor ID" : 7,
-                "Resource": "graphics/hoeDirt.png",
-                "Sheet ID X": 16,
-                "Sheet ID Y": 48,
-                "Sheet ID W": 15,
-                "Sheet ID H": 15
-            },
-            {
+                "Resource": "graphics/Flooring.png",
+                "Sheet ID X": 0,
+                "Sheet ID Y": 224,
+                "Sheet ID W": 16,
+                "Sheet ID H": 16
+             },
+             {
                 "Floor Name" : "stone path9",
                 "Floor ID" : 8,
-                "Resource": "graphics/hoeDirt.png",
-                "Sheet ID X": 32,
-                "Sheet ID Y": 48,
-                "Sheet ID W": 15,
-                "Sheet ID H": 15
-            },
-            {
+                "Resource": "graphics/Flooring.png",
+                "Sheet ID X": 16,
+                "Sheet ID Y": 224,
+                "Sheet ID W": 16,
+                "Sheet ID H": 16
+             },
+             {
                 "Floor Name" : "stone path10",
                 "Floor ID" : 9,
-                "Resource": "graphics/hoeDirt.png",
+                "Resource": "graphics/Flooring.png",
+                "Sheet ID X": 32,
+                "Sheet ID Y": 224,
+                "Sheet ID W": 16,
+                "Sheet ID H": 16
+             },
+             {
+                "Floor Name" : "stone path11",
+                "Floor ID" : 10,
+                "Resource": "graphics/Flooring.png",
                 "Sheet ID X": 48,
-                "Sheet ID Y": 48,
-                "Sheet ID W": 15,
-                "Sheet ID H": 15
-            }
+                "Sheet ID Y": 224,
+                "Sheet ID W": 16,
+                "Sheet ID H": 16
+             },
+             { 
+                "Floor Name" : "stone path12",
+                "Floor ID" : 11,
+                "Resource": "graphics/Flooring.png",
+                "Sheet ID X": 0,
+                "Sheet ID Y": 240,
+                "Sheet ID W": 16,
+                "Sheet ID H": 16
+             },
+             { 
+                 "Floor Name" : "stone path13",
+                 "Floor ID" : 12,
+                 "Resource": "graphics/Flooring.png",
+                 "Sheet ID X": 64,
+                 "Sheet ID Y": 128,
+                 "Sheet ID W": 16,
+                 "Sheet ID H": 16
+              },
+              { 
+                 "Floor Name" : "stone path14",
+                 "Floor ID" : 13,
+                 "Resource": "graphics/Flooring.png",
+                 "Sheet ID X": 64,
+                 "Sheet ID Y": 144,
+                 "Sheet ID W": 16,
+                 "Sheet ID H": 16
+              },
+              { 
+                 "Floor Name" : "stone path14",
+                 "Floor ID" : 13,
+                 "Resource": "graphics/Flooring.png",
+                 "Sheet ID X": 64,
+                 "Sheet ID Y": 160,
+                 "Sheet ID W": 16,
+                 "Sheet ID H": 16
+              },
+              { 
+                 "Floor Name" : "stone path15",
+                 "Floor ID" : 14,
+                 "Resource": "graphics/Flooring.png",
+                 "Sheet ID X": 64,
+                 "Sheet ID Y": 176,
+                 "Sheet ID W": 16,
+                 "Sheet ID H": 16
+              }
           ]
         }
       ]
@@ -406,6 +650,63 @@
           ]
         },
         {
+          "Type Name": "Branch",
+          "Sheet Info":
+          [
+            {
+              "Object Name": "branch1",
+              "Object ID": 0,
+              "Resource": "graphics/object.png",
+              "Sheet ID X": 112,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+            },
+            {
+              "Object Name": "branch2",
+              "Object ID": 1,
+              "Resource": "graphics/object.png",
+              "Sheet ID X": 128,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+            }
+          ]
+        },
+        {
+          "Type Name": "Stump",
+          "Sheet Info":
+          [
+            {
+              "Object Name": "stump1",
+              "Object ID": 0,
+              "Resource": "graphics/object.png",
+              "Sheet ID X": 144,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+            },
+            {
+              "Object Name": "stump2",
+              "Object ID": 1,
+              "Resource": "graphics/object.png",
+              "Sheet ID X": 160,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+            },
+            {
+              "Object Name": "stump3",
+              "Object ID": 2,
+              "Resource": "graphics/object.png",
+              "Sheet ID X": 176,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+            }
+          ]
+        },
+        {
           "Type Name": "Weed",
           "Sheet Info":
           [
@@ -426,6 +727,33 @@
               "Sheet ID Y": 10,
               "Sheet ID W": 29,
               "Sheet ID H": 33
+            },
+            {
+              "Object Name": "Weed3",
+              "Object ID": 2,
+              "Resource": "graphics/object.png",
+              "Sheet ID X": 64,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+            },
+            {
+              "Object Name": "Weed4",
+              "Object ID": 3,
+              "Resource": "graphics/object.png",
+              "Sheet ID X": 80,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
+            },
+            {
+              "Object Name": "Weed5",
+              "Object ID": 4,
+              "Resource": "graphics/object.png",
+              "Sheet ID X": 96,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
             }
           ]
         },
@@ -434,17 +762,8 @@
           "Sheet Info":
           [
             {
-              "Object Name": "crops1",
+              "Object Name": "cauliflower1",
               "Object ID": 0,
-              "Resource": "graphics/crops.png",
-              "Sheet ID X": 4,
-              "Sheet ID Y": 51,
-              "Sheet ID W": 8,
-              "Sheet ID H": 9
-            },
-            {
-              "Object Name": "crops2",
-              "Object ID": 1,
               "Resource": "graphics/crops.png",
               "Sheet ID X": 20,
               "Sheet ID Y": 54,
@@ -452,8 +771,8 @@
               "Sheet ID H": 5
             },
             {
-              "Object Name": "crops3",
-              "Object ID": 2,
+              "Object Name": "cauliflower2",
+              "Object ID": 1,
               "Resource": "graphics/crops.png",
               "Sheet ID X": 37,
               "Sheet ID Y": 55,
@@ -461,8 +780,8 @@
               "Sheet ID H": 5
             },
             {
-              "Object Name": "crops4",
-              "Object ID": 3,
+              "Object Name": "cauliflower3",
+              "Object ID": 2,
               "Resource": "graphics/crops.png",
               "Sheet ID X": 52,
               "Sheet ID Y": 51,
@@ -470,8 +789,8 @@
               "Sheet ID H": 7
             },
             {
-              "Object Name": "crops5",
-              "Object ID": 4,
+              "Object Name": "cauliflower4",
+              "Object ID": 3,
               "Resource": "graphics/crops.png",
               "Sheet ID X": 65,
               "Sheet ID Y": 50,
@@ -479,8 +798,8 @@
               "Sheet ID H": 10
             },
             {
-              "Object Name": "crop6",
-              "Object ID": 5,
+              "Object Name": "cauliflower5",
+              "Object ID": 4,
               "Resource": "graphics/crops.png",
               "Sheet ID X": 80,
               "Sheet ID Y": 48,
@@ -488,13 +807,58 @@
               "Sheet ID H": 12
             },
             {
-              "Object Name": "crops7",
-              "Object ID": 6,
+              "Object Name": "cauliflower6",
+              "Object ID": 5,
               "Resource": "graphics/crops.png",
               "Sheet ID X": 96,
               "Sheet ID Y": 48,
               "Sheet ID W": 15,
               "Sheet ID H": 14
+            },
+            {
+              "Object Name": "parsnip1",
+              "Object ID": 6,
+              "Resource": "graphics/crops.png",
+              "Sheet ID X": 20,
+              "Sheet ID Y": 21,
+              "Sheet ID W": 8,
+              "Sheet ID H": 8
+            },
+            {
+              "Object Name": "parsnip2",
+              "Object ID": 7,
+              "Resource": "graphics/crops.png",
+              "Sheet ID X": 34,
+              "Sheet ID Y": 21,
+              "Sheet ID W": 11,
+              "Sheet ID H": 5
+            },
+            {
+              "Object Name": "parsnip3",
+              "Object ID": 8,
+              "Resource": "graphics/crops.png",
+              "Sheet ID X": 50,
+              "Sheet ID Y": 21,
+              "Sheet ID W": 13,
+              "Sheet ID H": 5
+            },
+            {
+              "Object Name": "parsnip4",
+              "Object ID": 9,
+              "Resource": "graphics/crops.png",
+              "Sheet ID X": 65,
+              "Sheet ID Y": 16,
+              "Sheet ID W": 14,
+              "Sheet ID H": 12
+            },
+            {
+              "Object Name": "parsnip5",
+              "Object ID": 10,
+              "Resource": "graphics/crops.png",
+              "Sheet ID X": 81,
+              "Sheet ID Y": 13,
+              "Sheet ID W": 16,
+              "Sheet ID H": 16
             }
           ]
         },
@@ -546,6 +910,33 @@
               "Sheet ID Y": 1032,
               "Sheet ID W": 31,
               "Sheet ID H": 54
+            },
+            {
+              "Object Name": "tv1",
+              "Object ID": 5,
+              "Resource": "graphics/furniture.png",
+              "Sheet ID X": 416,
+              "Sheet ID Y": 722,
+              "Sheet ID W": 31,
+              "Sheet ID H": 44
+            },
+            {
+              "Object Name": "armoire1",
+              "Object ID": 6,
+              "Resource": "graphics/furniture.png",
+              "Sheet ID X": 2,
+              "Sheet ID Y": 640,
+              "Sheet ID W": 44,
+              "Sheet ID H": 48
+            },
+            {
+              "Object Name": "house plant1",
+              "Object ID": 7,
+              "Resource": "graphics/furniture.png",
+              "Sheet ID X": 0,
+              "Sheet ID Y": 688,
+              "Sheet ID W": 15,
+              "Sheet ID H": 32
             }
           ]
         },
