@@ -143,6 +143,8 @@ void BoxInven::Update(float dt)
 	}
 	firstClickSprite.setPosition(uiPos);
 
+
+
 	if (InputMgr::GetMouseButtonDown(sf::Mouse::Button::Left))
 	{
 		itemClick = SaveClickItemData(uiPos);
@@ -177,14 +179,10 @@ void BoxInven::Update(float dt)
 		}
 	}
 
-	//마우스 왼쪽 버튼을 놓았을때 첫번째 아이템이 선택된 상태라면
-	//마우스를 놓은곳에 해당하는 슬롯을 다시 순회를 돌아 찾아 그위치로 아이템을 SwapItem한다.
 	if (InputMgr::GetMouseButtonUp(sf::Mouse::Left) && itemClick != nullptr)
 	{
-		// 3. 같은 박스 교환
-		// 3-2. 다른 박스 교환
 		std::pair<int, bool> mouseIndex = CheckPosIndex(uiPos);
-		if (mouseIndex.first == -1) // 아무것도 아닌 공간
+		if (mouseIndex.first == -1)
 		{
 
 		}
@@ -194,7 +192,7 @@ void BoxInven::Update(float dt)
 			int indexExchangeY = mouseIndex.first / countX;
 
 			itemExchange = GetItemData(indexExchangeX, indexExchangeY, mouseIndex.second);
-			if (itemExchange == nullptr) // 빈 공간
+			if (itemExchange == nullptr)
 			{
 				if ((itemClick->BoxId != firstBoxId && mouseIndex.second) ||
 					(itemClick->BoxId == firstBoxId && !mouseIndex.second))
@@ -204,7 +202,7 @@ void BoxInven::Update(float dt)
 				itemClick->IndexX = indexExchangeX;
 				itemClick->IndexY = indexExchangeY;
 			}
-			else // 같은 박스 교환
+			else
 			{
 				itemExchange->IndexX = itemClick->IndexX;
 				itemExchange->IndexY = itemClick->IndexY;
@@ -212,7 +210,7 @@ void BoxInven::Update(float dt)
 				itemClick->IndexX = indexExchangeX;
 				itemClick->IndexY = indexExchangeY;
 
-				if (itemClick->BoxId != itemExchange->BoxId) // 다른 박스 교환
+				if (itemClick->BoxId != itemExchange->BoxId)
 				{
 					SwapItemDiffBox(itemClick, itemExchange, itemClick->BoxId == firstBoxId);
 				}
@@ -223,24 +221,6 @@ void BoxInven::Update(float dt)
 		itemExchange = nullptr;
 	}
 
-	////첫번째 클릭 된 아이템의 인덱스가 아직 아무것도 선택이 안된 경우
-	////위의 조건들일 경우
-	//if (clickSlotIndex != -1 && firstClickIndex == -1)
-	//{
-	//	int fx = clickSlotIndex % countX;
-	//	int fy = clickSlotIndex / countX;
-	//	auto findFirst = std::find_if(firstItems->begin(), firstItems->end(), [fx, fy](ItemData* elem)
-	//		{
-	//			return elem->IndexX == fx && elem->IndexY == fy;
-	//		});
-
-	//	//아이템이 있으면 클릭한 슬롯 인덱스를 firstClickIndex에 할당합니다.
-	//	//첫번째로 선택한 아이템
-	//	if (findFirst != firstItems->end())
-	//	{
-	//		firstClickIndex = clickSlotIndex;
-	//	}
-	//}
 	itemInfoText.SetPosition(uiPos);
 	//마우스 커서 위치에 있는 슬롯 아이템 정보 표시
 	bool mouseOverSlot = false;
@@ -287,11 +267,6 @@ void BoxInven::Update(float dt)
 	{
 		itemInfoText.SetString("");
 	}
-
-	//if (clickSlotIndex == -1) //빈 공간이 눌렸을 경우 선택된 인덱스를 초기화하여 선택한 것을 초기화
-	//{
-	//	firstClickIndex = -1;
-	//}
 }
 
 void BoxInven::SetPosition(const sf::Vector2f& pos)
@@ -468,7 +443,7 @@ ItemData* BoxInven::SaveClickItemData(sf::Vector2f uiPos)
 			return GetItemData(i % countX, i / countX, true);
 		}
 	}
-	for (int i = 0; i < firtstSlots.size(); ++i)
+	for (int i = 0; i < secondSlots.size(); ++i)
 	{
 		sf::FloatRect slotBounds = secondSlots[i]->GetGlobalBounds();
 		if (slotBounds.contains(uiPos))
