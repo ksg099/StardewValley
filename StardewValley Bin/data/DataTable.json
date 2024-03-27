@@ -677,8 +677,8 @@
         {
           "Item Name": "Cauliflower Seeds",
           "Item ID": 0,
-          "Selling Price": 0,
-          "Purchase Price": 0,
+          "Selling Price": 40,
+          "Purchase Price": 80,
           "Resource": "graphics/Seeds/Cauliflower_Seeds.png",
           "Sheet ID X": 0,
           "Sheet ID Y": 0,

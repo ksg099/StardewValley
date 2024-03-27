@@ -56,6 +56,9 @@ void BoxInven::Init()
 			secondSlots.push_back(slot);
 		}
 	}
+
+	itemInfoText.Set(RES_MGR_FONT.Get("fonts/Arial.ttf"), "", 20, sf::Color::Black);
+	itemInfoText.SetOutline(sf::Color::White, 1.f);
 }
 
 void BoxInven::Release()
@@ -395,8 +398,9 @@ void BoxInven::DisplayItemInfo(ItemData& itemData, sf::Vector2f& position)
 {
 	std::string info = "Box: " + std::to_string(itemData.BoxId) + ", X: " + std::to_string(itemData.IndexX) + ", Y: " + std::to_string(itemData.IndexY)
 		+ ",\nType: " + std::to_string((int)itemData.type) + ", ID: " + std::to_string(itemData.itemId)
-		+ ",\nName: " + ITEM_TABLE->Get(itemData.type, itemData.itemId).name;
-	itemInfoText.Set(RES_MGR_FONT.Get("fonts/Arial.ttf"), info, 20, sf::Color::Black);
+		+ ",\nName: " + ITEM_TABLE->Get(itemData.type, itemData.itemId).name
+		+ "\nSelling Price: " + std::to_string(ITEM_TABLE->Get(itemData.type, itemData.itemId).sellingPrice) + ", Purchase Price: " + std::to_string(ITEM_TABLE->Get(itemData.type, itemData.itemId).purchasePrice);
+	itemInfoText.SetString(info);
 }
 
 void BoxInven::Draw(sf::RenderWindow& window)
