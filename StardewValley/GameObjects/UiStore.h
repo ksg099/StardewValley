@@ -6,6 +6,8 @@
 struct UiItem
 {
 	sf::Sprite itemBackground;
+	sf::RectangleShape clickBox;
+	sf::Sprite itemImg;
 	TextGo itemInfo;
 };
 
@@ -17,6 +19,18 @@ protected:
 
 	sf::Sprite StoreBackground;
 	std::vector<UiItem*> UipurchaseItems;
+
+	int countInPage = 6;
+	int currentIndex = 0;
+	int countAllItem = 0;
+
+	int clickIndex = -1;
+	int purchaseIndex = -1;
+	float doubleClickTimer = 0.f;
+	float doubleClickDuration = 0.3f;
+	bool isClick = false;
+
+	std::vector<DataItem> itemTable;
 	
 public:
 	UiStore(const std::string& name = "");
@@ -27,4 +41,8 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	void SelectByDoubleClick(float dt);
+
+	void UpdateIndex();
 };

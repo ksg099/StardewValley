@@ -102,12 +102,7 @@ void SceneGame::Update(float dt)
 	// inventory active/inactive
 	SetInventory();
 
-	// test store UI
-	// TO-DO: Delete
-	if (InputMgr::GetKeyDown(sf::Keyboard::P))
-	{
-		uiStore->SetActive(true);
-	}
+	
 
 	dailyTime += (dt);
 	if (dailyTime >= 24)
@@ -282,6 +277,13 @@ void SceneGame::SetInventory()
 		{
 			boxInven->UpdateSlots();
 		}
+	}
+
+	// test store UI
+	// TO-DO: Delete
+	if (InputMgr::GetKeyDown(sf::Keyboard::P))
+	{
+		uiStore->SetActive(!uiStore->GetActive());
 	}
 }
 
