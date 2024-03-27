@@ -44,13 +44,17 @@ void ItemSave::Save(rapidjson::Document& doc)
 {
 	rapidjson::Document::AllocatorType& allocator = doc.GetAllocator();
 	
-	rapidjson::Value itemDataArr(rapidjson::kArrayType);
-
+	rapidjson::Value boxDataArr(rapidjson::kArrayType);
 	for (auto itemBox : itemBoxTable)
 	{
 		if (itemBox.second == nullptr)
 			continue;
 
+		rapidjson::Value boxData;
+		boxData.SetObject();
+		boxData.AddMember("Box ID", itemBox.first, allocator);
+
+		rapidjson::Value itemDataArr(rapidjson::kArrayType);
 		for (auto item : *itemBox.second)
 		{
 			if (item == nullptr)
@@ -58,67 +62,64 @@ void ItemSave::Save(rapidjson::Document& doc)
 
 			rapidjson::Value itemData;
 			itemData.SetObject();
-			itemData.AddMember("Box ID", item->BoxId, allocator);
 			itemData.AddMember("Index X", item->IndexX, allocator);
 			itemData.AddMember("Index Y", item->IndexY, allocator);
-			itemData.AddMember("ItemType", (int)item->type, allocator);
-			itemData.AddMember("ItemId", item->itemId, allocator);
-			itemData.AddMember("InstanceId", item->instanceId, allocator);
+			itemData.AddMember("Item Type", (int)item->type, allocator);
+			itemData.AddMember("Item ID", item->itemId, allocator);
+			itemData.AddMember("Instance ID", item->instanceId, allocator);
 			itemData.AddMember("Count", item->count, allocator);
 			itemData.AddMember("CanOverlap", item->canOverLap, allocator);
-			// itemData.AddMember("name", rapidjson::Value(name.c_str(), allocator), allocator);
 			itemDataArr.PushBack(itemData, allocator);
 		}
+		boxData.AddMember("Item Data", itemDataArr, allocator);
+		boxDataArr.PushBack(boxData, allocator);
 	}
-
-	doc.AddMember("ItemData", itemDataArr, allocator);
+	doc.AddMember("Box Data", boxDataArr, allocator);
 }
 
 bool ItemSave::Load(rapidjson::Document& doc)
 {
 	Release();
 
-	auto infoArr = doc["ItemData"].GetArray();
-	int itemCount = infoArr.Size();
-	for (int i = 0; i < itemCount; ++i)
+	auto boxArr = doc["Box Data"].GetArray();
+	int boxCount = boxArr.Size();
+	for (int i = 0; i < boxCount; ++i)
 	{
-		int boxId = infoArr[i]["Box ID"].GetInt();
-		std::list<ItemData*>* items = nullptr;
-		auto find = itemBoxTable.find(boxId);
-		if (find == itemBoxTable.end())
-		{
-			items = new std::list<ItemData*>;
-			itemBoxTable[boxId] = items;
-		}
-		else
-		{
-			items = find->second;
-		}
+		int boxId = boxArr[i]["Box ID"].GetInt();
+		auto itemArr = boxArr[i]["Item Data"].GetArray();
+		
+		std::list<ItemData*>* items = new std::list<ItemData*>;
+		itemBoxTable[boxId] = items;
 
-		int indexX = infoArr[i]["Index X"].GetInt();
-		int indexY = infoArr[i]["Index Y"].GetInt();
-		for (auto item : *items)
+		int itemCount = itemArr.Size();
+		for (int j = 0; j < itemCount; ++j)
 		{
-			if (indexX == item->IndexX && indexY == item->IndexY)
+			
+			int indexX = itemArr[j]["Index X"].GetInt();
+			int indexY = itemArr[j]["Index Y"].GetInt();
+
+			for (auto item : *items)
 			{
-				std::cout << "아이디가 중복된 아이템이 있습니다!" << std::endl;
-				std::cout << "Box ID: " << boxId << ", X: " << indexX << ", Y: " << indexY << std::endl;
-				return false;
+				if (indexX == item->IndexX && indexY == item->IndexY)
+				{
+					std::cout << "아이디가 중복된 아이템이 있습니다!" << std::endl;
+					std::cout << "Box ID: " << boxId << ", X: " << indexX << ", Y: " << indexY << std::endl;
+					return false;
+				}
 			}
+
+			ItemData* itemData = new ItemData;
+			itemData->BoxId = boxId;
+			itemData->IndexX = indexX;
+			itemData->IndexY = indexY;
+			itemData->type = (ItemType)itemArr[j]["Item Type"].GetInt();
+			itemData->itemId = itemArr[j]["Item ID"].GetInt();
+			itemData->instanceId = itemArr[j]["Instance ID"].GetInt();
+			itemData->count = itemArr[j]["Count"].GetInt();
+			itemData->canOverLap = itemArr[j]["CanOverlap"].GetBool();
+			
+			items->push_back(itemData);
 		}
-
-		ItemData* itemData = new ItemData;
-		itemData->BoxId = boxId;
-		itemData->IndexX = indexX;
-		itemData->IndexY = indexY;
-		itemData->itemId = infoArr[i]["ItemId"].GetInt();
-		itemData->instanceId = infoArr[i]["InstanceId"].GetInt();
-		itemData->count = infoArr[i]["Count"].GetInt();
-		itemData->canOverLap = infoArr[i]["CanOverlap"].GetBool();
-		itemData->type = (ItemType)infoArr[i]["ItemType"].GetInt();
-		// itemData->itemFilePath = infoArr[i]["Resource"].GetString();
-
-		items->push_back(itemData);
 	}
 	return true;
 }

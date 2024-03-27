@@ -33,13 +33,15 @@ enum class ItemType
 struct ItemData
 {
 	ItemType type;
-	int BoxId;
-	int IndexX;
-	int IndexY;
 	int itemId;
+
 	int instanceId;
 	int count = 0;
 	bool canOverLap;
+
+	int BoxId;
+	int IndexX;
+	int IndexY;
 
 	std::string itemFilePath; 
 };
@@ -86,6 +88,14 @@ enum class ObjectType
 	WALL,
 	BUILDING,
 	COUNT,
+};
+
+enum class HarvestType
+{
+	NONE = -1,
+	CAULIFLOWER,
+	PARSNIP,
+	COUNT
 };
 
 struct TileData

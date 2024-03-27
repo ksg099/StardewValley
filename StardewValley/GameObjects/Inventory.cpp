@@ -56,6 +56,8 @@ void Inventory::Init()
 		smallslots.push_back(smallslot);
 	}
 	
+	itemInfoText.Set(RES_MGR_FONT.Get("fonts/Arial.ttf"), "", 20, sf::Color::Black);
+	itemInfoText.SetOutline(sf::Color::White, 1.f);
 }
 
 void Inventory::Release()
@@ -85,6 +87,7 @@ void Inventory::Reset()
 		{
 			int index = i * countY + j;
 			slots[index]->Reset();
+			slots[index]->SetIsDraw(true);
 		}
 	}
 	
@@ -94,15 +97,34 @@ void Inventory::Reset()
 
 void Inventory::Update(float dt)
 {
-	//인벤토리가 안보였다면 I키를 눌렀을때 보이게 하기
-	if (InputMgr::GetKeyDown(sf::Keyboard::I))
-	{
-		isAble = !isAble;
-	}
-
 	sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
 	sf::Vector2f uiPos = SCENE_MGR.GetCurrentScene()->ScreenToUi(mousePos);
 	int clickSlotIndex = -1;
+	if (firstClickIndex != -1 && !isClick)
+	{
+		ItemData* itemData = GetItemData(firstClickIndex % countX, firstClickIndex / countX);
+		if (itemData != nullptr)
+		{
+			auto item = ITEM_TABLE->Get(itemData->type, itemData->itemId);
+			firstClickSprite.setTexture(RES_MGR_TEXTURE.Get(item.textureId));
+			firstClickSprite.setTextureRect(sf::IntRect(item.sheetId.x, item.sheetId.y, item.sheetSize.x, item.sheetSize.y));
+			float scale = item.sheetSize.x > item.sheetSize.y ? item.sheetSize.x : item.sheetSize.y;
+			firstClickSprite.setScale(sf::Vector2f(50.f / scale, 50.f / scale));
+			Utils::SetOrigin(firstClickSprite, Origins::MC);
+			isClick = true;
+
+			slots[firstClickIndex]->SetIsDraw(false);
+		}
+	}
+	else if (firstClickIndex == -1 && isClick)
+	{
+		isClick = false;
+		for (auto slot : slots)
+		{
+			slot->SetIsDraw(true);
+		}
+	}
+	firstClickSprite.setPosition(uiPos);
 
 	//마우스 왼쪽 버튼이 눌렸 있을때 마우스 위치에 해당하는 슬롯을
 	//순회를 돌아 찾아 clickSlotIndex에 할당
@@ -398,31 +420,29 @@ void Inventory::DisplayItemInfo(ItemData& itemData, sf::Vector2f& position)
 	//인덱스 부분 생략함 + "IndexX "+ std::to_string(itemData.IndexX) + "IndexY" + std::to_string(itemData.IndexY)
 	std::string info = "Box: " + std::to_string(itemData.BoxId) + ", X: " + std::to_string(itemData.IndexX) + ", Y: " + std::to_string(itemData.IndexY)
 		+ ",\nType: " + std::to_string((int)itemData.type) + ", ID: " + std::to_string(itemData.itemId)
-		+ ",\nName: " + ITEM_TABLE->Get(itemData.type, itemData.itemId).name;
-	itemInfoText.Set(RES_MGR_FONT.Get("fonts/Arial.ttf"), info, 20, sf::Color::Black);
+		+ ",\nName: " + ITEM_TABLE->Get(itemData.type, itemData.itemId).name
+		+ "\nSelling Price: " + std::to_string(ITEM_TABLE->Get(itemData.type, itemData.itemId).sellingPrice) + ", Purchase Price: " + std::to_string(ITEM_TABLE->Get(itemData.type, itemData.itemId).purchasePrice);
+	itemInfoText.SetString(info);
 }
 
 void Inventory::Draw(sf::RenderWindow& window)
 {
-
-	//I키 눌렀을때 메인 인벤토리, 슬롯 그려주기
-	if (!isAble)
+	SpriteGo::Draw(window);
+	for (auto slot : slots)
 	{
-		SpriteGo::Draw(window);
-		for (auto slot : slots)
-		{
-			slot->Draw(window);
-		}
-		itemInfoText.Draw(window);
+		slot->Draw(window);
 	}
-	//메인 화면에 보일 인벤토리랑 슬롯 그려주기
-	else
+	itemInfoText.Draw(window);
+
+	smallUi.Draw(window);
+	for (auto smallslot : smallslots)
 	{
-		smallUi.Draw(window);
-		for (auto smallslot : smallslots)
-		{
-			smallslot->Draw(window);
-		}
+		smallslot->Draw(window);
+	}
+
+	if (isClick)
+	{
+		window.draw(firstClickSprite);
 	}
 }
 

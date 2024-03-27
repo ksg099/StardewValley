@@ -4808,46 +4808,29 @@
             ]
         }
     ],
-    "ItemData": [
+    "Box Data": [
         {
             "Box ID": 0,
-            "Index X": 0,
-            "Index Y": 0,
-            "ItemType": 0,
-            "ItemId": 0,
-            "InstanceId": 1,
-            "Count": 5,
-            "CanOverlap": false
-        },
-        {
-            "Box ID": 0,
-            "Index X": 2,
-            "Index Y": 1,
-            "ItemType": 0,
-            "ItemId": 3,
-            "InstanceId": 4,
-            "Count": 5,
-            "CanOverlap": false
-        },
-        {
-            "Box ID": 0,
-            "Index X": 5,
-            "Index Y": 0,
-            "ItemType": 0,
-            "ItemId": 4,
-            "InstanceId": 4,
-            "Count": 5,
-            "CanOverlap": false
-        },
-        {
-            "Box ID": 0,
-            "Index X": 7,
-            "Index Y": 1,
-            "ItemType": 1,
-            "ItemId": 0,
-            "InstanceId": 4,
-            "Count": 5,
-            "CanOverlap": false
+            "Item Data": [
+                {
+                    "Index X": 6,
+                    "Index Y": 2,
+                    "Item Type": 0,
+                    "Item ID": 1,
+                    "Instance ID": 2,
+                    "Count": 5,
+                    "CanOverlap": false
+                },
+                {
+                    "Index X": 4,
+                    "Index Y": 0,
+                    "Item Type": 0,
+                    "Item ID": 1,
+                    "Instance ID": 2,
+                    "Count": 5,
+                    "CanOverlap": false
+                }
+            ]
         },
         {
             "Box ID": 0,
@@ -4871,23 +4854,62 @@
         },
         {
             "Box ID": 1,
-            "Index X": 6,
-            "Index Y": 2,
-            "ItemType": 0,
-            "ItemId": 0,
-            "InstanceId": 1,
-            "Count": 5,
-            "CanOverlap": false
-        },
-        {
-            "Box ID": 1,
-            "Index X": 7,
-            "Index Y": 1,
-            "ItemType": 0,
-            "ItemId": 1,
-            "InstanceId": 2,
-            "Count": 5,
-            "CanOverlap": false
+            "Item Data": [
+                {
+                    "Index X": 4,
+                    "Index Y": 1,
+                    "Item Type": 0,
+                    "Item ID": 4,
+                    "Instance ID": 4,
+                    "Count": 5,
+                    "CanOverlap": false
+                },
+                {
+                    "Index X": 9,
+                    "Index Y": 2,
+                    "Item Type": 0,
+                    "Item ID": 0,
+                    "Instance ID": 1,
+                    "Count": 5,
+                    "CanOverlap": false
+                },
+                {
+                    "Index X": 6,
+                    "Index Y": 1,
+                    "Item Type": 0,
+                    "Item ID": 2,
+                    "Instance ID": 3,
+                    "Count": 5,
+                    "CanOverlap": false
+                },
+                {
+                    "Index X": 2,
+                    "Index Y": 0,
+                    "Item Type": 0,
+                    "Item ID": 0,
+                    "Instance ID": 1,
+                    "Count": 5,
+                    "CanOverlap": false
+                },
+                {
+                    "Index X": 6,
+                    "Index Y": 0,
+                    "Item Type": 0,
+                    "Item ID": 3,
+                    "Instance ID": 4,
+                    "Count": 5,
+                    "CanOverlap": false
+                },
+                {
+                    "Index X": 3,
+                    "Index Y": 0,
+                    "Item Type": 1,
+                    "Item ID": 0,
+                    "Instance ID": 4,
+                    "Count": 5,
+                    "CanOverlap": false
+                }
+            ]
         }
     ]
 }
