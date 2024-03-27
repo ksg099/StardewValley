@@ -39,13 +39,13 @@ void SceneGame::Init()
 
 	dailyTime = 2.f;
 
-	layer = new SpriteGo("layer");
-	layer->SetTexture("graphics/layout.png");
-	layer->SetOrigin(Origins::TL);
-	layer->SetPosition({ -(float)FRAMEWORK.GetWindowSize().x * 0.5f,-(float)FRAMEWORK.GetWindowSize().y * 0.5f });
-	layer->SetFillColor(dayColor);
-	layer->sortLayer = 5;
-	AddGo(layer, Layers::World);
+	overlay = new SpriteGo("layer");
+	overlay->SetTexture("graphics/layout.png");
+	overlay->SetOrigin(Origins::TL);
+	overlay->SetPosition({ -(float)FRAMEWORK.GetWindowSize().x * 0.5f,-(float)FRAMEWORK.GetWindowSize().y * 0.5f });
+	overlay->SetFillColor(dayColor);
+	overlay->sortLayer = 5;
+	AddGo(overlay, Layers::World);
 
 	uiStore = new UiStore("UI STORE");
 	AddGo(uiStore, Layers::Ui);
@@ -107,7 +107,6 @@ void SceneGame::Update(float dt)
 		ITEM_SAVE->Save(saveDoc);
 		Utils::EditFile(DT_MGR.GetGameSaveSelect(), saveDoc);
 	}
-	Scene::Update(dt);
 
 	// �ð� ������Ʈ
 	dailyTime += dt;
@@ -122,25 +121,26 @@ void SceneGame::Update(float dt)
 		dailyTime -= 24; // ���� ���� �Ѿ
 		++day;
 
+		SellAllItemsInBox();
 		std::cout << "Day : " << day << std::endl;
 	}
 
 	if (dailyTime >= 6 && dailyTime < 16 && targetColor != dayColor)
 	{
 		targetColor = dayColor;
-		currentColor = layer->GetFillColor();
+		currentColor = overlay->GetFillColor();
 		progress = 0.f;
 	}
 	else if (dailyTime >= 16 && dailyTime < 20 && targetColor != eveningColor)
 	{
 		targetColor = eveningColor;
-		currentColor = layer->GetFillColor();
+		currentColor = overlay->GetFillColor();
 		progress = 0.f;
 	}
 	else if (dailyTime >= 20 || dailyTime < 6 && targetColor != nightColor)
 	{
 		targetColor = nightColor;
-		currentColor = layer->GetFillColor();
+		currentColor = overlay->GetFillColor();
 		progress = 0.f;
 	}
 
@@ -151,7 +151,7 @@ void SceneGame::Update(float dt)
 		{
 			progress = 5.f;
 		}
-		layer->SetFillColor(LerpColor(layer->GetFillColor(), targetColor, progress));
+		overlay->SetFillColor(LerpColor(overlay->GetFillColor(), targetColor, progress));
 	}
 
 	if (!dropItemList.empty())
@@ -201,15 +201,18 @@ void SceneGame::Update(float dt)
 	}
 }
 
-void SceneGame::Draw(sf::RenderWindow& window)
+void SceneGame::Draw(sf::RenderWindow& window, Layers layer)
 {
-	Scene::Draw(window);
+	Scene::Draw(window, World);
 
-	window.setView(worldView);
+	tileMap->Draw(window);
 	for (auto& item : dropItemList)
 	{
 		window.draw(item->itemSprite);
 	}
+	overlay->Draw(window);
+
+	Scene::Draw(window, Ui);
 }
 
 void SceneGame::CreateItem(DataItem data, int indexX, int indexY)
@@ -312,5 +315,6 @@ void SceneGame::SellAllItemsInBox()
 			item = nullptr;
 		}
 	}
+	std::cout << "정산: " + sellingPrice << std::endl; // To-Do: 확인
 	sellingBox->clear();
 }

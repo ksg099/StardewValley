@@ -2,11 +2,13 @@
 #include "GameObject.h"
 
 class SceneGame;
+class Player;
 
 class TileMap : public GameObject
 {
 protected:
 	SceneGame* sceneGame = nullptr;
+	Player* player = nullptr;
 
 	std::vector<TileData*>* tiles;
 	sf::Vector2f tileSize = { 25.f, 25.f };

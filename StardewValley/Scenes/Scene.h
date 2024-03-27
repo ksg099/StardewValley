@@ -46,7 +46,7 @@ public:
 	virtual void Update(float dt);
 	virtual void LateUpdate(float dt);
 	virtual void FixedUpdate(float dt);
-	virtual void Draw(sf::RenderWindow& window);
+	virtual void Draw(sf::RenderWindow& window, Layers layer = Layers::Everything);
 
 	virtual GameObject* FindGo(const std::string& name, Layers layer = Layers::Everything);
 	virtual int FindGoAll(const std::string& name, std::list<GameObject*>& list,

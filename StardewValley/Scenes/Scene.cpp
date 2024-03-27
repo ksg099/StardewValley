@@ -163,46 +163,31 @@ void Scene::FixedUpdate(float dt)
 	}
 }
 
-void Scene::Draw(sf::RenderWindow& window)
+void Scene::Draw(sf::RenderWindow& window, Layers layer)
 {
-	// gameObjects.sort();
-	//std::sort(gameObjects.begin(), gameObjects.end(),
-	//	[](GameObject* a, GameObject* b) {
-	//		// a + b
-	//		if (a->sortLayer != b->sortLayer)
-	//		{
-	//			return a->sortLayer < b->sortLayer;
-	//		}
-	//		return a->sortOrder < b->sortOrder;
-	//	});
-	//std::sort(uiGameObjects.begin(), uiGameObjects.end(),
-	//	[](GameObject* a, GameObject* b) {
-	//		// a + b
-	//		if (a->sortLayer != b->sortLayer)
-	//		{
-	//			return a->sortLayer < b->sortLayer;
-	//		}
-	//		return a->sortOrder < b->sortOrder;
-	//	});
-
 	const sf::View& saveView = window.getView();
 
-	window.setView(worldView);
-
-	for (auto obj : gameObjects)
+	if (layer == Layers::World || layer == Layers::Everything)
 	{
-		if (obj->GetActive())
+		window.setView(worldView);
+		for (auto obj : gameObjects)
 		{
-			obj->Draw(window);
+			if (obj->GetActive())
+			{
+				obj->Draw(window);
+			}
 		}
 	}
 
-	window.setView(uiView);
-	for (auto obj : uiGameObjects)
+	if (layer == Layers::Ui || layer == Layers::Everything)
 	{
-		if (obj->GetActive())
+		window.setView(uiView);
+		for (auto obj : uiGameObjects)
 		{
-			obj->Draw(window);
+			if (obj->GetActive())
+			{
+				obj->Draw(window);
+			}
 		}
 	}
 

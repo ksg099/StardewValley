@@ -67,9 +67,9 @@ void SceneTitle::Update(float dt)
 	}
 }
 
-void SceneTitle::Draw(sf::RenderWindow& window)
+void SceneTitle::Draw(sf::RenderWindow& window, Layers layer)
 {
 	window.draw(title);
 
-	Scene::Draw(window);
+	Scene::Draw(window, layer);
 }

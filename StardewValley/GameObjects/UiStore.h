@@ -3,6 +3,9 @@
 #include "SpriteGo.h"
 #include "TextGo.h"
 
+class SceneGame;
+class Player;
+
 struct UiItem
 {
 	sf::Sprite itemBackground;
@@ -14,6 +17,9 @@ struct UiItem
 class UiStore : public GameObject
 {
 protected:
+	SceneGame* sceneGame = nullptr;
+	Player* player = nullptr;
+
 	sf::Vector2f referenceResolution = { 1920, 1080 };
 	sf::Vector2f resolution = referenceResolution;
 

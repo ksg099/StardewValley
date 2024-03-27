@@ -425,7 +425,7 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
     }
 }
 
-void TestMapTool::Draw(sf::RenderWindow& window)
+void TestMapTool::Draw(sf::RenderWindow& window, Layers layer)
 {
     sf::RenderStates state;
     state.transform = transform;

@@ -43,6 +43,7 @@ public:
 
 	//sf::Vector2f GetPosition() const { return position; }
 	float GetSpeed() { return speed; }
+	const sf::Vector2i GetGridIndex() const { return gridIndex; }
 	// void MoveTileUnit(float dt);
 	void PlayMoveAnimation(sf::Vector2f posDIff);
 	void CheckCollision(sf::Vector2f& nextPos, sf::Vector2f& prevPos);

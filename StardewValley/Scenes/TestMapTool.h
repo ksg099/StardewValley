@@ -73,7 +73,7 @@ public:
 	void ErasePlacedTile(int indexNum);
 	void PlaceTileToIndex(int indexNum, MapSheet& tile);
 
-	void Draw(sf::RenderWindow& window) override;    
+	void Draw(sf::RenderWindow& window, Layers layer = Layers::Everything) override;    
 	
 	void DrawGrid();
 

@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "UiStore.h"
+#include "SceneGame.h"
+#include "Player.h"
 
 UiStore::UiStore(const std::string& name) : GameObject(name)
 {
@@ -63,6 +65,9 @@ void UiStore::Reset()
 
 	int clickIndex = -1;
 	int purchaseIndex = -1;
+
+	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
+	player = dynamic_cast<Player*>(sceneGame->FindGo("Player"));
 }
 
 void UiStore::Update(float dt)
@@ -148,7 +153,7 @@ void UiStore::SelectByDoubleClick(float dt)
 
 	if (purchaseIndex != -1)
 	{
-		std::cout << itemTable[purchaseIndex].name << std::endl;
+		sceneGame->CreateItem(itemTable[purchaseIndex], player->GetGridIndex().x, player->GetGridIndex().y);
 		purchaseIndex = -1;
 	}
 }
