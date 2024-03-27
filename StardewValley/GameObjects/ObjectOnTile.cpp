@@ -66,6 +66,10 @@ void ObjectOnTile::InteractWithObject(const ItemType type, const int id)
 			{
 				DataItem itemData = ITEM_TABLE->Get("branchItem");
 				sceneGame->CreateItem(itemData, tileData->indexX, tileData->indexY);
+				sceneGame->CreateItem(itemData, tileData->indexX, tileData->indexY);
+				sceneGame->CreateItem(itemData, tileData->indexX, tileData->indexY);
+				sceneGame->CreateItem(itemData, tileData->indexX, tileData->indexY);
+				sceneGame->CreateItem(itemData, tileData->indexX, tileData->indexY);
 				value = 0;
 				SetActive(false);
 				sceneGame->RemoveGo(this);
@@ -107,6 +111,7 @@ void ObjectOnTile::InteractWithObject(const ItemType type, const int id)
 			if (value == 2)
 			{
 				DataItem itemData = ITEM_TABLE->Get("branchItem");
+				sceneGame->CreateItem(itemData, tileData->indexX, tileData->indexY);
 				sceneGame->CreateItem(itemData, tileData->indexX, tileData->indexY);
 				value = 0;
 				SetActive(false);
@@ -170,7 +175,6 @@ void ObjectOnTile::InteractWithObject(const ItemType type, const int id)
 			tileData->object = nullptr;
 			tileData->objectType = ObjectType::NONE;
 			tileData->objectId = 0;
-
 			tileData->isPassable = true;
 			tileData->isPossiblePlace = true;
 		}

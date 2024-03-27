@@ -420,7 +420,7 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             if (mapData[indexNum].objectLayer.tileSprite.getLocalBounds().height > size)
             {
                 mapData[indexNum].objectLayer.tileSprite.setOrigin(mapData[indexNum].objectLayer.tileSprite.getLocalBounds().width * 0.5f,
-                   mapData[indexNum].objectLayer.tileSprite.getLocalBounds().height * 0.5f - size * 0.5);
+                   mapData[indexNum].objectLayer.tileSprite.getLocalBounds().height - size * 0.5);
             }
             else
             {
@@ -598,90 +598,3 @@ void TestMapTool::SaveMapContent()
     doc.Accept(writer);
     fclose(fp);
 }
-//
-//void TestMapTool::LoadTileMap(const std::string& name)
-//{
-//    tiles = TILEMAP_SAVE->Get(name);
-//    if (tiles == nullptr)
-//        return;
-//
-//    sf::Vector2i cellCount;
-//    cellCount.x = TILEMAP_SAVE->GetTileMapSize(name)->x;
-//    cellCount.y = TILEMAP_SAVE->GetTileMapSize(name)->y;
-//    SetSpriteSheetId(GROUND_TABLE->GetTextureId());
-//
-//    cellSize = tileSize;
-//
-//    va.clear();
-//    va.setPrimitiveType(sf::Quads);
-//    va.resize(cellCount.x * cellCount.y * 4);
-//
-//    sf::Vector2f posOffsets[4] = {
-//        { 0, 0 },
-//        { tileSize.x, 0 },
-//        { tileSize.x, tileSize.y },
-//        { 0, tileSize.y }
-//    };
-//
-//    for (auto tile : *tiles)
-//    {
-//        tile->floor = CreateFloor(tile->floorType, tile->floorId);
-//        if (tile->floor != nullptr)
-//            tile->floor->SetTileData(tile);
-//
-//        tile->object = CreateObject(tile->objectType, tile->objectId);
-//        if (tile->object != nullptr)
-//            tile->object->SetTileData(tile);
-//
-//        sf::Vector2f sheetSize = (sf::Vector2f)GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetSize;
-//        sf::Vector2f texCoord0[4] = {
-//            { 0, 0 },
-//            { sheetSize.x, 0 },
-//            { sheetSize.x, sheetSize.y },
-//            { 0, sheetSize.y }
-//        };
-//
-//        int quadIndex = tile->indexY * cellCount.x + tile->indexX; // 2차원 인덱스를 1차원 인덱스로 변환
-//        sf::Vector2f quadPos(tileSize.x * tile->indexX, tileSize.y * tile->indexY);
-//
-//        for (int k = 0; k < 4; k++)
-//        {
-//            int vertexIndex = (quadIndex * 4) + k;
-//            va[vertexIndex].position = quadPos + posOffsets[k];
-//            va[vertexIndex].texCoords = texCoord0[k];
-//            va[vertexIndex].texCoords.x += GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetId.x;
-//            va[vertexIndex].texCoords.y += GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetId.y;
-//        }
-//    }
-//}
-//
-//void TestMapTool::LoadMapFile(const std::string& name)
-//{
-//    std::string filePath = 
-//    std::ifstream inFile(filePath);
-//    std::string content((std::istreambuf_iterator<char>(inFile)),
-//        std::istreambuf_iterator<char>());
-//
-//    rapidjson::Document doc;
-//    doc.Parse(content.c_str());
-//    doc.SetObject();
-//
-//    const rapidjson::Value& tiles = doc["tiles"];
-//    for (rapidjson::SizeType i = 0; i < tiles.Size(); i++)
-//    {
-//        const rapidjson::Value& tile = tiles[i];
-//
-//        TileLayer tileData;
-//        tileData.IndexX = tile["Index X"].GetInt();
-//        tileData.IndexY = tile["Index Y"].GetInt();
-//        tileData.groundLayer.groundType = (GroundType)tile["Ground Type"].GetInt();
-//        tileData.groundLayer.ID = tile["Ground ID"].GetInt();
-//        tileData.floorLayer.floorType = (FloorType)tile["Floor Type"].GetInt();
-//        tileData.floorLayer.ID = tile["Floor ID"].GetInt();
-//        tileData.objectLayer.objectType = (ObjectType)tile["Object Type"].GetInt();
-//        tileData.objectLayer.ID = tile["Object ID"].GetInt();
-//        tileData.placedPossible = tile["Placed Possible"].GetBool();
-//        tileData.playerPassable = tile["Player Passable"].GetBool();
-//    }
-//}
-//
