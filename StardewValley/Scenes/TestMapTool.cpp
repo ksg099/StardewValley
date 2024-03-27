@@ -281,10 +281,10 @@ void TestMapTool::Update(float dt)
             //저장했던 맵 정보 불러오기
             mapToolUI->isSelected = false;
         }
-        if (mapToolUI->GetMoveScreenButtonGB().contains(mouseWorldPos))
+        if (mapToolUI->GetTitleButtonGB().contains(mouseWorldPos))
         {
-            //오브젝트 배치를 중지하고 격자 화면을 드래그앤 드롭해서 이동할 수 있도록
             mapToolUI->isSelected = false;
+            SCENE_MGR.ChangeScene(SceneIds::SCENE_TITLE);
         }
 
         sf::FloatRect visibleMapBounds(15.f, 15.f, 1152.f, 1050.f);

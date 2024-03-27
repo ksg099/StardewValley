@@ -174,10 +174,10 @@ void MapToolUI::Init()
     loadButton.SetPosition({ eraseButton.GetPosition().x + saveButton.GetLocalBounds().width * 2.f + buttonOffset
         ,saveButton.GetPosition().y });
 
-    moveScreenButton.SetTexture("graphics/button.png");
-    moveScreenButton.SetOrigin(Origins::MC);
-    moveScreenButton.SetScale({ 2.f, 2.f });
-    moveScreenButton.SetPosition({ loadButton.GetPosition().x + saveButton.GetLocalBounds().width * 2.f + buttonOffset
+    titleButton.SetTexture("graphics/button_title.png");
+    titleButton.SetOrigin(Origins::MC);
+    titleButton.SetScale({ 2.f, 2.f });
+    titleButton.SetPosition({ loadButton.GetPosition().x + saveButton.GetLocalBounds().width * 2.f + buttonOffset
         , saveButton.GetPosition().y });
 
     int index = 0;
@@ -361,5 +361,5 @@ void MapToolUI::Draw(sf::RenderWindow& window)
     saveButton.Draw(window);
     eraseButton.Draw(window);
     loadButton.Draw(window);
-    moveScreenButton.Draw(window);
+    titleButton.Draw(window);
 }
