@@ -4,6 +4,7 @@
 class TileMap;
 class Inventory;
 class BoxInven;
+class UiStore;
 
 class SceneGame : public Scene
 {
@@ -30,6 +31,8 @@ protected:
 	Inventory* inventory;
 	BoxInven* boxInven;
 	const int sellingBoxId = 1;
+
+	UiStore* uiStore = nullptr;
 
 public:
 	SceneGame(SceneIds id);

@@ -203,6 +203,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="DataTables\TileMapSave.cpp" />
+    <ClCompile Include="GameObjects\StoreObjOnTile.cpp" />
+    <ClCompile Include="GameObjects\UiStore.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataTables\DataTable.h" />
@@ -247,6 +249,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="DataTables\TileMapSave.h" />
+    <ClInclude Include="GameObjects\StoreObjOnTile.h" />
+    <ClInclude Include="GameObjects\UiStore.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

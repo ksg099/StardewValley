@@ -36,6 +36,8 @@
     <ClCompile Include="Scenes\SceneTitle.cpp" />
     <ClCompile Include="GameObjects\LoadBoxUi.cpp" />
     <ClCompile Include="DataTables\HarvestTable.cpp" />
+    <ClCompile Include="GameObjects\StoreObjOnTile.cpp" />
+    <ClCompile Include="GameObjects\UiStore.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataTables\DataTable.h" />
@@ -76,5 +78,7 @@
     <ClInclude Include="Scenes\SceneTitle.h" />
     <ClInclude Include="GameObjects\LoadBoxUi.h" />
     <ClInclude Include="DataTables\HarvestTable.h" />
+    <ClInclude Include="GameObjects\StoreObjOnTile.h" />
+    <ClInclude Include="GameObjects\UiStore.h" />
   </ItemGroup>
 </Project>

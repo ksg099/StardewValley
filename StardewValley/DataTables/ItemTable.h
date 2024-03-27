@@ -32,6 +32,7 @@ public:
 	const DataItem& Get(ItemType type, int id);
 	const DataItem& Get(const std::string& name);
 	const int Count(ItemType type);
+	const int CountAll();
 
 	bool Load(rapidjson::Document& doc) override;
 	void Release() override;

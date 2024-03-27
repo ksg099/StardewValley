@@ -45,6 +45,18 @@ const int ItemTable::Count(ItemType type)
 	return countTable[(int)type];
 }
 
+const int ItemTable::CountAll()
+{
+	int countAllItem = 0;
+
+	for (int i = 0; i < (int)ItemType::Count; ++i)
+	{
+		countAllItem += Count((ItemType)i);
+	}
+
+	return countAllItem;
+}
+
 bool ItemTable::Load(rapidjson::Document& doc)
 {
 	Release();

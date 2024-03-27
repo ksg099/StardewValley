@@ -28,6 +28,7 @@ enum class ItemType
 	Seed,
 	Harvest,
 	Ingredient,
+	Count
 };
 
 struct ItemData

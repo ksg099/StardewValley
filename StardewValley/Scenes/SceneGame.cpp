@@ -1,13 +1,11 @@
 #include "pch.h"
 #include "SceneGame.h"
-
 #include "TileMap.h"
 #include "Player.h"
-
 #include "SpriteGo.h"
 #include "Inventory.h"
-
 #include "BoxInven.h"
+#include "UiStore.h"
 
 SceneGame::SceneGame(SceneIds id) : Scene(id)
 {
@@ -50,6 +48,9 @@ void SceneGame::Init()
 	layer->sortLayer = 5;
 	AddGo(layer, Layers::World);
 
+	uiStore = new UiStore("UI STORE");
+	AddGo(uiStore, Layers::Ui);
+
 	Scene::Init();
 }
 
@@ -65,6 +66,7 @@ void SceneGame::Enter()
 
 	inventory->SetActive(false);
 	boxInven->SetActive(false);
+	uiStore->SetActive(false);
 
 	Scene::Enter();
 }
@@ -99,6 +101,13 @@ void SceneGame::Update(float dt)
 
 	// inventory active/inactive
 	SetInventory();
+
+	// test store UI
+	// TO-DO: Delete
+	if (InputMgr::GetKeyDown(sf::Keyboard::P))
+	{
+		uiStore->SetActive(true);
+	}
 
 	dailyTime += (dt);
 	if (dailyTime >= 24)
