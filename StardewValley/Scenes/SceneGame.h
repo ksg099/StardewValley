@@ -29,6 +29,8 @@ protected:
 
 	Inventory* inventory;
 	BoxInven* boxInven;
+	const int sellingBoxId = 1;
+
 public:
 	SceneGame(SceneIds id);
 	virtual ~SceneGame();
@@ -46,4 +48,5 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void SetInventory();
+	void SellAllItemsInBox();
 };

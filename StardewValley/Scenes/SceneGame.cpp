@@ -106,6 +106,8 @@ void SceneGame::Update(float dt)
 		dailyTime = 0.f;
 		++day;
 		std::cout << "Day : " << day << std::endl;
+
+		SellAllItemsInBox();
 	}
 
 	if (dailyTime >= 6 && dailyTime < 16 && targetColor != dayColor)
@@ -165,4 +167,24 @@ void SceneGame::SetInventory()
 			boxInven->UpdateSlots();
 		}
 	}
+}
+
+void SceneGame::SellAllItemsInBox()
+{
+	auto sellingBox = ITEM_SAVE->Get(sellingBoxId);
+	int sellingPrice = 0;
+
+	for (auto item : *sellingBox)
+	{
+		if (item != nullptr)
+		{
+			// 아이템 가격 계산
+			sellingPrice += ITEM_TABLE->Get(item->type, item->itemId).sellingPrice * item->count;
+
+			// 아이템 삭제
+			delete item;
+			item = nullptr;
+		}
+	}
+	sellingBox->clear();
 }
