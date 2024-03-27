@@ -23,7 +23,7 @@ void LoadBoxUi::Init()
 		rect->setSize({ 500.f, 80.f });
 		rect->setPosition(fileName->GetPosition());
 		rect->setFillColor(sf::Color::Color(185, 122, 87));
-		rect->setOutlineThickness(1.f);
+		rect->setOutlineThickness(3.f);
 		rect->setOutlineColor(sf::Color::Transparent);
 		Utils::SetOrigin(*rect, Origins::MC);
 		tileMapRect.push_back(rect);
@@ -43,7 +43,7 @@ void LoadBoxUi::Init()
 		rect->setSize({ 500.f, 80.f });
 		rect->setPosition(fileName->GetPosition());
 		rect->setFillColor(sf::Color::Color(185, 122, 87));
-		rect->setOutlineThickness(1.f);
+		rect->setOutlineThickness(3.f);
 		rect->setOutlineColor(sf::Color::Transparent);
 		Utils::SetOrigin(*rect, Origins::MC);
 		gameSaveRect.push_back(rect);

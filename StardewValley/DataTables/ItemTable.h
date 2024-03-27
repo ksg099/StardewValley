@@ -7,6 +7,8 @@ struct DataItem
 	int itemId;
 
 	std::string name;
+	int sellingPrice;
+	int purchasePrice;
 
 	std::string textureId;
 	sf::Vector2i sheetId;

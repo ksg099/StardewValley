@@ -79,6 +79,8 @@ enum class ObjectType
 	NONE = -1,
 	STONE,
 	TREE,
+	BRANCH,
+	STUMP,
 	WEED,
 	CROPS,
 	FURNITURE,

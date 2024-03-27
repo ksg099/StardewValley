@@ -281,10 +281,10 @@ void TestMapTool::Update(float dt)
             //저장했던 맵 정보 불러오기
             mapToolUI->isSelected = false;
         }
-        if (mapToolUI->GetMoveScreenButtonGB().contains(mouseWorldPos))
+        if (mapToolUI->GetTitleButtonGB().contains(mouseWorldPos))
         {
-            //오브젝트 배치를 중지하고 격자 화면을 드래그앤 드롭해서 이동할 수 있도록
             mapToolUI->isSelected = false;
+            SCENE_MGR.ChangeScene(SceneIds::SCENE_TITLE);
         }
 
         sf::FloatRect visibleMapBounds(15.f, 15.f, 1152.f, 1050.f);
@@ -292,17 +292,19 @@ void TestMapTool::Update(float dt)
         {
             PlaceTileToIndex(SelectIndex(mouseWorldPos), mapToolUI->selectedTile);
         }
+
+        if (mapToolUI->GetSaveButtonGB().contains(mouseWorldPos))
+        {
+            SaveMapContent();
+        }
+
+        if (mapToolUI->GetLoadButtonGB().contains(mouseWorldPos))
+        {
+            LoadMapFile();
+        }
     }
 
-    if (InputMgr::GetKeyDown(sf::Keyboard::X))
-    {
-        SaveMapContent();
-    }
-
-    if (InputMgr::GetKeyDown(sf::Keyboard::L))
-    {
-        LoadMapFile();
-    }
+    
 }
 
 void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
@@ -382,7 +384,7 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             mapData[indexNum].playerPassable = cell.playerPassable;
             if (cell.objectLayer.tileSprite.getLocalBounds().height > size)
             {
-                cell.objectLayer.tileSprite.setOrigin(cell.objectLayer.tileSprite.getLocalBounds().width * 0.5f, cell.objectLayer.tileSprite.getLocalBounds().height - size*0.5);
+                cell.objectLayer.tileSprite.setOrigin(cell.objectLayer.tileSprite.getLocalBounds().width * 0.5f, cell.objectLayer.tileSprite.getLocalBounds().height - size * 0.5);
             }
             else
             {

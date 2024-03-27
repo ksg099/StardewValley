@@ -42,7 +42,7 @@ protected:
     SpriteGo saveButton;
     SpriteGo loadButton;
     SpriteGo eraseButton;
-    SpriteGo moveScreenButton;
+    SpriteGo titleButton;
 
     int currentPage;
     std::vector<std::vector<MapSheet>> categories;
@@ -76,7 +76,7 @@ public:
     sf::FloatRect GetSaveButtonGB() { return saveButton.GetGlobalBounds(); }
     sf::FloatRect GetLoadButtonGB() { return loadButton.GetGlobalBounds(); }
     sf::FloatRect GetEraseButtonGB() { return eraseButton.GetGlobalBounds(); }
-    sf::FloatRect GetMoveScreenButtonGB() { return moveScreenButton.GetGlobalBounds(); }
+    sf::FloatRect GetTitleButtonGB() { return titleButton.GetGlobalBounds(); }
     
     void Init() override;
     void Release() override;

@@ -193,13 +193,7 @@ void SceneGame::Update(float dt)
 		++day;
 		std::cout << "Day : " << day << std::endl;
 
-		// 모든 식물을 비활성화
-		Plant1->SetActive(false);
-		Plant2->SetActive(false);
-		Plant3->SetActive(false);
-		Plant4->SetActive(false);
-		Plant5->SetActive(false);
-		Plant6->SetActive(false);
+		SellAllItemsInBox();
 	}
 
 	// Z키 입력을 감지하여 식물 위치 설정
@@ -273,6 +267,51 @@ void SceneGame::Update(float dt)
 			progress = 5.f;
 		}
 		layer->SetFillColor(LerpColor(layer->GetFillColor(), targetColor, progress));
+	}
+	if (!dropItemList.empty())
+	{
+		for (auto& item : dropItemList)
+		{
+			if (item != nullptr)
+			{
+				sf::Vector2f itemCurrentPos = item->itemSprite.getPosition();
+				float distanceToPlayer = Utils::Distance(itemCurrentPos, player->GetPosition());
+				float maxSpeed = player->GetSpeed() + 50.f;
+				float minSpeed = player->GetSpeed() - 200.f;
+
+				float t = 1.f - (distanceToPlayer / 200.f);
+				float currentSpeed = Utils::Lerp(minSpeed, maxSpeed, t);
+
+				sf::Vector2f itemDirection = player->GetPosition() - itemCurrentPos;
+				Utils::Normalize(itemDirection);
+
+				sf::Vector2f itemMovePos = itemCurrentPos + itemDirection * currentSpeed * dt;
+
+				item->itemSprite.setPosition(itemMovePos);
+			}
+		}
+	}
+
+	auto it = dropItemList.begin();
+	while (it != dropItemList.end())
+	{
+		auto* item = *it;
+		if (item != nullptr)
+		{
+			if (Utils::Distance(item->itemSprite.getPosition(), player->GetPosition()) <= 5.f)
+			{
+				delete item;
+				it = dropItemList.erase(it);
+			}
+			else
+			{
+				++it;
+			}
+		}
+		else
+		{
+			++it;
+		}
 	}
 
 	//SpriteGo* plants[6] = { Plant1, Plant2, Plant3, Plant4, Plant5, Plant6 };
@@ -348,7 +387,69 @@ void SceneGame::Update(float dt)
 void SceneGame::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
-	//window.draw(overlayer);
+
+	window.setView(worldView);
+	for (auto& item : dropItemList)
+	{
+		window.draw(item->itemSprite);
+	}
+}
+
+void SceneGame::CreateItem(DataItem data, int indexX, int indexY)
+{
+	DropItem* item = new DropItem();
+	item->itemID = data.itemId;
+	item->itemType = data.itemType;
+	item->itemSprite.setTexture(RES_MGR_TEXTURE.Get(ITEM_TABLE->Get(item->itemType, item->itemID).textureId));
+	item->itemSprite.setTextureRect({ data.sheetId.x, data.sheetId.y, data.sheetSize.x, data.sheetSize.y });
+	Utils::SetOrigin(item->itemSprite, Origins::MC);
+	item->itemSprite.setPosition(tileMap->GetGridPosition(indexX, indexY));
+	std::cout << item->itemSprite.getPosition().x << std::endl;
+	std::cout << item->itemSprite.getPosition().y << std::endl;
+	std::cout << std::endl;
+	std::cout << player->GetPosition().x << std::endl;
+	std::cout << player->GetPosition().y << std::endl;
+	item->count = 1;
+	dropItemList.push_back(item);
+
+	auto inven = ITEM_SAVE->Get(0);
+	for (auto& invenItem : *inven)
+	{
+		if (invenItem->type == item->itemType && invenItem->itemId == item->itemID)
+		{
+			++invenItem->count;
+			return;
+		}
+	}
+	if (inven->size() <= 30)
+	{
+		ItemData* newItem = new ItemData();
+		newItem->BoxId = 0;
+		newItem->count = 1;
+		int index = 0;
+		for (int i = 0; i < 30; ++i)
+		{
+			bool isExist = true;
+			for (auto& inV : *inven)
+			{
+				if (inV->IndexY * 10 + inV->IndexX == i)
+				{
+					isExist = false;
+					break;
+				}
+			}
+			if (isExist)
+			{
+				index = i;
+				break;
+			}
+		}
+		newItem->IndexX = index % 10;
+		newItem->IndexY = index / 10;
+		newItem->itemId = item->itemID;
+		newItem->type = item->itemType;
+		inven->push_back(newItem);
+	}
 }
 
 void SceneGame::SetInventory()
@@ -371,4 +472,24 @@ void SceneGame::SetInventory()
 			boxInven->UpdateSlots();
 		}
 	}
+}
+
+void SceneGame::SellAllItemsInBox()
+{
+	auto sellingBox = ITEM_SAVE->Get(sellingBoxId);
+	int sellingPrice = 0;
+
+	for (auto item : *sellingBox)
+	{
+		if (item != nullptr)
+		{
+			// 아이템 가격 계산
+			sellingPrice += ITEM_TABLE->Get(item->type, item->itemId).sellingPrice * item->count;
+
+			// 아이템 삭제
+			delete item;
+			item = nullptr;
+		}
+	}
+	sellingBox->clear();
 }

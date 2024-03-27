@@ -4,17 +4,33 @@
 class TileMap;
 class Inventory;
 class BoxInven;
+
 class TestMapTool;
+
+class TileData;
+
 class Player;
 
 class SceneGame : public Scene
 {
+public:
+	struct DropItem
+	{
+		sf::Sprite itemSprite;
+		int count = 1;
+		ItemType itemType = ItemType::Ingredient;
+		int itemID = 0;
+
+	};
+
 protected:
 	TileMap* tileMap = nullptr;
 	TestMapTool* testMapTool;
 	Player* player = nullptr;
 
 	// const sf::Vector2f tileSize = { 25.f, 25.f };
+	TileData* tileData = nullptr;
+
 
 	float dailyTime = 6.f;
 	int day = 1;
@@ -25,7 +41,7 @@ protected:
 
 	//int growUpday = 3;
 
-	//sf::RectangleShape overlayer;
+	std::list<DropItem*> dropItemList;
 
 	SpriteGo* layer = nullptr;
 	SpriteGo* Seed = nullptr;
@@ -55,6 +71,8 @@ protected:
 
 	Inventory* inventory;
 	BoxInven* boxInven;
+	const int sellingBoxId = 1;
+
 public:
 	SceneGame(SceneIds id);
 	virtual ~SceneGame();
@@ -66,10 +84,12 @@ public:
 	void Exit() override;
 
 	sf::Color LerpColor(const sf::Color& start, const sf::Color& end, float t);
+	void CreateItem(DataItem data, int indexX, int indexY);
 	
 	void Update(float dt) override;
 
 	void Draw(sf::RenderWindow& window) override;
 
 	void SetInventory();
+	void SellAllItemsInBox();
 };
