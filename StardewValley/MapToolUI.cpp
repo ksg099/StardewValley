@@ -156,7 +156,7 @@ void MapToolUI::Init()
 
     float buttonOffset = 20.f;
 
-    saveButton.SetTexture("graphics/button.png");
+    saveButton.SetTexture("graphics/button_save.png");
     saveButton.SetOrigin(Origins::MC);
     saveButton.SetScale({ 2.f, 2.f });
     saveButton.SetPosition({ (float)FRAMEWORK.GetWindowSize().x * 0.675f
@@ -168,16 +168,16 @@ void MapToolUI::Init()
     eraseButton.SetPosition({ saveButton.GetPosition().x + saveButton.GetLocalBounds().width * 2.f + buttonOffset
         , saveButton.GetPosition().y });
 
-    loadButton.SetTexture("graphics/button.png");
+    loadButton.SetTexture("graphics/button_load.png");
     loadButton.SetOrigin(Origins::MC);
     loadButton.SetScale({ 2.f, 2.f });
     loadButton.SetPosition({ eraseButton.GetPosition().x + saveButton.GetLocalBounds().width * 2.f + buttonOffset
         ,saveButton.GetPosition().y });
 
-    moveScreenButton.SetTexture("graphics/button.png");
-    moveScreenButton.SetOrigin(Origins::MC);
-    moveScreenButton.SetScale({ 2.f, 2.f });
-    moveScreenButton.SetPosition({ loadButton.GetPosition().x + saveButton.GetLocalBounds().width * 2.f + buttonOffset
+    titleButton.SetTexture("graphics/button_title.png");
+    titleButton.SetOrigin(Origins::MC);
+    titleButton.SetScale({ 2.f, 2.f });
+    titleButton.SetPosition({ loadButton.GetPosition().x + saveButton.GetLocalBounds().width * 2.f + buttonOffset
         , saveButton.GetPosition().y });
 
     int index = 0;
@@ -361,5 +361,5 @@ void MapToolUI::Draw(sf::RenderWindow& window)
     saveButton.Draw(window);
     eraseButton.Draw(window);
     loadButton.Draw(window);
-    moveScreenButton.Draw(window);
+    titleButton.Draw(window);
 }

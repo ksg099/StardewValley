@@ -5,17 +5,32 @@ class TileMap;
 class Inventory;
 class BoxInven;
 class UiStore;
+class TileData;
+class Player;
 
 class SceneGame : public Scene
 {
+public:
+	struct DropItem
+	{
+		sf::Sprite itemSprite;
+		int count = 1;
+		ItemType itemType = ItemType::Ingredient;
+		int itemID = 0;
+
+	};
+
 protected:
 	TileMap* tileMap = nullptr;
 	// const sf::Vector2f tileSize = { 25.f, 25.f };
+	TileData* tileData = nullptr;
+	Player* player = nullptr;
+
 
 	float dailyTime = 6.f;
 	int day = 1;
 
-	//sf::RectangleShape overlayer;
+	std::list<DropItem*> dropItemList;
 
 	SpriteGo* layer = nullptr;
 
@@ -25,7 +40,7 @@ protected:
 	sf::Color currentColor;
 	sf::Color targetColor;
 	float transitionTime = 0.f;
-	float transitionDuration = 5.f; //ÀüÈ¯¿¡ °É¸®´Â ½Ã°£
+	float transitionDuration = 5.f; //ï¿½ï¿½È¯ï¿½ï¿½ ï¿½É¸ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 	float progress = 0.f;
 
 	Inventory* inventory;
@@ -45,6 +60,7 @@ public:
 	void Exit() override;
 
 	sf::Color LerpColor(const sf::Color& start, const sf::Color& end, float t);
+	void CreateItem(DataItem data, int indexX, int indexY);
 	
 	void Update(float dt) override;
 
