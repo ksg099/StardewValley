@@ -40,8 +40,8 @@ protected:
 	int row = 20;
 	int size = 15;
 
-	float gridStartX = 30.f;
-	float gridStartY = 30.f;
+	float gridStartX = ((float)FRAMEWORK.GetWindowSize().x * 0.6f) * 0.35f;
+	float gridStartY = ((float)FRAMEWORK.GetWindowSize().y * 0.4f);
 
 	float timer = 0.f;
 	float duration = 3.f;

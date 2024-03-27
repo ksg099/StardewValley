@@ -472,7 +472,7 @@ void TestMapTool::DrawGrid()
     for (int i = 0; i < row + 1; ++i)
     {
         startLine = { startLine.x , (float)(i * size) + gridStartY };
-        endLine = { (float)FRAMEWORK.GetWindowSize().x * 0.6f - 15.f, startLine.y };
+        endLine = { gridStartX + (col * size), startLine.y };
 
         grid[gridIndex].color = sf::Color::White;
         grid[gridIndex].position = startLine;
@@ -488,7 +488,7 @@ void TestMapTool::DrawGrid()
     for (int j = 0; j < col + 1; ++j)
     {
         startLine = { (float)(j * size) + gridStartX, startLine.y };
-        endLine = { startLine.x , (float)FRAMEWORK.GetWindowSize().y };
+        endLine = { startLine.x , gridStartY + (row * size) };
 
         grid[gridIndex].color = sf::Color::White;
         grid[gridIndex].position = startLine;
