@@ -89,6 +89,7 @@ void BoxInven::Reset()
 	secondItems = ITEM_SAVE->Get(secondBoxId);
 
 	itemClick = nullptr;
+	itemExchange = nullptr;
 
 	SpriteGo::Reset();
 	SetOrigin(Origins::MC);
@@ -99,6 +100,7 @@ void BoxInven::Reset()
 		{
 			int index = i * countY + j;
 			firtstSlots[index]->Reset();
+			firtstSlots[index]->SetIsDraw(true);
 		}
 	}
 
@@ -108,6 +110,7 @@ void BoxInven::Reset()
 		{
 			int index = i * countY + j;
 			secondSlots[index]->Reset();
+			secondSlots[index]->SetIsDraw(true);
 		}
 	}
 
@@ -124,9 +127,12 @@ void BoxInven::Update(float dt)
 		auto item = ITEM_TABLE->Get(itemClick->type, itemClick->itemId);
 		firstClickSprite.setTexture(RES_MGR_TEXTURE.Get(item.textureId));
 		firstClickSprite.setTextureRect(sf::IntRect(item.sheetId.x, item.sheetId.y, item.sheetSize.x, item.sheetSize.y));
-		firstClickSprite.setScale(sf::Vector2f(50.f / item.sheetSize.x, 50.f / item.sheetSize.y));
+		float scale = item.sheetSize.x > item.sheetSize.y ? item.sheetSize.x : item.sheetSize.y;
+		firstClickSprite.setScale(sf::Vector2f(50.f / scale, 50.f / scale));
 		Utils::SetOrigin(firstClickSprite, Origins::MC);
 		isClick = true;
+
+		SetItemIconDraw(false);
 	}
 	else if (itemClick == nullptr && isClick)
 	{
@@ -161,6 +167,7 @@ void BoxInven::Update(float dt)
 					}
 				}
 				UpdateSlots();
+				SetItemIconDraw(true);
 				itemClick = nullptr;
 				itemExchange = nullptr;
 			}
@@ -504,5 +511,17 @@ void BoxInven::SwapItemDiffBox(ItemData* itemClick, ItemData* itemExchange, bool
 		secondItems->erase(findClick);
 
 		itemClick->BoxId = firstBoxId;
+	}
+}
+
+void BoxInven::SetItemIconDraw(bool isDraw)
+{
+	if (itemClick->BoxId == firstBoxId)
+	{
+		firtstSlots[itemClick->IndexY * countX + itemClick->IndexX]->SetIsDraw(isDraw);
+	}
+	else
+	{
+		secondSlots[itemClick->IndexY * countX + itemClick->IndexX]->SetIsDraw(isDraw);
 	}
 }

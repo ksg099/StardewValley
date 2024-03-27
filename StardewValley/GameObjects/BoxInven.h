@@ -55,5 +55,7 @@ public:
 	std::pair<int, bool> CheckPosIndex(sf::Vector2f uiPos);
 	ItemData* SaveClickItemData(sf::Vector2f uiPos);
 	void SwapItemDiffBox(ItemData* itemClick, ItemData* itemExchange, bool isClickFirst);
+
+	void SetItemIconDraw(bool isDraw);
 };
 

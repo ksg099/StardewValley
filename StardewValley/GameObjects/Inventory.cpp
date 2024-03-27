@@ -85,6 +85,7 @@ void Inventory::Reset()
 		{
 			int index = i * countY + j;
 			slots[index]->Reset();
+			slots[index]->SetIsDraw(true);
 		}
 	}
 	
@@ -105,13 +106,21 @@ void Inventory::Update(float dt)
 			auto item = ITEM_TABLE->Get(itemData->type, itemData->itemId);
 			firstClickSprite.setTexture(RES_MGR_TEXTURE.Get(item.textureId));
 			firstClickSprite.setTextureRect(sf::IntRect(item.sheetId.x, item.sheetId.y, item.sheetSize.x, item.sheetSize.y));
+			float scale = item.sheetSize.x > item.sheetSize.y ? item.sheetSize.x : item.sheetSize.y;
+			firstClickSprite.setScale(sf::Vector2f(50.f / scale, 50.f / scale));
 			Utils::SetOrigin(firstClickSprite, Origins::MC);
 			isClick = true;
+
+			slots[firstClickIndex]->SetIsDraw(false);
 		}
 	}
 	else if (firstClickIndex == -1 && isClick)
 	{
 		isClick = false;
+		for (auto slot : slots)
+		{
+			slot->SetIsDraw(true);
+		}
 	}
 	firstClickSprite.setPosition(uiPos);
 
