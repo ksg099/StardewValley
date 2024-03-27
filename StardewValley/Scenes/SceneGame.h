@@ -6,7 +6,7 @@ class Inventory;
 class BoxInven;
 class UiStore;
 class TileData;
-
+class UiHud;
 class Player;
 class ChangeHarvest;
 
@@ -25,6 +25,7 @@ public:
 protected:
 	TileMap* tileMap = nullptr;
 	Player* player = nullptr;
+	UiHud* uiHud = nullptr;
 	Inventory* inventory;
 	BoxInven* boxInven;
 	TileData* tileData = nullptr;

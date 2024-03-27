@@ -9,7 +9,7 @@
 
 #include "TestMapTool.h"
 #include "ChangeHarvest.h"
-
+#include "UiHud.h"
 SceneGame::SceneGame(SceneIds id) : Scene(id)
 {
 }
@@ -49,6 +49,9 @@ void SceneGame::Init()
 
 	uiStore = new UiStore("UI STORE");
 	AddGo(uiStore, Layers::Ui);
+
+	uiHud = new UiHud("uihud");
+	AddGo(uiHud, Layers::Ui);
 
 	Scene::Init();
 }
