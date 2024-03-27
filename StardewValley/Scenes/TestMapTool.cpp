@@ -123,15 +123,6 @@ void TestMapTool::LoadMapFile()
             }
         }
     }
-    std::cout << "380 objectType : " << (int)(mapData[380].objectLayer.objectType) << std::endl;
-    std::cout << "380 objectID : " << mapData[380].objectLayer.ID << std::endl;
-    std::cout << "381 objectType : " << (int)(mapData[381].objectLayer.objectType) << std::endl;
-    std::cout << "381 objectID : " << mapData[381].objectLayer.ID << std::endl;
-    std::cout << "382 objectType : " << (int)(mapData[382].objectLayer.objectType) << std::endl;
-    std::cout << "382 objectID : " << mapData[382].objectLayer.ID << std::endl;
-    std::cout << "383 objectType : " << (int)(mapData[383].objectLayer.objectType) << std::endl;
-    std::cout << "383 objectID : " << mapData[383].objectLayer.ID << std::endl;
-    
 }
 
 void TestMapTool::UpdateTransform()
@@ -242,13 +233,6 @@ void TestMapTool::Update(float dt)
     sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
     sf::Vector2f mouseWorldPos = SCENE_MGR.GetCurrentScene()->ScreenToWorld(mousePos);
 
-    /*timer += dt;
-    if (timer > duration)
-    {
-        printf("WORLD : (%f, %f)\n", mouseWorldPos.x, mouseWorldPos.y);
-        timer = 0.f;
-    }*/
-
     float zoomAmount = 1.1f;
 
     sf::FloatRect worldMapBounds = { 15.f,15.f,(float)FRAMEWORK.GetWindowSize().x * 0.6f - 15.f, (float)FRAMEWORK.GetWindowSize().y - 15.f };
@@ -266,27 +250,6 @@ void TestMapTool::Update(float dt)
 
     if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
     {
-        if (mapToolUI->GetSaveButtonGB().contains(mouseWorldPos))
-        {
-            //SaveMapContent();
-            mapToolUI->isSelected = false;
-        }
-        if (mapToolUI->GetEraseButtonGB().contains(mouseWorldPos))
-        {
-            //배치되었던 오브젝트 지우기
-            mapToolUI->isSelected = false;
-        }
-        if (mapToolUI->GetLoadButtonGB().contains(mouseWorldPos))
-        {
-            //저장했던 맵 정보 불러오기
-            mapToolUI->isSelected = false;
-        }
-        if (mapToolUI->GetTitleButtonGB().contains(mouseWorldPos))
-        {
-            mapToolUI->isSelected = false;
-            SCENE_MGR.ChangeScene(SceneIds::SCENE_TITLE);
-        }
-
         sf::FloatRect visibleMapBounds(15.f, 15.f, 1152.f, 1050.f);
         if (mapToolUI->isSelected && visibleMapBounds.contains(mouseWorldPos))
         {
@@ -295,16 +258,76 @@ void TestMapTool::Update(float dt)
 
         if (mapToolUI->GetSaveButtonGB().contains(mouseWorldPos))
         {
+            mapToolUI->isSelected = false;
             SaveMapContent();
         }
 
         if (mapToolUI->GetLoadButtonGB().contains(mouseWorldPos))
         {
+            mapToolUI->isSelected = false;
             LoadMapFile();
         }
-    }
 
-    
+        if (mapToolUI->GetEraseButtonGB().contains(mouseWorldPos))
+        {
+            mapToolUI->isSelected = false;
+            isErase = true;
+            
+        }
+        if (isErase && visibleMapBounds.contains(mouseWorldPos))
+        {
+            ErasePlacedTile(SelectIndex(mouseWorldPos));
+            isErase = false;
+        }
+        if (mapToolUI->GetTitleButtonGB().contains(mouseWorldPos))
+        {
+            mapToolUI->isSelected = false;
+            SCENE_MGR.ChangeScene(SceneIds::SCENE_TITLE);
+        }
+    }
+}
+
+void TestMapTool::ErasePlacedTile(int indexNum)
+{
+    if (indexNum >= 0 && indexNum <= col * row)
+    {
+        if (mapData[indexNum].objectLayer.objectType != ObjectType::NONE)
+        {
+            mapData[indexNum].objectLayer.objectType = ObjectType::NONE;
+            mapData[indexNum].objectLayer.ID = 0;
+            mapData[indexNum].objectLayer.sheetID_X = 0;
+            mapData[indexNum].objectLayer.sheetID_Y = 0;
+            mapData[indexNum].objectLayer.sheetID_W = 0;
+            mapData[indexNum].objectLayer.sheetID_H = 0;
+            mapData[indexNum].objectLayer.tileSprite.setTexture(RES_MGR_TEXTURE.Get("graphics/none.png"));
+            mapData[indexNum].placedPossible = true;
+            mapData[indexNum].playerPassable = true;
+        }
+        else if (mapData[indexNum].floorLayer.floorType != FloorType::NONE)
+        {
+            mapData[indexNum].floorLayer.floorType = FloorType::NONE;
+            mapData[indexNum].floorLayer.ID = 0;
+            mapData[indexNum].floorLayer.sheetID_X = 0;
+            mapData[indexNum].floorLayer.sheetID_Y = 0;
+            mapData[indexNum].floorLayer.sheetID_W = 0;
+            mapData[indexNum].floorLayer.sheetID_H = 0;
+            mapData[indexNum].floorLayer.tileSprite.setTexture(RES_MGR_TEXTURE.Get("graphics/none.png"));
+            mapData[indexNum].placedPossible = true;
+            mapData[indexNum].playerPassable = true;
+        }
+        else if(mapData[indexNum].groundLayer.groundType != GroundType::NONE)
+        {
+            mapData[indexNum].groundLayer.groundType = GroundType::DIRT;
+            mapData[indexNum].groundLayer.ID = 0;
+            mapData[indexNum].groundLayer.sheetID_X = 0;
+            mapData[indexNum].groundLayer.sheetID_Y = 0;
+            mapData[indexNum].groundLayer.sheetID_W = 0;
+            mapData[indexNum].groundLayer.sheetID_H = 0;
+            mapData[indexNum].groundLayer.tileSprite.setTexture(RES_MGR_TEXTURE.Get("graphics/none.png"));
+            mapData[indexNum].placedPossible = true;
+            mapData[indexNum].playerPassable = true;
+        }
+    }
 }
 
 void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
@@ -332,8 +355,6 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             cell.groundLayer.worldIndexNum = indexNum;
             cell.groundLayer.tileType = tile.tileType;
             cell.groundLayer.groundType = tile.groundType;
-            cell.groundLayer.tileSprite.setOrigin(cell.groundLayer.tileSprite.getLocalBounds().width * 0.5f, cell.groundLayer.tileSprite.getLocalBounds().height * 0.5f);
-            cell.groundLayer.tileSprite.setPosition(IndexToPos(indexNum));
             if (tile.groundType == GroundType::WATER)
             {
                 cell.placedPossible = false;
@@ -347,6 +368,9 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             mapData[indexNum].placedPossible = cell.placedPossible;
             mapData[indexNum].playerPassable = cell.playerPassable;
             mapData[indexNum].groundLayer = cell.groundLayer;
+            mapData[indexNum].groundLayer.tileSprite = tile.originalSprite;
+            Utils::SetOrigin(mapData[indexNum].groundLayer.tileSprite, Origins::MC);
+            mapData[indexNum].groundLayer.tileSprite.setPosition(IndexToPos(indexNum));
             break;
         case TileType::Floor:
             cell.floorLayer.ID = tile.objectID;
@@ -359,13 +383,14 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             cell.floorLayer.worldIndexNum = indexNum;
             cell.floorLayer.tileType = tile.tileType;
             cell.floorLayer.floorType = tile.floorType;
-            cell.floorLayer.tileSprite.setOrigin(cell.floorLayer.tileSprite.getLocalBounds().width * 0.5f, cell.floorLayer.tileSprite.getLocalBounds().height * 0.5f);
-            cell.floorLayer.tileSprite.setPosition(IndexToPos(indexNum));
             cell.placedPossible = true;
             cell.playerPassable = true;
             mapData[indexNum].placedPossible = cell.placedPossible;
             mapData[indexNum].playerPassable = cell.playerPassable;
             mapData[indexNum].floorLayer = cell.floorLayer;
+            mapData[indexNum].floorLayer.tileSprite = tile.originalSprite;
+            Utils::SetOrigin(mapData[indexNum].floorLayer.tileSprite, Origins::MC);
+            mapData[indexNum].floorLayer.tileSprite.setPosition(IndexToPos(indexNum));
             break;
         case TileType::Object:
             cell.objectLayer.ID = tile.objectID;
@@ -374,7 +399,6 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             cell.objectLayer.sheetID_Y = objectData.sheetId.y;
             cell.objectLayer.sheetID_W = objectData.sheetSize.x;
             cell.objectLayer.sheetID_H = objectData.sheetSize.y;
-            cell.objectLayer.tileSprite = tile.originalSprite;
             cell.objectLayer.worldIndexNum = indexNum;
             cell.objectLayer.tileType = tile.tileType;
             cell.objectLayer.objectType = tile.objectType;
@@ -382,34 +406,23 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             cell.playerPassable = false;
             mapData[indexNum].placedPossible = cell.placedPossible;
             mapData[indexNum].playerPassable = cell.playerPassable;
-            if (cell.objectLayer.tileSprite.getLocalBounds().height > size)
+            mapData[indexNum].objectLayer = cell.objectLayer;
+            mapData[indexNum].objectLayer.tileSprite = tile.originalSprite;
+            if (mapData[indexNum].objectLayer.tileSprite.getLocalBounds().height > size)
             {
-                cell.objectLayer.tileSprite.setOrigin(cell.objectLayer.tileSprite.getLocalBounds().width * 0.5f, cell.objectLayer.tileSprite.getLocalBounds().height - size * 0.5);
+                mapData[indexNum].objectLayer.tileSprite.setOrigin(mapData[indexNum].objectLayer.tileSprite.getLocalBounds().width * 0.5f,
+                   mapData[indexNum].objectLayer.tileSprite.getLocalBounds().height - size * 0.5);
             }
             else
             {
-                cell.objectLayer.tileSprite.setOrigin(cell.objectLayer.tileSprite.getLocalBounds().width * 0.5f, cell.objectLayer.tileSprite.getLocalBounds().height * 0.5f);
+                Utils::SetOrigin(mapData[indexNum].objectLayer.tileSprite, Origins::MC);
             }
-            cell.objectLayer.tileSprite.setPosition(IndexToPos(indexNum));
-            mapData[indexNum].objectLayer = cell.objectLayer;
+            mapData[indexNum].objectLayer.tileSprite.setPosition(IndexToPos(indexNum));
             break;
         default:
             break;
         }
     }
-}
-
-Tile* TestMapTool::GetIndexState(int index)
-{
-	//for (auto& tile : mapData)
-	//{
-	//	if (tile.ground)
-	//	{
-	//		return &tile.second; // 해당 인덱스의 타일 찾음
-	//	}
-	//}
-	//return nullptr; // 타일이 없으면 nullptr 반환
-    return nullptr;
 }
 
 void TestMapTool::Draw(sf::RenderWindow& window)
@@ -450,7 +463,7 @@ void TestMapTool::DrawGrid()
     for (int i = 0; i < row + 1; ++i)
     {
         startLine = { startLine.x , (float)(i * size) + gridStartY };
-        endLine = { (float)FRAMEWORK.GetWindowSize().x * 0.6f - 15.f, startLine.y };
+        endLine = { gridStartX + (col * size), startLine.y };
 
         grid[gridIndex].color = sf::Color::White;
         grid[gridIndex].position = startLine;
@@ -466,7 +479,7 @@ void TestMapTool::DrawGrid()
     for (int j = 0; j < col + 1; ++j)
     {
         startLine = { (float)(j * size) + gridStartX, startLine.y };
-        endLine = { startLine.x , (float)FRAMEWORK.GetWindowSize().y };
+        endLine = { startLine.x , gridStartY + (row * size) };
 
         grid[gridIndex].color = sf::Color::White;
         grid[gridIndex].position = startLine;
@@ -531,29 +544,29 @@ void TestMapTool::SaveMapContent()
     int X = 0;
     int Y = 0;
 
-    for (const auto& map : mapData)
-    {
-            Value tileContent(kObjectType); // 개별 타일 정보를 담을 JSON 객체 생성
-            
-            if (X >= row)
-            {
-                ++Y;
-                X = 0;
-            }
-            tileContent.AddMember("Index X", X, allocator);
-            tileContent.AddMember("Index Y", Y, allocator);
-            tileContent.AddMember("Ground Type", (int)(map.groundLayer.groundType), allocator);
-            tileContent.AddMember("Ground ID", map.groundLayer.ID, allocator);
-            tileContent.AddMember("Floor Type", (int)(map.floorLayer.floorType), allocator);
-            tileContent.AddMember("Floor ID", map.floorLayer.ID, allocator);
-            tileContent.AddMember("Object Type", (int)(map.objectLayer.objectType), allocator);
-            tileContent.AddMember("Object ID", map.objectLayer.ID, allocator);
-            tileContent.AddMember("Placed Possible", map.placedPossible, allocator);
-            tileContent.AddMember("Player Passable", map.playerPassable, allocator);
-            ++X;
-            // 타일 객체를 타일 배열에 추가
-            tilesArray.PushBack(tileContent, allocator);
-    }
+	for (const auto& map : mapData)
+	{
+		Value tileContent(kObjectType); // 개별 타일 정보를 담을 JSON 객체 생성
+
+		if (X >= row)
+		{
+			++Y;
+			X = 0;
+		}
+		tileContent.AddMember("Index X", X, allocator);
+		tileContent.AddMember("Index Y", Y, allocator);
+		tileContent.AddMember("Ground Type", (int)(map.groundLayer.groundType), allocator);
+		tileContent.AddMember("Ground ID", map.groundLayer.ID, allocator);
+		tileContent.AddMember("Floor Type", (int)(map.floorLayer.floorType), allocator);
+		tileContent.AddMember("Floor ID", map.floorLayer.ID, allocator);
+		tileContent.AddMember("Object Type", (int)(map.objectLayer.objectType), allocator);
+		tileContent.AddMember("Object ID", map.objectLayer.ID, allocator);
+		tileContent.AddMember("Placed Possible", map.placedPossible, allocator);
+		tileContent.AddMember("Player Passable", map.playerPassable, allocator);
+		++X;
+		
+		tilesArray.PushBack(tileContent, allocator);
+	}
 
     tileMapData.AddMember("Tiles", tilesArray, allocator);
     array.PushBack(tileMapData, allocator);
@@ -562,11 +575,9 @@ void TestMapTool::SaveMapContent()
     std::wstring savePath = SaveFilePath();
     if (savePath.empty())
     {
-        return; // 취소할 경우 return
+        return;
     }
 
-    // JSON 문서를 파일에 쓰기
-    // TODO : fopen 수정하기
     std::string sSavePath = WstringToString(savePath);
     FILE* fp = fopen(sSavePath.c_str(), "wb");
 
@@ -576,90 +587,3 @@ void TestMapTool::SaveMapContent()
     doc.Accept(writer);
     fclose(fp);
 }
-//
-//void TestMapTool::LoadTileMap(const std::string& name)
-//{
-//    tiles = TILEMAP_SAVE->Get(name);
-//    if (tiles == nullptr)
-//        return;
-//
-//    sf::Vector2i cellCount;
-//    cellCount.x = TILEMAP_SAVE->GetTileMapSize(name)->x;
-//    cellCount.y = TILEMAP_SAVE->GetTileMapSize(name)->y;
-//    SetSpriteSheetId(GROUND_TABLE->GetTextureId());
-//
-//    cellSize = tileSize;
-//
-//    va.clear();
-//    va.setPrimitiveType(sf::Quads);
-//    va.resize(cellCount.x * cellCount.y * 4);
-//
-//    sf::Vector2f posOffsets[4] = {
-//        { 0, 0 },
-//        { tileSize.x, 0 },
-//        { tileSize.x, tileSize.y },
-//        { 0, tileSize.y }
-//    };
-//
-//    for (auto tile : *tiles)
-//    {
-//        tile->floor = CreateFloor(tile->floorType, tile->floorId);
-//        if (tile->floor != nullptr)
-//            tile->floor->SetTileData(tile);
-//
-//        tile->object = CreateObject(tile->objectType, tile->objectId);
-//        if (tile->object != nullptr)
-//            tile->object->SetTileData(tile);
-//
-//        sf::Vector2f sheetSize = (sf::Vector2f)GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetSize;
-//        sf::Vector2f texCoord0[4] = {
-//            { 0, 0 },
-//            { sheetSize.x, 0 },
-//            { sheetSize.x, sheetSize.y },
-//            { 0, sheetSize.y }
-//        };
-//
-//        int quadIndex = tile->indexY * cellCount.x + tile->indexX; // 2차원 인덱스를 1차원 인덱스로 변환
-//        sf::Vector2f quadPos(tileSize.x * tile->indexX, tileSize.y * tile->indexY);
-//
-//        for (int k = 0; k < 4; k++)
-//        {
-//            int vertexIndex = (quadIndex * 4) + k;
-//            va[vertexIndex].position = quadPos + posOffsets[k];
-//            va[vertexIndex].texCoords = texCoord0[k];
-//            va[vertexIndex].texCoords.x += GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetId.x;
-//            va[vertexIndex].texCoords.y += GROUND_TABLE->Get(tile->groundType, tile->groundId).sheetId.y;
-//        }
-//    }
-//}
-//
-//void TestMapTool::LoadMapFile(const std::string& name)
-//{
-//    std::string filePath = 
-//    std::ifstream inFile(filePath);
-//    std::string content((std::istreambuf_iterator<char>(inFile)),
-//        std::istreambuf_iterator<char>());
-//
-//    rapidjson::Document doc;
-//    doc.Parse(content.c_str());
-//    doc.SetObject();
-//
-//    const rapidjson::Value& tiles = doc["tiles"];
-//    for (rapidjson::SizeType i = 0; i < tiles.Size(); i++)
-//    {
-//        const rapidjson::Value& tile = tiles[i];
-//
-//        TileLayer tileData;
-//        tileData.IndexX = tile["Index X"].GetInt();
-//        tileData.IndexY = tile["Index Y"].GetInt();
-//        tileData.groundLayer.groundType = (GroundType)tile["Ground Type"].GetInt();
-//        tileData.groundLayer.ID = tile["Ground ID"].GetInt();
-//        tileData.floorLayer.floorType = (FloorType)tile["Floor Type"].GetInt();
-//        tileData.floorLayer.ID = tile["Floor ID"].GetInt();
-//        tileData.objectLayer.objectType = (ObjectType)tile["Object Type"].GetInt();
-//        tileData.objectLayer.ID = tile["Object ID"].GetInt();
-//        tileData.placedPossible = tile["Placed Possible"].GetBool();
-//        tileData.playerPassable = tile["Player Passable"].GetBool();
-//    }
-//}
-//

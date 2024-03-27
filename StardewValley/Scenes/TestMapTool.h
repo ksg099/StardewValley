@@ -36,15 +36,17 @@ protected:
 	sf::Sprite spriteFloor;        //Ãß°¡
 
 	sf::VertexArray grid;
-	int col = 20;
-	int row = 20;
+	int col = 10;
+	int row = 10;
 	int size = 15;
 
-	float gridStartX = 30.f;
-	float gridStartY = 30.f;
+	float gridStartX = ((float)FRAMEWORK.GetWindowSize().x * 0.6f) * 0.35f;
+	float gridStartY = ((float)FRAMEWORK.GetWindowSize().y * 0.4f);
 
 	float timer = 0.f;
 	float duration = 3.f;
+
+	bool isErase = false;
 
 	rapidjson::Document doc;
 
@@ -68,8 +70,8 @@ public:
 
 	void Update(float dt) override;
 
+	void ErasePlacedTile(int indexNum);
 	void PlaceTileToIndex(int indexNum, MapSheet& tile);
-	Tile* GetIndexState(int index);
 
 	void Draw(sf::RenderWindow& window) override;    
 	
