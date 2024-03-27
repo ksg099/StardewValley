@@ -10,6 +10,7 @@ class TestMapTool;
 class TileData;
 
 class Player;
+class ChangeHarvest;
 
 class SceneGame : public Scene
 {
@@ -27,33 +28,26 @@ protected:
 	TileMap* tileMap = nullptr;
 	TestMapTool* testMapTool;
 	Player* player = nullptr;
-
-	// const sf::Vector2f tileSize = { 25.f, 25.f };
+	Inventory* inventory;
+	BoxInven* boxInven;
 	TileData* tileData = nullptr;
 
+	SpriteGo* layer = nullptr;
 
-	float dailyTime = 6.f;
+	//std::vector<ChangeHarvest*> crops;
+	const int sellingBoxId = 1;
+
 	int day = 1;
 	int col = 30;
 
 	float gridStartX = 0.f; //처음 그려지는 x좌표
 	float gridStartY = 0.f; //처음 그려지는 y좌표
-
-	//int growUpday = 3;
+	float dailyTime = 6.f;
+	float transitionTime = 0.f;
+	float transitionDuration = 5.f; //전환에 걸리는 시간
+	float progress = 0.f;
 
 	std::list<DropItem*> dropItemList;
-
-	SpriteGo* layer = nullptr;
-	SpriteGo* Seed = nullptr;
-	SpriteGo* Plants = nullptr;
-	SpriteGo* Plant1 = nullptr;
-	SpriteGo* Plant2 = nullptr;
-	SpriteGo* Plant3 = nullptr;
-	SpriteGo* Plant4 = nullptr;
-	SpriteGo* Plant5 = nullptr;
-	SpriteGo* Plant6 = nullptr;
-
-	std::vector<SpriteGo*> plants; //식물 모음
 
 	sf::Vector2f tileSize = { 25.f, 25.f };
 	//const sf::Vector2f& tileSize = tileMap->GetCellSize();
@@ -64,30 +58,19 @@ protected:
 	sf::Color currentColor;
 	sf::Color targetColor;
 
-
-	float transitionTime = 0.f;
-	float transitionDuration = 5.f; //전환에 걸리는 시간
-	float progress = 0.f;
-
-	Inventory* inventory;
-	BoxInven* boxInven;
-	const int sellingBoxId = 1;
-
 public:
+
 	SceneGame(SceneIds id);
 	virtual ~SceneGame();
 
 	void Init() override;
 	void Release() override;
-
 	void Enter() override;
 	void Exit() override;
 
 	sf::Color LerpColor(const sf::Color& start, const sf::Color& end, float t);
 	void CreateItem(DataItem data, int indexX, int indexY);
-	
 	void Update(float dt) override;
-
 	void Draw(sf::RenderWindow& window) override;
 
 	void SetInventory();

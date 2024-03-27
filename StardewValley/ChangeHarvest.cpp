@@ -20,6 +20,7 @@ void ChangeHarvest::Release()
 
 void ChangeHarvest::Reset()
 {
+
 	auto& objData = OBJECT_TABLE->Get(objectType, objectId);
 	SetTexture(objData.textureId);
 	SetTextureRect(sf::IntRect(objData.sheetId.x, objData.sheetId.y, objData.sheetSize.x, objData.sheetSize.y));
@@ -30,6 +31,7 @@ void ChangeHarvest::Reset()
 void ChangeHarvest::Update(float dt)
 {
 	ObjectOnTile::Update(dt);
+	//
 }
 
 void ChangeHarvest::Draw(sf::RenderWindow& window)

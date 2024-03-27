@@ -49,6 +49,5 @@ public:
 	void ChangeGridIndex(sf::Vector2f& nextPos);
 
 	void SetPlant();
-	void OnDrop();
 };
 

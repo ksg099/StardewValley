@@ -10,6 +10,7 @@
 #include "BoxInven.h"
 
 #include "TestMapTool.h"
+#include "ChangeHarvest.h"
 
 SceneGame::SceneGame(SceneIds id) : Scene(id)
 {
@@ -39,10 +40,6 @@ void SceneGame::Init()
 	AddGo(boxInven, Ui);
 
 	dailyTime = 2.f;
-	/*overlayer.setSize({ (float)FRAMEWORK.GetWindowSize().x, (float)FRAMEWORK.GetWindowSize().y });
-	overlayer.setFillColor(dayColor);
-	overlayer.setOrigin(0.f, 0.f);
-	overlayer.setPosition(0.f, 0.f);*/
 
 	layer = new SpriteGo("layer");
 	layer->SetTexture("graphics/layout.png");
@@ -51,66 +48,6 @@ void SceneGame::Init()
 	layer->SetFillColor(dayColor);
 	layer->sortLayer = 5;
 	AddGo(layer, Layers::World);
-
-	Plant1 = new SpriteGo("plant");
-	Plant1->SetTexture("graphics/Plant/rice1.png");
-	Plant1->SetScale({ tileSize.x / Plant1->GetLocalBounds().width, tileSize.y / Plant1->GetLocalBounds().height });
-	Plant1->SetOrigin(Origins::MC);
-	AddGo(Plant1, Layers::World);
-	Plant1->SetActive(false);
-
-	Plant2 = new SpriteGo("plant");
-	Plant2->SetTexture("graphics/Plant/rice2.png");
-	Plant2->SetScale({ tileSize.x / Plant2->GetLocalBounds().width, tileSize.y / Plant2->GetLocalBounds().height });
-	Plant2->SetOrigin(Origins::MC);
-	AddGo(Plant2, Layers::World);
-	Plant2->SetActive(false);
-
-	Plant3 = new SpriteGo("plant");
-	Plant3->SetTexture("graphics/Plant/rice3.png");
-	Plant3->SetScale({ tileSize.x / Plant3->GetLocalBounds().width, tileSize.y / Plant3->GetLocalBounds().height });
-	Plant3->SetOrigin(Origins::MC);
-	AddGo(Plant3, Layers::World);
-	Plant3->SetActive(false);
-
-	Plant4 = new SpriteGo("plant");
-	Plant4->SetTexture("graphics/Plant/rice4.png");
-	Plant4->SetScale({ tileSize.x / Plant4->GetLocalBounds().width, tileSize.y / Plant4->GetLocalBounds().height });
-	Plant4->SetOrigin(Origins::MC);
-	AddGo(Plant4, Layers::World);
-	Plant4->SetActive(false);
-
-	Plant5 = new SpriteGo("plant");
-	Plant5->SetTexture("graphics/Plant/rice5.png");
-	Plant5->SetScale({ tileSize.x / Plant5->GetLocalBounds().width, tileSize.y / Plant5->GetLocalBounds().height });
-	Plant5->SetOrigin(Origins::MC);
-	AddGo(Plant5, Layers::World);
-	Plant5->SetActive(false);
-
-	Plant6 = new SpriteGo("plant");
-	Plant6->SetTexture("graphics/Plant/rice6.png");
-	Plant6->SetScale({ tileSize.x / Plant6->GetLocalBounds().width, tileSize.y / Plant6->GetLocalBounds().height });
-	Plant6->SetOrigin(Origins::MC);
-	Plant6->SetActive(false);
-	AddGo(Plant6, Layers::World);
-
-	Seed = new SpriteGo("plant");
-	Seed->SetTexture("graphics/Seeds/Cauliflower_Seeds.png");
-	//Seed->SetPosition(IndexToPos(2));
-	Seed->SetOrigin(Origins::MC);
-	Seed->SetActive(false);
-	AddGo(Seed, Layers::World);
-
-	//for (int i = 0; i < 6; i++)
-	//{
-	//	Plants = new SpriteGo("plant");
-	//	Plants->SetTexture("graphics/Plant/rice6.png");
-	//	Plants->SetPosition(IndexToPos(2));
-	//	Plants->SetOrigin(Origins::MC);
-	//	Plants->SetActive(false);
-	//	AddGo(Plants, Layers::World);
-	//	Plants->SetActive(false);
-	//}
 
 	Scene::Init();
 }
@@ -129,15 +66,6 @@ void SceneGame::Enter()
 	boxInven->SetActive(false);
 
 	Scene::Enter();
-
-	//sf::Vector2f playerPosition = player->GetPosition();
-
-	//Plant1->SetPosition(playerPosition);
-	//Plant2->SetPosition(playerPosition);
-	//Plant3->SetPosition(playerPosition);
-	//Plant4->SetPosition(playerPosition);
-	//Plant5->SetPosition(playerPosition);
-	//Plant6->SetPosition(playerPosition);
 }
 
 void SceneGame::Exit()
@@ -191,54 +119,9 @@ void SceneGame::Update(float dt)
 	{
 		dailyTime -= 24; // 다음 날로 넘어감
 		++day;
+
 		std::cout << "Day : " << day << std::endl;
-
-		SellAllItemsInBox();
 	}
-
-	// Z키 입력을 감지하여 식물 위치 설정
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-	{
-		sf::Vector2f playerPosition = player->GetPosition();
-		// 첫 번째 식물의 위치를 플레이어의 현재 위치로 설정
-		Plant1->SetPosition(playerPosition);
-		Plant2->SetPosition(playerPosition);
-		Plant3->SetPosition(playerPosition);
-		Plant4->SetPosition(playerPosition);
-		Plant5->SetPosition(playerPosition);
-		Plant6->SetPosition(playerPosition);
-	}
-
-	// day에 따라 특정 식물 활성화
-	switch (day)
-	{
-	case 1:
-		Plant1->SetActive(true);
-		break;
-	case 2:
-		Plant2->SetActive(true);
-		break;
-	case 3:
-		Plant3->SetActive(true);
-		break;
-	case 4:
-		Plant4->SetActive(true);
-		break;
-	case 5:
-		Plant5->SetActive(true);
-		break;
-	case 6:
-		Plant6->SetActive(true);
-		break;
-	}
-
-	//dailyTime += (dt);
-	//if (dailyTime >= 24)
-	//{
-	//	dailyTime = 0.f;
-	//	++day;
-	//	std::cout << "Day : " << day << std::endl;
-	//}
 
 	if (dailyTime >= 6 && dailyTime < 16 && targetColor != dayColor)
 	{
@@ -252,7 +135,7 @@ void SceneGame::Update(float dt)
 		currentColor = layer->GetFillColor();
 		progress = 0.f;
 	}
-	else if(dailyTime >= 20 || dailyTime < 6 && targetColor != nightColor)
+	else if (dailyTime >= 20 || dailyTime < 6 && targetColor != nightColor)
 	{
 		targetColor = nightColor;
 		currentColor = layer->GetFillColor();
@@ -268,6 +151,7 @@ void SceneGame::Update(float dt)
 		}
 		layer->SetFillColor(LerpColor(layer->GetFillColor(), targetColor, progress));
 	}
+
 	if (!dropItemList.empty())
 	{
 		for (auto& item : dropItemList)
@@ -313,75 +197,6 @@ void SceneGame::Update(float dt)
 			++it;
 		}
 	}
-
-	//SpriteGo* plants[6] = { Plant1, Plant2, Plant3, Plant4, Plant5, Plant6 };
-	//
-	//for (int i = 0; i < 6; i++)
-	//{
-	//	if (day >= i + 1)
-	//	{
-	//		plants[i]->SetActive(true);
-	//	}
-	//	else
-	//		plants[i]->SetActive(false);
-	//}
-
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-	//{
-	//	// 플레이어의 현재 위치를 가져옴
-	//	sf::Vector2f playerPosition = player->GetPosition();
-
-	//	// 식물의 위치를 설정하지만, 아직 활성화하지 않음
-	//	Plant1->SetPosition(playerPosition);
-	//	Plant2->SetPosition(playerPosition);
-	//	Plant3->SetPosition(playerPosition);
-	//	Plant4->SetPosition(playerPosition);
-	//	Plant5->SetPosition(playerPosition);
-	//	Plant6->SetPosition(playerPosition);
-	//}
-	/*if (day == 1)
-	//{
-	//	Plant1->SetActive(true);
-	//}
-
-	//if (day == 2)
-	//{
-	//	Plant2->SetActive(true);
-		Plant1->SetActive(false);
-	}
-
-	if (day == 3)
-	{
-		Plant1->SetActive(false);
-		Plant2->SetActive(false);
-		Plant3->SetActive(true);
-	}
-	if (day == 4)
-	{
-		Plant1->SetActive(false);
-		Plant2->SetActive(false);
-		Plant3->SetActive(false);
-		Plant4->SetActive(true);
-	}
-	if (day == 5)
-	{
-		Plant1->SetActive(false);
-		Plant2->SetActive(false);
-		Plant3->SetActive(false);
-		Plant4->SetActive(false);
-		Plant5->SetActive(true);
-	}
-
-	if (day == 6)
-	{
-		Plant1->SetActive(false);
-		Plant2->SetActive(false);
-		Plant3->SetActive(false);
-		Plant4->SetActive(false);
-		Plant5->SetActive(false);
-		Plant6->SetActive(true);
-	}*/
-
 }
 
 void SceneGame::Draw(sf::RenderWindow& window)
@@ -451,6 +266,7 @@ void SceneGame::CreateItem(DataItem data, int indexX, int indexY)
 		inven->push_back(newItem);
 	}
 }
+
 
 void SceneGame::SetInventory()
 {

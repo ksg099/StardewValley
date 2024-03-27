@@ -7,9 +7,9 @@ class ChangeHarvest : public ObjectOnTile
 {
 
 protected:
-	
+	int maxGrowthStage = 5;
 	const DataHarvest* data = nullptr;
-	
+	int growthStage = 0;
 
 public:
 

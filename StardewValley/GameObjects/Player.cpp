@@ -121,18 +121,9 @@ void Player::Update(float dt)
 			tileMap->InteractWithTile(gridIndex.x + lookDir.x, gridIndex.y + lookDir.y, itemInUse->type, itemInUse->itemId);
 		else
 			tileMap->InteractWithTile(gridIndex.x + lookDir.x, gridIndex.y + lookDir.y, ItemType::None, -1);
-		/*ObjectOnTile* obj = tileMap->GetTileData(gridIndex.x + lookDir.x, gridIndex.y + lookDir.y)->object;
-		if(obj != nullptr)
-		{
-			tileMap->SetPlayerPassable(gridIndex.x + lookDir.x, gridIndex.y + lookDir.y, true);
-			obj->InteractWithPlayer();
-		}*/
 	}
 
-	if (InputMgr::GetKeyDown(sf::Keyboard::C))
-	{
-		SetPlant();
-	}
+	SetPlant();
 
 }
 
@@ -140,50 +131,6 @@ void Player::Draw(sf::RenderWindow& window)
 {
 	SpriteGo::Draw(window);
 }
-
-//void Player::MoveTileUnit(float dt)
-//{
-//	if (isMove)
-//	{
-//		if (moveTimer < moveDuration)
-//		{
-//			Translate((sf::Vector2f)tileMoveDirection * speed * dt);
-//			moveTimer += dt;
-//		}
-//		else
-//		{
-//			currentGridPosition = nextGridPosition;
-//			SetPosition(currentGridPosition);
-//			gridIndex += tileMoveDirection;
-//			moveTimer = 0.f;
-//			isMove = false;
-//		}
-//	}
-//	else
-//	{
-//		sf::Vector2i dir = InputMgr::GetAxisOne();
-//		if (dir != sf::Vector2i(0, 0))
-//		{
-//			if (!tileMap->GetTileData(gridIndex.x + dir.x, gridIndex.y + dir.y)->isPassable)
-//			{
-//				lookDir = dir;
-//				tileMoveDirection = { 0, 0 };
-//			}
-//			else
-//			{
-//				lookDir = dir;
-//				tileMoveDirection = dir;
-//
-//				nextGridPosition = tileMap->GetGridPosition(gridIndex.x + tileMoveDirection.x, gridIndex.y + tileMoveDirection.y);
-//				if (nextGridPosition != currentGridPosition)
-//				{
-//					moveDuration = Utils::Magnitude(nextGridPosition - currentGridPosition) / speed;
-//					isMove = true;
-//				}
-//			}
-//		}
-//	}
-//}
 
 void Player::PlayMoveAnimation(sf::Vector2f posDiff)
 {
@@ -288,35 +235,46 @@ void Player::ChangeGridIndex(sf::Vector2f& nextPos)
 
 void Player::SetPlant()
 {
-	std::cout << gridIndex.x <<  gridIndex.y << std::endl;
-	TileData* tiledata = tileMap->GetTileData(gridIndex.x, gridIndex.y);
-	tiledata->objectType = ObjectType::CROPS;
-	tiledata->objectId = 0; // 6: Parsnip1
+	//cauliflower 심기
+	if (InputMgr::GetKeyDown(sf::Keyboard::C))
+	{
+		//std::cout << gridIndex.x <<  gridIndex.y << std::endl;
+		TileData* tiledata = tileMap->GetTileData(gridIndex.x, gridIndex.y);
+		tiledata->objectType = ObjectType::CROPS;
+		tiledata->objectId = 0;
 
-	ChangeHarvest* obj = new ChangeHarvest("changeHarvest");;
-	obj->SetData(&HARVEST_TABLE->Get(HarvestType::CAULIFLOWER));
-	obj->SetObjectType(tiledata->objectType);
-	obj->SetObjectId(tiledata->objectId);
-	obj->SetPosition(tileMap->GetGridPosition(gridIndex.x, gridIndex.y));
+		ChangeHarvest* cauliflower = new ChangeHarvest("changeHarvest");
+		cauliflower->SetData(&HARVEST_TABLE->Get(HarvestType::CAULIFLOWER));
+		cauliflower->SetObjectType(tiledata->objectType);
+		cauliflower->SetObjectId(tiledata->objectId);
+		cauliflower->SetPosition(tileMap->GetGridPosition(gridIndex.x, gridIndex.y));
 
-	tiledata->object = obj;
+		tiledata->object = cauliflower;
 
-	//auto& objData = OBJECT_TABLE->Get(ObjectType::CROPS, (int)HarvestType::CAULIFLOWER);
-	//obj->SetTexture(objData.textureId);
-	//obj->SetTextureRect(sf::IntRect(objData.sheetId.x, objData.sheetId.y, objData.sheetSize.x, objData.sheetSize.y));
-	//obj->SetOrigin(Origins::MC);
-	obj->Init();
-	obj->Reset();
+		cauliflower->Init();
+		cauliflower->Reset();
+	}
 
-}
+	//PARSNIP 심기
+	if (InputMgr::GetKeyDown(sf::Keyboard::V))
+	{
+		TileData* tiledata = tileMap->GetTileData(gridIndex.x, gridIndex.y);
+		tiledata->objectType = ObjectType::CROPS;
+		tiledata->objectId = 6; // 6: Parsnip1
 
-void Player::OnDrop()
-{
-	//SpriteGo* newSeed = new SpriteGo("newSeed");
-	//newSeed->Init();
-	//newSeed->Reset();
-	//newSeed->SetPosition(this->GetPosition());
-	//newSeed->SetOrigin(Origins::MC);
-	//newSeed->SetActive(true);
-	//currentScene->AddGo(newSeed, Layers::World);
+		ChangeHarvest* parsnip = new ChangeHarvest("changeHarvest");
+		parsnip->SetData(&HARVEST_TABLE->Get(HarvestType::PARSNIP));
+		parsnip->SetObjectType(tiledata->objectType);
+		parsnip->SetObjectId(tiledata->objectId);
+		parsnip->SetPosition(tileMap->GetGridPosition(gridIndex.x, gridIndex.y));
+
+		tiledata->object = parsnip;
+
+		//auto& objData = OBJECT_TABLE->Get(ObjectType::CROPS, (int)HarvestType::CAULIFLOWER);
+		//obj->SetTexture(objData.textureId);
+		//obj->SetTextureRect(sf::IntRect(objData.sheetId.x, objData.sheetId.y, objData.sheetSize.x, objData.sheetSize.y));
+		//obj->SetOrigin(Origins::MC);
+		parsnip->Init();
+		parsnip->Reset();
+	}
 }
