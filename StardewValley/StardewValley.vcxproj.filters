@@ -35,6 +35,7 @@
     <ClCompile Include="DataTables\TileMapSave.cpp" />
     <ClCompile Include="Scenes\SceneTitle.cpp" />
     <ClCompile Include="GameObjects\LoadBoxUi.cpp" />
+    <ClCompile Include="DataTables\HarvestTable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataTables\DataTable.h" />
@@ -74,5 +75,6 @@
     <ClInclude Include="DataTables\TileMapSave.h" />
     <ClInclude Include="Scenes\SceneTitle.h" />
     <ClInclude Include="GameObjects\LoadBoxUi.h" />
+    <ClInclude Include="DataTables\HarvestTable.h" />
   </ItemGroup>
 </Project>

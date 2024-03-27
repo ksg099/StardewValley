@@ -616,6 +616,8 @@
         {
           "Item Name": "pick",
           "Item ID": 0,
+          "Selling Price": 0,
+          "Purchase Price": 0,
           "Resource": "graphics/ShovelSteel.png",
           "Sheet ID X": 9,
           "Sheet ID Y": 5,
@@ -625,6 +627,8 @@
         {
           "Item Name": "axe",
           "Item ID": 1,
+          "Selling Price": 0,
+          "Purchase Price": 0,
           "Resource": "graphics/AxeSteel.png",
           "Sheet ID X": 10,
           "Sheet ID Y": 9,
@@ -634,6 +638,8 @@
         {
           "Item Name": "scythe",
           "Item ID": 2,
+          "Selling Price": 0,
+          "Purchase Price": 0,
           "Resource": "graphics/scythe.png",
           "Sheet ID X": 0,
           "Sheet ID Y": 0,
@@ -643,6 +649,8 @@
         {
           "Item Name": "hoe",
           "Item ID": 3,
+          "Selling Price": 0,
+          "Purchase Price": 0,
           "Resource": "graphics/tools.png",
           "Sheet ID X": 81,
           "Sheet ID Y": 34,
@@ -652,6 +660,8 @@
         {
           "Item Name": "watering can",
           "Item ID": 4,
+          "Selling Price": 0,
+          "Purchase Price": 0,
           "Resource": "graphics/tools.png",
           "Sheet ID X": 32,
           "Sheet ID Y": 228,
@@ -667,6 +677,8 @@
         {
           "Item Name": "Cauliflower Seeds",
           "Item ID": 0,
+          "Selling Price": 0,
+          "Purchase Price": 0,
           "Resource": "graphics/Seeds/Cauliflower_Seeds.png",
           "Sheet ID X": 0,
           "Sheet ID Y": 0,
@@ -686,8 +698,55 @@
       "Type Name": "Ingredient",
       "Sheet Info":
       [
-
+        {
+          "Item Name" : "stone",
+          "Item ID" : 0,
+          "Selling Price": 2,
+          "Purchase Price": 200,
+          "Resource" : "graphics/debris.png",
+          "Sheet ID X" : 3,
+          "Sheet ID Y" : 259,
+          "Sheet ID W" : 9,
+          "Sheet ID H" : 9
+        },
+        {
+          "Item Name" : "branch",
+          "Item ID" : 1,
+          "Selling Price": 2,
+          "Purchase Price": 50,
+          "Resource" : "graphics/debris.png",
+          "Sheet ID X" : 19,
+          "Sheet ID Y" : 274,
+          "Sheet ID W" : 11,
+          "Sheet ID H" : 11
+        },
+        {
+          "Item Name" : "weed",
+          "Item ID" : 2,
+          "Selling Price": 1,
+          "Purchase Price": 30,
+          "Resource" : "graphics/grass.png",
+          "Sheet ID X" : 31,
+          "Sheet ID Y" : 2,
+          "Sheet ID W" : 13,
+          "Sheet ID H" : 16
+        }
       ]
+    }
+  ],
+  "Harvest Info":
+  [
+    {
+      "Harvest Name": "Cauliflower",
+      "Harvest ID": 0,
+      "Growing Day": 12,
+      "Growing Level": 6
+    },
+    {
+      "Harvest Name": "Parsnip",
+      "Harvest ID": 1,
+      "Growing Day": 5,
+      "Growing Level": 5
     }
   ]
 }

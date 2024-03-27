@@ -176,6 +176,7 @@
     <ClCompile Include="GameObjects\TileMap.cpp" />
     <ClCompile Include="DataTables\ItemSave.cpp" />
     <ClCompile Include="GameObjects\LoadBoxUi.cpp" />
+    <ClCompile Include="DataTables\HarvestTable.cpp" />
     <ClCompile Include="main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
     </ClCompile>
@@ -229,6 +230,7 @@
     <ClInclude Include="DataTables\ItemTable.h" />
     <ClInclude Include="DataTables\ItemSave.h" />
     <ClInclude Include="GameObjects\LoadBoxUi.h" />
+    <ClInclude Include="DataTables\HarvestTable.h" />
     <ClInclude Include="MapToolUI.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="GameObjects\Player.h" />
