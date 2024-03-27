@@ -231,12 +231,17 @@ void SceneGame::CreateItem(DataItem data, int indexX, int indexY)
 		int index = 0;
 		for (int i = 0; i < 30; ++i)
 		{
+			bool isExist = true;
 			for (auto& inV : *inven)
 			{
 				if (inV->IndexY * 10 + inV->IndexX == i)
 				{
-					continue;
+					isExist = false;
+					break;
 				}
+			}
+			if (isExist)
+			{
 				index = i;
 				break;
 			}

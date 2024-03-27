@@ -699,7 +699,7 @@
       "Sheet Info":
       [
         {
-          "Item Name" : "stone",
+          "Item Name" : "stoneItem",
           "Item ID" : 0,
           "Selling Price": 2,
           "Purchase Price": 200,
@@ -710,7 +710,7 @@
           "Sheet ID H" : 9
         },
         {
-          "Item Name" : "branch",
+          "Item Name" : "branchItem",
           "Item ID" : 1,
           "Selling Price": 2,
           "Purchase Price": 50,
@@ -721,7 +721,7 @@
           "Sheet ID H" : 11
         },
         {
-          "Item Name" : "weed",
+          "Item Name" : "weedItem",
           "Item ID" : 2,
           "Selling Price": 1,
           "Purchase Price": 30,
