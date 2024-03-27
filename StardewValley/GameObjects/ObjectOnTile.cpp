@@ -2,6 +2,7 @@
 #include "ObjectOnTile.h"
 #include "SceneGame.h"
 #include "FloorOnTile.h"
+#include "TileMap.h"
 
 ObjectOnTile::ObjectOnTile(const std::string& name) : SpriteGo(name)
 {
@@ -23,6 +24,7 @@ void ObjectOnTile::Reset()
 	SpriteGo::Reset();
 	value = 0;
 	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
+	tileMap = dynamic_cast<TileMap*>(sceneGame->FindGo("Background"));
 }
 
 void ObjectOnTile::Update(float dt)
@@ -43,6 +45,9 @@ void ObjectOnTile::InteractWithObject(const ItemType type, const int id)
 		// 곡괭이 상호작용
 		if (type == ItemType::Tool && id == 0)
 		{
+			DataItem itemData = ITEM_TABLE->Get("stoneItem");
+			sceneGame->CreateItem(itemData, tileData->indexX, tileData->indexY);
+			//인벤토리에 돌맹이 아이템 추가되어야 함
 			SetActive(false);
 			sceneGame->RemoveGo(this);
 			tileData->object = nullptr;

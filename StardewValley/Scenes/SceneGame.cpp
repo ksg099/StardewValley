@@ -23,7 +23,7 @@ void SceneGame::Init()
 	tileMap->sortLayer = -1;
 	AddGo(tileMap);
 
-	Player* player = new Player("Player");
+	player = new Player("Player");
 	player->sortLayer = 1;
 	AddGo(player);
 
@@ -129,11 +129,113 @@ void SceneGame::Update(float dt)
 		}
 		layer->SetFillColor(LerpColor(layer->GetFillColor(), targetColor, progress));
 	}
+	if (!dropItemList.empty())
+	{
+		for (auto& item : dropItemList)
+		{
+			if (item != nullptr)
+			{
+				sf::Vector2f itemCurrentPos = item->itemSprite.getPosition();
+				float distanceToPlayer = Utils::Distance(itemCurrentPos, player->GetPosition());
+				float maxSpeed = player->GetSpeed() + 50.f;
+				float minSpeed = player->GetSpeed() - 200.f;
+
+				float t = 1.f - (distanceToPlayer / 200.f);
+				float currentSpeed = Utils::Lerp(minSpeed, maxSpeed, t);
+
+				sf::Vector2f itemDirection = player->GetPosition() - itemCurrentPos;
+				Utils::Normalize(itemDirection);
+
+				sf::Vector2f itemMovePos = itemCurrentPos + itemDirection * currentSpeed * dt;
+
+				item->itemSprite.setPosition(itemMovePos);
+			}
+		}
+	}
+
+	auto it = dropItemList.begin();
+	while (it != dropItemList.end())
+	{
+		auto* item = *it;
+		if (item != nullptr)
+		{
+			if (Utils::Distance(item->itemSprite.getPosition(), player->GetPosition()) <= 5.f)
+			{
+				delete item;
+				it = dropItemList.erase(it);
+			}
+			else
+			{
+				++it;
+			}
+		}
+		else
+		{
+			++it;
+		}
+	}
 
 }
 
 void SceneGame::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
-	//window.draw(overlayer);
+
+	window.setView(worldView);
+	for (auto& item : dropItemList)
+	{
+		window.draw(item->itemSprite);
+	}
+}
+
+void SceneGame::CreateItem(DataItem data, int indexX, int indexY)
+{
+	DropItem* item = new DropItem();
+	item->itemID = data.itemId;
+	item->itemType = data.itemType;
+	item->itemSprite.setTexture(RES_MGR_TEXTURE.Get(ITEM_TABLE->Get(item->itemType, item->itemID).textureId));
+	item->itemSprite.setTextureRect({ data.sheetId.x, data.sheetId.y, data.sheetSize.x, data.sheetSize.y });
+	Utils::SetOrigin(item->itemSprite, Origins::MC);
+	item->itemSprite.setPosition(tileMap->GetGridPosition(indexX, indexY));
+	std::cout << item->itemSprite.getPosition().x << std::endl;
+	std::cout << item->itemSprite.getPosition().y << std::endl;
+	std::cout << std::endl;
+	std::cout << player->GetPosition().x << std::endl;
+	std::cout << player->GetPosition().y << std::endl;
+	item->count = 1;
+	dropItemList.push_back(item);
+
+	auto inven = ITEM_SAVE->Get(0);
+	for (auto& invenItem : *inven)
+	{
+		if (invenItem->type == item->itemType && invenItem->itemId == item->itemID)
+		{
+			++invenItem->count;
+			return;
+		}
+	}
+	if (inven->size() <= 30)
+	{
+		ItemData* newItem = new ItemData();
+		newItem->BoxId = 0;
+		newItem->count = 1;
+		int index = 0;
+		for (int i = 0; i < 30; ++i)
+		{
+			for (auto& inV : *inven)
+			{
+				if (inV->IndexY * 10 + inV->IndexX == i)
+				{
+					continue;
+				}
+				index = i;
+				break;
+			}
+		}
+		newItem->IndexX = index % 10;
+		newItem->IndexY = index / 10;
+		newItem->itemId = item->itemID;
+		newItem->type = item->itemType;
+		inven->push_back(newItem);
+	}
 }

@@ -40,7 +40,7 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
-
+	float GetSpeed() { return speed; }
 	// void MoveTileUnit(float dt);
 	void PlayMoveAnimation(sf::Vector2f posDIff);
 	void CheckCollision(sf::Vector2f& nextPos, sf::Vector2f& prevPos);

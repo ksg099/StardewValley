@@ -1077,7 +1077,33 @@
       "Type Name": "Ingredient",
       "Sheet Info":
       [
-
+        {
+          "Item Name" : "stoneItem",
+          "Item ID" : 0,
+          "Resource" : "graphics/debris.png",
+          "Sheet ID X" : 3,
+          "Sheet ID Y" : 259,
+          "Sheet ID W" : 9,
+          "Sheet ID H" : 9
+        },
+        {
+          "Item Name" : "branchItem",
+          "Item ID" : 1,
+          "Resource" : "graphics/debris.png",
+          "Sheet ID X" : 19,
+          "Sheet ID Y" : 274,
+          "Sheet ID W" : 11,
+          "Sheet ID H" : 11
+        },
+        {
+          "Item Name" : "weedItem",
+          "Item ID" : 2,
+          "Resource" : "graphics/grass.png",
+          "Sheet ID X" : 31,
+          "Sheet ID Y" : 2,
+          "Sheet ID W" : 13,
+          "Sheet ID H" : 16
+        }
       ]
     }
   ]

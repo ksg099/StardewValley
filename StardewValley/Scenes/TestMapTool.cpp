@@ -384,7 +384,7 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             mapData[indexNum].playerPassable = cell.playerPassable;
             if (cell.objectLayer.tileSprite.getLocalBounds().height > size)
             {
-                cell.objectLayer.tileSprite.setOrigin(cell.objectLayer.tileSprite.getLocalBounds().width * 0.5f, cell.objectLayer.tileSprite.getLocalBounds().height - size*0.5);
+                cell.objectLayer.tileSprite.setOrigin(cell.objectLayer.tileSprite.getLocalBounds().width * 0.5f, cell.objectLayer.tileSprite.getLocalBounds().height - size * 0.5);
             }
             else
             {

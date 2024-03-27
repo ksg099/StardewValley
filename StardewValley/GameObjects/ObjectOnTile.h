@@ -2,12 +2,14 @@
 #include "SpriteGo.h"
 
 class SceneGame;
+class TileMap;
 
 class ObjectOnTile : public SpriteGo
 {
 private:
 	SceneGame* sceneGame = nullptr;
 	TileData* tileData = nullptr;
+	TileMap* tileMap = nullptr;
 
 	ObjectType objectType = ObjectType::NONE;
 	int objectId = 0;
