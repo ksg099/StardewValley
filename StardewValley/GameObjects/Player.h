@@ -38,7 +38,9 @@ public:
 	void Init() override;
 	void Release() override;
 	void Reset() override;
-	void Update(float dt) override;
+	void Update(float dt) override;	
+	 void SetTextureRect(const sf::IntRect& rect) override;
+
 	void Draw(sf::RenderWindow& window) override;
 
 	//sf::Vector2f GetPosition() const { return position; }

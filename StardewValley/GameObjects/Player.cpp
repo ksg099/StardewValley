@@ -15,8 +15,8 @@ void Player::Init()
 {
 	SpriteGo::Init();
 
-	SetTexture("graphics/player.png");
-	SetTextureRect(sf::IntRect(0, 0, 14, 27));
+	SetTexture("graphics/player_edit.png");
+	SetTextureRect(sf::IntRect(4, 1, 15, 30));
 	SetOrigin(Origins::BC);
 	playerHalfWidth = GetLocalBounds().width / 2.f;
 	animator.SetTarget(&sprite);
@@ -44,6 +44,9 @@ void Player::Reset()
 	freeMoveDirection = { 0, 0 };
 	moveTimer = 0.f;
 	moveDuration = 0.f;
+
+	animator.Play("animations/PlayerMoveSide.csv");
+
 }
 
 void Player::Update(float dt)
@@ -98,20 +101,20 @@ void Player::Update(float dt)
 		if (lookDir.x < 0)
 		{
 			SetFlipX(true);
-			SetTextureRect(sf::IntRect(0, 31, 12, 28));
+			SetTextureRect(sf::IntRect(4, 34, 15, 32));
 		}
 		else if (lookDir.x > 0)
 		{
 			SetFlipX(false);
-			SetTextureRect(sf::IntRect(0, 31, 12, 28));
+			SetTextureRect(sf::IntRect(4, 34, 15, 32));
 		}
 		else if (lookDir.y > 0)
 		{
-			SetTextureRect(sf::IntRect(0, 0, 14, 27));
+			SetTextureRect(sf::IntRect(4, 70, 16, 27));
 		}
 		else if (lookDir.y < 0)
 		{
-			SetTextureRect(sf::IntRect(0, 64, 14, 27));
+			SetTextureRect(sf::IntRect(4, 1, 15, 30));
 		}
 	}
 	
@@ -125,6 +128,11 @@ void Player::Update(float dt)
 
 	SetPlant();
 
+}
+
+void Player::SetTextureRect(const sf::IntRect& rect)
+{
+	SpriteGo::SetTextureRect(rect);
 }
 
 void Player::Draw(sf::RenderWindow& window)
@@ -163,17 +171,17 @@ void Player::PlayMoveAnimation(sf::Vector2f posDiff)
 		{
 		case Sides::Left:
 			SetFlipX(true);
-			SetTextureRect(sf::IntRect(0, 31, 12, 28));
+			SetTextureRect(sf::IntRect(4, 34, 15, 32));
 			break;
 		case Sides::Right:
 			SetFlipX(false);
-			SetTextureRect(sf::IntRect(0, 31, 12, 28));
+			SetTextureRect(sf::IntRect(4, 34, 15, 32));
 			break;
 		case Sides::Up:
-			SetTextureRect(sf::IntRect(0, 64, 14, 27));
+			SetTextureRect(sf::IntRect(21, 70, 16, 27));
 			break;
 		case Sides::Down:
-			SetTextureRect(sf::IntRect(0, 0, 14, 27));
+			SetTextureRect(sf::IntRect(4, 1, 15, 30));
 			break;
 		default:
 			break;
