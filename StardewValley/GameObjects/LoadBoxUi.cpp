@@ -8,14 +8,35 @@ LoadBoxUi::LoadBoxUi(const std::string& name) : GameObject(name)
 
 void LoadBoxUi::Init()
 {
-	// files
+	// Tile Maps
 	const std::vector<std::string>& tileMaps = DT_MGR.GetTileMapData();
 	for (int i = 0; i < tileMaps.size(); ++i)
 	{
+		std::string fullPath = tileMaps[i];
+		std::string fileNameOnly;
+		int lastSlashPos = -1; // 구분자가 없음을 나타내기 위해 -1로 초기화합니다.
+		for (int j = 0; j < fullPath.length(); ++j)
+		{
+			if (fullPath[j] == '/' || fullPath[j] == '\\')
+			{
+				lastSlashPos = j;
+			}
+		}
+		if (lastSlashPos != -1) // 구분자가 있었다면
+		{
+			for (int j = lastSlashPos + 1; j < fullPath.length(); ++j)
+			{
+				fileNameOnly += fullPath[j]; // 구분자 뒤의 문자열을 추출합니다.
+			}
+		}
+		else // 구분자가 없었다면
+		{
+			fileNameOnly = fullPath; // 전체 경로가 파일명입니다.
+		}
+
 		TextGo* fileName = new TextGo("Message");
-		fileName->Set(RES_MGR_FONT.Get("fonts/Arial.ttf"),
-			tileMaps[i], 50, sf::Color::White);
-		fileName->SetPosition({ 480.f, 300.f + 100.f * i });
+		fileName->Set(RES_MGR_FONT.Get("fonts/Arial.ttf"), fileNameOnly, 50, sf::Color::White);
+		fileName->SetPosition({ titleLogoPosition.x - 500.f, titleLogoPosition.y - 300.f + 100.f * i });
 		fileName->SetOrigin(Origins::MC);
 		tileMapFiles.push_back(fileName);
 
@@ -29,18 +50,40 @@ void LoadBoxUi::Init()
 		tileMapRect.push_back(rect);
 	}
 
+	// Game Saves
 	const std::vector<std::string>& saveData = DT_MGR.GetGameSaveData();
 	for (int i = 0; i < saveData.size(); ++i)
 	{
+		std::string fullPath = saveData[i];
+		std::string fileNameOnly;
+		int lastSlashPos = -1; // 구분자가 없음을 나타내기 위해 -1로 초기화합니다.
+		for (int j = 0; j < fullPath.length(); ++j)
+		{
+			if (fullPath[j] == '/' || fullPath[j] == '\\')
+			{
+				lastSlashPos = j;
+			}
+		}
+		if (lastSlashPos != -1) // 구분자가 있었다면
+		{
+			for (int j = lastSlashPos + 1; j < fullPath.length(); ++j)
+			{
+				fileNameOnly += fullPath[j]; // 구분자 뒤의 문자열을 추출합니다.
+			}
+		}
+		else // 구분자가 없었다면
+		{
+			fileNameOnly = fullPath; // 전체 경로가 파일명입니다.
+		}
+
 		TextGo* fileName = new TextGo("Message");
-		fileName->Set(RES_MGR_FONT.Get("fonts/Arial.ttf"),
-			saveData[i], 50, sf::Color::White);
-		fileName->SetPosition({ 1440.f, 300.f + 100.f * i });
+		fileName->Set(RES_MGR_FONT.Get("fonts/Arial.ttf"), fileNameOnly, 50, sf::Color::White);
+		fileName->SetPosition({ titleLogoPosition.x + 400.f, titleLogoPosition.y - 300.f + 100.f * i });
 		fileName->SetOrigin(Origins::MC);
 		gameSaveFiles.push_back(fileName);
 
 		sf::RectangleShape* rect = new sf::RectangleShape;
-		rect->setSize({ 500.f, 80.f });
+		rect->setSize({ 900.f, 80.f });
 		rect->setPosition(fileName->GetPosition());
 		rect->setFillColor(sf::Color::Color(185, 122, 87));
 		rect->setOutlineThickness(3.f);
@@ -133,4 +176,9 @@ void LoadBoxUi::Draw(sf::RenderWindow& window)
 	{
 		save->Draw(window);
 	}
+}
+
+void LoadBoxUi::SetTitleLogoPosition(const sf::Vector2f& position)
+{
+	titleLogoPosition = position;
 }

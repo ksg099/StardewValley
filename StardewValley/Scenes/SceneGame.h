@@ -9,6 +9,7 @@ class TileData;
 class UiHud;
 class Player;
 class ChangeHarvest;
+class TextGo;
 
 class SceneGame : public Scene
 {
@@ -29,7 +30,9 @@ protected:
 	Inventory* inventory;
 	BoxInven* boxInven;
 	TileData* tileData = nullptr;
+	UiStore* uiStore = nullptr;
 
+	TextGo* Pause = nullptr;
 	SpriteGo* layer = nullptr;
 
 	//std::vector<ChangeHarvest*> crops;
@@ -58,7 +61,7 @@ protected:
 	sf::Color currentColor;
 	sf::Color targetColor;
 
-	UiStore* uiStore = nullptr;
+	bool isPaused;
 
 public:
 
@@ -78,6 +81,6 @@ public:
 	void SetInventory();
 	void SellAllItemsInBox();
 	void AddMoney(int money);
-	void AddTime(int time);
+	void PauseGame();
 
 };

@@ -47,6 +47,14 @@ void SceneGame::Init()
 	layer->sortLayer = 5;
 	AddGo(layer, Layers::World);
 
+	Pause = new TextGo("newGameBtn");
+	Pause->Set(RES_MGR_FONT.Get("fonts/Arial.ttf"), "LoadGame", 30, sf::Color::Black);
+	Pause->SetPosition({100.f, 100.f});
+	Pause->SetOrigin(Origins::MC);
+	Pause->SetActive(false);
+	AddGo(Pause, Ui);
+
+
 	uiStore = new UiStore("UI STORE");
 	AddGo(uiStore, Layers::Ui);
 
@@ -209,6 +217,22 @@ void SceneGame::Update(float dt)
 			++it;
 		}
 	}
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
+	{
+		isPaused = !isPaused;
+
+		if (isPaused)
+		{
+			Pause->SetActive(true);
+			FRAMEWORK.SetTimeScale(0.f);
+		}
+		else
+		{
+			Pause->SetActive(false);
+			FRAMEWORK.SetTimeScale(1.f);
+		}
+	}
 }
 
 void SceneGame::Draw(sf::RenderWindow& window)
@@ -331,7 +355,3 @@ void SceneGame::AddMoney(int money)
 	uiHud->SetMoney(this->money);
 }
 
-void SceneGame::AddTime(int time)
-{
-
-}
