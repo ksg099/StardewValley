@@ -2,7 +2,7 @@ ID,FPS,LOOPTYPE (0:Single 1:Loop 2:PingPong),,
 MoveSide,10,1,,
 ,,,,
 TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT
-graphics/player.png,0,31,12,28
-graphics/player.png,16,32,14,27
-graphics/player.png,0,31,12,28
-graphics/player.png,32,32,15,27
+graphics/player_edit.png,4,34,15,32
+graphics/player_edit.png,21,34,15,32
+graphics/player_edit.png,4,34,15,32
+graphics/player_edit.png,38,34,15,32

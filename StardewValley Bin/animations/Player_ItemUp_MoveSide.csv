@@ -1,0 +1,8 @@
+ID,FPS,LOOPTYPE (0:Single 1:Loop 2:PingPong),,
+ItemUp_MoveSide,10,1,,
+,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT
+graphics/itemUp_MoveSide.png,1,2,15,30
+graphics/itemUp_MoveSide.png,17,2,15,30
+graphics/itemUp_MoveSide.png,1,2,15,30
+graphics/itemUp_MoveSide.png,33,2,15,30

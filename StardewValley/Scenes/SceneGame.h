@@ -34,6 +34,8 @@ protected:
 	SpriteGo* overlay = nullptr;
 
 	//std::vector<ChangeHarvest*> crops;
+	sf::View gameView;
+
 	const int sellingBoxId = 1;
 
 	int day = 1;

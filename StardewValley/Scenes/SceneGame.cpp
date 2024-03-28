@@ -55,7 +55,21 @@ void SceneGame::Init()
 	uiStore = new UiStore("UI STORE");
 	AddGo(uiStore, Layers::Ui);
 
+	sf::Vector2f mapSize = { tileMap->GetCellCount().x * tileMap->GetCellSize().x, tileMap->GetCellCount().y * tileMap->GetCellSize().y };
+	sf::Vector2i windowSize = FRAMEWORK.GetWindowSize();
+	float scaleX = windowSize.x / mapSize.x;
+	float scaleY = windowSize.y / mapSize.y;
+	float scale = std::min(scaleX, scaleY);
+
+
+
+
 	Scene::Init();
+
+	float zoom = FRAMEWORK.GetWindowSize().y / (20.f * 20.f);
+	
+	worldView.zoom(1/ zoom);
+	worldView.setCenter(player->GetPosition());
 }
 
 void SceneGame::Release()
@@ -107,6 +121,7 @@ void SceneGame::Update(float dt)
 {
 	Scene::Update(dt);
 	isNextDay = false;
+	worldView.setCenter(Utils::Clamp(player->GetPosition(), {-300.f,-300.f,1000.f,1000.f})); //??????????????
 
 	// save the file
 	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
@@ -376,8 +391,6 @@ void SceneGame::SellAllItemsInBox()
 			item = nullptr;
 		}
 	}
-
-	std::cout << "price: " + sellingPrice << std::endl;
 	sellingBox->clear();
 }
 

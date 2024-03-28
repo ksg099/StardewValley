@@ -15,10 +15,12 @@ private:
 	SubInventory* subInven = nullptr;
 	ItemData* itemInUse = nullptr;
 
+	SpriteGo pickedItem;
 
 	sf::Vector2i gridIndex = { 0, 0 };
 
 	bool isMove = false;
+	bool isItemPick = false;
 	sf::Vector2f currentGridPosition = { 0.f, 0.f };
 	sf::Vector2f nextGridPosition = { 0.f, 0.f };
 	float speed = 100.f;
@@ -42,7 +44,9 @@ public:
 	void Init() override;
 	void Release() override;
 	void Reset() override;
-	void Update(float dt) override;
+	void Update(float dt) override;	
+	void SetTextureRect(const sf::IntRect& rect);
+
 	void Draw(sf::RenderWindow& window) override;
 
 	//sf::Vector2f GetPosition() const { return position; }
@@ -50,6 +54,7 @@ public:
 	const sf::Vector2i GetGridIndex() const { return gridIndex; }
 	// void MoveTileUnit(float dt);
 	void PlayMoveAnimation(sf::Vector2f posDIff);
+	void ItemUpAnimation(sf::Vector2f posDiff);
 	void CheckCollision(sf::Vector2f& nextPos, sf::Vector2f& prevPos);
 	void ChangeGridIndex(sf::Vector2f& nextPos);
 

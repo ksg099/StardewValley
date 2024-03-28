@@ -16,11 +16,13 @@ void Player::Init()
 {
 	SpriteGo::Init();
 
-	SetTexture("graphics/player.png");
-	SetTextureRect(sf::IntRect(0, 0, 14, 27));
+	SetTexture("graphics/player_edit.png");
+	SetTextureRect(sf::IntRect(4, 1, 15, 30));
 	SetOrigin(Origins::BC);
 	playerHalfWidth = GetLocalBounds().width / 2.f;
 	animator.SetTarget(&sprite);
+
+	pickedItem.SetOrigin(Origins::MC);
 }
 
 void Player::Release()
@@ -47,6 +49,9 @@ void Player::Reset()
 	freeMoveDirection = { 0, 0 };
 	moveTimer = 0.f;
 	moveDuration = 0.f;
+
+	animator.Play("animations/PlayerMoveSide.csv");
+
 }
 
 void Player::Update(float dt)
@@ -70,7 +75,14 @@ void Player::Update(float dt)
 
 	// TO-DO: 애니메이션은 임시로만 구현하고, 자세한건 나중에
 	sf::Vector2f posDiff = nextPosition - prevPosition;
-	PlayMoveAnimation(posDiff);
+	if (!isItemPick)
+	{
+		PlayMoveAnimation(posDiff);
+	}
+	else
+	{
+		ItemUpAnimation(posDiff);
+	}
 
 	// 퀵슬롯으로부터 아이템 셋팅
 	auto numKey = InputMgr::GetKeyNumber();
@@ -83,13 +95,23 @@ void Player::Update(float dt)
 		if (itemInUse == nullptr)
 		{
 			std::cout << "아이템 없음" << std::endl;
+			pickedItem.SetActive(false);
+			isItemPick = false;
 		}
 		else
 		{
 			std::cout << "box ID: " << itemInUse->BoxId << ", index X: " << itemInUse->IndexX << ", index Y: " << itemInUse->IndexY << std::endl;
 			std::cout << "Item Type: " << (int)itemInUse->type << ", Item ID: " << itemInUse->itemId << std::endl;
+			DataItem itemData = ITEM_TABLE->Get(itemInUse->type, itemInUse->itemId);
+			pickedItem.SetTexture(itemData.textureId);
+			pickedItem.SetTextureRect({ itemData.sheetId.x, itemData.sheetId.y, itemData.sheetSize.x, itemData.sheetSize.y });
+			pickedItem.SetScale({ 15.f / pickedItem.GetLocalBounds().width, 15.f / pickedItem.GetLocalBounds().height});
+			pickedItem.SetActive(true);
+			isItemPick = true;
 		}
 	}
+
+	pickedItem.SetPosition({ position.x - 5.f, position.y - 35.f });
 
 	// 플레이어 좌클릭 처리
 	sf::Vector2i dirOne = InputMgr::GetAxisOne();
@@ -101,20 +123,20 @@ void Player::Update(float dt)
 		if (lookDir.x < 0)
 		{
 			SetFlipX(true);
-			SetTextureRect(sf::IntRect(0, 31, 12, 28));
+			SetTextureRect(sf::IntRect(4, 34, 15, 32));
 		}
 		else if (lookDir.x > 0)
 		{
 			SetFlipX(false);
-			SetTextureRect(sf::IntRect(0, 31, 12, 28));
+			SetTextureRect(sf::IntRect(4, 34, 15, 32));
 		}
 		else if (lookDir.y > 0)
 		{
-			SetTextureRect(sf::IntRect(0, 0, 14, 27));
+			SetTextureRect(sf::IntRect(4, 70, 16, 27));
 		}
 		else if (lookDir.y < 0)
 		{
-			SetTextureRect(sf::IntRect(0, 64, 14, 27));
+			SetTextureRect(sf::IntRect(4, 1, 15, 30));
 		}
 	}
 	
@@ -130,8 +152,14 @@ void Player::Update(float dt)
 
 }
 
+void Player::SetTextureRect(const sf::IntRect& rect)
+{
+	SpriteGo::SetTextureRect(rect);
+}
+
 void Player::Draw(sf::RenderWindow& window)
 {
+	if (pickedItem.GetActive()) { pickedItem.Draw(window); }
 	SpriteGo::Draw(window);
 }
 
@@ -166,17 +194,17 @@ void Player::PlayMoveAnimation(sf::Vector2f posDiff)
 		{
 		case Sides::Left:
 			SetFlipX(true);
-			SetTextureRect(sf::IntRect(0, 31, 12, 28));
+			SetTextureRect(sf::IntRect(4, 34, 15, 32));
 			break;
 		case Sides::Right:
 			SetFlipX(false);
-			SetTextureRect(sf::IntRect(0, 31, 12, 28));
+			SetTextureRect(sf::IntRect(4, 34, 15, 32));
 			break;
 		case Sides::Up:
-			SetTextureRect(sf::IntRect(0, 64, 14, 27));
+			SetTextureRect(sf::IntRect(21, 70, 16, 27));
 			break;
 		case Sides::Down:
-			SetTextureRect(sf::IntRect(0, 0, 14, 27));
+			SetTextureRect(sf::IntRect(4, 1, 15, 30));
 			break;
 		default:
 			break;
@@ -186,7 +214,60 @@ void Player::PlayMoveAnimation(sf::Vector2f posDiff)
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 	{
+	}
+}
 
+void Player::ItemUpAnimation(sf::Vector2f posDiff)
+{
+	if (posDiff.x > 0.f && side != Sides::Right)
+	{
+		animator.Play("animations/Player_ItemUp_MoveSide.csv");
+		SetFlipX(false);
+		side = Sides::Right;
+	}
+	else if (posDiff.x < 0.f && side != Sides::Left)
+	{
+		animator.Play("animations/Player_ItemUp_MoveSide.csv");
+		SetFlipX(true);
+		side = Sides::Left;
+	}
+	else if (posDiff.y > 0 && side != Sides::Down)
+	{
+		animator.Play("animations/Player_ItemUp_MoveFront.csv");
+		side = Sides::Down;
+	}
+	else if (posDiff.y < 0 && side != Sides::Up)
+	{
+		animator.Play("animations/Player_ItemUp_MoveBack.csv");
+		side = Sides::Up;
+	}
+	else if (posDiff.x == 0 && posDiff.y == 0)
+	{
+		animator.Stop();
+		switch (side)
+		{
+		case Sides::Left:
+			SetFlipX(true);
+			SetTexture("graphics/itemUp_MoveSide.png");
+			SetTextureRect(sf::IntRect(1, 2, 15, 30));
+			break;
+		case Sides::Right:
+			SetFlipX(false);
+			SetTexture("graphics/itemUp_MoveSide.png");
+			SetTextureRect(sf::IntRect(1, 2, 15, 30));
+			break;
+		case Sides::Up:
+			SetTexture("graphics/itemUp_MoveBack.png");
+			SetTextureRect(sf::IntRect(1, 3, 15, 26));
+			break;
+		case Sides::Down:
+			SetTexture("graphics/itemUp_MoveFront.png");
+			SetTextureRect(sf::IntRect(1, 0, 16, 29));
+			break;
+		default:
+			break;
+		}
+		side = Sides::None;
 	}
 }
 
