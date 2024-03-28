@@ -12,10 +12,34 @@ HarvestTable::~HarvestTable()
 	Release();
 }
 
-const DataHarvest& HarvestTable::Get(HarvestType type)
+const int& HarvestTable::GetObjectID(int seedId)
 {
-	auto find = harvestTable.find(type);
-	if (find == harvestTable.end())
+	auto find = seedToObjTable.find(seedId);
+	if (find == seedToObjTable.end())
+	{
+		std::cout << "Harvest Data에 해당 seed ID가 없습니다" << std::endl;
+		return -1;
+	}
+
+	return find->second;
+}
+
+const int& HarvestTable::GetItemID(int objectId)
+{
+	auto find = seedToObjTable.find(objectId);
+	if (find == seedToObjTable.end())
+	{
+		std::cout << "Harvest Data에 해당 object ID가 없습니다" << std::endl;
+		return -1;
+	}
+
+	return find->second;
+}
+
+const DataHarvest& HarvestTable::Get(int objectId)
+{
+	auto find = harvestGrowingTable.find(objectId);
+	if (find == harvestGrowingTable.end())
 	{
 		std::cout << "Harvest Data에 해당 이름이 없습니다" << std::endl;
 		return Undefined;
@@ -28,22 +52,37 @@ bool HarvestTable::Load(rapidjson::Document& doc)
 {
 	Release();
 
-	auto infoArr = doc["Harvest Info"].GetArray();
-	int harvestCount = infoArr.Size();
+	auto IdLinkInfoArr = doc["Harvest Info"]["Harvest ID Link Info"].GetArray();
+	int harvestCount = IdLinkInfoArr.Size();
 	for (int i = 0; i < harvestCount; ++i)
 	{
-		HarvestType type = (HarvestType)infoArr[i]["Harvest ID"].GetInt();
+		int seedId = IdLinkInfoArr[i]["Seed ID"].GetInt();
+		int objectId = IdLinkInfoArr[i]["Object ID"].GetInt();
+		
+		if (seedToObjTable.find(seedId) != seedToObjTable.end() || objToHarvestTable.find(objectId) != objToHarvestTable.end())
+		{
+			std::cout << "harvest table에 중복된 ID가 있습니다." << std::endl;
+		}
+		seedToObjTable[seedId] = objectId;
+		objToHarvestTable[objectId] = seedId;
+	}
 
-		if (harvestTable.find(type) != harvestTable.end())
+	auto levelInfoArr = doc["Harvest Info"]["Harvest Level Info"].GetArray();
+	int harvestLevelCount = levelInfoArr.Size();
+	for (int i = 0; i < harvestLevelCount; ++i)
+	{
+		// HarvestType type = (HarvestType)levelInfoArr[i]["Harvest ID"].GetInt();
+
+		if (harvestGrowingTable.find(i) != harvestGrowingTable.end())
 		{
 			std::cout << "harvest table 중복 아이디" << std::endl;
 			return false;
 		}
 		
-		harvestTable[type] = DataHarvest();
-		harvestTable[type].harvestName = infoArr[i]["Harvest Name"].GetString();
-		harvestTable[type].growingDay = infoArr[i]["Growing Day"].GetInt();
-		harvestTable[type].growingLevel = infoArr[i]["Growing Level"].GetInt();
+		harvestGrowingTable[i] = DataHarvest();
+		harvestGrowingTable[i].harvestName = levelInfoArr[i]["Harvest Name"].GetString();
+		harvestGrowingTable[i].growingDay = levelInfoArr[i]["Growing Day"].GetInt();
+		harvestGrowingTable[i].growingLevel = levelInfoArr[i]["Growing Level"].GetInt();
 	}
 
 	return true;
@@ -51,5 +90,5 @@ bool HarvestTable::Load(rapidjson::Document& doc)
 
 void HarvestTable::Release()
 {
-	harvestTable.clear();
+	harvestGrowingTable.clear();
 }

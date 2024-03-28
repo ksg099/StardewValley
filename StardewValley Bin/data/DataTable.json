@@ -1098,6 +1098,17 @@
           "Sheet ID Y": 0,
           "Sheet ID W": 48,
           "Sheet ID H": 48
+        },
+        {
+          "Item Name": "Parsnip Seeds",
+          "Item ID": 1,
+          "Selling Price": 10,
+          "Purchase Price": 20,
+          "Resource": "graphics/Seeds/Parsnip_Seeds.png",
+          "Sheet ID X": 0,
+          "Sheet ID Y": 0,
+          "Sheet ID W": 46,
+          "Sheet ID H": 47
         }
       ]
     },
@@ -1105,7 +1116,28 @@
       "Type Name": "Harvest",
       "Sheet Info":
       [
-
+        {
+          "Item Name": "Cauliflower",
+          "Item ID": 0,
+          "Selling Price": 175,
+          "Purchase Price": 393,
+          "Resource": "graphics/Harvest/Cauliflower.png",
+          "Sheet ID X": 0,
+          "Sheet ID Y": 0,
+          "Sheet ID W": 48,
+          "Sheet ID H": 48
+        },
+        {
+          "Item Name": "Parsnip",
+          "Item ID": 1,
+          "Selling Price": 35,
+          "Purchase Price": 78,
+          "Resource": "graphics/Harvest/Parsnip.png",
+          "Sheet ID X": 0,
+          "Sheet ID Y": 0,
+          "Sheet ID W": 48,
+          "Sheet ID H": 48
+        }
       ]
     },
     {
@@ -1149,72 +1181,88 @@
     }
   ],
   "Harvest Info":
-  [
-    {
-      "Harvest Name": "Cauliflower1",
-      "Harvest ID": 0,
-      "Growing Day": 2,
-      "Growing Level": 6
-    },
-    {
-      "Harvest Name": "Cauliflower2",
-      "Harvest ID": 0,
-      "Growing Day": 2,
-      "Growing Level": 6
-    },
-    {
-      "Harvest Name": "Cauliflower3",
-      "Harvest ID": 0,
-      "Growing Day": 2,
-      "Growing Level": 6
-    },
-    {
-      "Harvest Name": "Cauliflower4",
-      "Harvest ID": 0,
-      "Growing Day": 2,
-      "Growing Level": 6
-    },
-    {
-      "Harvest Name": "Cauliflower5",
-      "Harvest ID": 0,
-      "Growing Day": 2,
-      "Growing Level": 6
-    },
-    {
-      "Harvest Name": "Cauliflower6",
-      "Harvest ID": 0,
-      "Growing Day": 0,
-      "Growing Level": 6
-    },
-    {
-      "Harvest Name": "Parsnip1",
-      "Harvest ID": 1,
-      "Growing Day": 1,
-      "Growing Level": 5
-    },
-    {
-      "Harvest Name": "Parsnip2",
-      "Harvest ID": 1,
-      "Growing Day": 1,
-      "Growing Level": 5
-    },
-    {
-      "Harvest Name": "Parsnip3",
-      "Harvest ID": 1,
-      "Growing Day": 1,
-      "Growing Level": 5
-    },
-    {
-      "Harvest Name": "Parsnip4",
-      "Harvest ID": 1,
-      "Growing Day": 1,
-      "Growing Level": 5
-    },
-    {
-      "Harvest Name": "Parsnip5",
-      "Harvest ID": 1,
-      "Growing Day": 0,
-      "Growing Level": 5
-    }
-  ]
+  {
+    "Harvest ID Link Info":
+    [
+      {
+        "Harvest Name": "Cauliflower",
+        "Seed ID": 0,
+        "Object ID": 0
+      },
+      {
+        "Harvest Name": "Parsnip",
+        "Seed ID": 1,
+        "Object ID": 6
+      }
+    ],
+    "Harvest Level Info":
+    [
+      {
+        "Harvest Name": "Cauliflower1",
+        "Harvest ID": 0,
+        "Growing Day": 2,
+        "Growing Level": 1
+      },
+      {
+        "Harvest Name": "Cauliflower2",
+        "Harvest ID": 0,
+        "Growing Day": 2,
+        "Growing Level": 2
+      },
+      {
+        "Harvest Name": "Cauliflower3",
+        "Harvest ID": 0,
+        "Growing Day": 2,
+        "Growing Level": 3
+      },
+      {
+        "Harvest Name": "Cauliflower4",
+        "Harvest ID": 0,
+        "Growing Day": 2,
+        "Growing Level": 4
+      },
+      {
+        "Harvest Name": "Cauliflower5",
+        "Harvest ID": 0,
+        "Growing Day": 2,
+        "Growing Level": 5
+      },
+      {
+        "Harvest Name": "Cauliflower6",
+        "Harvest ID": 0,
+        "Growing Day": 0,
+        "Growing Level": 6
+      },
+      {
+        "Harvest Name": "Parsnip1",
+        "Harvest ID": 1,
+        "Growing Day": 1,
+        "Growing Level": 1
+      },
+      {
+        "Harvest Name": "Parsnip2",
+        "Harvest ID": 1,
+        "Growing Day": 1,
+        "Growing Level": 2
+      },
+      {
+        "Harvest Name": "Parsnip3",
+        "Harvest ID": 1,
+        "Growing Day": 1,
+        "Growing Level": 3
+      },
+      {
+        "Harvest Name": "Parsnip4",
+        "Harvest ID": 1,
+        "Growing Day": 1,
+        "Growing Level": 4
+      },
+      {
+        "Harvest Name": "Parsnip5",
+        "Harvest ID": 1,
+        "Growing Day": 0,
+        "Growing Level": 5
+      }
+    ]
+  }
 }

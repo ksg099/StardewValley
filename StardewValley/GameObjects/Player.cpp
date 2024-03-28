@@ -234,48 +234,48 @@ void Player::ChangeGridIndex(sf::Vector2f& nextPos)
 	currentGridPosition = tileMap->GetGridPosition(gridIndex.x, gridIndex.y);
 }
 
-void Player::SetPlant()
-{
-	//cauliflower 심기
-	if (InputMgr::GetKeyDown(sf::Keyboard::C))
-	{
-		//std::cout << gridIndex.x <<  gridIndex.y << std::endl;
-		TileData* tiledata = tileMap->GetTileData(gridIndex.x, gridIndex.y);
-		tiledata->objectType = ObjectType::CROPS;
-		tiledata->objectId = 0;
-
-		ChangeHarvest* cauliflower = new ChangeHarvest("changeHarvest");
-		cauliflower->SetData(&HARVEST_TABLE->Get(HarvestType::CAULIFLOWER));
-		cauliflower->SetObjectType(tiledata->objectType);
-		cauliflower->SetObjectId(tiledata->objectId);
-		cauliflower->SetPosition(tileMap->GetGridPosition(gridIndex.x, gridIndex.y));
-
-		tiledata->object = cauliflower;
-
-		cauliflower->Init();
-		cauliflower->Reset();
-	}
-
-	//PARSNIP 심기
-	if (InputMgr::GetKeyDown(sf::Keyboard::V))
-	{
-		TileData* tiledata = tileMap->GetTileData(gridIndex.x, gridIndex.y);
-		tiledata->objectType = ObjectType::CROPS;
-		tiledata->objectId = 6; // 6: Parsnip1
-
-		ChangeHarvest* parsnip = new ChangeHarvest("changeHarvest");
-		parsnip->SetData(&HARVEST_TABLE->Get(HarvestType::PARSNIP));
-		parsnip->SetObjectType(tiledata->objectType);
-		parsnip->SetObjectId(tiledata->objectId);
-		parsnip->SetPosition(tileMap->GetGridPosition(gridIndex.x, gridIndex.y));
-
-		tiledata->object = parsnip;
-
-		//auto& objData = OBJECT_TABLE->Get(ObjectType::CROPS, (int)HarvestType::CAULIFLOWER);
-		//obj->SetTexture(objData.textureId);
-		//obj->SetTextureRect(sf::IntRect(objData.sheetId.x, objData.sheetId.y, objData.sheetSize.x, objData.sheetSize.y));
-		//obj->SetOrigin(Origins::MC);
-		parsnip->Init();
-		parsnip->Reset();
-	}
-}
+//void Player::SetPlant()
+//{
+//	//cauliflower 심기
+//	if (InputMgr::GetKeyDown(sf::Keyboard::C))
+//	{
+//		//std::cout << gridIndex.x <<  gridIndex.y << std::endl;
+//		TileData* tiledata = tileMap->GetTileData(gridIndex.x, gridIndex.y);
+//		tiledata->objectType = ObjectType::CROPS;
+//		tiledata->objectId = 0;
+//
+//		ChangeHarvest* cauliflower = new ChangeHarvest("changeHarvest");
+//		cauliflower->SetData(&HARVEST_TABLE->Get(HarvestType::CAULIFLOWER));
+//		cauliflower->SetObjectType(tiledata->objectType);
+//		cauliflower->SetObjectId(tiledata->objectId);
+//		cauliflower->SetPosition(tileMap->GetGridPosition(gridIndex.x, gridIndex.y));
+//
+//		tiledata->object = cauliflower;
+//
+//		cauliflower->Init();
+//		cauliflower->Reset();
+//	}
+//
+//	//PARSNIP 심기
+//	if (InputMgr::GetKeyDown(sf::Keyboard::V))
+//	{
+//		TileData* tiledata = tileMap->GetTileData(gridIndex.x, gridIndex.y);
+//		tiledata->objectType = ObjectType::CROPS;
+//		tiledata->objectId = 6; // 6: Parsnip1
+//
+//		ChangeHarvest* parsnip = new ChangeHarvest("changeHarvest");
+//		parsnip->SetData(&HARVEST_TABLE->Get(HarvestType::PARSNIP));
+//		parsnip->SetObjectType(tiledata->objectType);
+//		parsnip->SetObjectId(tiledata->objectId);
+//		parsnip->SetPosition(tileMap->GetGridPosition(gridIndex.x, gridIndex.y));
+//
+//		tiledata->object = parsnip;
+//
+//		//auto& objData = OBJECT_TABLE->Get(ObjectType::CROPS, (int)HarvestType::CAULIFLOWER);
+//		//obj->SetTexture(objData.textureId);
+//		//obj->SetTextureRect(sf::IntRect(objData.sheetId.x, objData.sheetId.y, objData.sheetSize.x, objData.sheetSize.y));
+//		//obj->SetOrigin(Origins::MC);
+//		parsnip->Init();
+//		parsnip->Reset();
+//	}
+//}

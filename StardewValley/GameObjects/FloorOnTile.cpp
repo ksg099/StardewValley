@@ -3,6 +3,7 @@
 #include "SceneGame.h"
 #include "TileMap.h"
 #include "ObjectOnTile.h"
+#include "CropsObjOnTile.h"
 
 FloorOnTile::FloorOnTile(const std::string& name) : SpriteGo(name)
 {
@@ -39,7 +40,7 @@ void FloorOnTile::Draw(sf::RenderWindow& window)
 void FloorOnTile::InteractWithFloor(const ItemType type, const int id)
 {
 	switch (floorType)
-	{;
+	{
 	case FloorType::DRIED_ARABLE_LAND:
 	case FloorType::WET_ARABLE_LAND:
 		// 물뿌리개 상호작용
@@ -54,11 +55,12 @@ void FloorOnTile::InteractWithFloor(const ItemType type, const int id)
 		if (type == ItemType::Seed && tileData->object == nullptr)
 		{
 			tileData->objectType = ObjectType::CROPS;
-			tileData->objectId = id; // 아이디 계산해야 함
-			ObjectOnTile* obj = tileMap->CreateObject(tileData->objectType, tileData->objectId);
-			obj->SetPosition(tileMap->GetGridPosition(tileData->indexX, tileData->indexY));
-			tileData->object = obj;
+			tileData->objectId = HARVEST_TABLE->GetObjectID(id);
+			tileData->object = tileMap->CreateObject(tileData->objectType, tileData->objectId);
+			tileData->object->SetPosition(tileMap->GetGridPosition(tileData->indexX, tileData->indexY));
+			//tileData->object = obj;
 			tileData->object->SetTileData(tileData);
+			sceneGame->AddGo(tileData->object);
 		}
 		break;
 	case FloorType::WOOD_PATH:

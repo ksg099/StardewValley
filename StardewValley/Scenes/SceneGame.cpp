@@ -315,6 +315,15 @@ void SceneGame::SetInventory()
 			isUiOpen = false;
 		}
 	}
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Escape) && isUiOpen)
+	{
+		inventory->SetActive(false);
+		boxInven->SetActive(false);
+		uiStore->SetActive(false);
+
+		isUiOpen = false;
+	}
 }
 
 void SceneGame::SellAllItemsInBox()
@@ -342,4 +351,13 @@ void SceneGame::SellAllItemsInBox()
 void SceneGame::InteractPlayerWithTileMap(const int x, const int y, const ItemType type, const int id)
 {
 	tileMap->InteractWithTile(x, y, type, id);
+}
+
+void SceneGame::OpenStoreUi()
+{
+	if (!isUiOpen)
+	{
+		uiStore->SetActive(true);
+		isUiOpen = true;
+	}
 }

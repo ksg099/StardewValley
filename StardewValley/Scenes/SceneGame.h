@@ -78,4 +78,6 @@ public:
 	void SellAllItemsInBox();
 
 	void InteractPlayerWithTileMap(const int x, const int y, const ItemType type, const int id);
+
+	void OpenStoreUi();
 };

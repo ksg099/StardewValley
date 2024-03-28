@@ -2,6 +2,8 @@
 #include "SceneGame.h"
 #include "TileMap.h"
 #include "ObjectOnTile.h"
+#include "CropsObjOnTile.h"
+#include "StoreObjOnTile.h"
 #include "FloorOnTile.h"
 #include "Player.h"
 
@@ -347,7 +349,35 @@ ObjectOnTile* TileMap::CreateObject(const ObjectType type, const int id)
 	if (type == ObjectType::NONE || type == ObjectType::COUNT || type == ObjectType::WALL)
 		return nullptr;
 
-	ObjectOnTile* obj = new ObjectOnTile("Object");
+	ObjectOnTile* obj = nullptr;
+	switch (type)
+	{
+	case ObjectType::STONE:
+	case ObjectType::TREE:
+	case ObjectType::BRANCH:
+	case ObjectType::STUMP:
+	case ObjectType::WEED:
+		obj = new ObjectOnTile("Object");
+		break;
+	case ObjectType::CROPS:
+		obj = new CropsObjOnTile("Object");
+		break;
+	case ObjectType::FURNITURE:
+		obj = new ObjectOnTile("Object");
+		break;
+	case ObjectType::BOX:
+		obj = new ObjectOnTile("Object");
+		break;
+	case ObjectType::BUILDING:
+		obj = new ObjectOnTile("Object");
+		break;
+	case ObjectType::STORE:
+		obj = new StoreObjOnTile("Object");
+		break;
+	default:
+		obj = new ObjectOnTile("Object");
+		break;
+	}
 	
 	obj->SetObjectType(type);
 	obj->SetObjectId(id);
@@ -380,7 +410,8 @@ void TileMap::InteractWithTile(const int x, const int y, const ItemType type, co
 	}
 	else // ground 상호작용
 	{
-		if (tile->groundType == GroundType::DIRT && type == ItemType::Tool && id == 3)
+		if ((tile->groundType == GroundType::DIRT || tile->groundType == GroundType::GRASS)
+			&& type == ItemType::Tool && id == 3)
 		{
 			tile->floorType = FloorType::DRIED_ARABLE_LAND;
 			tile->floorId = 0;

@@ -36,6 +36,7 @@ protected:
 	float doubleClickDuration = 0.3f;
 	bool isClick = false;
 
+	std::vector<ItemType> itemTypes = { ItemType::Tool, ItemType::Seed };
 	std::vector<DataItem> itemTable;
 	
 public:

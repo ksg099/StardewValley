@@ -14,12 +14,11 @@ void UiStore::Init()
 	StoreBackground.setPosition(FRAMEWORK.GetWindowSize().x / 2.f, FRAMEWORK.GetWindowSize().y / 2.f);
 	Utils::SetOrigin(StoreBackground, Origins::MC);
 
-	countAllItem = ITEM_TABLE->CountAll();
-	for (int i = 0; i < (int)ItemType::Count; ++i)
+	for (auto itemType : itemTypes)
 	{
-		for (int j = 0; j < ITEM_TABLE->Count((ItemType)i); ++j)
+		for (int j = 0; j < ITEM_TABLE->Count(itemType); ++j)
 		{
-			DataItem itemData = ITEM_TABLE->Get((ItemType)i, j);
+			DataItem itemData = ITEM_TABLE->Get(itemType, j);
 			itemTable.push_back(itemData);
 		}
 	}

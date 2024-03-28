@@ -15,13 +15,17 @@ public:
 	static DataHarvest Undefined;
 
 private:
-	std::unordered_map<HarvestType, DataHarvest> harvestTable;
+	std::unordered_map<int, int> seedToObjTable; // seed ID to object ID
+	std::unordered_map<int, int> objToHarvestTable; // object ID to harvest ID
+	std::unordered_map<int, DataHarvest> harvestGrowingTable;
 
 public:
 	HarvestTable(DataTable::Types type);
 	~HarvestTable() override;
 
-	const DataHarvest& Get(HarvestType type);
+	const int& GetObjectID(int seedId);
+	const int& GetItemID(int objectId);
+	const DataHarvest& Get(int objectId);
 	// const DataItem& Get(const std::string& name);
 	// const int Count(HarvestType type);
 

@@ -23,11 +23,11 @@ public:
 	void SetTileData(TileData*& data) { tileData = data; }
 	void SetObjectType(const ObjectType type) { objectType = type; }
 	void SetObjectId(const int id) { objectId = id; }
-	void Init() override;
-	void Release() override;
-	void Reset() override;
-	void Update(float dt) override;
-	void Draw(sf::RenderWindow& window) override;
+	virtual void Init() override;
+	virtual void Release() override;
+	virtual void Reset() override;
+	virtual void Update(float dt) override;
+	virtual void Draw(sf::RenderWindow& window) override;
 
 	virtual void InteractWithObject(const ItemType type, const int id);
 };

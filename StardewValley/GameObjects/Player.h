@@ -51,6 +51,6 @@ public:
 	void CheckCollision(sf::Vector2f& nextPos, sf::Vector2f& prevPos);
 	void ChangeGridIndex(sf::Vector2f& nextPos);
 
-	void SetPlant();
+	// void SetPlant();
 };
 

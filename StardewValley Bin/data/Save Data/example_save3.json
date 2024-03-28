@@ -1702,7 +1702,7 @@
                     "Index Y": 7,
                     "Ground Type": 1,
                     "Ground ID": 0,
-                    "Floor Type": -1,
+                    "Floor Type": 0,
                     "Floor ID": 0,
                     "Object Type": -1,
                     "Object ID": 0,
@@ -4863,33 +4863,23 @@
                     "Item Type": 1,
                     "Item ID": 0,
                     "Instance ID": 4,
-                    "Count": 5,
+                    "Count": 8,
+                    "CanOverlap": false
+                },
+                {
+                    "Index X": 6,
+                    "Index Y": 0,
+                    "Item Type": 1,
+                    "Item ID": 1,
+                    "Instance ID": 0,
+                    "Count": 6,
                     "CanOverlap": false
                 }
             ]
         },
         {
             "Box ID": 1,
-            "Item Data": [
-                {
-                    "Index X": 6,
-                    "Index Y": 2,
-                    "Item Type": 0,
-                    "Item ID": 0,
-                    "Instance ID": 1,
-                    "Count": 5,
-                    "CanOverlap": false
-                },
-                {
-                    "Index X": 7,
-                    "Index Y": 1,
-                    "Item Type": 0,
-                    "Item ID": 1,
-                    "Instance ID": 2,
-                    "Count": 5,
-                    "CanOverlap": false
-                }
-            ]
+            "Item Data": []
         }
     ]
 }

@@ -143,12 +143,6 @@ void ObjectOnTile::InteractWithObject(const ItemType type, const int id)
 		}
 		break;
 	case ObjectType::CROPS:
-		// 물뿌리개 상호작용
-		if (type == ItemType::Tool && id == 4)
-		{
-			tileData->floor->InteractWithFloor(type, id);
-		}
-		//TO-DO : 다 자란 작물만 수확 상호작용할 수 있게 짜기
 		break;
 	case ObjectType::FURNITURE:
 		//곡괭이 상호작용

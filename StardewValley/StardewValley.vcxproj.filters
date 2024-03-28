@@ -38,6 +38,8 @@
     <ClCompile Include="DataTables\HarvestTable.cpp" />
     <ClCompile Include="GameObjects\StoreObjOnTile.cpp" />
     <ClCompile Include="GameObjects\UiStore.cpp" />
+    <ClCompile Include="ChangeHarvest.cpp" />
+    <ClCompile Include="GameObjects\CropsObjOnTile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataTables\DataTable.h" />
@@ -80,5 +82,7 @@
     <ClInclude Include="DataTables\HarvestTable.h" />
     <ClInclude Include="GameObjects\StoreObjOnTile.h" />
     <ClInclude Include="GameObjects\UiStore.h" />
+    <ClInclude Include="ChangeHarvest.h" />
+    <ClInclude Include="GameObjects\CropsObjOnTile.h" />
   </ItemGroup>
 </Project>
