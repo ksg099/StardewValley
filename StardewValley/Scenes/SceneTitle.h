@@ -8,10 +8,19 @@ class LoadBoxUi;
 class SceneTitle : public Scene
 {
 private:
-	sf::RectangleShape title;
+	
+	SpriteGo* newGame = nullptr;
+	SpriteGo* LoadGame = nullptr;
+	SpriteGo* makeMap = nullptr;
+	SpriteGo* backGround = nullptr;
+	SpriteGo* ReStartGame = nullptr;
+	SpriteGo* TiltleLogo = nullptr;
+	
+	TextGo* newGameBtn = nullptr;
+	TextGo* ReStartGameBtn = nullptr;
+	TextGo* makeMapBtn = nullptr;
+	TextGo* LoadGameBtn = nullptr;
 
-	SpriteGo* logo = nullptr;
-	TextGo* textMessage = nullptr;
 	LoadBoxUi* loadBoxUi = nullptr;
 
 public:
@@ -23,6 +32,13 @@ public:
 	void Enter() override;
 	void Exit() override;
 	void Update(float dt) override;
+
 	void Draw(sf::RenderWindow& window, Layers layer = Layers::Everything) override;
+	// void Draw(sf::RenderWindow& window) override;
+
+	void Escape();
+	void LoadData();
+	void Restart();
+	void LoadSave();
 };
 

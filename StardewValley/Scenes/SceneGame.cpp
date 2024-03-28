@@ -10,7 +10,7 @@
 
 #include "TestMapTool.h"
 #include "ChangeHarvest.h"
-
+#include "UiHud.h"
 SceneGame::SceneGame(SceneIds id) : Scene(id)
 {
 }
@@ -52,17 +52,30 @@ void SceneGame::Init()
 	overlay->sortLayer = 5;
 	AddGo(overlay, Layers::World);
 
+	pauseBack = new TextGo("newGameBtn");
+	pauseBack->Set(RES_MGR_FONT.Get("fonts/Arial.ttf"), "Back to Game", 60, sf::Color::Black);
+	pauseBack->SetPosition({ boxInven->GetPosition().x, boxInven->GetPosition().y - 100.f });
+	pauseBack->SetOrigin(Origins::MC);
+	AddGo(pauseBack, Ui);
+
+	goTitle = new TextGo("newGameBtn");
+	goTitle->Set(RES_MGR_FONT.Get("fonts/Arial.ttf"), "Press to Go Title", 60, sf::Color::Black);
+	goTitle->SetPosition(boxInven->GetPosition());
+	goTitle->SetOrigin(Origins::MC);
+	AddGo(goTitle, Ui);
+
+	sf::FloatRect textBounds = pauseBack->GetGlobalBounds();
+	pauseBackBox.setSize(sf::Vector2f(textBounds.width + 20, textBounds.height + 20));
+	pauseBackBox.setPosition(textBounds.left - 10, textBounds.top - 10);
+	pauseBackBox.setFillColor(sf::Color::Transparent);
+	pauseBackBox.setOutlineThickness(2);
+	pauseBackBox.setOutlineColor(sf::Color::White);
+
 	uiStore = new UiStore("UI STORE");
 	AddGo(uiStore, Layers::Ui);
 
-	sf::Vector2f mapSize = { tileMap->GetCellCount().x * tileMap->GetCellSize().x, tileMap->GetCellCount().y * tileMap->GetCellSize().y };
-	sf::Vector2i windowSize = FRAMEWORK.GetWindowSize();
-	float scaleX = windowSize.x / mapSize.x;
-	float scaleY = windowSize.y / mapSize.y;
-	float scale = std::min(scaleX, scaleY);
-
-
-
+	uiHud = new UiHud("uihud");
+	AddGo(uiHud, Layers::Ui);
 
 	Scene::Init();
 
@@ -82,6 +95,10 @@ void SceneGame::Enter()
 	tileMap->LoadTileMap("Farm");
 	tileMap->SetOrigin(Origins::MC);
 
+	uiHud->SetMoney(1000);
+	
+	this->money = 0;
+
 	inventory->SetActive(false);
 	boxInven->SetActive(false);
 	uiStore->SetActive(false);
@@ -89,6 +106,9 @@ void SceneGame::Enter()
 	isUiOpen = false;
 
 	isNextDay = false;
+
+	pauseBack->SetActive(false);
+	goTitle->SetActive(false);
 
 	Scene::Enter();
 }
@@ -135,6 +155,9 @@ void SceneGame::Update(float dt)
 
 	// �ð� ������Ʈ
 	dailyTime += dt;
+
+	uiHud->SetTime(dailyTime);
+	uiHud->SetDate(day);
 
 	// �Ϸ簡 ������ day�� ������Ű��, �Ĺ����� ���¸� �ʱ�ȭ
 
@@ -223,6 +246,46 @@ void SceneGame::Update(float dt)
 		else
 		{
 			++it;
+		}
+	}
+
+	sf::Vector2f currMousePos = InputMgr::GetMousePos();
+	sf::Vector2f UiMousePos = ScreenToUi(static_cast<sf::Vector2i>(currMousePos));
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
+	{
+		PauseGame();
+	}
+
+	if (isPaused)
+	{
+		sf::FloatRect pauseBackBounds = pauseBack->GetGlobalBounds();
+		sf::FloatRect goTitleBounds = goTitle->GetGlobalBounds();
+
+		if (pauseBackBounds.contains(UiMousePos))
+		{
+			pauseBack->setFillColor(sf::Color::Green);
+			if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
+			{
+				PauseGame();
+			}
+		}
+		else
+		{
+			pauseBack->setFillColor(sf::Color::Black);
+		}
+
+		if (goTitleBounds.contains(UiMousePos))
+		{
+			goTitle->setFillColor(sf::Color::Green);
+			if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
+			{
+				SCENE_MGR.ChangeScene(SceneIds::SCENE_TITLE);
+			}
+		}
+		else
+		{
+			goTitle->setFillColor(sf::Color::Black);
 		}
 	}
 }
@@ -413,3 +476,28 @@ void SceneGame::OpenStoreUi()
 		isUiOpen = true;
 	}
 }
+void SceneGame::AddMoney(int money)
+{
+	this->money += money;
+	uiHud->SetMoney(this->money);
+}
+
+void SceneGame::PauseGame()
+{
+	isPaused = !isPaused;
+
+	if (isPaused)
+	{
+		pauseBack->SetActive(true);
+		goTitle->SetActive(true);
+		FRAMEWORK.SetTimeScale(0.f);
+	}
+	else
+	{
+		pauseBack->SetActive(false);
+		goTitle->SetActive(false);
+		FRAMEWORK.SetTimeScale(1.f);
+	}
+
+}
+

@@ -7,9 +7,10 @@ class SubInventory;
 class BoxInven;
 class UiStore;
 class TileData;
-
+class UiHud;
 class Player;
 class ChangeHarvest;
+class TextGo;
 
 class SceneGame : public Scene
 {
@@ -26,10 +27,15 @@ public:
 protected:
 	TileMap* tileMap = nullptr;
 	Player* player = nullptr;
+	UiHud* uiHud = nullptr;
 	Inventory* inventory;
 	SubInventory* subInven;
 	BoxInven* boxInven;
 	TileData* tileData = nullptr;
+	UiStore* uiStore = nullptr;
+
+	TextGo* pauseBack = nullptr;
+	TextGo* goTitle = nullptr;
 
 	SpriteGo* overlay = nullptr;
 
@@ -40,6 +46,8 @@ protected:
 
 	int day = 1;
 	int col = 30;
+	int money = 0;
+	int time = 0;
 
 	float gridStartX = 0.f; //ó�� �׷����� x��ǥ
 	float gridStartY = 0.f; //ó�� �׷����� y��ǥ
@@ -52,6 +60,7 @@ protected:
 
 	std::list<DropItem*> dropItemList;
 
+	sf::RectangleShape pauseBackBox;
 	sf::Vector2f tileSize = { 25.f, 25.f };
 	//const sf::Vector2f& tileSize = tileMap->GetCellSize();
 	sf::Vector2f IndexToPos(int index);
@@ -61,7 +70,7 @@ protected:
 	sf::Color currentColor;
 	sf::Color targetColor;
 
-	UiStore* uiStore = nullptr;
+	bool isPaused;
 
 	bool isUiOpen = false;
 
@@ -84,9 +93,12 @@ public:
 	void SetInventory();
 	void OpenBox(int boxId);
 	void SellAllItemsInBox();
+
 	void UpdateInvenSlot();
 
 	void InteractPlayerWithTileMap(const int x, const int y, const ItemType type, const int id);
 
 	void OpenStoreUi();
+	void AddMoney(int money);
+	void PauseGame();
 };

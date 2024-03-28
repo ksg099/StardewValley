@@ -11,7 +11,7 @@ public:
 
 	virtual sf::FloatRect GetLocalBounds() override;
 	virtual sf::FloatRect GetGlobalBounds() override;
-
+	void setFillColor(const sf::Color& color);
 	void SetString(const std::string& str);
 	void Set(const sf::Font& texture, const std::string& str, int size, const sf::Color& color);
 
