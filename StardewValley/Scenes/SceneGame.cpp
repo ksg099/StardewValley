@@ -223,6 +223,8 @@ void SceneGame::CreateItem(DataItem data, int indexX, int indexY)
 	item->itemType = data.itemType;
 	item->itemSprite.setTexture(RES_MGR_TEXTURE.Get(ITEM_TABLE->Get(item->itemType, item->itemID).textureId));
 	item->itemSprite.setTextureRect({ data.sheetId.x, data.sheetId.y, data.sheetSize.x, data.sheetSize.y });
+	int scale = data.sheetSize.x < data.sheetSize.y ? data.sheetSize.x : data.sheetSize.y;
+	item->itemSprite.setScale({ tileMap->GetCellSize().x / scale, tileMap->GetCellSize().y / scale });
 	Utils::SetOrigin(item->itemSprite, Origins::MC);
 	sf::Vector2f pos = tileMap->GetGridPosition(indexX, indexY);
 	item->itemSprite.setPosition(Utils::RandomRange(pos.x + 30.f, pos.x),Utils::RandomRange(pos.y + 30.f, pos.y));

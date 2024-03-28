@@ -26,8 +26,8 @@ const int& HarvestTable::GetObjectID(int seedId)
 
 const int& HarvestTable::GetItemID(int objectId)
 {
-	auto find = seedToObjTable.find(objectId);
-	if (find == seedToObjTable.end())
+	auto find = objToHarvestTable.find(objectId);
+	if (find == objToHarvestTable.end())
 	{
 		std::cout << "Harvest Data에 해당 object ID가 없습니다" << std::endl;
 		return -1;
@@ -56,15 +56,16 @@ bool HarvestTable::Load(rapidjson::Document& doc)
 	int harvestCount = IdLinkInfoArr.Size();
 	for (int i = 0; i < harvestCount; ++i)
 	{
-		int seedId = IdLinkInfoArr[i]["Seed ID"].GetInt();
-		int objectId = IdLinkInfoArr[i]["Object ID"].GetInt();
+		int seedId = IdLinkInfoArr[i]["Harvest ID"].GetInt();
+		int earlyObjectId = IdLinkInfoArr[i]["Early Object ID"].GetInt();
+		int lateObjectId = IdLinkInfoArr[i]["Late Object ID"].GetInt();
 		
-		if (seedToObjTable.find(seedId) != seedToObjTable.end() || objToHarvestTable.find(objectId) != objToHarvestTable.end())
+		if (seedToObjTable.find(seedId) != seedToObjTable.end() || objToHarvestTable.find(earlyObjectId) != objToHarvestTable.end())
 		{
 			std::cout << "harvest table에 중복된 ID가 있습니다." << std::endl;
 		}
-		seedToObjTable[seedId] = objectId;
-		objToHarvestTable[objectId] = seedId;
+		seedToObjTable[seedId] = earlyObjectId;
+		objToHarvestTable[lateObjectId] = seedId;
 	}
 
 	auto levelInfoArr = doc["Harvest Info"]["Harvest Level Info"].GetArray();

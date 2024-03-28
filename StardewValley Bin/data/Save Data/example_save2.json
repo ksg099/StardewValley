@@ -2017,7 +2017,7 @@
                     "Floor Type": 1,
                     "Floor ID": 0,
                     "Object Type": 5,
-                    "Object ID": 0,
+                    "Object ID": 4,
                     "Placed Possible": true,
                     "Player Passable": true
                 },
@@ -2149,7 +2149,7 @@
                     "Floor Type": -1,
                     "Floor ID": 0,
                     "Object Type": 5,
-                    "Object ID": 0,
+                    "Object ID": 4,
                     "Placed Possible": false,
                     "Player Passable": false
                 },
@@ -2161,7 +2161,7 @@
                     "Floor Type": -1,
                     "Floor ID": 0,
                     "Object Type": 5,
-                    "Object ID": 0,
+                    "Object ID": 4,
                     "Placed Possible": false,
                     "Player Passable": false
                 },
@@ -2257,7 +2257,7 @@
                     "Floor Type": 1,
                     "Floor ID": 0,
                     "Object Type": 5,
-                    "Object ID": 0,
+                    "Object ID": 4,
                     "Placed Possible": true,
                     "Player Passable": true
                 },
@@ -2389,7 +2389,7 @@
                     "Floor Type": -1,
                     "Floor ID": 0,
                     "Object Type": 5,
-                    "Object ID": 0,
+                    "Object ID": 4,
                     "Placed Possible": false,
                     "Player Passable": false
                 },
@@ -2401,7 +2401,7 @@
                     "Floor Type": -1,
                     "Floor ID": 0,
                     "Object Type": 5,
-                    "Object ID": 0,
+                    "Object ID": 4,
                     "Placed Possible": false,
                     "Player Passable": false
                 },
@@ -2497,7 +2497,7 @@
                     "Floor Type": 1,
                     "Floor ID": 0,
                     "Object Type": 5,
-                    "Object ID": 0,
+                    "Object ID": 4,
                     "Placed Possible": true,
                     "Player Passable": true
                 },

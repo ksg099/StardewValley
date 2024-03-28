@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CropsObjOnTile.h"
 #include "FloorOnTile.h"
+#include "SceneGame.h"
 
 CropsObjOnTile::CropsObjOnTile(const std::string& name) : ObjectOnTile(name)
 {
@@ -50,6 +51,15 @@ void CropsObjOnTile::InteractWithObject(const ItemType type, const int id)
 	{
 		tileData->floor->InteractWithFloor(type, id);
 	}
+	else if (isCompleteGrowth)
+	{
+		sceneGame->CreateItem(ITEM_TABLE->Get(ItemType::Harvest, HARVEST_TABLE->GetItemID(objectId)), tileData->indexX, tileData->indexY);
+		SetActive(false);
+		sceneGame->RemoveGo(this);
+		tileData->object = nullptr;
+		tileData->objectType = ObjectType::NONE;
+		tileData->objectId = 0;
+	}
 }
 
 void CropsObjOnTile::Grow()
@@ -68,6 +78,7 @@ void CropsObjOnTile::Grow()
 			}
 
 			auto objectInfo = OBJECT_TABLE->Get(objectType, ++objectId);
+			++tileData->objectId;
 			SetTexture(objectInfo.textureId);
 			SetTextureRect(sf::IntRect(objectInfo.sheetId.x, objectInfo.sheetId.y, objectInfo.sheetSize.x, objectInfo.sheetSize.y));
 			SetOrigin(Origins::MC);

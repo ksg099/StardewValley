@@ -1186,13 +1186,15 @@
     [
       {
         "Harvest Name": "Cauliflower",
-        "Seed ID": 0,
-        "Object ID": 0
+        "Harvest ID": 0,
+        "Early Object ID": 0,
+        "Late Object ID": 5
       },
       {
         "Harvest Name": "Parsnip",
-        "Seed ID": 1,
-        "Object ID": 6
+        "Harvest ID": 1,
+        "Early Object ID": 6,
+        "Late Object ID": 10
       }
     ],
     "Harvest Level Info":
