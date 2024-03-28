@@ -29,7 +29,7 @@ protected:
 	BoxInven* boxInven;
 	TileData* tileData = nullptr;
 
-	SpriteGo* layer = nullptr;
+	SpriteGo* overlay = nullptr;
 
 	//std::vector<ChangeHarvest*> crops;
 	const int sellingBoxId = 1;
@@ -70,7 +70,7 @@ public:
 	sf::Color LerpColor(const sf::Color& start, const sf::Color& end, float t);
 	void CreateItem(DataItem data, int indexX, int indexY);
 	void Update(float dt) override;
-	void Draw(sf::RenderWindow& window) override;
+	void Draw(sf::RenderWindow& window, Layers layer = Layers::Everything) override;
 
 	void SetInventory();
 	void SellAllItemsInBox();

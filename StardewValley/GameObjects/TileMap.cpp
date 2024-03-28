@@ -3,6 +3,7 @@
 #include "TileMap.h"
 #include "ObjectOnTile.h"
 #include "FloorOnTile.h"
+#include "Player.h"
 
 TileMap::TileMap(const std::string& name) : GameObject(name)
 {
@@ -221,6 +222,7 @@ void TileMap::Reset()
 	GameObject::Reset();
 
 	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
+	player = dynamic_cast<Player*>(sceneGame->FindGo("Player"));
 
 	for (auto tile : *tiles)
 	{
@@ -244,6 +246,8 @@ void TileMap::Draw(sf::RenderWindow& window)
 
 	window.draw(va, state);
 
+	bool isPlayerDraw = false;
+
 	for (auto tile : *tiles)
 	{
 		if (tile->floor != nullptr && tile->floor->GetActive())
@@ -253,6 +257,11 @@ void TileMap::Draw(sf::RenderWindow& window)
 		if (tile->object != nullptr && tile->object->GetActive())
 		{
 			tile->object->Draw(window);
+		}
+		if (!isPlayerDraw && player->GetGridIndex().y == tile->indexY)
+		{
+			player->Draw(window);
+			isPlayerDraw = true;
 		}
 	}
 }
@@ -333,7 +342,7 @@ FloorOnTile* TileMap::CreateFloor(const FloorType type, const int id)
 
 ObjectOnTile* TileMap::CreateObject(const ObjectType type, const int id)
 {
-	if (type == ObjectType::NONE || type == ObjectType::COUNT)
+	if (type == ObjectType::NONE || type == ObjectType::COUNT || type == ObjectType::WALL)
 		return nullptr;
 
 	ObjectOnTile* obj = new ObjectOnTile("Object");
@@ -343,8 +352,10 @@ ObjectOnTile* TileMap::CreateObject(const ObjectType type, const int id)
 	auto& objData = OBJECT_TABLE->Get(type, id);
 	obj->SetTexture(objData.textureId);
 	obj->SetTextureRect(sf::IntRect(objData.sheetId.x, objData.sheetId.y, objData.sheetSize.x, objData.sheetSize.y));
-	obj->SetScale({  cellSize.x / 15.f, cellSize.y / 15.f });
-	obj->SetOrigin(Origins::MC);
+	if (objData.sheetSize.y > cellSize.y)
+		obj->SetOrigin(Origins::BC);
+	else
+		obj->SetOrigin(Origins::MC);
 	obj->Init();
 	obj->Reset();
 

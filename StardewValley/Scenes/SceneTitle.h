@@ -23,6 +23,6 @@ public:
 	void Enter() override;
 	void Exit() override;
 	void Update(float dt) override;
-	void Draw(sf::RenderWindow& window) override;
+	void Draw(sf::RenderWindow& window, Layers layer = Layers::Everything) override;
 };
 
