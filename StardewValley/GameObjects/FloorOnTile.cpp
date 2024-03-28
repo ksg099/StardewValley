@@ -69,6 +69,28 @@ void FloorOnTile::InteractWithFloor(const ItemType type, const int id)
 			//tileData->object = obj;
 			tileData->object->SetTileData(tileData);
 			sceneGame->AddGo(tileData->object);
+
+			auto invenBox = ITEM_SAVE->Get(0);
+			for (auto item : *invenBox)
+			{
+				if (item != nullptr && item->type == type && item->itemId == id)
+				{
+					--item->count;
+					if (item->count <= 0)
+					{
+						auto it = std::find(invenBox->begin(), invenBox->end(), item);
+
+						if (it != invenBox->end())
+						{
+							// 선택된 아이템을 items 리스트에서 삭제
+							delete* it;
+							invenBox->erase(it);
+							sceneGame->UpdateInvenSlot();
+						}
+					}
+					break;
+				}
+			}
 		}
 		break;
 	case FloorType::WOOD_PATH:

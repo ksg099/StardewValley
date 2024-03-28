@@ -82,7 +82,6 @@ void SubInventory::Update(float dt)
 		subIndexX = numKey.second - 1;
 		if (subIndexX == -1)
 			subIndexX = 9;
-
 		usingItemSlot.setPosition(smallslots[subIndexX]->GetPosition());
 	}
 }

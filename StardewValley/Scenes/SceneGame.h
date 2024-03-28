@@ -81,6 +81,7 @@ public:
 
 	void SetInventory();
 	void SellAllItemsInBox();
+	void UpdateInvenSlot();
 
 	void InteractPlayerWithTileMap(const int x, const int y, const ItemType type, const int id);
 

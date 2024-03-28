@@ -372,6 +372,12 @@ void SceneGame::SellAllItemsInBox()
 	sellingBox->clear();
 }
 
+void SceneGame::UpdateInvenSlot()
+{
+	inventory->UpdateSlots();
+	subInven->UpdateSlots();
+}
+
 void SceneGame::InteractPlayerWithTileMap(const int x, const int y, const ItemType type, const int id)
 {
 	tileMap->InteractWithTile(x, y, type, id);
