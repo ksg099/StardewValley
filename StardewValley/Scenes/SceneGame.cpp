@@ -66,6 +66,7 @@ void SceneGame::Enter()
 	inventory->SetActive(false);
 	boxInven->SetActive(false);
 	uiStore->SetActive(false);
+	isUiOpen = false;
 
 	Scene::Enter();
 }
@@ -271,30 +272,48 @@ void SceneGame::CreateItem(DataItem data, int indexX, int indexY)
 
 void SceneGame::SetInventory()
 {
-	if (InputMgr::GetKeyDown(sf::Keyboard::I) && !boxInven->GetActive())
+	if (InputMgr::GetKeyDown(sf::Keyboard::I))
 	{
-		inventory->SetActive(!inventory->GetActive());
-		if (inventory->GetActive())
+		if (!isUiOpen)
 		{
+			inventory->SetActive(true);
 			inventory->UpdateSlots();
+			isUiOpen = true;
 		}
-	}
-
-	//�κ��丮�� �Ⱥ����ٸ� IŰ�� �������� ���̰� �ϱ�
-	if (InputMgr::GetKeyDown(sf::Keyboard::U) && !inventory->GetActive())
-	{
-		boxInven->SetActive(!boxInven->GetActive());
-		if (boxInven->GetActive())
+		else if (inventory->GetActive())
 		{
-			boxInven->UpdateSlots();
+			inventory->SetActive(false);
+			isUiOpen = false;
 		}
 	}
 
-	// test store UI
-	// TO-DO: Delete
+	if (InputMgr::GetKeyDown(sf::Keyboard::U))
+	{
+		if (!isUiOpen)
+		{
+			boxInven->SetActive(true);
+			boxInven->UpdateSlots();
+			isUiOpen = true;
+		}
+		else if (boxInven->GetActive())
+		{
+			boxInven->SetActive(false);
+			isUiOpen = false;
+		}
+	}
+
 	if (InputMgr::GetKeyDown(sf::Keyboard::P))
 	{
-		uiStore->SetActive(!uiStore->GetActive());
+		if (!isUiOpen)
+		{
+			uiStore->SetActive(true);
+			isUiOpen = true;
+		}
+		else if (uiStore->GetActive())
+		{
+			uiStore->SetActive(false);
+			isUiOpen = false;
+		}
 	}
 }
 
@@ -315,6 +334,12 @@ void SceneGame::SellAllItemsInBox()
 			item = nullptr;
 		}
 	}
-	std::cout << "정산: " + sellingPrice << std::endl; // To-Do: 확인
+
+	std::cout << "price: " + sellingPrice << std::endl;
 	sellingBox->clear();
+}
+
+void SceneGame::InteractPlayerWithTileMap(const int x, const int y, const ItemType type, const int id)
+{
+	tileMap->InteractWithTile(x, y, type, id);
 }

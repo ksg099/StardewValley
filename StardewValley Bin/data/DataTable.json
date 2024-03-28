@@ -1002,6 +1002,21 @@
               "Sheet ID H": 127
            }  
           ]
+        },
+        {
+          "Type Name": "Store",
+          "Sheet Info":
+          [
+            {
+              "Object Name": "store man",
+              "Object ID": 0,
+              "Resource": "graphics/StoreMan.png",
+              "Sheet ID X": 0,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 14,
+              "Sheet ID H": 35
+           }
+          ]
         }
       ]
     }

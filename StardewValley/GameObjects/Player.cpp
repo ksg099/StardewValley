@@ -33,9 +33,10 @@ void Player::Reset()
 
 	hasHitBox = true;
 
-	tileMap = dynamic_cast<TileMap*>(SCENE_MGR.GetCurrentScene()->FindGo("Background"));
-	inventory = dynamic_cast<Inventory*>(SCENE_MGR.GetCurrentScene()->FindGo("Inventory"));
-	SceneGame* currentScene = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene()->FindGo("newSeed"));
+	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
+	tileMap = dynamic_cast<TileMap*>(sceneGame->FindGo("Background"));
+	inventory = dynamic_cast<Inventory*>(sceneGame->FindGo("Inventory"));
+	// SceneGame* currentScene = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene()->FindGo("newSeed"));
 
 	gridIndex = { 1, 0 };
 	currentGridPosition = tileMap->GetGridPosition(gridIndex.x, gridIndex.y);
@@ -118,12 +119,12 @@ void Player::Update(float dt)
 	if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
 	{
 		if (itemInUse != nullptr)
-			tileMap->InteractWithTile(gridIndex.x + lookDir.x, gridIndex.y + lookDir.y, itemInUse->type, itemInUse->itemId);
+			sceneGame->InteractPlayerWithTileMap(gridIndex.x + lookDir.x, gridIndex.y + lookDir.y, itemInUse->type, itemInUse->itemId);
 		else
-			tileMap->InteractWithTile(gridIndex.x + lookDir.x, gridIndex.y + lookDir.y, ItemType::None, -1);
+			sceneGame->InteractPlayerWithTileMap(gridIndex.x + lookDir.x, gridIndex.y + lookDir.y, ItemType::None, -1);
 	}
 
-	SetPlant();
+	// SetPlant();
 
 }
 

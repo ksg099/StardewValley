@@ -57,6 +57,8 @@ protected:
 
 	UiStore* uiStore = nullptr;
 
+	bool isUiOpen = false;
+
 public:
 
 	SceneGame(SceneIds id);
@@ -74,4 +76,6 @@ public:
 
 	void SetInventory();
 	void SellAllItemsInBox();
+
+	void InteractPlayerWithTileMap(const int x, const int y, const ItemType type, const int id);
 };

@@ -88,6 +88,7 @@ enum class ObjectType
 	BOX,
 	WALL,
 	BUILDING,
+	STORE,
 	COUNT,
 };
 

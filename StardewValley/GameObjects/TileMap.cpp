@@ -258,7 +258,9 @@ void TileMap::Draw(sf::RenderWindow& window)
 		{
 			tile->object->Draw(window);
 		}
-		if (!isPlayerDraw && player->GetGridIndex().y == tile->indexY)
+
+		if (!isPlayerDraw && (player->GetGridIndex().y + 1 <= tile->indexY ||
+			(tile->indexX == cellCount.x - 1 && tile->indexY == cellCount.y - 1)))
 		{
 			player->Draw(window);
 			isPlayerDraw = true;

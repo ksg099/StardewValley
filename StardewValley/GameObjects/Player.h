@@ -1,12 +1,14 @@
 #pragma once
 #include "SpriteGo.h"
 
+class SceneGame;
 class TileMap;
 class Inventory;
 
 class Player : public SpriteGo
 {
 private:
+	SceneGame* sceneGame = nullptr;
 	TileMap* tileMap = nullptr;
 	Inventory* inventory = nullptr;
 	ItemData* itemInUse = nullptr;
