@@ -70,7 +70,14 @@ void Player::Update(float dt)
 
 	// TO-DO: 애니메이션은 임시로만 구현하고, 자세한건 나중에
 	sf::Vector2f posDiff = nextPosition - prevPosition;
-	PlayMoveAnimation(posDiff);
+	if (!isItemPick)
+	{
+		PlayMoveAnimation(posDiff);
+	}
+	else
+	{
+		ItemUpAnimation(posDiff);
+	}
 
 	// 퀵슬롯으로부터 아이템 셋팅
 	auto numKey = InputMgr::GetKeyNumber();
@@ -83,11 +90,13 @@ void Player::Update(float dt)
 		if (itemInUse == nullptr)
 		{
 			std::cout << "아이템 없음" << std::endl;
+			isItemPick = false;
 		}
 		else
 		{
 			std::cout << "box ID: " << itemInUse->BoxId << ", index X: " << itemInUse->IndexX << ", index Y: " << itemInUse->IndexY << std::endl;
 			std::cout << "Item Type: " << (int)itemInUse->type << ", Item ID: " << itemInUse->itemId << std::endl;
+			isItemPick = true;
 		}
 	}
 
@@ -191,7 +200,60 @@ void Player::PlayMoveAnimation(sf::Vector2f posDiff)
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 	{
+	}
+}
 
+void Player::ItemUpAnimation(sf::Vector2f posDiff)
+{
+	if (posDiff.x > 0.f && side != Sides::Right)
+	{
+		animator.Play("animations/Player_ItemUp_MoveSide.csv");
+		SetFlipX(false);
+		side = Sides::Right;
+	}
+	else if (posDiff.x < 0.f && side != Sides::Left)
+	{
+		animator.Play("animations/Player_ItemUp_MoveSide.csv");
+		SetFlipX(true);
+		side = Sides::Left;
+	}
+	else if (posDiff.y > 0 && side != Sides::Down)
+	{
+		animator.Play("animations/Player_ItemUp_MoveFront.csv");
+		side = Sides::Down;
+	}
+	else if (posDiff.y < 0 && side != Sides::Up)
+	{
+		animator.Play("animations/Player_ItemUp_MoveBack.csv");
+		side = Sides::Up;
+	}
+	else if (posDiff.x == 0 && posDiff.y == 0)
+	{
+		animator.Stop();
+		switch (side)
+		{
+		case Sides::Left:
+			SetFlipX(true);
+			SetTexture("graphics/itemUp_MoveSide.png");
+			SetTextureRect(sf::IntRect(1, 2, 15, 30));
+			break;
+		case Sides::Right:
+			SetFlipX(false);
+			SetTexture("graphics/itemUp_MoveSide.png");
+			SetTextureRect(sf::IntRect(1, 2, 15, 30));
+			break;
+		case Sides::Up:
+			SetTexture("graphics/itemUp_MoveBack.png");
+			SetTextureRect(sf::IntRect(1, 3, 15, 26));
+			break;
+		case Sides::Down:
+			SetTexture("graphics/itemUp_MoveFront.png");
+			SetTextureRect(sf::IntRect(1, 0, 16, 29));
+			break;
+		default:
+			break;
+		}
+		side = Sides::None;
 	}
 }
 
