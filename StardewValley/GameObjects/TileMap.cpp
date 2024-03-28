@@ -419,6 +419,7 @@ void TileMap::InteractWithTile(const int x, const int y, const ItemType type, co
 			tile->floor = CreateFloor(tile->floorType, tile->floorId);
 			tile->floor->SetPosition(GetGridPosition(tile->indexX, tile->indexY));
 			tile->floor->SetTileData(tile);
+			sceneGame->AddGo(tile->floor);
 		}
 	}
 }

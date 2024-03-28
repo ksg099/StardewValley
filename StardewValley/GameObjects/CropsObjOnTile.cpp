@@ -66,6 +66,12 @@ void CropsObjOnTile::Grow()
 {
 	if (!isCompleteGrowth && tileData->floorType == FloorType::WET_ARABLE_LAND)
 	{
+		tileData->floorType = FloorType::DRIED_ARABLE_LAND;
+		tileData->floor->SetFloorType(tileData->floorType);
+		auto floorData = FLOOR_TABLE->Get(tileData->floorType, tileData->floorId);
+		tileData->floor->SetTexture(floorData.textureId);
+		tileData->floor->SetTextureRect(sf::IntRect(floorData.sheetId.x, floorData.sheetId.y, floorData.sheetSize.x, floorData.sheetSize.y));
+
 		if (currentGrowDay == nextGrowDay)
 		{
 			auto harvestInfo = HARVEST_TABLE->Get(objectId);
@@ -77,12 +83,6 @@ void CropsObjOnTile::Grow()
 			SetTexture(objectInfo.textureId);
 			SetTextureRect(sf::IntRect(objectInfo.sheetId.x, objectInfo.sheetId.y, objectInfo.sheetSize.x, objectInfo.sheetSize.y));
 			SetOrigin(Origins::MC);
-
-			tileData->floorType = FloorType::DRIED_ARABLE_LAND;
-			tileData->floor->SetFloorType(tileData->floorType);
-			auto floorData = FLOOR_TABLE->Get(tileData->floorType, tileData->floorId);
-			tileData->floor->SetTexture(floorData.textureId);
-			tileData->floor->SetTextureRect(sf::IntRect(floorData.sheetId.x, floorData.sheetId.y, floorData.sheetSize.x, floorData.sheetSize.y));
 
 			if (nextGrowDay == 0)
 			{
