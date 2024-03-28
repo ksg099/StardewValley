@@ -1798,10 +1798,10 @@
                     "Index Y": 7,
                     "Ground Type": 1,
                     "Ground ID": 0,
-                    "Floor Type": -1,
+                    "Floor Type": 0,
                     "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
+                    "Object Type": 5,
+                    "Object ID": 6,
                     "Placed Possible": true,
                     "Player Passable": true
                 },
@@ -2026,9 +2026,9 @@
                     "Index Y": 8,
                     "Ground Type": 1,
                     "Ground ID": 0,
-                    "Floor Type": -1,
+                    "Floor Type": 0,
                     "Floor ID": 0,
-                    "Object Type": -1,
+                    "Object Type": 5,
                     "Object ID": 0,
                     "Placed Possible": true,
                     "Player Passable": true
@@ -2038,9 +2038,9 @@
                     "Index Y": 8,
                     "Ground Type": 1,
                     "Ground ID": 0,
-                    "Floor Type": -1,
+                    "Floor Type": 0,
                     "Floor ID": 0,
-                    "Object Type": -1,
+                    "Object Type": 5,
                     "Object ID": 0,
                     "Placed Possible": true,
                     "Player Passable": true
@@ -2050,9 +2050,9 @@
                     "Index Y": 8,
                     "Ground Type": 1,
                     "Ground ID": 0,
-                    "Floor Type": -1,
+                    "Floor Type": 0,
                     "Floor ID": 0,
-                    "Object Type": -1,
+                    "Object Type": 5,
                     "Object ID": 0,
                     "Placed Possible": true,
                     "Player Passable": true
@@ -4863,7 +4863,7 @@
                     "Item Type": 1,
                     "Item ID": 0,
                     "Instance ID": 4,
-                    "Count": 8,
+                    "Count": 5,
                     "CanOverlap": false
                 },
                 {
@@ -4872,7 +4872,7 @@
                     "Item Type": 1,
                     "Item ID": 1,
                     "Instance ID": 0,
-                    "Count": 6,
+                    "Count": 5,
                     "CanOverlap": false
                 }
             ]

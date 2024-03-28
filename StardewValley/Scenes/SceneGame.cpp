@@ -95,9 +95,8 @@ void SceneGame::Enter()
 	tileMap->LoadTileMap("Farm");
 	tileMap->SetOrigin(Origins::MC);
 
-	uiHud->SetMoney(1000);
-	
-	this->money = 0;
+	money = 10000;
+	uiHud->SetMoney(money);
 
 	inventory->SetActive(false);
 	boxInven->SetActive(false);
@@ -151,6 +150,7 @@ void SceneGame::Update(float dt)
 		TILEMAP_SAVE->Save(saveDoc);
 		ITEM_SAVE->Save(saveDoc);
 		Utils::EditFile(DT_MGR.GetGameSaveSelect(), saveDoc);
+		DT_MGR.SaveRecentFilePath();
 	}
 
 	// �ð� ������Ʈ
@@ -454,6 +454,7 @@ void SceneGame::SellAllItemsInBox()
 			item = nullptr;
 		}
 	}
+	AddMoney(sellingPrice);
 	sellingBox->clear();
 }
 

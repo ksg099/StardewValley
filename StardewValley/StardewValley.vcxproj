@@ -154,7 +154,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BoxObjOnTile.cpp" />
-    <ClCompile Include="ChangeHarvest.cpp" />
     <ClCompile Include="GameObjects\CropsObjOnTile.cpp" />
     <ClCompile Include="DataTables\DataTable.cpp" />
     <ClCompile Include="DataTables\GroundTable.cpp" />
@@ -178,8 +177,9 @@
     <ClCompile Include="DataTables\ItemTable.cpp" />
     <ClCompile Include="GameObjects\TileMap.cpp" />
     <ClCompile Include="DataTables\ItemSave.cpp" />
-    <ClCompile Include="GameObjects\LoadBoxUi.cpp" />
+    <ClCompile Include="GameObjects\LoadTileMapBoxUi.cpp" />
     <ClCompile Include="DataTables\HarvestTable.cpp" />
+    <ClCompile Include="GameObjects\LoadSaveBoxUi.cpp" />
     <ClCompile Include="main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
     </ClCompile>
@@ -212,7 +212,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoxObjOnTile.h" />
-    <ClInclude Include="ChangeHarvest.h" />
     <ClInclude Include="GameObjects\CropsObjOnTile.h" />
     <ClInclude Include="DataTables\DataTable.h" />
     <ClInclude Include="DataTables\GroundTable.h" />
@@ -238,8 +237,9 @@
     <ClInclude Include="DataTables\ObjectTable.h" />
     <ClInclude Include="DataTables\ItemTable.h" />
     <ClInclude Include="DataTables\ItemSave.h" />
-    <ClInclude Include="GameObjects\LoadBoxUi.h" />
+    <ClInclude Include="GameObjects\LoadTileMapBoxUi.h" />
     <ClInclude Include="DataTables\HarvestTable.h" />
+    <ClInclude Include="GameObjects\LoadSaveBoxUi.h" />
     <ClInclude Include="MapToolUI.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="GameObjects\Player.h" />

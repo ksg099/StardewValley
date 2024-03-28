@@ -152,7 +152,11 @@ void UiStore::SelectByDoubleClick(float dt)
 
 	if (purchaseIndex != -1)
 	{
-		sceneGame->CreateItem(itemTable[purchaseIndex], player->GetGridIndex().x, player->GetGridIndex().y);
+		if (sceneGame->GetMoney() >= itemTable[purchaseIndex].purchasePrice)
+		{
+			sceneGame->AddMoney(-itemTable[purchaseIndex].purchasePrice);
+			sceneGame->CreateItem(itemTable[purchaseIndex], player->GetGridIndex().x, player->GetGridIndex().y);
+		}
 		purchaseIndex = -1;
 	}
 }

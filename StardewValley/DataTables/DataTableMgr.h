@@ -13,10 +13,12 @@ private:
 	std::vector<std::string> tileMapData;
 	std::vector<std::string> gameSaveData;
 
-	std::string gameSaveSelect = "data/Save Data/example_save.json";
+	std::string gameSaveSelect = "data/default_save.json";
 	bool isSaveSelect = false;
 	std::string tileMapSelect = "";
 	bool isTileMapSelect = false;
+
+	std::string recentSaveFilePath = "";
 
 public:
 	void Init();
@@ -32,6 +34,9 @@ public:
 	const std::string& GetTileMapSelect() { return tileMapSelect; }
 	void SetGameSaveSelect(const std::string& name);
 	const std::string& GetGameSaveSelect() { return gameSaveSelect; }
+	void SetRecentFileSelect() { SetGameSaveSelect(recentSaveFilePath); }
+	void SaveRecentFilePath();
+	void SetSelectReset();
 
 	bool LoadSaveData();
 };

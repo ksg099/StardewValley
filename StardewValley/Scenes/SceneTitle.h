@@ -3,7 +3,8 @@
 
 class SpriteGo;
 class TextGo;
-class LoadBoxUi;
+class LoadTileMapBoxUi;
+class LoadSaveBoxUi;
 
 class SceneTitle : public Scene
 {
@@ -21,7 +22,8 @@ private:
 	TextGo* makeMapBtn = nullptr;
 	TextGo* LoadGameBtn = nullptr;
 
-	LoadBoxUi* loadBoxUi = nullptr;
+	LoadTileMapBoxUi* loadTileMapBoxUi = nullptr;
+	LoadSaveBoxUi* loadSaveBoxUi = nullptr;
 
 public:
 	SceneTitle(SceneIds id);

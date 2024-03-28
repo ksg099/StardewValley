@@ -2,7 +2,8 @@
 #include "SceneTitle.h"
 #include "SpriteGo.h"
 #include "TextGo.h"
-#include "LoadBoxUi.h"
+#include "LoadTileMapBoxUi.h"
+#include "LoadSaveBoxUi.h"
 
 SceneTitle::SceneTitle(SceneIds id) : Scene(id)
 {
@@ -84,9 +85,12 @@ void SceneTitle::Init()
 	makeMapBtn->SetOrigin(Origins::TC);
 	AddGo(makeMapBtn, Ui);
 
-	loadBoxUi = new LoadBoxUi("Load Box UI");
+	loadTileMapBoxUi = new LoadTileMapBoxUi("Load TileMap Box UI");
 	//loadBoxUi->SetActive(false);
-	AddGo(loadBoxUi, Ui);
+	AddGo(loadTileMapBoxUi, Ui);
+
+	loadSaveBoxUi = new LoadSaveBoxUi("Load Save Box UI");
+	AddGo(loadSaveBoxUi, Ui);
 
 	Scene::Init();
 }
@@ -104,6 +108,9 @@ void SceneTitle::Enter()
 
 	uiView.setSize(viewSize);
 	uiView.setCenter(centerPos);
+
+	loadTileMapBoxUi->SetActive(false);
+	loadSaveBoxUi->SetActive(false);
 
 	FRAMEWORK.GetWindow().setView(uiView);
 
@@ -128,6 +135,10 @@ void SceneTitle::Update(float dt)
 		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
 		{
 			LoadData();
+
+			DT_MGR.SetGameSaveSelect("data/default_save.json");
+			loadTileMapBoxUi->SetActive(true);
+			loadSaveBoxUi->SetActive(false);
 		}
 	}
 
@@ -137,8 +148,10 @@ void SceneTitle::Update(float dt)
 	{
 		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
 		{
-			LoadSave();
 			LoadData();
+
+			loadTileMapBoxUi->SetActive(false);
+			loadSaveBoxUi->SetActive(true);
 		}
 	}
 	
@@ -148,8 +161,12 @@ void SceneTitle::Update(float dt)
 	{
 		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
 		{
-			Restart();
-			LoadData();
+			DT_MGR.SetRecentFileSelect();
+			if (DT_MGR.LoadSaveData())
+			{
+				SCENE_MGR.ChangeScene(SceneIds::SCENE_GAME);
+			}
+			// DT_MGR.SetGameSaveSelect("data/recent_file_path.json");
 		}
 	}
 
@@ -174,7 +191,7 @@ void SceneTitle::Update(float dt)
 	if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
 	{
 		Escape();
-
+		DT_MGR.SetSelectReset();
 	}
 }
 
@@ -196,9 +213,8 @@ void SceneTitle::Escape()
 	makeMapBtn->SetActive(true);
 	LoadGameBtn->SetActive(true);
 
-	loadBoxUi->SetActive(false);
-	loadBoxUi->SetIsTileMapCheck(false);
-	loadBoxUi->SetIsGameSaveCheck(false);
+	loadTileMapBoxUi->SetActive(false);
+	loadSaveBoxUi->SetActive(false);
 }
 
 void SceneTitle::LoadData()
@@ -214,22 +230,20 @@ void SceneTitle::LoadData()
 	makeMapBtn->SetActive(false);
 	LoadGameBtn->SetActive(false);
 
-	loadBoxUi->SetActive(true);
+	loadTileMapBoxUi->SetActive(true);
+	loadSaveBoxUi->SetActive(true);
 }
 
 void SceneTitle::Restart()
 {
-	loadBoxUi->SetActive(true);
-	loadBoxUi->SetIsTileMapCheck(false);
-	loadBoxUi->SetIsGameSaveCheck(true);
-	loadBoxUi->Init();
+	loadTileMapBoxUi->SetActive(false);
+	loadSaveBoxUi->SetActive(true);
+	loadTileMapBoxUi->Init();
 }
 
 void SceneTitle::LoadSave()
 {
-	loadBoxUi->SetActive(true);
-	loadBoxUi->SetIsTileMapCheck(true);
-	loadBoxUi->SetIsGameSaveCheck(false);
-	loadBoxUi->Init();
-
+	loadTileMapBoxUi->SetActive(false);
+	loadSaveBoxUi->SetActive(true);
+	loadTileMapBoxUi->Init();
 }

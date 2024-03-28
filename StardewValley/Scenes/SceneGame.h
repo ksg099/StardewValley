@@ -100,5 +100,6 @@ public:
 
 	void OpenStoreUi();
 	void AddMoney(int money);
+	const int GetMoney() const { return money; }
 	void PauseGame();
 };

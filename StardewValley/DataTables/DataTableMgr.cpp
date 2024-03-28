@@ -54,6 +54,12 @@ void DataTableMgr::Init()
 		ITEM_TABLE->Load(dataDoc);
 		HARVEST_TABLE->Load(dataDoc);
 	}
+
+	rapidjson::Document recentfileDoc;
+	if (Utils::LoadFromFile("data/recent_file_path.json", recentfileDoc))
+	{
+		recentSaveFilePath = recentfileDoc["Recent File Path"].GetString();
+	}
 }
 
 void DataTableMgr::Release()
@@ -77,9 +83,35 @@ void DataTableMgr::SetGameSaveSelect(const std::string& name)
 	isSaveSelect = true;
 }
 
+void DataTableMgr::SaveRecentFilePath()
+{
+	/*rapidjson::Document recentfileDoc;
+	
+	rapidjson::Value fileArr(rapidjson::kArrayType);
+
+	rapidjson::Value recentFileData;
+	recentFileData.SetObject();
+
+	rapidjson::Document::AllocatorType& allocator = recentfileDoc.GetAllocator();
+	recentFileData.AddMember("Recent File Path", rapidjson::Value(recentSaveFilePath.c_str(), allocator), allocator);
+	fileArr.PushBack(recentFileData, allocator);
+	recentfileDoc.AddMember("File Path", fileArr, allocator);
+
+	Utils::EditFile("data/recent_file_path.json", recentfileDoc);*/
+}
+
+void DataTableMgr::SetSelectReset()
+{
+	gameSaveSelect = "data/default_save.json";
+	tileMapSelect = "";
+
+	isSaveSelect = false;
+	isTileMapSelect = false;
+}
+
 bool DataTableMgr::LoadSaveData()
 {
-	if (!isSaveSelect)
+	if (!isSaveSelect && !isTileMapSelect)
 	{
 		return false;
 	}
@@ -102,6 +134,8 @@ bool DataTableMgr::LoadSaveData()
 		return false;
 	}
 	ITEM_SAVE->Load(SaveDoc);
+
+	recentSaveFilePath = gameSaveSelect;
 
 	return true;
 }
