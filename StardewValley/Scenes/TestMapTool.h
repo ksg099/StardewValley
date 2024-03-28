@@ -36,8 +36,8 @@ protected:
 	sf::Sprite spriteFloor;        //Ãß°¡
 
 	sf::VertexArray grid;
-	int col = 10;
-	int row = 10;
+	int col = 20;
+	int row = 20;
 	int size = 15;
 
 	float gridStartX = ((float)FRAMEWORK.GetWindowSize().x * 0.6f) * 0.35f;

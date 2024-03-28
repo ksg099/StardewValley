@@ -968,7 +968,15 @@
           "Type Name": "Wall",
           "Sheet Info":
           [
-
+            {
+              "Object Name": "wall1",
+              "Object ID": 0,
+              "Resource": "graphics/wall.png",
+              "Sheet ID X": 0,
+              "Sheet ID Y": 0,
+              "Sheet ID W": 15,
+              "Sheet ID H": 15
+            }
           ]
         },
         {

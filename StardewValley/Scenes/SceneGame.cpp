@@ -107,7 +107,6 @@ void SceneGame::Update(float dt)
 		ITEM_SAVE->Save(saveDoc);
 		Utils::EditFile(DT_MGR.GetGameSaveSelect(), saveDoc);
 	}
-	Scene::Update(dt);
 
 	// �ð� ������Ʈ
 	dailyTime += dt;

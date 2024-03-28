@@ -343,6 +343,7 @@ ObjectOnTile* TileMap::CreateObject(const ObjectType type, const int id)
 	auto& objData = OBJECT_TABLE->Get(type, id);
 	obj->SetTexture(objData.textureId);
 	obj->SetTextureRect(sf::IntRect(objData.sheetId.x, objData.sheetId.y, objData.sheetSize.x, objData.sheetSize.y));
+	obj->SetScale({  cellSize.x / 15.f, cellSize.y / 15.f });
 	obj->SetOrigin(Origins::MC);
 	obj->Init();
 	obj->Reset();
