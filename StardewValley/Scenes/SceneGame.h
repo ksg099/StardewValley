@@ -44,6 +44,8 @@ protected:
 	float transitionDuration = 5.f; //��ȯ�� �ɸ��� �ð�
 	float progress = 0.f;
 
+	bool isNextDay = false;
+
 	std::list<DropItem*> dropItemList;
 
 	sf::Vector2f tileSize = { 25.f, 25.f };
@@ -70,6 +72,7 @@ public:
 	void Exit() override;
 
 	sf::Color LerpColor(const sf::Color& start, const sf::Color& end, float t);
+	const bool IsNextDay() const { return isNextDay; }
 	void CreateItem(DataItem data, int indexX, int indexY);
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window, Layers layer = Layers::Everything) override;

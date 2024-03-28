@@ -68,6 +68,8 @@ void SceneGame::Enter()
 	uiStore->SetActive(false);
 	isUiOpen = false;
 
+	isNextDay = false;
+
 	Scene::Enter();
 }
 
@@ -98,6 +100,7 @@ sf::Vector2f SceneGame::IndexToPos(int index)
 void SceneGame::Update(float dt)
 {
 	Scene::Update(dt);
+	isNextDay = false;
 
 	// save the file
 	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
@@ -120,6 +123,7 @@ void SceneGame::Update(float dt)
 	if (dailyTime >= 24)
 	{
 		dailyTime -= 24; // ���� ���� �Ѿ
+		isNextDay = true;
 		++day;
 
 		SellAllItemsInBox();

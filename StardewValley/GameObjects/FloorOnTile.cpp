@@ -30,6 +30,14 @@ void FloorOnTile::Reset()
 void FloorOnTile::Update(float dt)
 {
 	SpriteGo::Update(dt);
+
+	if (sceneGame->IsNextDay() && floorType == FloorType::WET_ARABLE_LAND && tileData->object == nullptr)
+	{
+		tileData->floorType = floorType = FloorType::DRIED_ARABLE_LAND;
+		auto floorData = FLOOR_TABLE->Get(floorType, floorId);
+		SetTexture(floorData.textureId);
+		SetTextureRect(sf::IntRect(floorData.sheetId.x, floorData.sheetId.y, floorData.sheetSize.x, floorData.sheetSize.y));
+	}
 }
 
 void FloorOnTile::Draw(sf::RenderWindow& window)
