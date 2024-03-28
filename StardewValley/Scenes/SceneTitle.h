@@ -10,7 +10,14 @@ class SceneTitle : public Scene
 private:
 	sf::RectangleShape title;
 
-	SpriteGo* logo = nullptr;
+	SpriteGo* newGame = nullptr;
+	SpriteGo* LoadGame = nullptr;
+	SpriteGo* makeMap = nullptr;
+	SpriteGo* backGround = nullptr;
+	//SpriteGo* GameOver = nullptr;
+
+	SpriteGo* TiltleLogo = nullptr;
+
 	TextGo* textMessage = nullptr;
 	LoadBoxUi* loadBoxUi = nullptr;
 

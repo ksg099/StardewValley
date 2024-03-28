@@ -6,27 +6,32 @@
 class UiHud : public GameObject
 {
 protected:
-	sf::Vector2f referenceResolution = { 1920, 1080 };
-	sf::Vector2f resolution = referenceResolution;
+	//sf::Vector2f referenceResolution = { 1920, 1080 };
+	//sf::Vector2f resolution = referenceResolution;
 
-	std::string formatTime = " : 오전";
-	std::string formatHighMoney = " : 현재 돈";
+	std::string formatdate = "Day : ";
+	std::string formatMoney = " ";
 
-	SpriteGo* uiContainer;
-	SpriteGo* uiEnergy;
+	SpriteGo uiContainer;
+	SpriteGo uiEnergy;
+	SpriteGo uiArrow;
 
-	TextGo* timeDisplay;
-	TextGo* dateDisplay;
-	TextGo* moneyDisplay;
+	TextGo timeDisplay;
+	TextGo dateDisplay;
+	TextGo moneyDisplay;
 
 	float dailyTime = 0.f;
 	float totalTime = 0.f;
 
 	int hour = 0;
 	int minute = 0;
-
+	int currentHeight = 0;
 	sf::RectangleShape gaugeHp;
 	sf::Vector2f gaugeHpSize = { 14.f, 158.f };
+
+	// 임시 - 나중에 게임씬에서 받아오는 것
+	int currentHp = 50;
+	int maxHp = 100;
 
 public:
 	UiHud(const std::string& name = "");
@@ -40,8 +45,8 @@ public:
 	void FixedUpdate(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	void SetTime(std::string& time);
+	void SetTime(float dailyTime);
 	void SetMoney(int money);
 	void SetHp(int hp, int max);
-	void SetDate();
+	void SetDate(int day);
 };

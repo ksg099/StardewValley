@@ -37,6 +37,8 @@ protected:
 
 	int day = 1;
 	int col = 30;
+	int money = 0;
+	int time = 0;
 
 	float gridStartX = 0.f; //ó�� �׷����� x��ǥ
 	float gridStartY = 0.f; //ó�� �׷����� y��ǥ
@@ -75,4 +77,7 @@ public:
 
 	void SetInventory();
 	void SellAllItemsInBox();
+	void AddMoney(int money);
+	void AddTime(int time);
+
 };

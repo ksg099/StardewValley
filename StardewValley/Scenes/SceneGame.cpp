@@ -66,6 +66,10 @@ void SceneGame::Enter()
 	tileMap->LoadTileMap("Farm");
 	tileMap->SetOrigin(Origins::MC);
 
+	uiHud->SetMoney(1000);
+	
+	this->money = 0;
+
 	inventory->SetActive(false);
 	boxInven->SetActive(false);
 	uiStore->SetActive(false);
@@ -114,6 +118,9 @@ void SceneGame::Update(float dt)
 
 	// �ð� ������Ʈ
 	dailyTime += dt;
+
+	uiHud->SetTime(dailyTime);
+	uiHud->SetDate(day);
 
 	// �Ϸ簡 ������ day�� ������Ű��, �Ĺ����� ���¸� �ʱ�ȭ
 
@@ -316,4 +323,15 @@ void SceneGame::SellAllItemsInBox()
 		}
 	}
 	sellingBox->clear();
+}
+
+void SceneGame::AddMoney(int money)
+{
+	this->money += money;
+	uiHud->SetMoney(this->money);
+}
+
+void SceneGame::AddTime(int time)
+{
+
 }
