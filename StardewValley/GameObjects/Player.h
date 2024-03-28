@@ -11,6 +11,7 @@ private:
 	Inventory* inventory = nullptr;
 	ItemData* itemInUse = nullptr;
 
+	SpriteGo pickedItem;
 
 	sf::Vector2i gridIndex = { 0, 0 };
 

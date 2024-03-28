@@ -20,6 +20,8 @@ void Player::Init()
 	SetOrigin(Origins::BC);
 	playerHalfWidth = GetLocalBounds().width / 2.f;
 	animator.SetTarget(&sprite);
+
+	pickedItem.SetOrigin(Origins::MC);
 }
 
 void Player::Release()
@@ -90,15 +92,23 @@ void Player::Update(float dt)
 		if (itemInUse == nullptr)
 		{
 			std::cout << "아이템 없음" << std::endl;
+			pickedItem.SetActive(false);
 			isItemPick = false;
 		}
 		else
 		{
 			std::cout << "box ID: " << itemInUse->BoxId << ", index X: " << itemInUse->IndexX << ", index Y: " << itemInUse->IndexY << std::endl;
 			std::cout << "Item Type: " << (int)itemInUse->type << ", Item ID: " << itemInUse->itemId << std::endl;
+			DataItem itemData = ITEM_TABLE->Get(itemInUse->type, itemInUse->itemId);
+			pickedItem.SetTexture(itemData.textureId);
+			pickedItem.SetTextureRect({ itemData.sheetId.x, itemData.sheetId.y, itemData.sheetSize.x, itemData.sheetSize.y });
+			pickedItem.SetScale({ 15.f / pickedItem.GetLocalBounds().width, 15.f / pickedItem.GetLocalBounds().height});
+			pickedItem.SetActive(true);
 			isItemPick = true;
 		}
 	}
+
+	pickedItem.SetPosition({ position.x - 5.f, position.y - 35.f });
 
 	// 플레이어 좌클릭 처리
 	sf::Vector2i dirOne = InputMgr::GetAxisOne();
@@ -146,6 +156,7 @@ void Player::SetTextureRect(const sf::IntRect& rect)
 
 void Player::Draw(sf::RenderWindow& window)
 {
+	if (pickedItem.GetActive()) { pickedItem.Draw(window); }
 	SpriteGo::Draw(window);
 }
 
