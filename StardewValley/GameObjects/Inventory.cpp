@@ -14,9 +14,6 @@ void Inventory::Init()
 
 	//인벤토리 창 구현
 	SetTexture("graphics/Ui.png");
-	smallUi.SetTexture("graphics/smallUi.png");
-	smallUi.SetPosition({970.f, 960.f});
-	smallUi.SetOrigin(Origins::MC);
 
 	Release();
 
@@ -39,23 +36,6 @@ void Inventory::Init()
 		}
 	}
 
-	
-
-
-	//메인 화면 하단에 나오는 작은 인벤토리의 슬롯 만들기
-	for (int j = 0; j < countX; j++)
-	{
-		//슬롯 위치 잡기
-		InvetorySlot* smallslot = new InvetorySlot("Inventory Slot");
-		sf::Vector2f pos = smallUi.GetPosition();
-		smallslot->Init();
-
-		smallslot->SetPosition(pos - sf::Vector2f(320.f - 70.f * j, 0.f)); //하드코딩
-		smallslot->SetOrigin(Origins::MC);
-
-		smallslots.push_back(smallslot);
-	}
-	
 	itemInfoText.Set(RES_MGR_FONT.Get("fonts/Arial.ttf"), "", 20, sf::Color::Black);
 	itemInfoText.SetOutline(sf::Color::White, 1.f);
 }
@@ -92,7 +72,6 @@ void Inventory::Reset()
 	}
 	
 	UpdateSlots();
-	UpdateSubSlots();
 }
 
 void Inventory::Update(float dt)
@@ -158,7 +137,6 @@ void Inventory::Update(float dt)
 
 					// 인벤토리 UI 갱신
 					UpdateSlots();
-					UpdateSubSlots();
 
 					// 선택 초기화
 					firstClickIndex = -1;
@@ -243,17 +221,6 @@ void Inventory::Update(float dt)
 	{
 		firstClickIndex = -1;
 	}
-
-	// tab을 누르면 서브 인벤토리 변경
-	if (InputMgr::GetKeyDown(sf::Keyboard::Tab))
-	{
-		subIndexY++;
-		if (subIndexY >= countY)
-		{
-			subIndexY = 0;
-		}
-		UpdateSubSlots();
-	}
 }
 
 void Inventory::SetPosition(const sf::Vector2f& pos)
@@ -318,27 +285,6 @@ void Inventory::UpdateSlots() //
 	//		}
 	//	}
 	//}
-}
-
-void Inventory::UpdateSubSlots()
-{
-	//작은 인벤토리 슬롯 먼저 비우고
-	for (auto& smallslot : smallslots)
-	{
-		smallslot->SetEmpty();
-	}
-
-	// 작은 인벤토리 슬롯에 아이템을 할당합니다.
-	for (ItemData* item : *items)
-	{
-		int indexX = item->IndexX;
-		int indexY = item->IndexY;
-
-		if (indexY == subIndexY)
-		{
-			smallslots[indexX]->SetItem(item);
-		}
-	}
 }
 
 //아이템 검사 및 수령 조절
@@ -410,7 +356,6 @@ void Inventory::SwapItem(int firstClickIndex, int secondClickIndex)
 	}
 
 	UpdateSlots(); // 슬롯 상태 업데이트
-	UpdateSubSlots();
 }
 
 void Inventory::DisplayItemInfo(ItemData& itemData, sf::Vector2f& position)
@@ -433,12 +378,6 @@ void Inventory::Draw(sf::RenderWindow& window)
 		slot->Draw(window);
 	}
 	itemInfoText.Draw(window);
-
-	smallUi.Draw(window);
-	for (auto smallslot : smallslots)
-	{
-		smallslot->Draw(window);
-	}
 
 	if (isClick)
 	{

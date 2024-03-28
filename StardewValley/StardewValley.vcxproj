@@ -207,6 +207,7 @@
     <ClCompile Include="DataTables\TileMapSave.cpp" />
     <ClCompile Include="GameObjects\StoreObjOnTile.cpp" />
     <ClCompile Include="GameObjects\UiStore.cpp" />
+    <ClCompile Include="SubInventory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChangeHarvest.h" />
@@ -255,6 +256,7 @@
     <ClInclude Include="DataTables\TileMapSave.h" />
     <ClInclude Include="GameObjects\StoreObjOnTile.h" />
     <ClInclude Include="GameObjects\UiStore.h" />
+    <ClInclude Include="SubInventory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

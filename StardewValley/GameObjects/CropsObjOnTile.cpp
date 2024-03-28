@@ -51,7 +51,7 @@ void CropsObjOnTile::InteractWithObject(const ItemType type, const int id)
 	{
 		tileData->floor->InteractWithFloor(type, id);
 	}
-	else if (isCompleteGrowth)
+	if (isCompleteGrowth)
 	{
 		sceneGame->CreateItem(ITEM_TABLE->Get(ItemType::Harvest, HARVEST_TABLE->GetItemID(objectId)), tileData->indexX, tileData->indexY);
 		SetActive(false);
@@ -74,15 +74,15 @@ void CropsObjOnTile::Grow()
 
 		if (currentGrowDay == nextGrowDay)
 		{
-			auto harvestInfo = HARVEST_TABLE->Get(objectId);
-			nextGrowDay = harvestInfo.growingDay;
-			currentGrowDay = 0;
-			
 			auto objectInfo = OBJECT_TABLE->Get(objectType, ++objectId);
 			++tileData->objectId;
 			SetTexture(objectInfo.textureId);
 			SetTextureRect(sf::IntRect(objectInfo.sheetId.x, objectInfo.sheetId.y, objectInfo.sheetSize.x, objectInfo.sheetSize.y));
 			SetOrigin(Origins::MC);
+
+			auto harvestInfo = HARVEST_TABLE->Get(objectId);
+			nextGrowDay = harvestInfo.growingDay;
+			currentGrowDay = 0;
 
 			if (nextGrowDay == 0)
 			{

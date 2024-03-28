@@ -3,6 +3,7 @@
 #include "TileMap.h"
 #include "ObjectOnTile.h"
 #include "Inventory.h"
+#include "SubInventory.h"
 #include "SceneGame.h"
 #include "Scene.h"
 #include "ChangeHarvest.h"
@@ -36,6 +37,7 @@ void Player::Reset()
 	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
 	tileMap = dynamic_cast<TileMap*>(sceneGame->FindGo("Background"));
 	inventory = dynamic_cast<Inventory*>(sceneGame->FindGo("Inventory"));
+	subInven = dynamic_cast<SubInventory*>(sceneGame->FindGo("SubInventory"));
 	// SceneGame* currentScene = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene()->FindGo("newSeed"));
 
 	gridIndex = { 1, 0 };
@@ -77,7 +79,7 @@ void Player::Update(float dt)
 		int num = numKey.second - 1;
 		if (num == -1)
 			num = 9;
-		itemInUse = inventory->GetItemData(num, inventory->GetSubSlotIndexY());
+		itemInUse = inventory->GetItemData(num, subInven->GetSubSlotIndexY());
 		if (itemInUse == nullptr)
 		{
 			std::cout << "아이템 없음" << std::endl;

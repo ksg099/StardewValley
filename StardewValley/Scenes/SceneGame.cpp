@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "SpriteGo.h"
 #include "Inventory.h"
+#include "SubInventory.h"
 #include "BoxInven.h"
 #include "UiStore.h"
 
@@ -32,6 +33,10 @@ void SceneGame::Init()
 	inventory = new Inventory("Inventory");
 	inventory->SetPosition({ 1920 / 2, 1080 / 2 });
 	AddGo(inventory, Ui);
+
+	subInven = new SubInventory("SubInventory");
+	subInven->SetPosition({ 1920 / 2, 1080 / 2 });
+	AddGo(subInven, Ui);
 
 	boxInven = new BoxInven("Inventory");
 	boxInven->SetPosition({ 1920 / 2, 1080 / 2 });
@@ -66,6 +71,7 @@ void SceneGame::Enter()
 	inventory->SetActive(false);
 	boxInven->SetActive(false);
 	uiStore->SetActive(false);
+	subInven->SetActive(true);
 	isUiOpen = false;
 
 	isNextDay = false;
@@ -273,6 +279,8 @@ void SceneGame::CreateItem(DataItem data, int indexX, int indexY)
 		newItem->type = item->itemType;
 		inven->push_back(newItem);
 	}
+
+	subInven->UpdateSlots();
 }
 
 
@@ -329,6 +337,16 @@ void SceneGame::SetInventory()
 		uiStore->SetActive(false);
 
 		isUiOpen = false;
+	}
+
+	if (isUiOpen)
+	{
+		subInven->SetActive(false);
+	}
+	else
+	{
+		subInven->SetActive(true);
+		subInven->UpdateSlots();
 	}
 }
 

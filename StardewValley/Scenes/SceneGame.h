@@ -3,6 +3,7 @@
 
 class TileMap;
 class Inventory;
+class SubInventory;
 class BoxInven;
 class UiStore;
 class TileData;
@@ -26,6 +27,7 @@ protected:
 	TileMap* tileMap = nullptr;
 	Player* player = nullptr;
 	Inventory* inventory;
+	SubInventory* subInven;
 	BoxInven* boxInven;
 	TileData* tileData = nullptr;
 

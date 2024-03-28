@@ -4,6 +4,7 @@
 class SceneGame;
 class TileMap;
 class Inventory;
+class SubInventory;
 
 class Player : public SpriteGo
 {
@@ -11,6 +12,7 @@ private:
 	SceneGame* sceneGame = nullptr;
 	TileMap* tileMap = nullptr;
 	Inventory* inventory = nullptr;
+	SubInventory* subInven = nullptr;
 	ItemData* itemInUse = nullptr;
 
 

@@ -348,10 +348,10 @@
                     "Ground ID": 0,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 0,
+                    "Object Type": -1,
                     "Object ID": 0,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 9,
@@ -504,10 +504,10 @@
                     "Ground ID": 0,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 1,
+                    "Object Type": -1,
                     "Object ID": 0,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 2,
@@ -516,10 +516,10 @@
                     "Ground ID": 1,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 1,
-                    "Object ID": 3,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Object Type": -1,
+                    "Object ID": 0,
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 3,
@@ -552,10 +552,10 @@
                     "Ground ID": 0,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 2,
+                    "Object Type": -1,
                     "Object ID": 0,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 6,
@@ -576,10 +576,10 @@
                     "Ground ID": 0,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 0,
-                    "Object ID": 3,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Object Type": -1,
+                    "Object ID": 0,
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 8,
@@ -588,10 +588,10 @@
                     "Ground ID": 0,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 0,
+                    "Object Type": -1,
                     "Object ID": 0,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 9,
@@ -816,10 +816,10 @@
                     "Ground ID": 0,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 0,
+                    "Object Type": -1,
                     "Object ID": 0,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 8,
@@ -1008,10 +1008,10 @@
                     "Ground ID": 0,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 2,
+                    "Object Type": -1,
                     "Object ID": 0,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 4,
@@ -1488,10 +1488,10 @@
                     "Ground ID": 0,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 1,
+                    "Object Type": -1,
                     "Object ID": 0,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 4,
@@ -1704,10 +1704,10 @@
                     "Ground ID": 0,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 1,
-                    "Object ID": 3,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Object Type": -1,
+                    "Object ID": 0,
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 2,
@@ -1752,10 +1752,10 @@
                     "Ground ID": 0,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 2,
+                    "Object Type": -1,
                     "Object ID": 0,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 6,
@@ -1929,95 +1929,95 @@
                     "Index X": 0,
                     "Index Y": 8,
                     "Ground Type": 2,
-                    "Ground ID": 0,
-                    "Floor Type": -1,
-                    "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
-                    "Placed Possible": true,
-                    "Player Passable": true
-                },
-                {
-                    "Index X": 1,
-                    "Index Y": 8,
-                    "Ground Type": 2,
-                    "Ground ID": 0,
-                    "Floor Type": -1,
-                    "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
-                    "Placed Possible": true,
-                    "Player Passable": true
-                },
-                {
-                    "Index X": 2,
-                    "Index Y": 8,
-                    "Ground Type": 2,
-                    "Ground ID": 0,
-                    "Floor Type": -1,
-                    "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
-                    "Placed Possible": true,
-                    "Player Passable": true
-                },
-                {
-                    "Index X": 3,
-                    "Index Y": 8,
-                    "Ground Type": 2,
-                    "Ground ID": 0,
-                    "Floor Type": -1,
-                    "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
-                    "Placed Possible": true,
-                    "Player Passable": true
-                },
-                {
-                    "Index X": 4,
-                    "Index Y": 8,
-                    "Ground Type": 2,
-                    "Ground ID": 0,
-                    "Floor Type": -1,
-                    "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
-                    "Placed Possible": true,
-                    "Player Passable": true
-                },
-                {
-                    "Index X": 5,
-                    "Index Y": 8,
-                    "Ground Type": 2,
-                    "Ground ID": 0,
-                    "Floor Type": -1,
-                    "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
-                    "Placed Possible": true,
-                    "Player Passable": true
-                },
-                {
-                    "Index X": 6,
-                    "Index Y": 8,
-                    "Ground Type": 2,
-                    "Ground ID": 0,
-                    "Floor Type": -1,
-                    "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
-                    "Placed Possible": true,
-                    "Player Passable": true
-                },
-                {
-                    "Index X": 7,
-                    "Index Y": 8,
-                    "Ground Type": 1,
                     "Ground ID": 0,
                     "Floor Type": 1,
                     "Floor ID": 0,
                     "Object Type": 5,
-                    "Object ID": 4,
+                    "Object ID": 3,
+                    "Placed Possible": true,
+                    "Player Passable": true
+                },
+                {
+                    "Index X": 1,
+                    "Index Y": 8,
+                    "Ground Type": 2,
+                    "Ground ID": 0,
+                    "Floor Type": -1,
+                    "Floor ID": 0,
+                    "Object Type": -1,
+                    "Object ID": 0,
+                    "Placed Possible": true,
+                    "Player Passable": true
+                },
+                {
+                    "Index X": 2,
+                    "Index Y": 8,
+                    "Ground Type": 2,
+                    "Ground ID": 0,
+                    "Floor Type": 1,
+                    "Floor ID": 0,
+                    "Object Type": 5,
+                    "Object ID": 3,
+                    "Placed Possible": true,
+                    "Player Passable": true
+                },
+                {
+                    "Index X": 3,
+                    "Index Y": 8,
+                    "Ground Type": 2,
+                    "Ground ID": 0,
+                    "Floor Type": -1,
+                    "Floor ID": 0,
+                    "Object Type": -1,
+                    "Object ID": 0,
+                    "Placed Possible": true,
+                    "Player Passable": true
+                },
+                {
+                    "Index X": 4,
+                    "Index Y": 8,
+                    "Ground Type": 2,
+                    "Ground ID": 0,
+                    "Floor Type": -1,
+                    "Floor ID": 0,
+                    "Object Type": -1,
+                    "Object ID": 0,
+                    "Placed Possible": true,
+                    "Player Passable": true
+                },
+                {
+                    "Index X": 5,
+                    "Index Y": 8,
+                    "Ground Type": 2,
+                    "Ground ID": 0,
+                    "Floor Type": -1,
+                    "Floor ID": 0,
+                    "Object Type": -1,
+                    "Object ID": 0,
+                    "Placed Possible": true,
+                    "Player Passable": true
+                },
+                {
+                    "Index X": 6,
+                    "Index Y": 8,
+                    "Ground Type": 2,
+                    "Ground ID": 0,
+                    "Floor Type": -1,
+                    "Floor ID": 0,
+                    "Object Type": -1,
+                    "Object ID": 0,
+                    "Placed Possible": true,
+                    "Player Passable": true
+                },
+                {
+                    "Index X": 7,
+                    "Index Y": 8,
+                    "Ground Type": 1,
+                    "Ground ID": 0,
+                    "Floor Type": 0,
+                    "Floor ID": 0,
+                    "Object Type": 5,
+                    "Object ID": 6,
                     "Placed Possible": true,
                     "Player Passable": true
                 },
@@ -2136,68 +2136,68 @@
                     "Ground ID": 1,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 4,
+                    "Object Type": -1,
+                    "Object ID": 0,
+                    "Placed Possible": true,
+                    "Player Passable": true
+                },
+                {
+                    "Index X": 18,
+                    "Index Y": 8,
+                    "Ground Type": 2,
+                    "Ground ID": 0,
+                    "Floor Type": -1,
+                    "Floor ID": 0,
+                    "Object Type": 5,
+                    "Object ID": 4,
+                    "Placed Possible": false,
+                    "Player Passable": false
+                },
+                {
+                    "Index X": 19,
+                    "Index Y": 8,
+                    "Ground Type": 2,
+                    "Ground ID": 0,
+                    "Floor Type": -1,
+                    "Floor ID": 0,
+                    "Object Type": 5,
+                    "Object ID": 4,
+                    "Placed Possible": false,
+                    "Player Passable": false
+                },
+                {
+                    "Index X": 0,
+                    "Index Y": 9,
+                    "Ground Type": 2,
+                    "Ground ID": 0,
+                    "Floor Type": -1,
+                    "Floor ID": 0,
+                    "Object Type": -1,
+                    "Object ID": 0,
+                    "Placed Possible": true,
+                    "Player Passable": true
+                },
+                {
+                    "Index X": 1,
+                    "Index Y": 9,
+                    "Ground Type": 2,
+                    "Ground ID": 0,
+                    "Floor Type": -1,
+                    "Floor ID": 0,
+                    "Object Type": -1,
+                    "Object ID": 0,
+                    "Placed Possible": true,
+                    "Player Passable": true
+                },
+                {
+                    "Index X": 2,
+                    "Index Y": 9,
+                    "Ground Type": 2,
+                    "Ground ID": 0,
+                    "Floor Type": 1,
+                    "Floor ID": 0,
+                    "Object Type": 5,
                     "Object ID": 3,
-                    "Placed Possible": false,
-                    "Player Passable": false
-                },
-                {
-                    "Index X": 18,
-                    "Index Y": 8,
-                    "Ground Type": 2,
-                    "Ground ID": 0,
-                    "Floor Type": -1,
-                    "Floor ID": 0,
-                    "Object Type": 5,
-                    "Object ID": 4,
-                    "Placed Possible": false,
-                    "Player Passable": false
-                },
-                {
-                    "Index X": 19,
-                    "Index Y": 8,
-                    "Ground Type": 2,
-                    "Ground ID": 0,
-                    "Floor Type": -1,
-                    "Floor ID": 0,
-                    "Object Type": 5,
-                    "Object ID": 4,
-                    "Placed Possible": false,
-                    "Player Passable": false
-                },
-                {
-                    "Index X": 0,
-                    "Index Y": 9,
-                    "Ground Type": 2,
-                    "Ground ID": 0,
-                    "Floor Type": -1,
-                    "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
-                    "Placed Possible": true,
-                    "Player Passable": true
-                },
-                {
-                    "Index X": 1,
-                    "Index Y": 9,
-                    "Ground Type": 2,
-                    "Ground ID": 0,
-                    "Floor Type": -1,
-                    "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
-                    "Placed Possible": true,
-                    "Player Passable": true
-                },
-                {
-                    "Index X": 2,
-                    "Index Y": 9,
-                    "Ground Type": 2,
-                    "Ground ID": 0,
-                    "Floor Type": -1,
-                    "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
                     "Placed Possible": true,
                     "Player Passable": true
                 },
@@ -2206,10 +2206,10 @@
                     "Index Y": 9,
                     "Ground Type": 2,
                     "Ground ID": 0,
-                    "Floor Type": -1,
+                    "Floor Type": 1,
                     "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
+                    "Object Type": 5,
+                    "Object ID": 3,
                     "Placed Possible": true,
                     "Player Passable": true
                 },
@@ -2218,10 +2218,10 @@
                     "Index Y": 9,
                     "Ground Type": 2,
                     "Ground ID": 0,
-                    "Floor Type": -1,
+                    "Floor Type": 1,
                     "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
+                    "Object Type": 5,
+                    "Object ID": 4,
                     "Placed Possible": true,
                     "Player Passable": true
                 },
@@ -2230,10 +2230,10 @@
                     "Index Y": 9,
                     "Ground Type": 2,
                     "Ground ID": 0,
-                    "Floor Type": -1,
+                    "Floor Type": 1,
                     "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
+                    "Object Type": 5,
+                    "Object ID": 4,
                     "Placed Possible": true,
                     "Player Passable": true
                 },
@@ -2257,7 +2257,7 @@
                     "Floor Type": 1,
                     "Floor ID": 0,
                     "Object Type": 5,
-                    "Object ID": 4,
+                    "Object ID": 6,
                     "Placed Possible": true,
                     "Player Passable": true
                 },
@@ -2422,10 +2422,10 @@
                     "Index Y": 10,
                     "Ground Type": 2,
                     "Ground ID": 0,
-                    "Floor Type": -1,
+                    "Floor Type": 1,
                     "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
+                    "Object Type": 5,
+                    "Object ID": 3,
                     "Placed Possible": true,
                     "Player Passable": true
                 },
@@ -2434,10 +2434,10 @@
                     "Index Y": 10,
                     "Ground Type": 2,
                     "Ground ID": 0,
-                    "Floor Type": -1,
+                    "Floor Type": 1,
                     "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
+                    "Object Type": 5,
+                    "Object ID": 3,
                     "Placed Possible": true,
                     "Player Passable": true
                 },
@@ -2446,10 +2446,10 @@
                     "Index Y": 10,
                     "Ground Type": 2,
                     "Ground ID": 0,
-                    "Floor Type": -1,
+                    "Floor Type": 1,
                     "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
+                    "Object Type": 5,
+                    "Object ID": 3,
                     "Placed Possible": true,
                     "Player Passable": true
                 },
@@ -2458,10 +2458,10 @@
                     "Index Y": 10,
                     "Ground Type": 2,
                     "Ground ID": 0,
-                    "Floor Type": -1,
+                    "Floor Type": 1,
                     "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
+                    "Object Type": 5,
+                    "Object ID": 4,
                     "Placed Possible": true,
                     "Player Passable": true
                 },
@@ -2470,10 +2470,10 @@
                     "Index Y": 10,
                     "Ground Type": 2,
                     "Ground ID": 0,
-                    "Floor Type": -1,
+                    "Floor Type": 1,
                     "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
+                    "Object Type": 5,
+                    "Object ID": 4,
                     "Placed Possible": true,
                     "Player Passable": true
                 },
@@ -2497,7 +2497,7 @@
                     "Floor Type": 1,
                     "Floor ID": 0,
                     "Object Type": 5,
-                    "Object ID": 4,
+                    "Object ID": 6,
                     "Placed Possible": true,
                     "Player Passable": true
                 },
@@ -2674,10 +2674,10 @@
                     "Index Y": 11,
                     "Ground Type": 2,
                     "Ground ID": 0,
-                    "Floor Type": -1,
+                    "Floor Type": 1,
                     "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
+                    "Object Type": 5,
+                    "Object ID": 3,
                     "Placed Possible": true,
                     "Player Passable": true
                 },
@@ -2686,10 +2686,10 @@
                     "Index Y": 11,
                     "Ground Type": 2,
                     "Ground ID": 0,
-                    "Floor Type": -1,
+                    "Floor Type": 1,
                     "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
+                    "Object Type": 5,
+                    "Object ID": 3,
                     "Placed Possible": true,
                     "Player Passable": true
                 },
@@ -2698,10 +2698,10 @@
                     "Index Y": 11,
                     "Ground Type": 2,
                     "Ground ID": 0,
-                    "Floor Type": -1,
+                    "Floor Type": 1,
                     "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
+                    "Object Type": 5,
+                    "Object ID": 4,
                     "Placed Possible": true,
                     "Player Passable": true
                 },
@@ -2710,10 +2710,10 @@
                     "Index Y": 11,
                     "Ground Type": 2,
                     "Ground ID": 0,
-                    "Floor Type": -1,
+                    "Floor Type": 1,
                     "Floor ID": 0,
-                    "Object Type": -1,
-                    "Object ID": 0,
+                    "Object Type": 5,
+                    "Object ID": 4,
                     "Placed Possible": true,
                     "Player Passable": true
                 },
@@ -3084,10 +3084,10 @@
                     "Ground ID": 0,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 1,
+                    "Object Type": -1,
                     "Object ID": 0,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 17,
@@ -3180,10 +3180,10 @@
                     "Ground ID": 0,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 4,
-                    "Object ID": 2,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Object Type": -1,
+                    "Object ID": 0,
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 5,
@@ -3528,10 +3528,10 @@
                     "Ground ID": 0,
                     "Floor Type": 0,
                     "Floor ID": 2,
-                    "Object Type": 0,
+                    "Object Type": -1,
                     "Object ID": 0,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 14,
@@ -3828,10 +3828,10 @@
                     "Ground ID": 0,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 1,
-                    "Object ID": 3,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Object Type": -1,
+                    "Object ID": 0,
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 19,
@@ -4116,10 +4116,10 @@
                     "Ground ID": 0,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 1,
-                    "Object ID": 1,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Object Type": -1,
+                    "Object ID": 0,
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 3,
@@ -4380,10 +4380,10 @@
                     "Ground ID": 0,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 2,
-                    "Object ID": 1,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Object Type": -1,
+                    "Object ID": 0,
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 5,
@@ -4404,10 +4404,10 @@
                     "Ground ID": 0,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 1,
+                    "Object Type": -1,
                     "Object ID": 0,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 7,
@@ -4596,10 +4596,10 @@
                     "Ground ID": 0,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 2,
-                    "Object ID": 1,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Object Type": -1,
+                    "Object ID": 0,
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 3,
@@ -4620,10 +4620,10 @@
                     "Ground ID": 0,
                     "Floor Type": -1,
                     "Floor ID": 0,
-                    "Object Type": 2,
-                    "Object ID": 1,
-                    "Placed Possible": false,
-                    "Player Passable": false
+                    "Object Type": -1,
+                    "Object ID": 0,
+                    "Placed Possible": true,
+                    "Player Passable": true
                 },
                 {
                     "Index X": 5,
@@ -4864,6 +4864,33 @@
                     "Item ID": 0,
                     "Instance ID": 4,
                     "Count": 5,
+                    "CanOverlap": false
+                },
+                {
+                    "Index X": 6,
+                    "Index Y": 0,
+                    "Item Type": 3,
+                    "Item ID": 1,
+                    "Instance ID": 0,
+                    "Count": 46,
+                    "CanOverlap": false
+                },
+                {
+                    "Index X": 7,
+                    "Index Y": 0,
+                    "Item Type": 3,
+                    "Item ID": 0,
+                    "Instance ID": 0,
+                    "Count": 5,
+                    "CanOverlap": false
+                },
+                {
+                    "Index X": 8,
+                    "Index Y": 0,
+                    "Item Type": 3,
+                    "Item ID": 2,
+                    "Instance ID": 0,
+                    "Count": 2,
                     "CanOverlap": false
                 }
             ]
