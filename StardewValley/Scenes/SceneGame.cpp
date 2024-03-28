@@ -47,13 +47,24 @@ void SceneGame::Init()
 	layer->sortLayer = 5;
 	AddGo(layer, Layers::World);
 
-	Pause = new TextGo("newGameBtn");
-	Pause->Set(RES_MGR_FONT.Get("fonts/Arial.ttf"), "LoadGame", 30, sf::Color::Black);
-	Pause->SetPosition({100.f, 100.f});
-	Pause->SetOrigin(Origins::MC);
-	Pause->SetActive(false);
-	AddGo(Pause, Ui);
+	pauseBack = new TextGo("newGameBtn");
+	pauseBack->Set(RES_MGR_FONT.Get("fonts/Arial.ttf"), "Back to Game", 60, sf::Color::Black);
+	pauseBack->SetPosition({ boxInven->GetPosition().x, boxInven->GetPosition().y - 100.f });
+	pauseBack->SetOrigin(Origins::MC);
+	AddGo(pauseBack, Ui);
 
+	goTitle = new TextGo("newGameBtn");
+	goTitle->Set(RES_MGR_FONT.Get("fonts/Arial.ttf"), "Press to Go Title", 60, sf::Color::Black);
+	goTitle->SetPosition(boxInven->GetPosition());
+	goTitle->SetOrigin(Origins::MC);
+	AddGo(goTitle, Ui);
+
+	sf::FloatRect textBounds = pauseBack->GetGlobalBounds();
+	pauseBackBox.setSize(sf::Vector2f(textBounds.width + 20, textBounds.height + 20));
+	pauseBackBox.setPosition(textBounds.left - 10, textBounds.top - 10);
+	pauseBackBox.setFillColor(sf::Color::Transparent);
+	pauseBackBox.setOutlineThickness(2);
+	pauseBackBox.setOutlineColor(sf::Color::White);
 
 	uiStore = new UiStore("UI STORE");
 	AddGo(uiStore, Layers::Ui);
@@ -81,6 +92,9 @@ void SceneGame::Enter()
 	inventory->SetActive(false);
 	boxInven->SetActive(false);
 	uiStore->SetActive(false);
+	pauseBack->SetActive(false);
+	goTitle->SetActive(false);
+
 
 	Scene::Enter();
 }
@@ -218,19 +232,43 @@ void SceneGame::Update(float dt)
 		}
 	}
 
+	sf::Vector2f currMousePos = InputMgr::GetMousePos();
+	sf::Vector2f UiMousePos = ScreenToUi(static_cast<sf::Vector2i>(currMousePos));
+
 	if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
 	{
-		isPaused = !isPaused;
+		PauseGame();
+	}
 
-		if (isPaused)
+	if (isPaused)
+	{
+		sf::FloatRect pauseBackBounds = pauseBack->GetGlobalBounds();
+		sf::FloatRect goTitleBounds = goTitle->GetGlobalBounds();
+
+		if (pauseBackBounds.contains(UiMousePos))
 		{
-			Pause->SetActive(true);
-			FRAMEWORK.SetTimeScale(0.f);
+			pauseBack->setFillColor(sf::Color::Green);
+			if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
+			{
+				PauseGame();
+			}
 		}
 		else
 		{
-			Pause->SetActive(false);
-			FRAMEWORK.SetTimeScale(1.f);
+			pauseBack->setFillColor(sf::Color::Black);
+		}
+
+		if (goTitleBounds.contains(UiMousePos))
+		{
+			goTitle->setFillColor(sf::Color::Green);
+			if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
+			{
+				SCENE_MGR.ChangeScene(SceneIds::SCENE_TITLE);
+			}
+		}
+		else
+		{
+			goTitle->setFillColor(sf::Color::Black);
 		}
 	}
 }
@@ -353,5 +391,24 @@ void SceneGame::AddMoney(int money)
 {
 	this->money += money;
 	uiHud->SetMoney(this->money);
+}
+
+void SceneGame::PauseGame()
+{
+	isPaused = !isPaused;
+
+	if (isPaused)
+	{
+		pauseBack->SetActive(true);
+		goTitle->SetActive(true);
+		FRAMEWORK.SetTimeScale(0.f);
+	}
+	else
+	{
+		pauseBack->SetActive(false);
+		goTitle->SetActive(false);
+		FRAMEWORK.SetTimeScale(1.f);
+	}
+
 }
 

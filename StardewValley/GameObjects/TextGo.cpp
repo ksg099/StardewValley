@@ -16,6 +16,11 @@ sf::FloatRect TextGo::GetGlobalBounds()
 	return text.getGlobalBounds();
 }
 
+void TextGo::setFillColor(const sf::Color& color)
+{
+	text.setFillColor(color);
+}
+
 void TextGo::SetString(const std::string& str)
 {
 	text.setString(str);

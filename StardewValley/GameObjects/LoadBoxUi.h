@@ -6,7 +6,9 @@ class TextGo;
 
 class LoadBoxUi : public GameObject
 {
-private:
+
+protected:
+
 	std::vector<TextGo*> tileMapFiles;
 	std::vector<sf::RectangleShape*> tileMapRect;
 
@@ -15,8 +17,9 @@ private:
 
 	sf::Vector2f titleLogoPosition;
 
-	bool isTileMapCheck = false;
 	bool isGameSaveCheck = false;
+	bool isTileMapCheck = false;
+
 
 public:
 	LoadBoxUi(const std::string& name = "");
@@ -29,5 +32,10 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void SetTitleLogoPosition(const sf::Vector2f& position);
+	void LoadGameSaves();
+	void LoadTileMaps();
+
+	void SetIsGameSaveCheck(bool check) { isGameSaveCheck = check; }
+	void SetIsTileMapCheck(bool check) { isTileMapCheck = check; }
 };
 

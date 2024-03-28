@@ -32,7 +32,9 @@ protected:
 	TileData* tileData = nullptr;
 	UiStore* uiStore = nullptr;
 
-	TextGo* Pause = nullptr;
+	TextGo* pauseBack = nullptr;
+	TextGo* goTitle = nullptr;
+
 	SpriteGo* layer = nullptr;
 
 	//std::vector<ChangeHarvest*> crops;
@@ -52,6 +54,7 @@ protected:
 
 	std::list<DropItem*> dropItemList;
 
+	sf::RectangleShape pauseBackBox;
 	sf::Vector2f tileSize = { 25.f, 25.f };
 	//const sf::Vector2f& tileSize = tileMap->GetCellSize();
 	sf::Vector2f IndexToPos(int index);

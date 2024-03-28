@@ -60,10 +60,6 @@ void SceneTitle::Init()
 	//makeMap->SetActive(true);
 	AddGo(makeMap, Ui);
 
-	loadBoxUi = new LoadBoxUi("Load Box UI");
-	loadBoxUi->SetActive(false);
-	AddGo(loadBoxUi, Ui);
-
 	newGameBtn = new TextGo("newGameBtn");
 	newGameBtn->Set(font, "NewStart", 30, sf::Color::Black);
 	newGameBtn->SetPosition({ newGame->GetPosition().x - 5.f, newGame->GetPosition().y + 30.f });
@@ -87,6 +83,10 @@ void SceneTitle::Init()
 	makeMapBtn->SetPosition({ makeMap->GetPosition().x - 5.f, makeMap->GetPosition().y + 30.f });
 	makeMapBtn->SetOrigin(Origins::TC);
 	AddGo(makeMapBtn, Ui);
+
+	loadBoxUi = new LoadBoxUi("Load Box UI");
+	//loadBoxUi->SetActive(false);
+	AddGo(loadBoxUi, Ui);
 
 	Scene::Init();
 }
@@ -137,16 +137,18 @@ void SceneTitle::Update(float dt)
 	{
 		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
 		{
+			LoadSave();
 			LoadData();
 		}
 	}
 	
-	//불러오기 게임 버튼
+	//재시작 게임 버튼
 	sf::FloatRect ReStartGameBtnBounds = ReStartGame->GetGlobalBounds();
 	if (ReStartGameBtnBounds.contains(UiMousePos))
 	{
 		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
 		{
+			Restart();
 			LoadData();
 		}
 	}
@@ -172,6 +174,7 @@ void SceneTitle::Update(float dt)
 	if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
 	{
 		Escape();
+
 	}
 }
 
@@ -194,6 +197,8 @@ void SceneTitle::Escape()
 	LoadGameBtn->SetActive(true);
 
 	loadBoxUi->SetActive(false);
+	loadBoxUi->SetIsTileMapCheck(false);
+	loadBoxUi->SetIsGameSaveCheck(false);
 }
 
 void SceneTitle::LoadData()
@@ -210,4 +215,21 @@ void SceneTitle::LoadData()
 	LoadGameBtn->SetActive(false);
 
 	loadBoxUi->SetActive(true);
+}
+
+void SceneTitle::Restart()
+{
+	loadBoxUi->SetActive(true);
+	loadBoxUi->SetIsTileMapCheck(false);
+	loadBoxUi->SetIsGameSaveCheck(true);
+	loadBoxUi->Init();
+}
+
+void SceneTitle::LoadSave()
+{
+	loadBoxUi->SetActive(true);
+	loadBoxUi->SetIsTileMapCheck(true);
+	loadBoxUi->SetIsGameSaveCheck(false);
+	loadBoxUi->Init();
+
 }

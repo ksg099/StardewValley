@@ -36,5 +36,7 @@ public:
 
 	void Escape();
 	void LoadData();
+	void Restart();
+	void LoadSave();
 };
 
