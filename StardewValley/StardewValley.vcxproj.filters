@@ -41,6 +41,7 @@
     <ClCompile Include="ChangeHarvest.cpp" />
     <ClCompile Include="GameObjects\CropsObjOnTile.cpp" />
     <ClCompile Include="SubInventory.cpp" />
+    <ClCompile Include="BoxObjOnTile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataTables\DataTable.h" />
@@ -86,5 +87,6 @@
     <ClInclude Include="ChangeHarvest.h" />
     <ClInclude Include="GameObjects\CropsObjOnTile.h" />
     <ClInclude Include="SubInventory.h" />
+    <ClInclude Include="BoxObjOnTile.h" />
   </ItemGroup>
 </Project>

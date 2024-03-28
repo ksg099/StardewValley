@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BoxObjOnTile.cpp" />
     <ClCompile Include="ChangeHarvest.cpp" />
     <ClCompile Include="GameObjects\CropsObjOnTile.cpp" />
     <ClCompile Include="DataTables\DataTable.cpp" />
@@ -210,6 +211,7 @@
     <ClCompile Include="SubInventory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BoxObjOnTile.h" />
     <ClInclude Include="ChangeHarvest.h" />
     <ClInclude Include="GameObjects\CropsObjOnTile.h" />
     <ClInclude Include="DataTables\DataTable.h" />

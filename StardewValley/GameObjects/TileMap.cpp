@@ -4,6 +4,7 @@
 #include "ObjectOnTile.h"
 #include "CropsObjOnTile.h"
 #include "StoreObjOnTile.h"
+#include "BoxObjOnTile.h"
 #include "FloorOnTile.h"
 #include "Player.h"
 
@@ -366,7 +367,7 @@ ObjectOnTile* TileMap::CreateObject(const ObjectType type, const int id)
 		obj = new ObjectOnTile("Object");
 		break;
 	case ObjectType::BOX:
-		obj = new ObjectOnTile("Object");
+		obj = new BoxObjOnTile("Object");
 		break;
 	case ObjectType::BUILDING:
 		obj = new ObjectOnTile("Object");

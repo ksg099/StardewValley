@@ -80,6 +80,7 @@ public:
 	void Draw(sf::RenderWindow& window, Layers layer = Layers::Everything) override;
 
 	void SetInventory();
+	void OpenBox(int boxId);
 	void SellAllItemsInBox();
 	void UpdateInvenSlot();
 

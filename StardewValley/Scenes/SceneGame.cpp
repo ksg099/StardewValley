@@ -301,7 +301,7 @@ void SceneGame::SetInventory()
 		}
 	}
 
-	if (InputMgr::GetKeyDown(sf::Keyboard::U))
+	/*if (InputMgr::GetKeyDown(sf::Keyboard::U))
 	{
 		if (!isUiOpen)
 		{
@@ -328,7 +328,7 @@ void SceneGame::SetInventory()
 			uiStore->SetActive(false);
 			isUiOpen = false;
 		}
-	}
+	}*/
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Escape) && isUiOpen)
 	{
@@ -347,6 +347,15 @@ void SceneGame::SetInventory()
 	{
 		subInven->SetActive(true);
 		subInven->UpdateSlots();
+	}
+}
+
+void SceneGame::OpenBox(int boxId)
+{
+	if (!isUiOpen)
+	{
+		boxInven->SetActive(true);
+		isUiOpen = true;
 	}
 }
 
