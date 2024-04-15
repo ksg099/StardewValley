@@ -248,13 +248,15 @@ void TestMapTool::Update(float dt)
         UpdateTransform();
     }
 
+    sf::FloatRect visibleMapBounds(15.f, 15.f, 1152.f, 1050.f);
+    if (InputMgr::GetMouseButton(sf::Mouse::Left) && mapToolUI->isSelected && visibleMapBounds.contains(mouseWorldPos))
+    {
+        PlaceTileToIndex(SelectIndex(mouseWorldPos), mapToolUI->selectedTile);
+    }
+
     if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
     {
-        sf::FloatRect visibleMapBounds(15.f, 15.f, 1152.f, 1050.f);
-        if (mapToolUI->isSelected && visibleMapBounds.contains(mouseWorldPos))
-        {
-            PlaceTileToIndex(SelectIndex(mouseWorldPos), mapToolUI->selectedTile);
-        }
+ 
 
         if (mapToolUI->GetSaveButtonGB().contains(mouseWorldPos))
         {

@@ -162,7 +162,7 @@ void MapToolUI::Init()
     saveButton.SetPosition({ (float)FRAMEWORK.GetWindowSize().x * 0.675f
         , (float)FRAMEWORK.GetWindowSize().y * 0.85f });
 
-    eraseButton.SetTexture("graphics/button_edit.png");
+    eraseButton.SetTexture("graphics/button_erase.png");
     eraseButton.SetOrigin(Origins::MC);
     eraseButton.SetScale({ 2.f, 2.f });
     eraseButton.SetPosition({ saveButton.GetPosition().x + saveButton.GetLocalBounds().width * 2.f + buttonOffset
