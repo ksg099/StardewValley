@@ -48,9 +48,9 @@ protected:
     std::vector<std::vector<MapSheet>> categories;
 
 
-    int col = 40;
-    int row = 30;
-    float size = 15;
+    int col = 15;
+    int row = 10;
+    float size = 40;
     sf::Vector2f gridStart = { 1250.f,100.f };
 
 public:

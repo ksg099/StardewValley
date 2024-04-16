@@ -38,15 +38,23 @@ protected:
 	sf::VertexArray grid;
 	int col = 20;
 	int row = 20;
-	int size = 15;
+	int size = 50;
+	float magnification = 50.f / 15.f;
 
-	float gridStartX = ((float)FRAMEWORK.GetWindowSize().x * 0.6f) * 0.35f;
-	float gridStartY = ((float)FRAMEWORK.GetWindowSize().y * 0.4f);
+	/*float gridStartX = ((float)FRAMEWORK.GetWindowSize().x * 0.6f) * 0.35f;
+	float gridStartY = ((float)FRAMEWORK.GetWindowSize().y * 0.4f);*/
+	float gridStartX = 75.f;
+	float gridStartY = 45.f;
 
 	float timer = 0.f;
 	float duration = 3.f;
 
 	bool isErase = false;
+
+	float currentZoomLevel = 1.f;
+	const float minZoomLevel = 1.f;
+	const float maxZoomLevel = 3.f;
+	sf::Vector2f originalViewSize;
 
 	rapidjson::Document doc;
 
