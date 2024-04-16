@@ -195,6 +195,10 @@ TestMapTool::~TestMapTool()
 
 void TestMapTool::Init()
 {
+    originalViewSize = sf::Vector2f(FRAMEWORK.GetWindowSize().x, FRAMEWORK.GetWindowSize().y);
+    worldView.setSize(originalViewSize);
+    window.setView(worldView);
+
     DrawGrid();
     transform = sf::Transform::Identity;
     transform.scale(1.f, 1.f, 0.f, 0.f);
@@ -236,7 +240,7 @@ void TestMapTool::Update(float dt)
     float zoomAmount = 1.1f;
 
     sf::FloatRect worldMapBounds = { 15.f,15.f,(float)FRAMEWORK.GetWindowSize().x * 0.6f - 15.f, (float)FRAMEWORK.GetWindowSize().y - 15.f };
-    if (worldMapBounds.contains(mouseWorldPos) && InputMgr::GetMouseWheelDown(sf::Mouse::VerticalWheel))
+    /*if (worldMapBounds.contains(mouseWorldPos) && InputMgr::GetMouseWheelDown(sf::Mouse::VerticalWheel))
     {
         worldView.zoom(0.9f);
         UpdateTransform();
@@ -246,7 +250,25 @@ void TestMapTool::Update(float dt)
     {
         worldView.zoom(1.1f);
         UpdateTransform();
+    }*/
+    /*if (worldMapBounds.contains(mouseWorldPos) && InputMgr::GetMouseWheelUp(sf::Mouse::VerticalWheel))
+    {
+        std::cout << "휠 동작" << std::endl;
+        currentZoomLevel *= 1.1f;
     }
+    else if (worldMapBounds.contains(mouseWorldPos) && InputMgr::GetMouseWheelDown(sf::Mouse::VerticalWheel))
+    {
+        std::cout << "휠 동작" << std::endl;
+        currentZoomLevel *= 0.9f;
+    }*/
+
+    //currentZoomLevel = std::max(minZoomLevel, std::min(maxZoomLevel, currentZoomLevel));
+
+    //sf::Vector2f newViewSize = originalViewSize * (1.f / currentZoomLevel);
+    //sf::Vector2f viewCenter = worldView.getCenter();
+    //worldView.setSize(newViewSize);
+    //worldView.setCenter(viewCenter);  // 중심을 유지
+    //window.setView(worldView);
 
     sf::FloatRect visibleMapBounds(15.f, 15.f, 1152.f, 1050.f);
     if (InputMgr::GetMouseButton(sf::Mouse::Left) && mapToolUI->isSelected && visibleMapBounds.contains(mouseWorldPos))
@@ -256,8 +278,6 @@ void TestMapTool::Update(float dt)
 
     if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
     {
- 
-
         if (mapToolUI->GetSaveButtonGB().contains(mouseWorldPos))
         {
             mapToolUI->isSelected = false;
@@ -371,6 +391,7 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             mapData[indexNum].playerPassable = cell.playerPassable;
             mapData[indexNum].groundLayer = cell.groundLayer;
             mapData[indexNum].groundLayer.tileSprite = tile.originalSprite;
+            mapData[indexNum].groundLayer.tileSprite.setScale(size/ mapData[indexNum].groundLayer.sheetID_W, size / mapData[indexNum].groundLayer.sheetID_H);
             Utils::SetOrigin(mapData[indexNum].groundLayer.tileSprite, Origins::MC);
             mapData[indexNum].groundLayer.tileSprite.setPosition(IndexToPos(indexNum));
             break;
@@ -391,6 +412,7 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             mapData[indexNum].playerPassable = cell.playerPassable;
             mapData[indexNum].floorLayer = cell.floorLayer;
             mapData[indexNum].floorLayer.tileSprite = tile.originalSprite;
+            mapData[indexNum].floorLayer.tileSprite.setScale(size / mapData[indexNum].floorLayer.sheetID_W, size / mapData[indexNum].floorLayer.sheetID_H);
             Utils::SetOrigin(mapData[indexNum].floorLayer.tileSprite, Origins::MC);
             mapData[indexNum].floorLayer.tileSprite.setPosition(IndexToPos(indexNum));
             break;
@@ -410,13 +432,16 @@ void TestMapTool::PlaceTileToIndex(int indexNum, MapSheet& tile)
             mapData[indexNum].playerPassable = cell.playerPassable;
             mapData[indexNum].objectLayer = cell.objectLayer;
             mapData[indexNum].objectLayer.tileSprite = tile.originalSprite;
-            if (mapData[indexNum].objectLayer.tileSprite.getLocalBounds().height > size)
+            
+            if (mapData[indexNum].objectLayer.sheetID_H >= 20)
             {
-                mapData[indexNum].objectLayer.tileSprite.setOrigin(mapData[indexNum].objectLayer.tileSprite.getLocalBounds().width * 0.5f,
-                   mapData[indexNum].objectLayer.tileSprite.getLocalBounds().height - size * 0.5);
+                mapData[indexNum].objectLayer.tileSprite.setScale(magnification, magnification);
+                mapData[indexNum].objectLayer.tileSprite.setOrigin(mapData[indexNum].objectLayer.sheetID_W * 0.5f,
+                   mapData[indexNum].objectLayer.sheetID_H - size * 0.15f);
             }
             else
             {
+                mapData[indexNum].objectLayer.tileSprite.setScale(magnification, magnification);
                 Utils::SetOrigin(mapData[indexNum].objectLayer.tileSprite, Origins::MC);
             }
             mapData[indexNum].objectLayer.tileSprite.setPosition(IndexToPos(indexNum));
