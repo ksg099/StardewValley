@@ -209,6 +209,7 @@
     <ClCompile Include="GameObjects\StoreObjOnTile.cpp" />
     <ClCompile Include="GameObjects\UiStore.cpp" />
     <ClCompile Include="SubInventory.cpp" />
+    <ClCompile Include="GameObjects\UiShop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoxObjOnTile.h" />
@@ -259,6 +260,7 @@
     <ClInclude Include="GameObjects\StoreObjOnTile.h" />
     <ClInclude Include="GameObjects\UiStore.h" />
     <ClInclude Include="SubInventory.h" />
+    <ClInclude Include="GameObjects\UiShop.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

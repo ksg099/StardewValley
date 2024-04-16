@@ -7,6 +7,7 @@
 #include "SubInventory.h"
 #include "BoxInven.h"
 #include "UiStore.h"
+#include "UiShop.h"
 
 #include "TestMapTool.h"
 #include "ChangeHarvest.h"
@@ -74,6 +75,9 @@ void SceneGame::Init()
 	uiStore = new UiStore("UI STORE");
 	AddGo(uiStore, Layers::Ui);
 
+	uiShop = new UiShop("UI SHOP");
+	AddGo(uiShop, Layers::Ui);
+
 	uiHud = new UiHud("uihud");
 	AddGo(uiHud, Layers::Ui);
 
@@ -101,6 +105,7 @@ void SceneGame::Enter()
 	inventory->SetActive(false);
 	boxInven->SetActive(false);
 	uiStore->SetActive(false);
+	uiShop->SetActive(false);
 	subInven->SetActive(true);
 	isUiOpen = false;
 
@@ -119,6 +124,11 @@ void SceneGame::Exit()
 
 sf::Color SceneGame::LerpColor(const sf::Color& start, const sf::Color& end, float t)
 {
+	if (InputMgr::GetKeyDown(sf::Keyboard::Q))
+	{
+		uiShop->SetActive(true);
+	}
+
 	return sf::Color(
 		start.r + (end.r - start.r) * t,
 		start.g + (end.g - start.g) * t,
