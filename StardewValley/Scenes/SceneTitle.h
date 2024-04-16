@@ -16,7 +16,13 @@ private:
 	SpriteGo* backGround = nullptr;
 	SpriteGo* ReStartGame = nullptr;
 	SpriteGo* TiltleLogo = nullptr;
-	
+	SpriteGo* mountFront = nullptr;
+	SpriteGo* mountBack = nullptr;
+	SpriteGo* bush = nullptr;
+	SpriteGo* bird1 = nullptr;
+	SpriteGo* bird2 = nullptr;
+
+
 	TextGo* newGameBtn = nullptr;
 	TextGo* ReStartGameBtn = nullptr;
 	TextGo* makeMapBtn = nullptr;
@@ -24,6 +30,9 @@ private:
 
 	LoadTileMapBoxUi* loadTileMapBoxUi = nullptr;
 	LoadSaveBoxUi* loadSaveBoxUi = nullptr;
+
+	float time;
+	float timer;
 
 public:
 	SceneTitle(SceneIds id);

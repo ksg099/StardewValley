@@ -18,6 +18,15 @@ void Framework::Init(int width, int height, const std::string& name)
 
 void Framework::Do()
 {
+    sf::Image cursorImg;
+    cursorImg.loadFromFile("graphics/cursorImage.png");
+
+    sf::Cursor cursor;
+    if (cursor.loadFromPixels(cursorImg.getPixelsPtr(), cursorImg.getSize(), { 0, 0 }))
+    {
+        window.setMouseCursor(cursor);
+    }
+
     while (window.isOpen())
     {
         deltaTime = realDeltaTime = clock.restart();

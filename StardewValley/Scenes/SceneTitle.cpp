@@ -21,9 +21,10 @@ void SceneTitle::Init()
 	backGround->SetTexture("graphics/stardewPanorama.png");
 	backGround->SetOrigin(Origins::TC);
 	sf::Vector2u originalSize(640, 400);
-	sf::Vector2f scale(1980.f / originalSize.x, 1080.f / originalSize.y);
+	sf::Vector2f scale(1980.f / originalSize.x, (1080.f * 3) / originalSize.y);
 	backGround->SetScale(scale);
 	backGround->SetPosition({ scale.x, scale.y - 545.f});
+	//backGround->SetPosition({ 0.f, scale.y - 1080.f });
 	AddGo(backGround, Ui);
 
 	TiltleLogo = new SpriteGo("Logo");
@@ -85,6 +86,32 @@ void SceneTitle::Init()
 	makeMapBtn->SetOrigin(Origins::TC);
 	AddGo(makeMapBtn, Ui);
 
+	bird1 = new SpriteGo("bird1");
+	bird1->SetTexture("graphics/bird.png");
+	bird1->SetScale({ 1.5f, 1.5f });
+	bird1->SetOrigin(Origins::MC);
+	bird1->SetPosition({ 100.f, 100.f });
+
+	bird2 = new SpriteGo("bird2");
+	bird2->SetTexture("graphics/bird.png");
+	bird2->SetScale({ 1.5f, 1.5f });
+	bird2->SetOrigin(Origins::MC);
+	bird2->SetPosition({ 100.f, 100.f });
+
+	mountFront = new SpriteGo("mountFront");
+	mountFront->SetScale({ 1.5f, 1.5f });
+	mountFront->SetOrigin(Origins::MC);
+	mountFront->SetPosition({ 0.f, 160.f });
+
+	mountBack = new SpriteGo("mountBack");
+	mountBack->SetScale({ 1.5f, 1.5f });
+	mountBack->SetOrigin(Origins::MC);
+	mountBack->SetPosition({ 0.f, 160.f });
+
+	bush = new SpriteGo("bush");
+	bush->SetScale({ 1.5f, 1.5f });
+	bush->SetOrigin(Origins::MC);
+	bush->SetPosition({ 0.f, 160.f });
 	loadTileMapBoxUi = new LoadTileMapBoxUi("Load TileMap Box UI");
 	//loadBoxUi->SetActive(false);
 	AddGo(loadTileMapBoxUi, Ui);
@@ -103,14 +130,23 @@ void SceneTitle::Release()
 void SceneTitle::Enter()
 {
 	Scene::Enter();
+	time = 0;
 	sf::Vector2f viewSize = sf::Vector2f(1920, 1080);
-	sf::Vector2f centerPos(0.f, 0.f);
+	sf::Vector2f centerPos(0.f, 1000.f);
 
 	uiView.setSize(viewSize);
 	uiView.setCenter(centerPos);
 
 	loadTileMapBoxUi->SetActive(false);
 	loadSaveBoxUi->SetActive(false);
+	newGame->SetActive(false);
+	LoadGame->SetActive(false);
+	ReStartGame->SetActive(false);
+	makeMap->SetActive(false);
+	newGameBtn->SetActive(false);
+	LoadGameBtn->SetActive(false);
+	ReStartGameBtn->SetActive(false);
+	makeMapBtn->SetActive(false);
 
 	FRAMEWORK.GetWindow().setView(uiView);
 
@@ -124,6 +160,43 @@ void SceneTitle::Exit()
 void SceneTitle::Update(float dt)
 {
 	Scene::Update(dt);
+	time += dt;
+	sf::Vector2f center = uiView.getCenter();
+
+	if (time > 2.0f && center.y > 0.f)
+	{
+		// 이동 속도 조정
+		float speed = 200.f;
+		center.y -= speed * dt;
+
+		// 뷰의 새로운 중심 위치 설정
+		uiView.setCenter(center);
+		FRAMEWORK.GetWindow().setView(uiView);
+	}
+
+	if (time > 7.0f)
+	{
+		newGame->SetActive(true);
+		newGameBtn->SetActive(true);
+	}
+
+	if (time > 8.0f)
+	{
+		ReStartGame->SetActive(true);
+		ReStartGameBtn->SetActive(true);
+	}
+
+	if (time > 9.0f)
+	{
+		LoadGame->SetActive(true);
+		LoadGameBtn->SetActive(true);
+	}
+
+	if (time > 10.0f)
+	{
+		makeMap->SetActive(true);
+		makeMapBtn->SetActive(true);
+	}
 
 	sf::Vector2f currMousePos = InputMgr::GetMousePos();
 	sf::Vector2f UiMousePos = ScreenToUi((sf::Vector2i)currMousePos);
