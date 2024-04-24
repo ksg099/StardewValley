@@ -42,6 +42,7 @@
     <ClCompile Include="SubInventory.cpp" />
     <ClCompile Include="BoxObjOnTile.cpp" />
     <ClCompile Include="GameObjects\LoadSaveBoxUi.cpp" />
+    <ClCompile Include="GameObjects\UiShop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataTables\DataTable.h" />
@@ -88,5 +89,6 @@
     <ClInclude Include="SubInventory.h" />
     <ClInclude Include="BoxObjOnTile.h" />
     <ClInclude Include="GameObjects\LoadSaveBoxUi.h" />
+    <ClInclude Include="GameObjects\UiShop.h" />
   </ItemGroup>
 </Project>

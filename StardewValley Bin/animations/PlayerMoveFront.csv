@@ -2,7 +2,11 @@ ID,FPS,LOOPTYPE (0:Single 1:Loop 2:PingPong),,
 Move,10,1,,
 ,,,,
 TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT
-graphics/player_edit.png,4,1,15,30
-graphics/player_edit.png,21,1,15,30
-graphics/player_edit.png,4,1,15,30
-graphics/player_edit.png,38,1,15,30
+graphics/farmer_base.png,0,0,20,28
+graphics/farmer_base.png,20,0,20,28
+graphics/farmer_base.png,40,0,20,28
+graphics/farmer_base.png,60,0,20,28
+graphics/farmer_base.png,80,0,20,28
+graphics/farmer_base.png,100,0,20,28
+graphics/farmer_base.png,120,0,20,28
+graphics/farmer_base.png,140,0,20,28

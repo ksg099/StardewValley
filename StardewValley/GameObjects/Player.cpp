@@ -16,8 +16,8 @@ void Player::Init()
 {
 	SpriteGo::Init();
 
-	SetTexture("graphics/player_edit.png");
-	SetTextureRect(sf::IntRect(4, 1, 15, 30));
+	SetTexture("graphics/farmer_base.png");
+	SetTextureRect(sf::IntRect(0, 0, 20, 28));
 	SetOrigin(Origins::BC);
 	playerHalfWidth = GetLocalBounds().width / 2.f;
 	animator.SetTarget(&sprite);
@@ -123,20 +123,20 @@ void Player::Update(float dt)
 		if (lookDir.x < 0)
 		{
 			SetFlipX(true);
-			SetTextureRect(sf::IntRect(4, 34, 15, 32));
+			SetTextureRect(sf::IntRect(0, 31, 20, 28));
 		}
 		else if (lookDir.x > 0)
 		{
 			SetFlipX(false);
-			SetTextureRect(sf::IntRect(4, 34, 15, 32));
+			SetTextureRect(sf::IntRect(0, 31, 20, 28));
 		}
 		else if (lookDir.y > 0)
 		{
-			SetTextureRect(sf::IntRect(4, 70, 16, 27));
+			SetTextureRect(sf::IntRect(0, 62, 20, 28));
 		}
 		else if (lookDir.y < 0)
 		{
-			SetTextureRect(sf::IntRect(4, 1, 15, 30));
+			SetTextureRect(sf::IntRect(0, 0, 20, 28));
 		}
 	}
 	
@@ -194,17 +194,17 @@ void Player::PlayMoveAnimation(sf::Vector2f posDiff)
 		{
 		case Sides::Left:
 			SetFlipX(true);
-			SetTextureRect(sf::IntRect(4, 34, 15, 32));
+			SetTextureRect(sf::IntRect(0, 31, 20, 28));
 			break;
 		case Sides::Right:
 			SetFlipX(false);
-			SetTextureRect(sf::IntRect(4, 34, 15, 32));
+			SetTextureRect(sf::IntRect(0, 31, 20, 28));
 			break;
 		case Sides::Up:
-			SetTextureRect(sf::IntRect(21, 70, 16, 27));
-			break;
+			SetTextureRect(sf::IntRect(0, 62, 20, 28));
+			break; 
 		case Sides::Down:
-			SetTextureRect(sf::IntRect(4, 1, 15, 30));
+			SetTextureRect(sf::IntRect(0, 0, 20, 28));
 			break;
 		default:
 			break;

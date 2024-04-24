@@ -2,7 +2,11 @@ ID,FPS,LOOPTYPE (0:Single 1:Loop 2:PingPong),,
 ItemUp_MoveFront,10,1,,
 ,,,,
 TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT
-graphics/itemUp_MoveFront.png,1,0,16,29
-graphics/itemUp_MoveFront.png,17,0,15,29
-graphics/itemUp_MoveFront.png,1,0,16,29
-graphics/itemUp_MoveFront.png,34,0,15,29
+graphics/farmer_base.png,0,403,20,28
+graphics/farmer_base.png,20,403,20,28
+graphics/farmer_base.png,40,403,20,28
+graphics/farmer_base.png,60,403,20,28
+graphics/farmer_base.png,80,403,20,28
+graphics/farmer_base.png,100,403,20,28
+graphics/farmer_base.png,120,403,20,28
+graphics/farmer_base.png,140,403,20,28
