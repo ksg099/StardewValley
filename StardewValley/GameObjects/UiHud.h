@@ -27,7 +27,7 @@ protected:
 	int minute = 0;
 	int currentHeight = 0;
 	sf::RectangleShape gaugeHp;
-	sf::Vector2f gaugeHpSize = { 14.f, 158.f };
+	sf::Vector2f gaugeHpSize = { 14.f, 220.f };
 
 	// 임시 - 나중에 게임씬에서 받아오는 것
 	int currentHp = 50;

@@ -14,27 +14,27 @@ void UiHud::SetHp(int hp, int max)
 void UiHud::Init()
 {
 
-	sf::Font& font = RES_MGR_FONT.Get("fonts/Arial.ttf");
+	sf::Font& font = RES_MGR_FONT.Get("fonts/SDMiSaeng.ttf");
 	float topY = 100.f;
 	//float BottomY = referenceResolution.y - 100.f;
 	float textSize = 50.f;
 
 	uiContainer.SetTexture("graphics/UiContainer.png ");
-	uiContainer.SetPosition({ 1500.f, 100.f });
+	uiContainer.SetPosition({ 1850.f, 100.f });
 	uiContainer.SetScale({ 1.2f, 1.2f });
 	uiContainer.SetOrigin(Origins::TR);
 
 	dateDisplay.SetFont(font);
-	dateDisplay.Set(font, "", 20, sf::Color::Black);
-	dateDisplay.SetPosition({ uiContainer.GetPosition().x - 94.f, uiContainer.GetPosition().y + 14.f});
+	dateDisplay.Set(font, "", 30, sf::Color(34, 17, 34));
+	dateDisplay.SetPosition({ uiContainer.GetPosition().x - 100.f, uiContainer.GetPosition().y + 9.f});
 
 	timeDisplay.SetFont(font);
-	timeDisplay.Set(font, "", 20, sf::Color::Black);
+	timeDisplay.Set(font, "", 30, sf::Color(34, 17, 34));
 	timeDisplay.SetPosition({ dateDisplay.GetPosition().x - 14.f, dateDisplay.GetPosition().y + 58.f });
 
 	moneyDisplay.SetFont(font);
-	moneyDisplay.Set(font, "", 20.f, sf::Color::Black);
-	moneyDisplay.SetPosition({ uiContainer.GetPosition().x - 27.f, uiContainer.GetPosition().y + 120.f });
+	moneyDisplay.Set(font, "", 30, sf::Color(34, 17, 34));
+	moneyDisplay.SetPosition({ uiContainer.GetPosition().x - 26.f, uiContainer.GetPosition().y + 113.f });
 	moneyDisplay.SetOrigin(Origins::TR);
 
 	uiArrow.SetTexture("graphics/Uiarrow.png ");
@@ -43,11 +43,11 @@ void UiHud::Init()
 
 	gaugeHp.setFillColor(sf::Color::Green);
 	gaugeHp.setSize(gaugeHpSize);
-	gaugeHp.setPosition({ 1500.f, 900 });
+	gaugeHp.setPosition({ uiContainer.GetPosition().x, 1000});
 	Utils::SetOrigin(gaugeHp, Origins::BC);
 
 	uiEnergy.SetTexture("graphics/UiEnergy.png");
-	uiEnergy.SetPosition({ gaugeHp.getPosition().x + 8.f, gaugeHp.getPosition().y - 225.f });
+	uiEnergy.SetPosition({ gaugeHp.getPosition().x + 8.f, gaugeHp.getPosition().y - 178.f });
 	uiEnergy.SetOrigin(Origins::TR);
 	Utils::SetOrigin(gaugeHp, Origins::BR);
 }
