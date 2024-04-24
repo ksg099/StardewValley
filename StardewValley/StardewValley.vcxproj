@@ -154,6 +154,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BoxObjOnTile.cpp" />
+    <ClCompile Include="ChangeHarvest.cpp">
+      <DeploymentContent>true</DeploymentContent>
+    </ClCompile>
     <ClCompile Include="GameObjects\CropsObjOnTile.cpp" />
     <ClCompile Include="DataTables\DataTable.cpp" />
     <ClCompile Include="DataTables\GroundTable.cpp" />
@@ -175,6 +178,9 @@
     <ClCompile Include="GameObjects\Inventory.cpp" />
     <ClCompile Include="GameObjects\InvetorySlot.cpp" />
     <ClCompile Include="DataTables\ItemTable.cpp" />
+    <ClCompile Include="GameObjects\LoadBoxUi.cpp">
+      <DeploymentContent>true</DeploymentContent>
+    </ClCompile>
     <ClCompile Include="GameObjects\TileMap.cpp" />
     <ClCompile Include="DataTables\ItemSave.cpp" />
     <ClCompile Include="GameObjects\LoadTileMapBoxUi.cpp" />
@@ -213,6 +219,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoxObjOnTile.h" />
+    <ClInclude Include="ChangeHarvest.h">
+      <DeploymentContent>true</DeploymentContent>
+    </ClInclude>
     <ClInclude Include="GameObjects\CropsObjOnTile.h" />
     <ClInclude Include="DataTables\DataTable.h" />
     <ClInclude Include="DataTables\GroundTable.h" />
@@ -233,6 +242,9 @@
     <ClInclude Include="GameObjects\GameObject.h" />
     <ClInclude Include="GameObjects\Inventory.h" />
     <ClInclude Include="GameObjects\InvetorySlot.h" />
+    <ClInclude Include="GameObjects\LoadBoxUi.h">
+      <DeploymentContent>true</DeploymentContent>
+    </ClInclude>
     <ClInclude Include="GameObjects\TileMap.h" />
     <ClInclude Include="GameObjects\ObjectOnTile.h" />
     <ClInclude Include="DataTables\ObjectTable.h" />

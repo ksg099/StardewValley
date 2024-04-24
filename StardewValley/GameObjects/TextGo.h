@@ -14,6 +14,7 @@ public:
 	void setFillColor(const sf::Color& color);
 	void SetString(const std::string& str);
 	void Set(const sf::Font& texture, const std::string& str, int size, const sf::Color& color);
+	void Set(const sf::Font& texture, const std::wstring& str, int size, const sf::Color& color);
 
 	void SetFont(const std::string& textureId);
 	void SetFont(const sf::Font& texture);

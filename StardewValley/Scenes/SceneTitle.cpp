@@ -15,13 +15,13 @@ SceneTitle::~SceneTitle()
 
 void SceneTitle::Init()
 {
-	sf::Font& font = RES_MGR_FONT.Get("fonts/Arial.ttf");
+	sf::Font& font = RES_MGR_FONT.Get("fonts/SDMiSaeng.ttf");
 
 	backGround = new SpriteGo("Logo");
-	backGround->SetTexture("graphics/stardewPanorama.png");
+	backGround->SetTexture("graphics/stardewPanorama_edit.png");
 	backGround->SetOrigin(Origins::TC);
 	sf::Vector2u originalSize(640, 400);
-	sf::Vector2f scale(1980.f / originalSize.x, (1080.f * 3) / originalSize.y);
+	sf::Vector2f scale(1980.f / originalSize.x, (1080.f) / originalSize.y);
 	backGround->SetScale(scale);
 	backGround->SetPosition({ scale.x, scale.y - 545.f});
 	//backGround->SetPosition({ 0.f, scale.y - 1080.f });
@@ -63,26 +63,26 @@ void SceneTitle::Init()
 	AddGo(makeMap, Ui);
 
 	newGameBtn = new TextGo("newGameBtn");
-	newGameBtn->Set(font, "NewStart", 30, sf::Color::Black);
-	newGameBtn->SetPosition({ newGame->GetPosition().x - 5.f, newGame->GetPosition().y + 30.f });
+	newGameBtn->Set(font, newGameText, 80, sf::Color(206, 82, 82));
+	newGameBtn->SetPosition({ newGame->GetPosition().x - 5.f, newGame->GetPosition().y + 20.f });
 	newGameBtn->SetOrigin(Origins::TC);
 	AddGo(newGameBtn, Ui);
 
 	ReStartGameBtn = new TextGo("newGameBtn");
-	ReStartGameBtn->Set(font, "Restart", 30, sf::Color::Black);
-	ReStartGameBtn->SetPosition({ ReStartGame->GetPosition().x - 5.f, ReStartGame->GetPosition().y + 30.f });
+	ReStartGameBtn->Set(font, restartText, 80, sf::Color(206,82,82));
+	ReStartGameBtn->SetPosition({ ReStartGame->GetPosition().x - 5.f, ReStartGame->GetPosition().y + 20.f });
 	ReStartGameBtn->SetOrigin(Origins::TC);
 	AddGo(ReStartGameBtn, Ui);
 
 	LoadGameBtn = new TextGo("newGameBtn");
-	LoadGameBtn->Set(font, "LoadGame", 30, sf::Color::Black);
-	LoadGameBtn->SetPosition({ LoadGame->GetPosition().x - 5.f, LoadGame->GetPosition().y + 30.f });
+	LoadGameBtn->Set(font, loadGameText, 80, sf::Color(206, 82, 82));
+	LoadGameBtn->SetPosition({ LoadGame->GetPosition().x - 5.f, LoadGame->GetPosition().y + 20.f });
 	LoadGameBtn->SetOrigin(Origins::TC);
 	AddGo(LoadGameBtn, Ui);
 
 	makeMapBtn = new TextGo("newGameBtn");
-	makeMapBtn->Set(font, "MakeMap", 30, sf::Color::Black);
-	makeMapBtn->SetPosition({ makeMap->GetPosition().x - 5.f, makeMap->GetPosition().y + 30.f });
+	makeMapBtn->Set(font, maptoolText, 80, sf::Color(206, 82, 82));
+	makeMapBtn->SetPosition({ makeMap->GetPosition().x - 5.f, makeMap->GetPosition().y + 20.f });
 	makeMapBtn->SetOrigin(Origins::TC);
 	AddGo(makeMapBtn, Ui);
 

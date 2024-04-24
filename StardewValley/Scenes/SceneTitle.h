@@ -28,6 +28,11 @@ private:
 	TextGo* makeMapBtn = nullptr;
 	TextGo* LoadGameBtn = nullptr;
 
+	std::wstring newGameText = L"새게임";
+	std::wstring restartText = L"재시작";
+	std::wstring loadGameText = L"이어하기";
+	std::wstring maptoolText = L"맵에디터";
+
 	LoadTileMapBoxUi* loadTileMapBoxUi = nullptr;
 	LoadSaveBoxUi* loadSaveBoxUi = nullptr;
 

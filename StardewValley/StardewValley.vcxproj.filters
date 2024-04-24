@@ -43,6 +43,8 @@
     <ClCompile Include="BoxObjOnTile.cpp" />
     <ClCompile Include="GameObjects\LoadSaveBoxUi.cpp" />
     <ClCompile Include="GameObjects\UiShop.cpp" />
+    <ClCompile Include="GameObjects\LoadBoxUi.cpp" />
+    <ClCompile Include="ChangeHarvest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataTables\DataTable.h" />
@@ -90,5 +92,7 @@
     <ClInclude Include="BoxObjOnTile.h" />
     <ClInclude Include="GameObjects\LoadSaveBoxUi.h" />
     <ClInclude Include="GameObjects\UiShop.h" />
+    <ClInclude Include="GameObjects\LoadBoxUi.h" />
+    <ClInclude Include="ChangeHarvest.h" />
   </ItemGroup>
 </Project>
