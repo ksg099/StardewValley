@@ -6,6 +6,7 @@ class Inventory;
 class SubInventory;
 class BoxInven;
 class UiStore;
+class UiShop; // 테스트
 class TileData;
 class UiHud;
 class Player;
@@ -33,6 +34,7 @@ protected:
 	BoxInven* boxInven;
 	TileData* tileData = nullptr;
 	UiStore* uiStore = nullptr;
+	UiShop* uiShop = nullptr;
 
 	TextGo* pauseBack = nullptr;
 	TextGo* goTitle = nullptr;
