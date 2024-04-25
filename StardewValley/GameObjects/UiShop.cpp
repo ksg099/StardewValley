@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "UiShop.h"
+#include "SceneGame.h"
+#include "Player.h"
 
 UiShop::UiShop(const std::string& name) : GameObject(name)
 {
@@ -101,11 +103,16 @@ void UiShop::Reset()
 
 	currentIndex = 0;
 	UpdateIndex();
+
+	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
+	player = dynamic_cast<Player*>(sceneGame->FindGo("Player"));
 }
 
 void UiShop::Update(float dt)
 {
 	GameObject::Update(dt);
+
+	SelectByDoubleClick(dt);
 
 	if (InputMgr::GetMouseWheelDown(sf::Mouse::Wheel::VerticalWheel)
 		&& currentIndex < itemTable.size() - slotCount)
@@ -171,5 +178,67 @@ void UiShop::UpdateIndex()
 		sf::Vector2f scrollPos = scrollBar.GetPosition();
 		scrollPos.y += (scrollBar.GetGlobalBounds().height - scroll.GetGlobalBounds().height - 52.f) / totalIndex * currentIndex;
 		scroll.SetPosition(scrollPos);
+	}
+}
+
+void UiShop::SelectByDoubleClick(float dt)
+{
+	sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
+	sf::Vector2f uiPos = SCENE_MGR.GetCurrentScene()->ScreenToUi(mousePos);
+
+	if (isClick)
+	{
+		doubleClickTimer += dt;
+		if (doubleClickTimer > doubleClickDuration)
+		{
+			doubleClickTimer = 0.f;
+			isClick = false;
+		}
+	}
+
+	if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
+	{
+		if (!isClick) // 클릭
+		{
+			for (int i = 0; i < slotCount; ++i)
+			{
+				if (shopSlots[i]->clickBox.getGlobalBounds().contains(uiPos))
+				{
+					clickIndex = i;
+					break;
+				}
+			}
+
+			if (clickIndex != -1)
+			{
+				isClick = true;
+			}
+		}
+		else // 더블 클릭
+		{
+			for (int i = 0; i < slotCount; ++i)
+			{
+				if (shopSlots[i]->clickBox.getGlobalBounds().contains(uiPos))
+				{
+					if (clickIndex == i)
+					{
+						purchaseIndex = currentIndex + clickIndex;
+					}
+					break;
+				}
+			}
+			clickIndex = -1;
+			isClick = false;
+		}
+	}
+
+	if (purchaseIndex != -1)
+	{
+		if (sceneGame->GetMoney() >= itemTable[purchaseIndex].purchasePrice)
+		{
+			sceneGame->AddMoney(-itemTable[purchaseIndex].purchasePrice);
+			sceneGame->CreateItem(itemTable[purchaseIndex], player->GetGridIndex().x, player->GetGridIndex().y);
+		}
+		purchaseIndex = -1;
 	}
 }

@@ -20,6 +20,9 @@ struct UiShopSlot
 class UiShop : public GameObject
 {
 protected:
+	SceneGame* sceneGame = nullptr;
+	Player* player = nullptr;
+
 	SpriteGo sellerPortrait;
 	SpriteGo sellerTextBox;
 	TextGo sellerText;
@@ -32,6 +35,12 @@ protected:
 
 	SpriteGo scrollBar;
 	SpriteGo scroll;
+
+	int clickIndex = -1;
+	int purchaseIndex = -1;
+	float doubleClickTimer = 0.f;
+	float doubleClickDuration = 0.3f;
+	bool isClick = false;
 
 	std::vector<ItemType> itemTypes = { ItemType::Tool, ItemType::Seed };
 	std::vector<DataItem> itemTable;
@@ -47,5 +56,6 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void UpdateIndex();
+	void SelectByDoubleClick(float dt);
 };
 

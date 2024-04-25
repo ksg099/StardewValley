@@ -6,7 +6,6 @@
 #include "Inventory.h"
 #include "SubInventory.h"
 #include "BoxInven.h"
-#include "UiStore.h"
 #include "UiShop.h"
 
 #include "TestMapTool.h"
@@ -72,9 +71,6 @@ void SceneGame::Init()
 	pauseBackBox.setOutlineThickness(2);
 	pauseBackBox.setOutlineColor(sf::Color::White);
 
-	uiStore = new UiStore("UI STORE");
-	AddGo(uiStore, Layers::Ui);
-
 	uiShop = new UiShop("UI SHOP");
 	AddGo(uiShop, Layers::Ui);
 
@@ -104,7 +100,6 @@ void SceneGame::Enter()
 
 	inventory->SetActive(false);
 	boxInven->SetActive(false);
-	uiStore->SetActive(false);
 	uiShop->SetActive(false);
 	subInven->SetActive(true);
 	isUiOpen = false;
@@ -127,6 +122,7 @@ sf::Color SceneGame::LerpColor(const sf::Color& start, const sf::Color& end, flo
 	if (InputMgr::GetKeyDown(sf::Keyboard::Q))
 	{
 		uiShop->SetActive(true);
+		isUiOpen = true;
 	}
 
 	return sf::Color(
@@ -422,7 +418,7 @@ void SceneGame::SetInventory()
 	{
 		inventory->SetActive(false);
 		boxInven->SetActive(false);
-		uiStore->SetActive(false);
+		uiShop->SetActive(false);
 
 		isUiOpen = false;
 	}
@@ -483,7 +479,7 @@ void SceneGame::OpenStoreUi()
 {
 	if (!isUiOpen)
 	{
-		uiStore->SetActive(true);
+		uiShop->SetActive(true);
 		isUiOpen = true;
 	}
 }
