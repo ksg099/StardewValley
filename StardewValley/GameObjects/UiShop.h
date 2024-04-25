@@ -8,10 +8,13 @@ class Player;
 
 struct UiShopSlot
 {
-	sf::Sprite itemSlot;
+	SpriteGo itemSlot;
+	SpriteGo itemImgBox;
+	SpriteGo itemImg;
+	SpriteGo coinImg;
+	TextGo itemName;
+	TextGo itemPrice;
 	sf::RectangleShape clickBox;
-	sf::Sprite itemImg;
-	TextGo itemInfo;
 };
 
 class UiShop : public GameObject
@@ -20,6 +23,18 @@ protected:
 	SpriteGo sellerPortrait;
 	SpriteGo sellerTextBox;
 	TextGo sellerText;
+
+	SpriteGo itemListBox;
+	std::vector<UiShopSlot*> shopSlots;
+	const int slotCount = 4;
+	int currentIndex = 0;
+	int countAllItem = 0;
+
+	SpriteGo scrollBar;
+	SpriteGo scroll;
+
+	std::vector<ItemType> itemTypes = { ItemType::Tool, ItemType::Seed };
+	std::vector<DataItem> itemTable;
 
 public:
 	UiShop(const std::string& name = "");
@@ -30,5 +45,7 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	void UpdateIndex();
 };
 
