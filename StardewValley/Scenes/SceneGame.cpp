@@ -150,8 +150,10 @@ void SceneGame::Update(float dt)
 {
 	Scene::Update(dt);
 	isNextDay = false;
-	worldView.setCenter(Utils::Clamp(player->GetPosition(), {-300.f,-300.f,1000.f,1000.f})); //??????????????
-
+	worldView.setCenter(Utils::Clamp(player->GetPosition(), {-100.f,-300.f,300.f,400.f})); //??????????????
+	/*worldView.setViewport(Utils::Clamp(
+		{ tileMap->GetCellSize().x * tileMap->GetCellCount().x,  tileMap->GetCellSize().y * tileMap->GetCellCount().y },
+		{ -300.f,-300.f,1000.f,1000.f }));*/
 	// save the file
 	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
 	{

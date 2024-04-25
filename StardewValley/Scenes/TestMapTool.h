@@ -36,8 +36,8 @@ protected:
 	sf::Sprite spriteFloor;        //Ãß°¡
 
 	sf::VertexArray grid;
-	int col = 20;
-	int row = 20;
+	int col = 40;
+	int row = 40;
 	int size = 50;
 	float magnification = 50.f / 15.f;
 
