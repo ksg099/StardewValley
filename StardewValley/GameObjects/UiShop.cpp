@@ -37,6 +37,15 @@ void UiShop::Init()
 	itemListBox.SetOrigin(Origins::TL);
 	itemListBox.SetPosition(sf::Vector2f(520.f, 200.f));
 
+	scrollBar.SetTexture("graphics/ScrollBar.png");
+	scrollBar.SetOrigin(Origins::TC);
+	scrollBar.SetPosition(itemListBox.GetPosition() + sf::Vector2f(itemListBox.GetGlobalBounds().width, 0.f)
+	 + sf::Vector2f(40.f, 0.f));
+
+	scroll.SetTexture("graphics/Scroll.png");
+	scroll.SetOrigin(Origins::TC);
+	scroll.SetPosition(scrollBar.GetPosition()); // 첫번째 인덱스
+
 	for (int i = 0; i < slotCount; ++i)
 	{
 		UiShopSlot* slot = new UiShopSlot();
@@ -89,6 +98,9 @@ void UiShop::Release()
 void UiShop::Reset()
 {
 	GameObject::Reset();
+
+	currentIndex = 0;
+	UpdateIndex();
 }
 
 void UiShop::Update(float dt)
@@ -116,6 +128,9 @@ void UiShop::Draw(sf::RenderWindow& window)
 	sellerText.Draw(window);
 
 	itemListBox.Draw(window);
+	scrollBar.Draw(window);
+	scroll.Draw(window);
+
 	for (int i = 0; i < slotCount; ++i)
 	{
 		shopSlots[i]->itemSlot.Draw(window);
@@ -148,5 +163,13 @@ void UiShop::UpdateIndex()
 		std::string price = std::to_string(itemTable[i + currentIndex].purchasePrice);
 		shopSlots[i]->itemPrice.SetString(price);
 		shopSlots[i]->itemPrice.SetOrigin(Origins::MR);
+	}
+
+	int totalIndex = itemTable.size() - slotCount;
+	if (totalIndex > 0)
+	{
+		sf::Vector2f scrollPos = scrollBar.GetPosition();
+		scrollPos.y += (scrollBar.GetGlobalBounds().height - scroll.GetGlobalBounds().height - 52.f) / totalIndex * currentIndex;
+		scroll.SetPosition(scrollPos);
 	}
 }

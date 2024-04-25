@@ -30,6 +30,9 @@ protected:
 	int currentIndex = 0;
 	int countAllItem = 0;
 
+	SpriteGo scrollBar;
+	SpriteGo scroll;
+
 	std::vector<ItemType> itemTypes = { ItemType::Tool, ItemType::Seed };
 	std::vector<DataItem> itemTable;
 
