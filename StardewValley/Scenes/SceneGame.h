@@ -5,7 +5,7 @@ class TileMap;
 class Inventory;
 class SubInventory;
 class BoxInven;
-class UiShop; // 테스트
+class UiStore; // 테스트
 class TileData;
 class UiHud;
 class Player;
@@ -32,7 +32,7 @@ protected:
 	SubInventory* subInven;
 	BoxInven* boxInven;
 	TileData* tileData = nullptr;
-	UiShop* uiShop = nullptr;
+	UiStore* uiShop = nullptr;
 
 	TextGo* pauseBack = nullptr;
 	TextGo* goTitle = nullptr;

@@ -6,12 +6,15 @@
 class SceneGame;
 class Player;
 
-struct UiItem
+struct UiShopSlot
 {
-	sf::Sprite itemBackground;
+	SpriteGo itemSlot;
+	SpriteGo itemImgBox;
+	SpriteGo itemImg;
+	SpriteGo coinImg;
+	TextGo itemName;
+	TextGo itemPrice;
 	sf::RectangleShape clickBox;
-	sf::Sprite itemImg;
-	TextGo itemInfo;
 };
 
 class UiStore : public GameObject
@@ -20,15 +23,18 @@ protected:
 	SceneGame* sceneGame = nullptr;
 	Player* player = nullptr;
 
-	sf::Vector2f referenceResolution = { 1920, 1080 };
-	sf::Vector2f resolution = referenceResolution;
+	SpriteGo sellerPortrait;
+	SpriteGo sellerTextBox;
+	TextGo sellerText;
 
-	sf::Sprite StoreBackground;
-	std::vector<UiItem*> UipurchaseItems;
-
-	int countInPage = 6;
+	SpriteGo itemListBox;
+	std::vector<UiShopSlot*> shopSlots;
+	const int slotCount = 4;
 	int currentIndex = 0;
 	int countAllItem = 0;
+
+	SpriteGo scrollBar;
+	SpriteGo scroll;
 
 	int clickIndex = -1;
 	int purchaseIndex = -1;
@@ -38,7 +44,7 @@ protected:
 
 	std::vector<ItemType> itemTypes = { ItemType::Tool, ItemType::Seed };
 	std::vector<DataItem> itemTable;
-	
+
 public:
 	UiStore(const std::string& name = "");
 	~UiStore() override = default;
@@ -49,7 +55,7 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	void SelectByDoubleClick(float dt);
-
 	void UpdateIndex();
+	void SelectByDoubleClick(float dt);
 };
+

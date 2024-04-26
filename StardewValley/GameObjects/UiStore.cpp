@@ -9,11 +9,23 @@ UiStore::UiStore(const std::string& name) : GameObject(name)
 
 void UiStore::Init()
 {
-	StoreBackground.setTexture(RES_MGR_TEXTURE.Get("graphics/Ui.png"));
-	StoreBackground.setScale(sf::Vector2f(1.f, 1.5f));
-	StoreBackground.setPosition(FRAMEWORK.GetWindowSize().x / 2.f, FRAMEWORK.GetWindowSize().y / 2.f);
-	Utils::SetOrigin(StoreBackground, Origins::MC);
+	// Portrait
+	sellerPortrait.SetTexture("graphics/pierrePortrait.png");
+	sellerPortrait.SetScale(sf::Vector2f(3.5f, 3.5f));
+	sellerPortrait.SetOrigin(Origins::BR);
+	sellerPortrait.SetPosition(sf::Vector2f(500.f, 460.f));
 
+	// text box
+	sellerTextBox.SetTexture("graphics/box1.png");
+	sellerTextBox.SetOrigin(Origins::TR);
+	sellerTextBox.SetPosition(sf::Vector2f(500.f, 480.f));
+	sellerText.Set(RES_MGR_FONT.Get("fonts/SDMiSaeng.ttf"),
+		"Welcome to Pierre!\nDo you have something\nyou want to sell?",
+		35, sf::Color::Black);
+	sellerText.SetOrigin(Origins::TC);
+	sellerText.SetPosition(sf::Vector2f(340.f, 500.f));
+
+	// item list box
 	for (auto itemType : itemTypes)
 	{
 		for (int j = 0; j < ITEM_TABLE->Count(itemType); ++j)
@@ -23,47 +35,74 @@ void UiStore::Init()
 		}
 	}
 
-	for (int i = 0; i < countInPage; ++i)
+	itemListBox.SetTexture("graphics/box2.png");
+	itemListBox.SetOrigin(Origins::TL);
+	itemListBox.SetPosition(sf::Vector2f(520.f, 200.f));
+
+	scrollBar.SetTexture("graphics/ScrollBar.png");
+	scrollBar.SetOrigin(Origins::TC);
+	scrollBar.SetPosition(itemListBox.GetPosition() + sf::Vector2f(itemListBox.GetGlobalBounds().width, 0.f)
+	 + sf::Vector2f(40.f, 0.f));
+
+	scroll.SetTexture("graphics/Scroll.png");
+	scroll.SetOrigin(Origins::TC);
+	scroll.SetPosition(scrollBar.GetPosition()); // 첫번째 인덱스
+
+	for (int i = 0; i < slotCount; ++i)
 	{
-		UiItem* uiItem = new UiItem;
+		UiShopSlot* slot = new UiShopSlot();
 
-		uiItem->itemBackground.setTexture(RES_MGR_TEXTURE.Get("graphics/DialogBoxGreen.png"));
-		uiItem->itemBackground.setPosition(StoreBackground.getPosition() - sf::Vector2f(250.f, 430.f) + sf::Vector2f(0.f, 170.f * i));
-		Utils::SetOrigin(uiItem->itemBackground, Origins::MC);
+		slot->itemSlot.SetTexture("graphics/shopCellBox.png");
+		slot->itemSlot.SetOrigin(Origins::TL);
+		slot->itemSlot.SetPosition(itemListBox.GetPosition() + sf::Vector2f(18.f, 21.f + 115.f * i));
 
-		uiItem->clickBox.setFillColor(sf::Color::Green);
-		uiItem->clickBox.setSize({ 650.f, 150.f });
-		uiItem->clickBox.setPosition(StoreBackground.getPosition() - sf::Vector2f(0.f, 430.f) + sf::Vector2f(0.f, 170.f * i));
-		Utils::SetOrigin(uiItem->clickBox, Origins::MC);
+		slot->clickBox.setFillColor(sf::Color::Green);
+		slot->clickBox.setSize({ slot->itemSlot.GetGlobalBounds().width, slot->itemSlot.GetGlobalBounds().height });
+		slot->clickBox.setPosition(slot->itemSlot.GetPosition());
+		Utils::SetOrigin(slot->clickBox, Origins::TL);
 
-		uiItem->itemImg.setTexture(RES_MGR_TEXTURE.Get(itemTable[i].textureId));
-		uiItem->itemImg.setTextureRect(sf::IntRect(itemTable[i].sheetId.x, itemTable[i].sheetId.y, itemTable[i].sheetSize.x, itemTable[i].sheetSize.y));
+		slot->itemImgBox.SetTexture("graphics/ItemSlot.png");
+		slot->itemImgBox.SetOrigin(Origins::MC);
+		slot->itemImgBox.SetPosition(slot->itemSlot.GetPosition() + sf::Vector2f(70.f, slot->itemSlot.GetLocalBounds().height / 2.f));
+
+		slot->itemImg.SetTexture(itemTable[i].textureId);
+		slot->itemImg.SetTextureRect(sf::IntRect(itemTable[i].sheetId.x, itemTable[i].sheetId.y, itemTable[i].sheetSize.x, itemTable[i].sheetSize.y));
 		int scale = itemTable[i].sheetSize.x < itemTable[i].sheetSize.y ? itemTable[i].sheetSize.x : itemTable[i].sheetSize.y;
-		uiItem->itemImg.setScale(sf::Vector2f(65.f / scale, 65.f / scale));
-;		uiItem->itemImg.setPosition(uiItem->itemBackground.getPosition());
-		Utils::SetOrigin(uiItem->itemImg, Origins::MC);
+		slot->itemImg.SetScale(sf::Vector2f(50.f / scale, 50.f / scale));
+		slot->itemImg.SetOrigin(Origins::MC);
+		slot->itemImg.SetPosition(slot->itemImgBox.GetPosition());
 
-		std::string info = "Name: " + itemTable[i].name + "\nPrice: " + std::to_string(itemTable[i].purchasePrice) + " Gold";
-		uiItem->itemInfo.Set(RES_MGR_FONT.Get("fonts/Arial.ttf"), info, 30, sf::Color::Black);
-		uiItem->itemInfo.SetOutline(sf::Color::White, 1.f);
-		uiItem->itemInfo.SetPosition(uiItem->itemBackground.getPosition() + sf::Vector2f(100.f, -35.f));
-		uiItem->itemInfo.SetOrigin(Origins::TL);
-		
-		UipurchaseItems.push_back(uiItem);
+		std::string name = itemTable[i].name;
+		slot->itemName.Set(RES_MGR_FONT.Get("fonts/SDMiSaeng.ttf"), name, 80, sf::Color::Color(86, 22, 12, 255));
+		slot->itemName.SetPosition(slot->itemImgBox.GetPosition() + sf::Vector2f(50.f, -25.f));
+		slot->itemName.SetOrigin(Origins::ML);
+
+		std::string price = std::to_string(itemTable[i].purchasePrice);
+		slot->itemPrice.Set(RES_MGR_FONT.Get("fonts/SDMiSaeng.ttf"), price, 50, sf::Color::Color(86, 22, 12, 255));
+		slot->itemPrice.SetPosition(slot->itemImgBox.GetPosition() + sf::Vector2f(885.f, -25.f));
+		slot->itemPrice.SetOrigin(Origins::MR);
+
+		slot->coinImg.SetTexture("graphics/Coin.png");
+		slot->coinImg.SetOrigin(Origins::MC);
+		slot->coinImg.SetPosition(slot->itemImgBox.GetPosition() + sf::Vector2f(930.f, 0.f));
+
+		shopSlots.push_back(slot);
 	}
+
+	GameObject::Init();
 }
 
 void UiStore::Release()
 {
+	GameObject::Release();
 }
 
 void UiStore::Reset()
 {
-	doubleClickTimer = 0.f;
-	isClick = false;
+	GameObject::Reset();
 
-	int clickIndex = -1;
-	int purchaseIndex = -1;
+	currentIndex = 0;
+	UpdateIndex();
 
 	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
 	player = dynamic_cast<Player*>(sceneGame->FindGo("Player"));
@@ -71,10 +110,12 @@ void UiStore::Reset()
 
 void UiStore::Update(float dt)
 {
+	GameObject::Update(dt);
+
 	SelectByDoubleClick(dt);
 
 	if (InputMgr::GetMouseWheelDown(sf::Mouse::Wheel::VerticalWheel)
-		&& currentIndex < itemTable.size() - countInPage)
+		&& currentIndex < itemTable.size() - slotCount)
 	{
 		++currentIndex;
 		UpdateIndex();
@@ -89,13 +130,54 @@ void UiStore::Update(float dt)
 
 void UiStore::Draw(sf::RenderWindow& window)
 {
-	window.draw(StoreBackground);
+	sellerPortrait.Draw(window);
+	sellerTextBox.Draw(window);
+	sellerText.Draw(window);
 
-	for (auto uiItem : UipurchaseItems)
+	itemListBox.Draw(window);
+	scrollBar.Draw(window);
+	scroll.Draw(window);
+
+	for (int i = 0; i < slotCount; ++i)
 	{
-		window.draw(uiItem->itemBackground);
-		window.draw(uiItem->itemImg);
-		uiItem->itemInfo.Draw(window);
+		shopSlots[i]->itemSlot.Draw(window);
+		shopSlots[i]->itemImgBox.Draw(window);
+		shopSlots[i]->itemImg.Draw(window);
+		shopSlots[i]->itemName.Draw(window);
+		shopSlots[i]->itemPrice.Draw(window);
+		shopSlots[i]->coinImg.Draw(window);
+	}
+
+	GameObject::Draw(window);
+}
+
+void UiStore::UpdateIndex()
+{
+	for (int i = 0; i < slotCount; ++i)
+	{
+		shopSlots[i]->itemImg.SetTexture(itemTable[i + currentIndex].textureId);
+		shopSlots[i]->itemImg.SetTextureRect(sf::IntRect(itemTable[i + currentIndex].sheetId.x, itemTable[i + currentIndex].sheetId.y,
+			itemTable[i + currentIndex].sheetSize.x, itemTable[i + currentIndex].sheetSize.y));
+		int scale = itemTable[i + currentIndex].sheetSize.x < itemTable[i + currentIndex].sheetSize.y ? itemTable[i + currentIndex].sheetSize.x : itemTable[i + currentIndex].sheetSize.y;
+		shopSlots[i]->itemImg.SetScale(sf::Vector2f(50.f / scale, 50.f / scale));
+		shopSlots[i]->itemImg.SetPosition(shopSlots[i]->itemImgBox.GetPosition());
+		shopSlots[i]->itemImg.SetOrigin(Origins::MC);
+
+		std::string name = itemTable[i + currentIndex].name;
+		shopSlots[i]->itemName.SetString(name);
+		shopSlots[i]->itemName.SetOrigin(Origins::ML);
+
+		std::string price = std::to_string(itemTable[i + currentIndex].purchasePrice);
+		shopSlots[i]->itemPrice.SetString(price);
+		shopSlots[i]->itemPrice.SetOrigin(Origins::MR);
+	}
+
+	int totalIndex = itemTable.size() - slotCount;
+	if (totalIndex > 0)
+	{
+		sf::Vector2f scrollPos = scrollBar.GetPosition();
+		scrollPos.y += (scrollBar.GetGlobalBounds().height - scroll.GetGlobalBounds().height - 52.f) / totalIndex * currentIndex;
+		scroll.SetPosition(scrollPos);
 	}
 }
 
@@ -118,9 +200,9 @@ void UiStore::SelectByDoubleClick(float dt)
 	{
 		if (!isClick) // 클릭
 		{
-			for (int i = 0; i < countInPage; ++i)
+			for (int i = 0; i < slotCount; ++i)
 			{
-				if (UipurchaseItems[i]->clickBox.getGlobalBounds().contains(uiPos))
+				if (shopSlots[i]->clickBox.getGlobalBounds().contains(uiPos))
 				{
 					clickIndex = i;
 					break;
@@ -134,9 +216,9 @@ void UiStore::SelectByDoubleClick(float dt)
 		}
 		else // 더블 클릭
 		{
-			for (int i = 0; i < countInPage; ++i)
+			for (int i = 0; i < slotCount; ++i)
 			{
-				if (UipurchaseItems[i]->clickBox.getGlobalBounds().contains(uiPos))
+				if (shopSlots[i]->clickBox.getGlobalBounds().contains(uiPos))
 				{
 					if (clickIndex == i)
 					{
@@ -158,23 +240,5 @@ void UiStore::SelectByDoubleClick(float dt)
 			sceneGame->CreateItem(itemTable[purchaseIndex], player->GetGridIndex().x, player->GetGridIndex().y);
 		}
 		purchaseIndex = -1;
-	}
-}
-
-void UiStore::UpdateIndex()
-{
-	for (int i = 0; i < countInPage; ++i)
-	{
-		UipurchaseItems[i]->itemImg.setTexture(RES_MGR_TEXTURE.Get(itemTable[i + currentIndex].textureId));
-		UipurchaseItems[i]->itemImg.setTextureRect(sf::IntRect(itemTable[i + currentIndex].sheetId.x, itemTable[i + currentIndex].sheetId.y,
-			itemTable[i + currentIndex].sheetSize.x, itemTable[i + currentIndex].sheetSize.y));
-		int scale = itemTable[i + currentIndex].sheetSize.x < itemTable[i + currentIndex].sheetSize.y ? itemTable[i + currentIndex].sheetSize.x : itemTable[i + currentIndex].sheetSize.y;
-		UipurchaseItems[i]->itemImg.setScale(sf::Vector2f(65.f / scale, 65.f / scale));
-				UipurchaseItems[i]->itemImg.setPosition(UipurchaseItems[i]->itemBackground.getPosition());
-		Utils::SetOrigin(UipurchaseItems[i]->itemImg, Origins::MC);
-
-		std::string info = "Name: " + itemTable[i + currentIndex].name + "\nPrice: " + std::to_string(itemTable[i + currentIndex].purchasePrice) + " Gold";
-		UipurchaseItems[i]->itemInfo.SetString(info);
-		UipurchaseItems[i]->itemInfo.SetOrigin(Origins::TL);
 	}
 }

@@ -213,9 +213,8 @@
     </ClCompile>
     <ClCompile Include="DataTables\TileMapSave.cpp" />
     <ClCompile Include="GameObjects\StoreObjOnTile.cpp" />
-    <ClCompile Include="GameObjects\UiStore.cpp" />
     <ClCompile Include="SubInventory.cpp" />
-    <ClCompile Include="GameObjects\UiShop.cpp" />
+    <ClCompile Include="GameObjects\UiStore.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoxObjOnTile.h" />
@@ -270,9 +269,8 @@
     </ClInclude>
     <ClInclude Include="DataTables\TileMapSave.h" />
     <ClInclude Include="GameObjects\StoreObjOnTile.h" />
-    <ClInclude Include="GameObjects\UiStore.h" />
     <ClInclude Include="SubInventory.h" />
-    <ClInclude Include="GameObjects\UiShop.h" />
+    <ClInclude Include="GameObjects\UiStore.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
