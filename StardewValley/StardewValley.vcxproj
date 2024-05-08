@@ -213,6 +213,7 @@
     </ClCompile>
     <ClCompile Include="DataTables\TileMapSave.cpp" />
     <ClCompile Include="GameObjects\StoreObjOnTile.cpp" />
+    <ClCompile Include="GameObjects\ScrollBoxUi.cpp" />
     <ClCompile Include="SubInventory.cpp" />
     <ClCompile Include="GameObjects\UiStore.cpp" />
   </ItemGroup>
@@ -269,6 +270,7 @@
     </ClInclude>
     <ClInclude Include="DataTables\TileMapSave.h" />
     <ClInclude Include="GameObjects\StoreObjOnTile.h" />
+    <ClInclude Include="GameObjects\ScrollBoxUi.h" />
     <ClInclude Include="SubInventory.h" />
     <ClInclude Include="GameObjects\UiStore.h" />
   </ItemGroup>

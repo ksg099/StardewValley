@@ -9,18 +9,25 @@ LoadTileMapBoxUi::LoadTileMapBoxUi(const std::string& name) : GameObject(name)
 void LoadTileMapBoxUi::Init()
 {
 	LoadTileMaps();
+
+	scrollBoxUi.Init();
+	scrollBoxUi.SetFileNames(tileMapFiles);
 }
 
 void LoadTileMapBoxUi::Release()
 {
+	scrollBoxUi.Release();
 }
 
 void LoadTileMapBoxUi::Reset()
 {
+	scrollBoxUi.Reset();
 }
 
 void LoadTileMapBoxUi::Update(float dt)
 {
+	scrollBoxUi.Update(dt);
+
 	int mouseTileMapIndex = -1;
 
 	sf::Vector2i mousePos = (sf::Vector2i)InputMgr::GetMousePos();
@@ -60,6 +67,8 @@ void LoadTileMapBoxUi::Draw(sf::RenderWindow& window)
 	{
 		tileMap->Draw(window);
 	}
+
+	scrollBoxUi.Draw(window);
 }
 
 void LoadTileMapBoxUi::SetTitleLogoPosition(const sf::Vector2f& position)

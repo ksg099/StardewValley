@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "ScrollBoxUi.h"
 
 class SpriteGo;
 class TextGo;
@@ -12,6 +13,8 @@ protected:
 	std::vector<sf::RectangleShape*> tileMapRect;
 
 	sf::Vector2f titleLogoPosition;
+
+	ScrollBoxUi scrollBoxUi = ScrollBoxUi();
 
 public:
 	LoadTileMapBoxUi(const std::string& name = "");

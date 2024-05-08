@@ -30,6 +30,8 @@ public:
 	void SetFlipX(bool filp) override;
 	void SetFlipY(bool filp) override;
 
+	std::string GetString() { return text.getString(); }
+
 	void Draw(sf::RenderWindow& window) override;
 };
 
